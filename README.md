@@ -1,6 +1,9 @@
-# Lobash
-
-A modern shell script utility library.
+<p align="center">
+  <img alt="Lobash Logo" src="./doc/imgs/lobash.svg">
+</p>
+<p align="center">
+  A modern, pure, powerful utility library for shell script development.
+</p>
 
 ## TOC
 
