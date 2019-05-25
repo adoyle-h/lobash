@@ -1,0 +1,6 @@
+{
+  "name": "lobash",
+  "version": "0.0.0",
+  "description": "A modern shell script utility library.",
+  "scripts": [ "src/import.bash" ]
+}

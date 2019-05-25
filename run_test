@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1090
+
+set -o errexit
+set -o nounset
+set -o pipefail
+[[ -n "${XTRACE:+x}" ]] && set -o xtrace
+[[ -n "${VERBOSE:+x}" ]] && set -o verbose
+[[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
+[[ $- =~ [x] ]] && PS4='+[${BASH_SOURCE}:${LINENO}:${FUNCNAME[0]:+${FUNCNAME[0]}}()]: '
+
+export ROOT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+export TEST_DIR=$ROOT_DIR/test
+
+setup_fixture() {
+  source "$TEST_DIR"/fixture/setup.bash
+}
+export -f setup_fixture
+
+test_dirs=${1:-}
+
+if [ -z "$test_dirs" ]; then
+  test_dirs=( "$TEST_DIR"/{,modules} )
+else
+  test_dirs=( "$1" )
+fi
+
+exec bats "${test_dirs[@]}"
