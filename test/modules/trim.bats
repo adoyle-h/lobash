@@ -1,9 +1,10 @@
 #!/usr/bin/env bats
 
 setup_fixture
-load_module trim
 
 @test "trim_start" {
+  load_module trim_start
+
   result="$(trim_start '  hah')"
   assert_equal "$result" "hah"
 
@@ -21,6 +22,8 @@ load_module trim
 }
 
 @test "trim_end" {
+  load_module trim_end
+
   result="$(trim_end 'hah  ')"
   assert_equal "$result" "hah"
 
@@ -38,6 +41,8 @@ load_module trim
 }
 
 @test "trim" {
+  load_module trim
+
   result="$(trim 'hah  ')"
   assert_equal "$result" "hah"
 

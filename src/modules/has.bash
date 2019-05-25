@@ -1,3 +1,8 @@
+# ---
+# Category: Condition
+# Since: 0.1.0
+# ---
+
 has() {
   local condition="$1"
   local value="$2"

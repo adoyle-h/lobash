@@ -1,3 +1,8 @@
+# ---
+# Category: Prompt
+# Since: 0.1.0
+# ---
+
 choose() {
   local items=("$@")
 

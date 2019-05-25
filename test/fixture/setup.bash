@@ -8,7 +8,11 @@ load_src() {
 }
 
 load_module() {
-  local path=$1;
+  local module_name=$1;
   shift
-  load_src modules/"$path" "$@"
+  # load_src modules/"$module_name" "$@"
+  import "$module_name" "$@"
 }
+
+# If import has bug, all test cases will failed
+load_src import

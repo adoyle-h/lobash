@@ -2,23 +2,54 @@
 
 Read the [Code Styles](./code-styles.md) before making any contributions.
 
+## Toc
+
+<!-- MarkdownTOC GFM -->
+
+- [Write a module](#write-a-module)
+    - [Module template](#module-template)
+- [Write test cases](#write-test-cases)
+- [Run test](#run-test)
+- [Make a Pull Request](#make-a-pull-request)
+
+<!-- /MarkdownTOC -->
+
 ## Write a module
 
 Filename must follow the path `src/modules/xxx.bash`.
 
+**One module must have only one public function.**
+
+Module name must start with a verb.
+
 Public method must be written in below format,
 
-```bash
+```sh
 public_function() {
 }
 ```
 
 Private method name must be prefixed with `_`. Like this,
 
-```bash
+```sh
 _private_function() {
 }
 ```
+
+### Module template
+
+```sh
+# ---
+# Category: XXX
+# ---
+
+public_function() {
+}
+```
+
+Each module must have these comments which called Metadata at top.
+
+See [this document](./module-metadata.md) for detail.
 
 ## Write test cases
 
@@ -56,3 +87,13 @@ You can use many assert helper functions such as `assert` and `assert_equal` whi
 ## Run test
 
 `./run_test` or `./run_test <path-to-test-file-or-directory>`.
+
+## Make a Pull Request
+
+All PRs should follow below conditions.
+
+-[ ] One module one public function.
+-[ ] Code style lint pass.
+-[ ] Test cases without errors and skips.
+-[ ] Squash one Git commit per PR.
+-[ ] Git message is [valid](./git-message.md).

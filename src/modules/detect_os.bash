@@ -1,3 +1,8 @@
+# ---
+# Category: System
+# Since: 0.1.0
+# ---
+
 detect_os() {
   kernel_name="$(uname -s)"
 

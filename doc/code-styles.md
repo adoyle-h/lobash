@@ -11,7 +11,7 @@
 
 ## File naming
 
-All file names must match the regex `[a-z0-9-]`, except `Dockerfile` and other particular files.
+All file names must match the regex `[a-z0-9-_]`, except `Dockerfile` and other particular files.
 
 ## File Header
 

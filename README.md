@@ -22,6 +22,7 @@
 - [Contributions](#contributions)
 - [Versioning](#versioning)
 - [Copyright and License](#copyright-and-license)
+- [References](#references)
 
 <!-- /MarkdownTOC -->
 
@@ -134,6 +135,9 @@ See the [LICENSE][] file for the specific language governing permissions and lim
 
 See the [NOTICE][] file distributed with this work for additional information regarding copyright ownership.
 
+## References
+
+- [pure-bash-bible](https://github.com/dylanaraps/pure-bash-bible)
 
 <!-- Links -->
 

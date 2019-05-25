@@ -1,3 +1,8 @@
+# ---
+# Category: Prompt
+# Since: 0.1.0
+# ---
+
 ask() {
   local msg=$*
   read -rp "$msg? ([Y]es/No)" answer
