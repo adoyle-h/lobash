@@ -24,6 +24,6 @@ import() {
   if [[ -z $prefix ]]; then
     source "$filename"
   else
-    source <( cat "$filename" | sed -E "s/^(\\w+)\\(\\) ?\\{/${prefix}\\1\\(\\) \\{/g" )
+    source <( cat "$filename" | sed -E "s/^([A-Za-z0-9]\\w*)\\(\\) ?\\{/${prefix}\\1\\(\\) \\{/g" )
   fi
 }
