@@ -22,7 +22,8 @@ _private_function() {
 
 ### Write test cases
 
-Module test case must follow the path `test/modules/xxx.bats`.
+Module test cases must be put in `test/` folder.
+The file path of test case must be corresponding with source file path. For example, `src/modules/ask.bash` to `test/modules/ask.bats`; `src/import.bash` to `test/import.bats`.
 
 It is based on [bats-core](https://github.com/bats-core/bats-core).
 
