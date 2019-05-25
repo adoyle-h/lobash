@@ -6,14 +6,50 @@ load_module trim
 @test "trim_start" {
   result="$(trim_start '  hah')"
   assert_equal "$result" "hah"
+
+  result="$(trim_start 'hah')"
+  assert_equal "$result" "hah"
+
+  result="$(trim_start 'hah   ')"
+  assert_equal "$result" "hah   "
+
+  result="$(trim_start '   hah   ')"
+  assert_equal "$result" "hah   "
+
+  result="$(trim_start '   hah  bbb ')"
+  assert_equal "$result" "hah  bbb "
 }
 
 @test "trim_end" {
-  result="$(trim_end 'aha  ')"
-  assert_equal "$result" "aha"
+  result="$(trim_end 'hah  ')"
+  assert_equal "$result" "hah"
+
+  result="$(trim_end 'hah')"
+  assert_equal "$result" "hah"
+
+  result="$(trim_end 'hah   ')"
+  assert_equal "$result" "hah"
+
+  result="$(trim_end '   hah   ')"
+  assert_equal "$result" "   hah"
+
+  result="$(trim_end '   hah  bbb ')"
+  assert_equal "$result" "   hah  bbb"
 }
 
 @test "trim" {
-  result="$(trim '  hahaha  ')"
-  assert_equal "$result" "hahaha"
+  result="$(trim 'hah  ')"
+  assert_equal "$result" "hah"
+
+  result="$(trim 'hah')"
+  assert_equal "$result" "hah"
+
+  result="$(trim 'hah   ')"
+  assert_equal "$result" "hah"
+
+  result="$(trim '   hah   ')"
+  assert_equal "$result" "hah"
+
+  result="$(trim '   hah  bbb ')"
+  assert_equal "$result" "hah  bbb"
 }

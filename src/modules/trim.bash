@@ -1,9 +1,9 @@
 trim_start() {
-  echo "${1##*( )}"
+  echo "${1#"${1%%[![:space:]]*}"}"
 }
 
 trim_end() {
-  echo "${1%%*( )}"
+  echo "${1%"${1##*[![:space:]]}"}"
 }
 
 trim() {

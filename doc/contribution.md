@@ -20,7 +20,7 @@ _private_function() {
 }
 ```
 
-### Write test cases
+## Write test cases
 
 Module test cases must be put in `test/` folder.
 The file path of test case must be corresponding with source file path. For example, `src/modules/ask.bash` to `test/modules/ask.bats`; `src/import.bash` to `test/import.bats`.
@@ -52,3 +52,7 @@ load_module trim
 ```
 
 You can use many assert helper functions such as `assert` and `assert_equal` which supported by [bats-assert](https://github.com/jasonkarns/bats-assert-1).
+
+## Run test
+
+`./run_test` or `./run_test <path-to-test-file-or-directory>`.
