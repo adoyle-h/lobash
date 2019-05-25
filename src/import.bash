@@ -1,5 +1,5 @@
 import_all() {
-  local prefix=${1:-l.}
+  local prefix=${1:-}
   local src_dir
   src_dir="$(dirname "${BASH_SOURCE[0]}")"
 
@@ -17,7 +17,13 @@ import() {
   local prefix=${2:-}
   local src_dir
   src_dir="$(dirname "${BASH_SOURCE[0]}")"
+  local filename="$src_dir/modules/${module_name}.bash"
 
-  [[ -n ${LOBASH_DEBUG:-} ]] && echo "[debug:lobash] To load module: $src_dir/modules/${module_name}.bash"
-	source "$src_dir/modules/${module_name}.bash"
+  [[ -n ${LOBASH_DEBUG:-} ]] && echo "[debug:lobash] To load module: $filename"
+
+  if [[ -z $prefix ]]; then
+    source "$filename"
+  else
+    source <( cat "$filename" | sed -E "s/^(\\w+)\\(\\) ?\\{/${prefix}\\1\\(\\) \\{/g" )
+  fi
 }

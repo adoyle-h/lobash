@@ -25,4 +25,4 @@ else
   test_dirs=( "$1" )
 fi
 
-exec bats "${test_dirs[@]}"
+exec bats ${CI:+--tap} "${test_dirs[@]}"

@@ -13,6 +13,7 @@ A modern shell script utility library.
     - [Import specific modules](#import-specific-modules)
     - [Import all modules with prefix naming](#import-all-modules-with-prefix-naming)
     - [Import specific modules with prefix naming](#import-specific-modules-with-prefix-naming)
+- [Modules](#modules)
 - [Versioning](#versioning)
 - [Copyright and License](#copyright-and-license)
 
@@ -82,6 +83,10 @@ import logger l.
 
 l.ask hello world
 ```
+
+## Modules
+
+See the files in [./test/modules/](./test/modules/) to get each module APIs and usages.
 
 ## Versioning
 
