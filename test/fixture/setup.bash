@@ -11,7 +11,7 @@ load_module() {
   local module_name=$1;
   shift
   # load_src modules/"$module_name" "$@"
-  import "$module_name" "$@"
+  _lobash_import "$module_name" "$@"
 }
 
 # If import has bug, all test cases will failed

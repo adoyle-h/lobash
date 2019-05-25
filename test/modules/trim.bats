@@ -3,6 +3,7 @@
 setup_fixture
 
 @test "trim_start" {
+  skip
   load_module trim_start
 
   result="$(trim_start '  hah')"
@@ -22,6 +23,7 @@ setup_fixture
 }
 
 @test "trim_end" {
+  skip
   load_module trim_end
 
   result="$(trim_end 'hah  ')"
