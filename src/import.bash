@@ -1,29 +1,10 @@
-import_all() {
-  local prefix=${1:-}
-  local src_dir
-  src_dir="$(dirname "${BASH_SOURCE[0]}")"
+__src_dir="$(dirname "${BASH_SOURCE[0]}")"
+__prefix=${2:-}
 
-  declare -a modules
-  modules=( $(ls "$src_dir"/modules) )
+if [[ -z $__prefix ]]; then
+  source "$__src_dir"/modules/import.bash
+else
+  source <( cat "$__src_dir"/modules/import.bash | sed -E "s/^([A-Za-z0-9]\\w*)\\(\\) ?\\{/${__prefix}\\1\\(\\) \\{/g" )
+fi
 
-  for module in "${modules[@]}"; do
-    local name=${module%.bash}
-    import "$name" "$prefix"
-  done
-}
-
-import() {
-  local module_name=$1
-  local prefix=${2:-}
-  local src_dir
-  src_dir="$(dirname "${BASH_SOURCE[0]}")"
-  local filename="$src_dir/modules/${module_name}.bash"
-
-  [[ -n ${LOBASH_DEBUG:-} ]] && echo "[debug:lobash] To load module: $filename"
-
-  if [[ -z $prefix ]]; then
-    source "$filename"
-  else
-    source <( cat "$filename" | sed -E "s/^([A-Za-z0-9]\\w*)\\(\\) ?\\{/${prefix}\\1\\(\\) \\{/g" )
-  fi
-}
+unset __src_dir __prefix

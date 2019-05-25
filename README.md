@@ -13,6 +13,8 @@ A modern shell script utility library.
     - [Import specific modules](#import-specific-modules)
     - [Import all modules with prefix naming](#import-all-modules-with-prefix-naming)
     - [Import specific modules with prefix naming](#import-specific-modules-with-prefix-naming)
+    - [Custom import function prefix](#custom-import-function-prefix)
+- [Debug](#debug)
 - [Modules](#modules)
 - [Contributions](#contributions)
 - [Versioning](#versioning)
@@ -84,6 +86,25 @@ import logger l.
 
 l.ask hello world
 ```
+
+### Custom import function prefix
+
+`import` and `import_all` may be conflicting with your shell environment.
+So you can custom import function prefix can like that,
+
+```sh
+source ./src/import.bash a_
+
+# you get `a_import_all` and `a_import` functions
+a_import_all
+
+# no differences
+ask hello world
+```
+
+## Debug
+
+Set environment variable `LOBASH_DEBUG=true` to print verbose logs.
 
 ## Modules
 
