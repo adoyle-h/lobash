@@ -23,12 +23,14 @@ The value of `Category` must be upper camel case.
 
 Available values:
 
-- Core
-- String
-- Path
+- Collection
 - Color
-- Prompt
 - Condition
+- Core
+- File
+- Path
+- Prompt
+- String
 - System
 
 ## Deprecated

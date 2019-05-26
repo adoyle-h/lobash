@@ -3,18 +3,26 @@
 setup_fixture
 load_module has
 
-@test "has command" {
-  run has command bash
+@test "has command cat" {
+  run has command cat
   assert_success
-
-  run has command aaaaa
-  assert_failure
+  assert_output true
 }
 
-@test "has not command" {
+@test "has command aaaa" {
+  run has command aaaa
+  assert_success
+  assert_output false
+}
+
+@test "has not command cat" {
+  run has not command cat
+  assert_success
+  assert_output false
+}
+
+@test "has not command aaaa" {
   run has not command aaaa
   assert_success
-
-  run has not command bash
-  assert_failure
+  assert_output true
 }

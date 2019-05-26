@@ -9,14 +9,18 @@ has() {
 
   if [ "$condition" == "not" ]; then
     shift 1
-    ! has "${@}"
-    return $?
+    if [[ $(has "$@") == true ]]; then
+      echo false
+    else
+      echo true
+    fi
+    return 0
   fi
 
   case "$condition" in
     command)
-      [[ -x "$(command -v "$value")" ]] && return 0;;
-  esac > /dev/null
+      [[ -x "$(command -v "$value")" ]] && echo true && return 0;;
+  esac
 
-  return 1
+  echo false
 }

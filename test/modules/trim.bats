@@ -1,62 +1,34 @@
 #!/usr/bin/env bats
 
 setup_fixture
+load_module trim
 
-@test "trim_start" {
-  skip
-  load_module trim_start
-
-  result="$(trim_start '  hah')"
-  assert_equal "$result" "hah"
-
-  result="$(trim_start 'hah')"
-  assert_equal "$result" "hah"
-
-  result="$(trim_start 'hah   ')"
-  assert_equal "$result" "hah   "
-
-  result="$(trim_start '   hah   ')"
-  assert_equal "$result" "hah   "
-
-  result="$(trim_start '   hah  bbb ')"
-  assert_equal "$result" "hah  bbb "
+@test "trim 'hah  '" {
+  run trim 'hah  '
+  assert_success
+  assert_output "hah"
 }
 
-@test "trim_end" {
-  skip
-  load_module trim_end
-
-  result="$(trim_end 'hah  ')"
-  assert_equal "$result" "hah"
-
-  result="$(trim_end 'hah')"
-  assert_equal "$result" "hah"
-
-  result="$(trim_end 'hah   ')"
-  assert_equal "$result" "hah"
-
-  result="$(trim_end '   hah   ')"
-  assert_equal "$result" "   hah"
-
-  result="$(trim_end '   hah  bbb ')"
-  assert_equal "$result" "   hah  bbb"
+@test "trim 'hah'" {
+  run trim 'hah'
+  assert_success
+  assert_output "hah"
 }
 
-@test "trim" {
-  load_module trim
+@test "trim 'hah   '" {
+  run trim 'hah   '
+  assert_success
+  assert_output "hah"
+}
 
-  result="$(trim 'hah  ')"
-  assert_equal "$result" "hah"
+@test "trim '   hah   '" {
+  run trim '   hah   '
+  assert_success
+  assert_output "hah"
+}
 
-  result="$(trim 'hah')"
-  assert_equal "$result" "hah"
-
-  result="$(trim 'hah   ')"
-  assert_equal "$result" "hah"
-
-  result="$(trim '   hah   ')"
-  assert_equal "$result" "hah"
-
-  result="$(trim '   hah  bbb ')"
-  assert_equal "$result" "hah  bbb"
+@test "trim '   hah  bbb '" {
+  run trim '   hah  bbb '
+  assert_success
+  assert_output "hah  bbb"
 }

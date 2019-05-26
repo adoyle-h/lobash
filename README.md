@@ -5,6 +5,8 @@
   A modern, pure, powerful utility library for shell script development.
 </p>
 
+**Current project is under development, most APIs are unstable. It will get done soon. Welcome to make contributions.**
+
 ## TOC
 
 <!-- MarkdownTOC GFM -->
@@ -63,10 +65,11 @@ ask hello world
 source ./src/import.bash
 
 # import <module name>
-import ask
-import logger
+import ask first last
 
 ask hello world
+first a b c
+last a b c
 ```
 
 ### Import all modules with prefix naming
@@ -85,10 +88,11 @@ l.ask hello world
 source ./src/import.bash
 
 # import <module name>
-import ask l.
-import logger l.
+import ask first last l.
 
 l.ask hello world
+l.first a b c
+l.last a b c
 ```
 
 ### Custom import function prefix

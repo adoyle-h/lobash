@@ -6,6 +6,7 @@
 choose() {
   local items=("$@")
 
+  local i
   for i in "${!items[@]}"; do
     printf -- '- %s\t%s\n' $(("$i" + 1)) "${items[$i]}"
   done
