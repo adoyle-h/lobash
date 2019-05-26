@@ -19,8 +19,8 @@
     - [Import all modules with prefix naming](#import-all-modules-with-prefix-naming)
     - [Import specific modules with prefix naming](#import-specific-modules-with-prefix-naming)
     - [Custom import function prefix](#custom-import-function-prefix)
+- [Examples and Modules](#examples-and-modules)
 - [Debug](#debug)
-- [Modules](#modules)
 - [Contributions](#contributions)
 - [Versioning](#versioning)
 - [Copyright and License](#copyright-and-license)
@@ -110,13 +110,13 @@ a_import_all
 ask hello world
 ```
 
+## Examples and Modules
+
+See the files in [examples](./examples) and [test/modules/](./test/modules) to understand how to use Lobash modules.
+
 ## Debug
 
 Set environment variable `LOBASH_DEBUG=true` to print verbose logs.
-
-## Modules
-
-See the files in [./test/modules/](./test/modules/) to get each module APIs and usages.
 
 ## Contributions
 

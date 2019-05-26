@@ -6,7 +6,7 @@
 # Usage: split string delimiter
 split() {
   local delimiter=$2
-  local _IFS=${IFS:-}
+  local _IFS=${IFS:- }
   declare -a words
 
   IFS=$'\n' read -d "" -ra words <<< "${1//$delimiter/$'\n'}"

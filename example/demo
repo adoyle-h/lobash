@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1090
+
+set -o errexit
+set -o nounset
+set -o pipefail
+[[ -n "${XTRACE:+x}" ]] && set -o xtrace
+[[ -n "${VERBOSE:+x}" ]] && set -o verbose
+[[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
+[[ $- =~ [x] ]] && PS4='+[${BASH_SOURCE}:${LINENO}:${FUNCNAME[0]:+${FUNCNAME[0]}}()]: '
+
+readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+
+source "$SCRIPT_DIR"/../src/import.bash
+import_all
+
+str=$(join ',' a 'b c' d e)
+echo "# join ',' a 'b c' d e" "=> $str"
+
+# IFS=$'\n' read -ra list <<< "$(split "$str" ',')"
+list=( "$(split "$str" ',')" )
+echo "# split '$str' ','" "=> ${list[*]}"
+
+echo "# list size" "=> ${#list[@]}"
+
+first_item=$(first "${list[@]}")
+echo "# first ${list[*]}" "=> ${first_item}"
+
+last_item=$(last "${list[@]}")
+echo "# last ${list[*]}" "=> ${last_item}"
+
+echo "# list[1] => ${list[1]}"
