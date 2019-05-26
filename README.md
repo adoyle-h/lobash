@@ -112,7 +112,7 @@ ask hello world
 
 ## Examples and Modules
 
-See the files in [examples](./examples) and [test/modules/](./test/modules) to understand how to use Lobash modules.
+See the files in [example/](./example) and [test/modules/](./test/modules) to understand how to use Lobash modules.
 
 ## Debug
 
