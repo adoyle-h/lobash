@@ -14,10 +14,10 @@
 - [Supported Shells](#supported-shells)
 - [Installation](#installation)
 - [Usage](#usage)
-    - [Import all modules](#import-all-modules)
     - [Import specific modules](#import-specific-modules)
-    - [Import all modules with prefix naming](#import-all-modules-with-prefix-naming)
     - [Import specific modules with prefix naming](#import-specific-modules-with-prefix-naming)
+    - [Import all modules](#import-all-modules)
+    - [Import all modules with prefix naming](#import-all-modules-with-prefix-naming)
     - [Custom import function prefix](#custom-import-function-prefix)
 - [Examples and Modules](#examples-and-modules)
 - [Debug](#debug)
@@ -49,22 +49,12 @@ git submodule update --init --recursive
 
 ## Usage
 
-### Import all modules
-
-```sh
-source ./src/import.bash
-
-import_all
-
-ask hello world
-```
-
 ### Import specific modules
 
 ```sh
 source ./src/import.bash
 
-# import <module name>
+# import <module_name1> <module_name2>
 import ask first last
 
 ask hello world
@@ -72,28 +62,49 @@ first a b c
 last a b c
 ```
 
-### Import all modules with prefix naming
-
-```sh
-source ./src/import.bash
-
-import_all l.
-
-l.ask hello world
-```
-
 ### Import specific modules with prefix naming
 
 ```sh
 source ./src/import.bash
 
-# import <module name>
+# import <module_name1> <module_name2> <prefix>
 import ask first last l.
 
 l.ask hello world
 l.first a b c
 l.last a b c
 ```
+
+The prefix must end with `_` or `-` or `.`
+
+### Import all modules
+
+`import_all` without prefix naming is not recommended. Because Lobash modules will override the shell commands, builtin, alias and function while the name may be same.
+
+`import_all l.` is recommended.
+
+
+```sh
+source ./src/import.bash
+
+import_all
+
+ask hello world
+hash content
+```
+
+### Import all modules with prefix naming
+
+```sh
+source ./src/import.bash
+
+# import <prefix>
+import_all l.
+
+l.ask hello world
+```
+
+The prefix must end with `_` or `-` or `.`
 
 ### Custom import function prefix
 

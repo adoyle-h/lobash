@@ -7,20 +7,30 @@ has() {
   local condition="$1"
   local value="$2"
 
-  if [ "$condition" == "not" ]; then
+  if [[ "$condition" == "not" ]]; then
     shift 1
-    if [[ $(has "$@") == true ]]; then
-      echo false
-    else
-      echo true
-    fi
-    return 0
+    ! has "${@}"
+    return $?
   fi
 
   case "$condition" in
     command)
-      [[ -x "$(command -v "$value")" ]] && echo true && return 0;;
-  esac
+      [[ -x "$(command -v "$value")" ]] && return 0;;
+    function)
+      [[ $(type -t "$value") == function ]] && return 0;;
+    alias)
+      [[ $(type -t "$value") == alias ]] && return 0;;
+    keyword)
+      [[ $(type -t "$value") == keyword ]] && return 0;;
+    builtin)
+      [[ $(type -t "$value") == builtin ]] && return 0;;
+    the)
+      type -t "$value"
+      return $?;;
+    *)
+      # Invalid Condition
+      return 2;;
+  esac > /dev/null
 
-  echo false
+  return 1
 }

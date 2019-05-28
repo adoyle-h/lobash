@@ -16,18 +16,16 @@ matrix:
   include:
     - os: osx
 
-services:
-  - docker
-
 script:
 - |
-  if [[ "$TRAVIS_OS_NAME" == 'linux' && -n "$BASHVER" ]]; then
-    docker build --build-arg bashver=${BASHVER} --tag adoyle/lobash:bash-${BASHVER} .
-    docker run -it bash:${BASHVER} --version
-    time docker run -it adoyle/lobash:bash-${BASHVER} /opt/lobash/run_test
-  else
-    time run_test
-  fi
+  time ./run_test
+  # if [[ "$TRAVIS_OS_NAME" == 'linux' && -n "$BASHVER" ]]; then
+  #   docker build --build-arg bashver=${BASHVER} --tag adoyle/lobash:bash-${BASHVER} .
+  #   docker run -it bash:${BASHVER} --version
+  #   time docker run -it adoyle/lobash:bash-${BASHVER} /opt/lobash/run_test
+  # else
+  #   time run_test
+  # fi
 
 notifications:
   email:
