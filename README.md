@@ -7,6 +7,8 @@
 
 **Current project is under development, most APIs are unstable. It will get done soon. Welcome to make contributions.**
 
+[![Build Status](https://travis-ci.org/adoyle-h/lobash.svg?branch=master)](https://travis-ci.org/adoyle-h/lobash)
+
 ## TOC
 
 <!-- MarkdownTOC GFM -->
