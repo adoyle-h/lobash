@@ -1,5 +1,10 @@
 language: bash
 
+branches:
+  only:
+  - master
+  - test
+
 os:
 - linux
 
