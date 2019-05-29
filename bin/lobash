@@ -16,6 +16,8 @@ set -o pipefail
 [[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
 [[ $- =~ [x] ]] && PS4='+[${BASH_SOURCE}:${LINENO}:${FUNCNAME[0]:+${FUNCNAME[0]}}()]: '
 
+readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+
 #######################################################################
 #                           initialization                            #
 #######################################################################
@@ -40,14 +42,6 @@ declare -a dispatch_cmd_args
 opt_parse() {
   while [ $# -gt 0 ];do
     case $1 in
-      -i)
-        dispatch_cmd_opts[input]=$2
-        shift
-        ;;
-      --input)
-        dispatch_cmd_opts[input]=$2
-        shift
-        ;;
       -h)
         dispatch_cmd_opts[help]=true
         ;;
@@ -68,6 +62,13 @@ opt_parse() {
 #                           private methods                           #
 #######################################################################
 
+_import_all() {
+  . "$SCRIPT_DIR"/../src/import.bash
+  import_all l.
+}
+
+_exectue_command() {
+}
 
 #######################################################################
 #                           public methods                            #
@@ -81,6 +82,8 @@ main() {
     usage
     exit 0
   fi
+
+  _exectue_command
 }
 
 main "$@"

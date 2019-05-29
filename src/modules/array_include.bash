@@ -3,8 +3,8 @@
 # Since: 0.1.0
 # ---
 
-# Usage: array_includes match "${array[@]}"
-array_includes() {
+# Usage: array_include match "${array[@]}"
+array_include() {
   local match="$1"
   local e
   shift

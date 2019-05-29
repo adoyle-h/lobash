@@ -9,10 +9,14 @@ strict_has() {
 
   if [[ "$condition" == "not" ]]; then
     shift 1
-    if [[ $(strict_has "$@") == true ]]; then
+    result=$(strict_has "$@" || echo $?)
+
+    if [[ $result == true ]]; then
       echo false
-    else
+    elif [[ $result == false ]]; then
       echo true
+    else
+      return "$result"
     fi
     return 0
   fi

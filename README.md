@@ -15,11 +15,10 @@
 
 - [Supported Shells](#supported-shells)
 - [Installation](#installation)
+- [Prerequisites](#prerequisites)
 - [Usage](#usage)
     - [Import specific modules](#import-specific-modules)
-    - [Import specific modules with prefix naming](#import-specific-modules-with-prefix-naming)
     - [Import all modules](#import-all-modules)
-    - [Import all modules with prefix naming](#import-all-modules-with-prefix-naming)
     - [Custom import function prefix](#custom-import-function-prefix)
 - [Examples and Modules](#examples-and-modules)
 - [Debug](#debug)
@@ -32,15 +31,16 @@
 
 ## Supported Shells
 
-| Supported | Shell    | Version       | Reason                                     |
-|:---------:|:---------|:--------------|:-------------------------------------------|
-|     ✅    | Bash     | v3 and higher | -                                          |
-|     ❔    | Zsh      |               | No tested                                  |
-|     ❔    | Ash      |               | No tested                                  |
-|     ❔    | Fish     |               | No tested                                  |
-|     ❔    | Ksh      |               | `read -A` is different from bash `read -a` |
-|     ❔    | Xiki     |               | No tested                                  |
-|     🚫    | POSIX sh |               | not supported `local` keyword              |
+| Supported | Shell    | Version | Reason                                     |
+|:---------:|:---------|:--------|:-------------------------------------------|
+|     🚫    | Bash     | v3      | It not support associative array           |
+|     ✅    | Bash     | v4      | -                                          |
+|     ❔    | Zsh      |         | No tested                                  |
+|     ❔    | Ash      |         | No tested                                  |
+|     ❔    | Fish     |         | No tested                                  |
+|     ❔    | Ksh      |         | `read -A` is different from bash `read -a` |
+|     ❔    | Xiki     |         | No tested                                  |
+|     🚫    | POSIX sh |         | not supported `local` keyword              |
 
 ## Installation
 
@@ -49,6 +49,11 @@ git clone --depth 1 https://github.com/adoyle-h/lobash.git
 git submodule update --init --recursive
 ```
 
+## Prerequisites
+
+1. The command which invokes Lobash should set `set -o errexit` and `set -o pipefail`. Otherwise, there are no guarantees that Lobash will execute right behaviors.
+
+
 ## Usage
 
 ### Import specific modules
@@ -56,20 +61,8 @@ git submodule update --init --recursive
 ```sh
 source ./src/import.bash
 
-# import <module_name1> <module_name2>
-import ask first last
-
-ask hello world
-first a b c
-last a b c
-```
-
-### Import specific modules with prefix naming
-
-```sh
-source ./src/import.bash
-
-# import <module_name1> <module_name2> <prefix>
+# Usage: import <module_name1> <module_name2> <prefix>
+# The prefix must end with `_` or `-` or `.`
 import ask first last l.
 
 l.ask hello world
@@ -77,36 +70,17 @@ l.first a b c
 l.last a b c
 ```
 
-The prefix must end with `_` or `-` or `.`
-
 ### Import all modules
 
-`import_all` without prefix naming is not recommended. Because Lobash modules will override the shell commands, builtin, alias and function while the name may be same.
-
-`import_all l.` is recommended.
-
-
 ```sh
 source ./src/import.bash
 
-import_all
-
-ask hello world
-hash content
-```
-
-### Import all modules with prefix naming
-
-```sh
-source ./src/import.bash
-
-# import <prefix>
+# Usage: import <prefix>
+# The prefix must end with `_` or `-` or `.`
 import_all l.
 
 l.ask hello world
 ```
-
-The prefix must end with `_` or `-` or `.`
 
 ### Custom import function prefix
 

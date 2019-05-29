@@ -9,8 +9,15 @@ has() {
 
   if [[ "$condition" == "not" ]]; then
     shift 1
-    ! has "${@}"
-    return $?
+    has "${@}"
+    local result=$?
+    if [[ $result == 0 ]]; then
+      return 1
+    elif [[ $result == 1 ]]; then
+      return 0
+    else
+      return $result
+    fi
   fi
 
   case "$condition" in

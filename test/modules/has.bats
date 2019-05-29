@@ -153,3 +153,13 @@ load_module has
   assert_failure
   assert_output ''
 }
+
+@test "has (not) what type" {
+  run has what type
+  assert_failure 2
+  assert_output ''
+
+  run has not what type
+  assert_failure 2
+  assert_output ''
+}
