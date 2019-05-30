@@ -7,19 +7,17 @@ set -o pipefail
 [[ -n "${XTRACE:+x}" ]] && set -o xtrace
 [[ -n "${VERBOSE:+x}" ]] && set -o verbose
 [[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
-[[ $- =~ [x] ]] && PS4='+[${BASH_SOURCE}:${LINENO}:${FUNCNAME[0]:+${FUNCNAME[0]}}()]: '
+[[ $- =~ [x] ]] && PS4='+[${BASH_SOURCE[0]}:${LINENO}|${FUNCNAME[0]:+${FUNCNAME[0]}}()|$?]: '
 
 readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 
 source "$SCRIPT_DIR"/../src/internals/consts.bash
 
 warn() {
-  echo "[${FUNCNAME[1]}] $*" >&2
+  printf '[%s] %s\n' "${FUNCNAME[1]}" "$*" >&2
 }
 
-error() {
-  echo "[${FUNCNAME[1]}] $*" >&2
-}
+error() { warn "$@"; }
 
 check_file() {
   local err_code=${2}
@@ -49,29 +47,33 @@ check_file() {
 }
 
 check_no_export() {
-  local err_code=${2}
-  local lodashFound
-  lodashFound=$(grep 'export ' "$1")
-  if [[ -n $lodashFound ]]; then
+  local filepath=$1
+  local err_code=$2
+  local found
+  found=$(grep 'export ' "$filepath" || true)
+  if [[ -n $found ]]; then
       error "'export' variable and function is forbidden."
-      error Matched text: "$lodashFound"
+      error "Matched text: $found"
       return "$err_code"
   fi
 }
 
 check_lodash_typos() {
-  local lodashFound
-  lodashFound=$(grep '[lL][oO][dD][aA][sS][hH]' "$1")
-  if [[ -n $lodashFound ]]; then
+  local filepath=$1
+  local err_code=$2
+  local found
+  found=$(grep '[lL][oO][dD][aA][sS][hH]' "$filepath" || true)
+  if [[ -n $found ]]; then
       warn Found word \"lodash\". Is it a typo? Please check your code.
-      warn Matched text: "$lodashFound"
+      warn Matched text: "$found"
+      return "$err_code"
   fi
 }
 
 check_alias() {
   local err_code=${2}
   local found
-  found="$(grep '^alias ' "$1" || echo '')"
+  found="$(grep '^alias ' "$1" || true)"
 
   if [[ -n "$found" ]]; then
     error alias is forbidden
@@ -114,7 +116,22 @@ check_metadata() {
   fi
 }
 
-main() {
+check_no_echo() {
+  local filepath=$1
+  local err_code=$2
+
+  if grep -o ' echo ' "$filepath" >/dev/null; then
+    echo 'Use printf instead of echo.'
+    return "$err_code"
+  fi
+}
+
+check_duplicated_function() {
+  local filepath=$1
+  local err_code=$2
+}
+
+check_module() {
   local filepath=$1
 
   rules=(
@@ -124,11 +141,28 @@ main() {
     check_metadata
     check_lodash_typos
     check_no_export
+    check_no_echo
+    check_duplicated_function
   )
 
   for i in "${!rules[@]}"; do
-      ${rules[$i]} "$filepath" "10$i"
+    local rule_name=${rules[$i]}
+    $rule_name "$filepath" "10$i" || error "[$filepath][$i][$rule_name]"
   done
+}
+
+check_all_module() {
+  for filepath in $SCRIPT_DIR/../src/modules/*.bash; do
+    check_module "$filepath"
+  done
+}
+
+main() {
+  if [[ $1 == all ]]; then
+    check_all_module
+  else
+    check_module "$1"
+  fi
 }
 
 main "$@"

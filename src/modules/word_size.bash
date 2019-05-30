@@ -8,7 +8,7 @@
 # It returns the size of words
 word_size() {
   local _IFS=${IFS:- }
-  words=$(split)
+  words=$(l.split)
 
   IFS=${2:-' '} read -ra words <<<"$1"
 

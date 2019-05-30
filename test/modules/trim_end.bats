@@ -3,32 +3,50 @@
 setup_fixture
 load_module trim_end
 
-@test "trim_end 'hah  '" {
-  run trim_end 'hah  '
+@test "l.trim_end 'hah  '" {
+  run l.trim_end 'hah  '
   assert_success
   assert_output hah
 }
 
-@test "trim_end 'hah'" {
-  run trim_end 'hah'
+@test "l.trim_end 'hah'" {
+  run l.trim_end 'hah'
   assert_success
   assert_output hah
 }
 
-@test "trim_end '   hah" {
-  run trim_end '   hah'
+@test "l.trim_end '   hah" {
+  run l.trim_end '   hah'
   assert_success
   assert_output '   hah'
 }
 
-@test "trim_end '   hah   '" {
-  run trim_end '   hah   '
+@test "l.trim_end '   hah   '" {
+  run l.trim_end '   hah   '
   assert_success
   assert_output "   hah"
 }
 
-@test "trim_end '   hah  bbb '" {
-  run trim_end '   hah  bbb '
+@test "l.trim_end '   hah  bbb '" {
+  run l.trim_end '   hah  bbb '
+  assert_success
+  assert_output  "   hah  bbb"
+}
+
+@test "l.trim_end '   hah  bbb ' 'bb '" {
+  run l.trim_end '   hah  bbb ' 'bb '
+  assert_success
+  assert_output  "   hah  b"
+}
+
+@test "l.trim_end '   hah  bbb ' 'bb'" {
+  run l.trim_end '   hah  bbb ' 'bb'
+  assert_success
+  assert_output  "   hah  bbb "
+}
+
+@test "l.trim_end '   hah  bbb' 'BB'" {
+  run l.trim_end '   hah  bbb' 'BB'
   assert_success
   assert_output  "   hah  bbb"
 }

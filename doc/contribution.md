@@ -22,23 +22,23 @@ Read below links before making any contributions.
 
 ## Write a module
 
-Filename must follow the path `src/modules/xxx.bash`.
-
 **One module must have only one public function.**
 
-Module name must start with a verb.
+Suppose that you will implement a module which named `hello_world`.
+Create a file at `src/modules/hello_world.bash`.
+The module name suggests to start with a verb.
 
-Public method must be written in below format,
+Public method name must be prefixed with `l.` and written in below format,
 
 ```sh
-public_function() {
+l.hello_world() {
 }
 ```
 
-Private method name must be prefixed with `_`. Like this,
+If private method needed, the name of private method must be prefixed with `_l.` and written in below format,
 
 ```sh
-_private_function() {
+_l.private_function() {
 }
 ```
 
@@ -49,7 +49,7 @@ _private_function() {
 # Category: XXX
 # ---
 
-public_function() {
+l.public_function() {
 }
 ```
 
@@ -70,25 +70,22 @@ For examples,
 #!/usr/bin/env bats
 
 setup_fixture
-load_module trim
+load_module l.trim
 
-@test "trim_start" {
-  result="$(trim_start '  hah')"
-  assert_equal "$result" "hah"
+@test "l.trim_start '  hah'" {
+  run l.trim_start '  hah'
+  assert_success
+  assert_output "hah"
 }
 
-@test "trim_end" {
-  result="$(trim_end 'aha  ')"
-  assert_equal "$result" "aha"
-}
-
-@test "trim" {
-  result="$(trim '  hahaha  ')"
-  assert_equal "$result" "hahaha"
+@test "l.trim_start 'hah'" {
+  run l.trim_start 'hah'
+  assert_success
+  assert_output "hah"
 }
 ```
 
-You can use many assert helper functions such as `assert` and `assert_equal` which supported by [bats-assert](https://github.com/jasonkarns/bats-assert-1).
+You can use many assert helper functions such as `assert_success`, `assert_output` and `assert_equal` which supported by [bats-assert](https://github.com/jasonkarns/bats-assert-1).
 
 ## Run test
 

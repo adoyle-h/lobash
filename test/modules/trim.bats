@@ -3,32 +3,32 @@
 setup_fixture
 load_module trim
 
-@test "trim 'hah  '" {
-  run trim 'hah  '
+@test "l.trim 'hah  '" {
+  run l.trim 'hah  '
   assert_success
   assert_output "hah"
 }
 
-@test "trim 'hah'" {
-  run trim 'hah'
+@test "l.trim 'hah'" {
+  run l.trim 'hah'
   assert_success
   assert_output "hah"
 }
 
-@test "trim 'hah   '" {
-  run trim 'hah   '
+@test "l.trim 'hah   '" {
+  run l.trim 'hah   '
   assert_success
   assert_output "hah"
 }
 
-@test "trim '   hah   '" {
-  run trim '   hah   '
+@test "l.trim '   hah   '" {
+  run l.trim '   hah   '
   assert_success
   assert_output "hah"
 }
 
-@test "trim '   hah  bbb '" {
-  run trim '   hah  bbb '
+@test "l.trim '   hah  bbb '" {
+  run l.trim '   hah  bbb '
   assert_success
   assert_output "hah  bbb"
 }

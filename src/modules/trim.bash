@@ -4,6 +4,8 @@
 # Dependent: trim_start, trim_end
 # ---
 
-trim() {
-  trim_end "$(trim_start "$1")"
+l.trim() {
+  [[ $# -eq 0 ]] && return 2
+
+  l.trim_end "$(l.trim_start "$1")"
 }

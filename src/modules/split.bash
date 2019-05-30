@@ -4,14 +4,30 @@
 # ---
 
 # Usage: split string delimiter
-split() {
-  local delimiter=$2
-  local _IFS=${IFS:- }
-  declare -a words
+# l.split() {
+#   local string=$1
+#   local delimiter=${2:- }
+#   [[ $# -gt 1 ]] && [[ -z $2 ]] && echo "$string" && return 0
 
-  IFS=$'\n' read -d "" -ra words <<< "${1//$delimiter/$'\n'}"
+#   local _IFS=${IFS:- }
+#   declare -a words
 
-  IFS=$_IFS
+#   IFS=$'\n' read -d "" -ra words <<< "${string//$delimiter/$'\n'}"
+
+#   IFS=$_IFS
+
+#   printf '%s\n' "${words[@]}"
+# }
+
+l.split() {
+  local string=$1
+  local delimiter="${2:- }"
+  [[ $# -gt 1 ]] && [[ -z $2 ]] && echo "$string" && return 0
+
+  words=()
+  while read -rd "$delimiter" i; do
+    words+=("$i")
+  done < <(printf '%s%s' "$string" "$delimiter")
 
   printf '%s\n' "${words[@]}"
 }

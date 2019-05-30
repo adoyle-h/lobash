@@ -28,6 +28,8 @@ Available values:
 - Condition
 - Core
 - File
+- Float
+- Number
 - Path
 - Prompt
 - String
