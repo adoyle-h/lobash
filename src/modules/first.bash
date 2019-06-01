@@ -6,5 +6,5 @@
 # Usage: last arg1 arg2 ... argN
 # It will return the value of arg1.
 l.first() {
-  echo "${*:1:1}"
+  printf '%s\n' "${*:1:1}"
 }

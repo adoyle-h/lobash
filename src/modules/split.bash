@@ -22,7 +22,7 @@
 l.split() {
   local string=$1
   local delimiter="${2:- }"
-  [[ $# -gt 1 ]] && [[ -z $2 ]] && echo "$string" && return 0
+  [[ $# -gt 1 ]] && [[ -z $2 ]] && printf '%s\n' "$string" && return 0
 
   words=()
   while read -rd "$delimiter" i; do

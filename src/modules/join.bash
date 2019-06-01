@@ -8,6 +8,6 @@ l.join() {
   local _IFS=${IFS:- }
   IFS=${1}
   shift
-  echo "$*"
+  printf '%s\n' "$*"
   IFS=$_IFS
 }

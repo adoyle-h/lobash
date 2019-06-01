@@ -13,5 +13,5 @@ l.word_size() {
   IFS=${2:-' '} read -ra words <<<"$1"
 
   IFS=$_IFS
-  echo ${#words[@]}
+  printf '%s\n' ${#words[@]}
 }

@@ -4,5 +4,5 @@
 # ---
 
 l.get_xdg_config_home() {
-  echo "${XDG_CONFIG_HOME:-${HOME}/.config}"
+  printf '%s\n' "${XDG_CONFIG_HOME:-${HOME}/.config}"
 }

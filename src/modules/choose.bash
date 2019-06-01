@@ -14,9 +14,9 @@ l.choose() {
   read -r -p "Please enter the number choose: " num
 
   if [[ $num -gt ${#items[@]} ]] || [[ $num -lt 1 ]]; then
-   echo "Invalid choose number: $num" >&2
+   printf '%s\n' "Invalid choose number: $num" >&2
    return 2
   fi
 
-  echo "${items[$((num - 1))]}"
+  printf '%s\n' "${items[$((num - 1))]}"
 }
