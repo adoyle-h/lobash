@@ -75,7 +75,7 @@ _l.load_module_file() {
 # The associative array seems not an associative array and cannot be modified by function scope.
 # _lobash_import_cache[any key] will be 'loaded' after _lobash_import_cache[import]=loaded
 # It makes the test cases failed.
-declare -A _lobash_import_cache
+# declare -A _lobash_import_cache
 
 _l.import() {
   local module_name=$1
@@ -86,10 +86,8 @@ _l.import() {
   [[ -z $module_name ]] && _lobash_error "Module name cannot be empty string." && return 3
 
   # Associative array only allow [a-zA-Z0-9_] for key naming
-  local import_key="${prefix//[^a-zA-Z0-9]/_}_${module_name}"
-  # declare -A _lobash_import_cache
-  _lobash_debug "To load cache=${!_lobash_import_cache[*]} \${_lobash_import_cache[$import_key]}=${_lobash_import_cache[$import_key]}"
-  if [[ "${_lobash_import_cache[$import_key]:-}" == loaded ]]; then
+  local import_key=_lobash_import_cache_"${prefix//[^a-zA-Z0-9]/_}_${module_name//[^a-zA-Z0-9]/_}"
+  if [[ "${!import_key:-}" == loaded ]]; then
     _lobash_debug "import_key=${import_key} is loaded. skip load"
     return;
   fi
@@ -123,10 +121,8 @@ _l.import() {
 
   _l.load_module_file "$module_path" "$prefix" "$module_name"
 
-  _lobash_debug "import_key=$import_key"
-  _lobash_import_cache[${import_key}]=loaded
-  _lobash_debug "===-----${_lobash_import_cache[any]}"
-  _lobash_debug "===-----${_lobash_import_cache[l__ask]}"
+  read -r "$import_key" <<< 'loaded'
+
   _lobash_debug "Loaded import_key=${import_key}"
 }
 
