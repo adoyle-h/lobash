@@ -42,9 +42,7 @@ _lobash_import_internals debug warn error
 #--------------------------------------------
 
 # Usage: _lobash_get_module_path module_name
-# function depth: 2
 _lobash_get_module_path() {
-# echo "${BASH_SOURCE[@]}" >>/tmp/1
   if [[ -n $IS_LOBASH_TEST ]]; then
     echo "$LOBASH_ROOT_DIR/src/modules/$1.bash"
   else
@@ -57,7 +55,7 @@ _lobash_get_module_meta_str() {
   local module_path
   module_path=$(_lobash_get_module_path "$module_name")
   _lobash_in_debug "module_name=${module_name} module_path=${module_path}"
-  sed -n '/^# ---$/,/^# ---$/p' "$module_path" | sed '1d;$d;s/^# //'
+  head -n "$_LOBASH_METADATA_MAX_LINES" "$module_path" | sed -n '/^# ---$/,/^# ---$/p' | sed '1d;$d;s/^# //'
 }
 
 # @TODO cache each import by import_key

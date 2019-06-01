@@ -31,11 +31,7 @@ _lobash_import_all() {
 
   _lobash_in_debug module_names.size="${#module_names[*]}" module_names="${module_names[*]}"
 
-  if [[ -z "$prefix" ]]; then
-    _lobash_imports "${module_names[@]}"
-  else
-    _lobash_imports "${module_names[@]}" "$prefix"
-  fi
+  _lobash_imports "${module_names[@]}" "$prefix"
 }
 
 # For replace custom prefix of public method. Private method name never changed.

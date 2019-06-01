@@ -9,6 +9,12 @@ load_module count_lines
   assert_output 2
 }
 
+@test "l.count_lines '" {
+  run l.count_lines ''
+  assert_success
+  assert_output 1
+}
+
 @test "l.count_lines %s\n%s" {
   run l.count_lines "$(printf '%s\n%s' a b)"
   assert_success
@@ -37,4 +43,22 @@ load_module count_lines
   run l.count_lines "$(printf '%s\n\n\n\n%s' a b)"
   assert_success
   assert_output 5
+}
+
+@test "printf '%s\n%s\n' a b | l.count_lines" {
+  test() {
+    printf '%s\n%s\n' a b | l.count_lines
+  }
+  run test
+  assert_success
+  assert_output 2
+}
+
+@test "printf '%s\n%s' a b | l.count_lines" {
+  test() {
+    printf '%s\n%s' a b | l.count_lines
+  }
+  run test
+  assert_success
+  assert_output 2
 }

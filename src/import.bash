@@ -11,7 +11,6 @@ if [[ -z $__PREFIX ]]; then
     source "$__SRC_DIR"/modules/"$file".bash
   done
 else
-  echo "====${__PREFIX: -1:1}">>/tmp/ok
   if [[ ! ${__PREFIX: -1:1} =~ [a-zA-Z0-9] ]] && [[ ! ${__PREFIX: -1:1} =~ [._-] ]]; then
     echo 'The import prefix must end with letter which matches [._-a-zA-Z0-9]' >&2
     return 3
