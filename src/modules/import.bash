@@ -58,14 +58,6 @@ _l.get_module_meta_str() {
   head -n "$_LOBASH_METADATA_MAX_LINES" "$module_path" | sed -n '/^# ---$/,/^# ---$/p' | sed '1d;$d;s/^# //'
 }
 
-# @TODO cache each import by import_key
-# if [[ ! -v __lobash_imports ]]; then
-#   declare -A __lobash_imports
-#   _lobash_debug "new __lobash_imports=${!__lobash_imports[*]}"
-# else
-#   _lobash_ebug "use old __lobash_imports=${!__lobash_imports[*]}"
-# fi
-
 _l.load_module_file() {
   local module_path=$1
   local prefix=$2
@@ -79,6 +71,12 @@ _l.load_module_file() {
   fi
 }
 
+# @BUG The bug only appear in run_test.
+# The associative array seems not an associative array and cannot be modified by function scope.
+# _lobash_import_cache[any key] will be 'loaded' after _lobash_import_cache[import]=loaded
+# It makes the test cases failed.
+declare -A _lobash_import_cache
+
 _l.import() {
   local module_name=$1
   local prefix=$2
@@ -87,13 +85,14 @@ _l.import() {
 
   [[ -z $module_name ]] && _lobash_error "Module name cannot be empty string." && return 3
 
-  # # Associative array only allow [a-zA-Z0-9_] for key naming
-  # local import_key="${prefix//[^a-zA-Z0-9]/_}_${module_name}"
-  # _lobash_debug "To load import_key=${import_key}, __lobash_imports=${!__lobash_imports[*]}"
-  # if [[ "${__lobash_imports[$import_key]:-}" == loaded ]] ; then
-  #   _lobash_debug "import_key=${import_key} is loaded. skip load"
-  #   return;
-  # fi
+  # Associative array only allow [a-zA-Z0-9_] for key naming
+  local import_key="${prefix//[^a-zA-Z0-9]/_}_${module_name}"
+  # declare -A _lobash_import_cache
+  _lobash_debug "To load cache=${!_lobash_import_cache[*]} \${_lobash_import_cache[$import_key]}=${_lobash_import_cache[$import_key]}"
+  if [[ "${_lobash_import_cache[$import_key]:-}" == loaded ]]; then
+    _lobash_debug "import_key=${import_key} is loaded. skip load"
+    return;
+  fi
 
   local module_path
   module_path=$(_l.get_module_path "$module_name")
@@ -124,8 +123,11 @@ _l.import() {
 
   _l.load_module_file "$module_path" "$prefix" "$module_name"
 
-  # __lobash_imports[${import_key}]=loaded
-  # _lobash_debug "Loaded import_key=${import_key}"
+  _lobash_debug "import_key=$import_key"
+  _lobash_import_cache[${import_key}]=loaded
+  _lobash_debug "===-----${_lobash_import_cache[any]}"
+  _lobash_debug "===-----${_lobash_import_cache[l__ask]}"
+  _lobash_debug "Loaded import_key=${import_key}"
 }
 
 # _l.ends_with() {

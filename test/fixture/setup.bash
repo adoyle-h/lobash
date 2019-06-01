@@ -10,7 +10,7 @@ load_src() {
 load_module() {
   local module_name=$1;
   shift
-  _lobash_import "$module_name" "$@"
+  _l.import "$module_name" "$@"
 }
 
 # If import has bug, all test cases will failed
