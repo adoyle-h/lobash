@@ -5,19 +5,21 @@ setup_fixture
 @test "import without any modules" {
   load_module import
   run import
-  assert_failure 'Not found any parameters passed to import function.'
+  assert_failure
+  assert_output '[error:lobash] Not found any parameters passed to import function.'
 }
 
-@test "import ask module" {
+@test "import module without prefix" {
   load_module import
-  run import ask
-  assert_failure 'Missing prefix parameter.'
+  import ask
+  assert_equal "$(type -t l.ask)" "function"
 }
 
-@test "import multi modules" {
+@test "import multi modules without prefix" {
   load_module import
-  run import ask first
-  assert_failure 'Missing prefix parameter.'
+  import ask first
+  assert_equal "$(type -t l.ask)" "function"
+  assert_equal "$(type -t l.first)" "function"
 }
 
 @test "import multi modules with prefix 'l.'" {
@@ -30,7 +32,7 @@ setup_fixture
   assert_equal "$(type -t l.first)" "function"
 }
 
-@test "import ask module with prefix 'l.'" {
+@test "import module with prefix 'l.'" {
   load_module import
   import ask l.
 
@@ -38,7 +40,7 @@ setup_fixture
   assert_equal "$(type -t l.ask)" "function"
 }
 
-@test "import ask module with prefix 'l_'" {
+@test "import module with prefix 'l_'" {
   load_module import
   import ask l_
 
@@ -47,7 +49,7 @@ setup_fixture
   assert_equal "$(type -t l_ask)" "function"
 }
 
-@test "import ask module with prefix 'l-'" {
+@test "import module with prefix 'l-'" {
   load_module import
   import ask l-
 
@@ -56,14 +58,33 @@ setup_fixture
   assert_equal "$(type -t l-ask)" "function"
 }
 
-@test "import ask module twice" {
+@test "import module with prefix 'l#'" {
+  load_module import
+  run import ask l#
+  assert_failure
+  assert_output "[error:lobash] Not found module 'l#'."
+}
+
+@test "import ask l" {
+  load_module import
+  run import ask l
+  assert_failure
+  assert_output "[error:lobash] Not found module 'l'."
+}
+
+@test "import same module twice" {
   load_module import
   import ask l.
   import ask l.
+  assert_equal "$(type -t ask)" ""
+  assert_equal "$(type -t l.ask)" "function"
 }
 
-@test "import ask module twice with different prefix names" {
+@test "import same module twice with different prefix names" {
   load_module import
   import ask l.
   import ask k.
+  assert_equal "$(type -t ask)" ""
+  assert_equal "$(type -t l.ask)" "function"
+  assert_equal "$(type -t k.ask)" "function"
 }

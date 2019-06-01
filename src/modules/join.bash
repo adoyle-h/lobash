@@ -4,7 +4,7 @@
 # ---
 
 # Usage: join IFS arg1 arg2 [...argN]
-join() {
+l.join() {
   local _IFS=${IFS:- }
   IFS=${1}
   shift

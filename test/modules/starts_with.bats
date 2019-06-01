@@ -1,70 +1,70 @@
 #!/usr/bin/env bats
 
 setup_fixture
-load_module starts_with
+load_module l.starts_with
 
-@test "starts_with hello o" {
-  run starts_with "hello" "o"
+@test "l.starts_with hello o" {
+  run l.starts_with "hello" "o"
   assert_success
   assert_output false
 }
 
-@test "starts_with hello oo" {
-  run starts_with "hello" "oo"
+@test "l.starts_with hello oo" {
+  run l.starts_with "hello" "oo"
   assert_success
   assert_output false
 }
 
-@test "starts_with hello hello" {
-  run starts_with "hello" "hello"
+@test "l.starts_with hello hello" {
+  run l.starts_with "hello" "hello"
   assert_success
   assert_output true
 }
 
-@test "starts_with file.bash file" {
-  run starts_with "file.bash" "file"
+@test "l.starts_with file.bash file" {
+  run l.starts_with "file.bash" "file"
   assert_success
   assert_output true
 }
 
-@test "starts_with file.bash .file" {
-  run starts_with "file.bash" ".file"
+@test "l.starts_with file.bash .file" {
+  run l.starts_with "file.bash" ".file"
   assert_success
   assert_output false
 }
 
-@test "starts_with file.bash ''" {
-  run starts_with "file.bash" ""
+@test "l.starts_with file.bash ''" {
+  run l.starts_with "file.bash" ""
   assert_success
   assert_output true
 }
 
-@test "starts_with 'file bash' 'fi'" {
-  run starts_with "file bash" "fi"
+@test "l.starts_with 'file bash' 'fi'" {
+  run l.starts_with "file bash" "fi"
   assert_success
   assert_output true
 }
 
-@test "starts_with 'file bash' ' file '" {
-  run starts_with "file bash" " file "
+@test "l.starts_with 'file bash' ' file '" {
+  run l.starts_with "file bash" " file "
   assert_success
   assert_output false
 }
 
-@test "starts_with 'file bash' ' file'" {
-  run starts_with "file bash" " file"
+@test "l.starts_with 'file bash' ' file'" {
+  run l.starts_with "file bash" " file"
   assert_success
   assert_output false
 }
 
-@test "starts_with 'file bash' 'file '" {
-  run starts_with "file bash" "file "
+@test "l.starts_with 'file bash' 'file '" {
+  run l.starts_with "file bash" "file "
   assert_success
   assert_output true
 }
 
-@test "starts_with 'file bash' 'file'" {
-  run starts_with "file bash" "file"
+@test "l.starts_with 'file bash' 'file'" {
+  run l.starts_with "file bash" "file"
   assert_success
   assert_output true
 }

@@ -5,12 +5,7 @@
 # ---
 
 _lobash_import_all() {
-  local prefix=${1:-}
-
-  if [[ -n $prefix ]] && ! (_lobash_is_valid_lobash_prefix "$prefix"); then
-    _lobash_in_warn "Module name prefix must ends with '.' or '-' or '_'. Current value: $prefix"
-    return 3
-  fi
+  local prefix=${1:-$_LOBASH_DEFAULT_PREFIX}
 
   local src_dir
   src_dir="$(dirname "${BASH_SOURCE[0]}")"

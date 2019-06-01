@@ -155,16 +155,16 @@ _lobash_imports() {
     _lobash_in_error "Not found any parameters passed to import function."
     return 2
   elif [[ $args_len -eq 1 ]]; then
-    _lobash_in_error "Missing prefix parameter."
-    return 3
+    names=( "${args[@]}" )
+    prefix=$_LOBASH_DEFAULT_PREFIX
   else
     prefix="${args[*]: -1:1}"
 
     if _lobash_is_valid_lobash_prefix "$prefix"; then
       names=( "${args[@]:0:$args_len-1}" )
     else
-      _lobash_in_error "Invalid prefix parameter. It must ends with '.' or '-' or '_'. Current value: $prefix"
-      return 4
+      names=( "${args[@]}" )
+      prefix=$_LOBASH_DEFAULT_PREFIX
     fi
   fi
 

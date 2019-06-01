@@ -3,163 +3,163 @@
 setup_fixture
 load_module has
 
-@test "has (not) command cat, while cat is existed" {
-  run has command cat
+@test "l.has (not) command cat, while cat is existed" {
+  run l.has command cat
   assert_success
   assert_output ''
 
-  run has not command cat
+  run l.has not command cat
   assert_failure
   assert_output ''
 }
 
-@test "has (not) command xxx, which not defined" {
-  run has command xxx
+@test "l.has (not) command xxx, which not defined" {
+  run l.has command xxx
   assert_failure
   assert_output ''
 
-  run has not command xxx
+  run l.has not command xxx
   assert_success
   assert_output ''
 }
 
-@test "has (not) function bbb, which not defined" {
-  run has not function bbb
+@test "l.has (not) function bbb, which not defined" {
+  run l.has not function bbb
   assert_success
   assert_output ''
 
-  run has function bbb
+  run l.has function bbb
   assert_failure
   assert_output ''
 }
 
-@test "has (not) function bbb, which has been defined" {
+@test "l.has (not) function bbb, which has been defined" {
   bbb() { echo 1; }
-  run has not function bbb
+  run l.has not function bbb
   assert_failure
   assert_output ''
 
-  run has function bbb
+  run l.has function bbb
   assert_success
   assert_output ''
 }
 
-@test "has (not) builtin true" {
-  run has builtin true
+@test "l.has (not) builtin true" {
+  run l.has builtin true
   assert_success
   assert_output ''
 
-  run has not builtin true
+  run l.has not builtin true
   assert_failure
   assert_output ''
 }
 
-@test "has (not) builtin xxx, which not defined" {
-  run has builtin xxx
+@test "l.has (not) builtin xxx, which not defined" {
+  run l.has builtin xxx
   assert_failure
   assert_output ''
 
-  run has not builtin xxx
+  run l.has not builtin xxx
   assert_success
   assert_output ''
 }
 
-@test "has (not) keyword function" {
-  run has keyword function
+@test "l.has (not) keyword function" {
+  run l.has keyword function
   assert_success
   assert_output ''
 
-  run has not keyword function
+  run l.has not keyword function
   assert_failure
   assert_output ''
 }
 
-@test "has (not) keyword xxx, which not defined" {
-  run has keyword xxx
+@test "l.has (not) keyword xxx, which not defined" {
+  run l.has keyword xxx
   assert_failure
   assert_output ''
 
-  run has not keyword xxx
+  run l.has not keyword xxx
   assert_success
   assert_output ''
 }
 
-@test "has (not) alias xxx, which not defined" {
-  run has alias xxx
+@test "l.has (not) alias xxx, which not defined" {
+  run l.has alias xxx
   assert_failure
   assert_output ''
 
-  run has not alias xxx
+  run l.has not alias xxx
   assert_success
   assert_output ''
 }
 
-@test "has (not) alias gti, which has been defined" {
+@test "l.has (not) alias gti, which has been defined" {
   skip 'why the test is failed?'
   alias gti='git'
-  result=$(has alias gti && echo true || echo false)
+  result=$(l.has alias gti && echo true || echo false)
   assert_equal "$result" true
 
-  result=$(has not alias gti && echo true || echo false)
+  result=$(l.has not alias gti && echo true || echo false)
   assert_equal "$result" false
 }
 
-@test "has (not) the xxx, which not defined" {
-  run has the xxx
+@test "l.has (not) the xxx, which not defined" {
+  run l.has the xxx
   assert_failure
   assert_output ''
 
-  run has not the xxx
+  run l.has not the xxx
   assert_success
   assert_output ''
 }
 
-@test "has (not) the ls, which is command" {
-  run has the ls
+@test "l.has (not) the ls, which is command" {
+  run l.has the ls
   assert_success
   assert_output ''
 
-  run has not the ls
+  run l.has not the ls
   assert_failure
   assert_output ''
 }
 
-@test "has (not) the agti, which is alias" {
+@test "l.has (not) the agti, which is alias" {
   skip 'why the test is failed?'
   alias agti='git'
-  result=$(has the agti && echo true || echo false)
+  result=$(l.has the agti && echo true || echo false)
   assert_equal "$result" true
 
-  result=$(has not the agti && echo true || echo false)
+  result=$(l.has not the agti && echo true || echo false)
   assert_equal "$result" false
 }
 
-@test "has (not) the function, which is keyword" {
-  run has the function
+@test "l.has (not) the function, which is keyword" {
+  run l.has the function
   assert_success
   assert_output ''
 
-  run has not the function
+  run l.has not the function
   assert_failure
   assert_output ''
 }
 
-@test "has (not) the type, which is builtin" {
-  run has the type
+@test "l.has (not) the type, which is builtin" {
+  run l.has the type
   assert_success
   assert_output ''
 
-  run has not the type
+  run l.has not the type
   assert_failure
   assert_output ''
 }
 
-@test "has (not) what type" {
-  run has what type
+@test "l.has (not) what type" {
+  run l.has what type
   assert_failure 2
   assert_output ''
 
-  run has not what type
+  run l.has not what type
   assert_failure 2
   assert_output ''
 }

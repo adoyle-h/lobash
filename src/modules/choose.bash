@@ -3,7 +3,7 @@
 # Since: 0.1.0
 # ---
 
-choose() {
+l.choose() {
   local items=("$@")
 
   local i

@@ -3,13 +3,13 @@
 # Since: 0.1.0
 # ---
 
-has() {
+l.has() {
   local condition="$1"
   local value="$2"
 
   if [[ "$condition" == "not" ]]; then
     shift 1
-    has "${@}"
+    l.has "${@}"
     local result=$?
     if [[ $result == 0 ]]; then
       return 1
