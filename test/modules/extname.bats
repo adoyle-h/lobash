@@ -3,44 +3,44 @@
 setup_fixture
 load_module extname
 
-@test "extname file.name" {
-  run extname file.name
+@test "l.extname file.name" {
+  run l.extname file.name
   assert_success
   assert_output .name
 }
 
-@test "extname file.jpg" {
-  run extname file.jpg
+@test "l.extname file.jpg" {
+  run l.extname file.jpg
   assert_success
   assert_output .jpg
 }
 
-@test "extname .git" {
-  run extname .git
+@test "l.extname .git" {
+  run l.extname .git
   assert_success
   assert_output ''
 }
 
-@test "extname ''" {
-  run extname ''
+@test "l.extname ''" {
+  run l.extname ''
   assert_success
   assert_output ''
 }
 
-@test "extname 'haha.'" {
-  run extname 'haha.'
+@test "l.extname 'haha.'" {
+  run l.extname 'haha.'
   assert_success
   assert_output '.'
 }
 
-@test "extname '.'" {
-  run extname '.'
+@test "l.extname '.'" {
+  run l.extname '.'
   assert_success
   assert_output ''
 }
 
-@test "extname file" {
-  run extname file
+@test "l.extname file" {
+  run l.extname file
   assert_success
   assert_output ''
 }

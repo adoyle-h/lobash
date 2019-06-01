@@ -1,4 +1,4 @@
 # Usage: is_matched regex string
-is_matched() {
+l.is_matched() {
   echo @TODO
 }

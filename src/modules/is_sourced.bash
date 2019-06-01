@@ -4,7 +4,7 @@
 # ---
 
 # USAGE: is_sourced
-is_sourced() {
+l.is_sourced() {
   if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then
     echo false
   else

@@ -4,12 +4,11 @@
 # ---
 
 # Usage: array_include match "${array[@]}"
-array_include() {
+l.array_include() {
   local match="$1"
   local e
   shift
   for e; do [[ "$e" == "$match" ]] && echo true && return 0; done
 
   echo false
-  return 0
 }

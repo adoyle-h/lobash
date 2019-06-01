@@ -4,6 +4,6 @@
 # ---
 
 # Usage: str_include match string
-str_include() {
+l.str_include() {
   echo @TODO
 }

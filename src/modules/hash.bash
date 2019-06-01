@@ -3,6 +3,6 @@
 # Since: 0.1.0
 # ---
 
-hash() {
+l.hash() {
   echo 1
 }

@@ -4,14 +4,14 @@
 # Dependent: import
 # ---
 
-_lobash_import_categories() {
+_l.import_categories() {
   local args=( "$@" )
   local args_len=${#args[@]}
   declare -a names
   local prefix
 
   if [[ $args_len -eq 0 ]]; then
-    _lobash_in_error "Not found any parameters passed to import_category function."
+    _lobash_error "Not found any parameters passed to import_category function."
     return 2
   elif [[ $args_len -eq 1 ]]; then
     names=( "${args[@]}" )
@@ -27,13 +27,13 @@ _lobash_import_categories() {
     fi
   fi
 
-  _lobash_in_debug category_names="${names[*]}" prefix="${prefix}"
+  _lobash_debug category_names="${names[*]}" prefix="${prefix}"
 
   # @TODO get module_names by category_names
 
-  _lobash_imports "${module_names[@]}" "$prefix"
+  _l.imports "${module_names[@]}" "$prefix"
 }
 
 import_category() {
-  _lobash_import_categories "$@"
+  _l.import_categories "$@"
 }

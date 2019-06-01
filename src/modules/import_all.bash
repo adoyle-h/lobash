@@ -4,7 +4,7 @@
 # Dependent: import
 # ---
 
-_lobash_import_all() {
+_l.import_all() {
   local prefix=${1:-$_LOBASH_DEFAULT_PREFIX}
 
   local src_dir
@@ -13,7 +13,7 @@ _lobash_import_all() {
   declare -a modules
   modules=( $(ls "$src_dir") )
 
-  _lobash_in_debug modules.size="${#modules[*]}" modules="${modules[*]}"
+  _lobash_debug modules.size="${#modules[*]}" modules="${modules[*]}"
 
   declare -a module_names
 
@@ -24,12 +24,12 @@ _lobash_import_all() {
     module_names+=("$name")
   done
 
-  _lobash_in_debug module_names.size="${#module_names[*]}" module_names="${module_names[*]}"
+  _lobash_debug module_names.size="${#module_names[*]}" module_names="${module_names[*]}"
 
-  _lobash_imports "${module_names[@]}" "$prefix"
+  _l.imports "${module_names[@]}" "$prefix"
 }
 
 # For replace custom prefix of public method. Private method name never changed.
 import_all() {
-  _lobash_import_all "$@"
+  _l.import_all "$@"
 }
