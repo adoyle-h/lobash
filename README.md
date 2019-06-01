@@ -14,6 +14,7 @@
 <!-- MarkdownTOC GFM -->
 
 - [Supported Shells](#supported-shells)
+- [Dependencies](#dependencies)
 - [Installation](#installation)
 - [Prerequisites](#prerequisites)
 - [Usage](#usage)
@@ -41,6 +42,13 @@
 |     ❔    | Ksh      |         | `read -A` is different from bash `read -a`        |
 |     ❔    | Xiki     |         | No tested                                         |
 |     🚫    | POSIX sh |         | not supported `local` keyword                     |
+
+## Dependencies
+
+- Perl 5.8.8 and higher.
+  - No need install it by yourself. Almost Unix/Linux operating systems have included Perl 5. See the [Perl Binaries](https://www.cpan.org/ports/binaries.html)
+  - Alpine not include Perl. Install it by `apk add perl`.
+  - Busybox not include Perl. Install it by .
 
 ## Installation
 

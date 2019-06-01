@@ -8,8 +8,8 @@ _lobash_import_all() {
   local prefix=${1:-}
 
   if [[ -n $prefix ]] && ! (_lobash_is_valid_lobash_prefix "$prefix"); then
-    _lobash_in_warn "Module name prefix must ends with '.' or '-' or '_'."
-    return 2
+    _lobash_in_warn "Module name prefix must ends with '.' or '-' or '_'. Current value: $prefix"
+    return 3
   fi
 
   local src_dir

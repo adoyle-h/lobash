@@ -5,6 +5,6 @@
 
 # Usage: last arg1 arg2 ... argN
 # It will return the value of argN.
-last() {
+l.last() {
   echo "${*: -1:1}"
 }

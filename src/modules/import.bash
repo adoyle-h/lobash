@@ -5,14 +5,10 @@
 
 _lobash_load_consts_in_dynamic_source() {
   local src_dir
-  if [[ ${BASH_SOURCE[0]} =~ /dev/ ]]; then
-    # Get here when src/import.bash execute source <( sed -E "" < "$__SRC_DIR"/modules/"$file".bash )
-    # BASH_SOURCE[0]: /dev/fd/63
-    # BASH_SOURCE[1]: /dev/fd/63
-    # BASH_SOURCE[2]: .../lobash/src/import.bash
-    src_dir=$(dirname "${BASH_SOURCE[2]}")
+  if [[ -n $IS_LOBASH_TEST ]]; then
+    src_dir="$LOBASH_ROOT_DIR/src"
   else
-    src_dir="$(dirname "${BASH_SOURCE[0]}")"/..
+    src_dir="$(dirname "${BASH_SOURCE[0]}")/.."
   fi
 
   source "$src_dir"/internals/consts.bash
@@ -20,20 +16,17 @@ _lobash_load_consts_in_dynamic_source() {
 
 _lobash_import_internal() {
   local src_dir
-  local module_path
-  if [[ ${BASH_SOURCE[0]} =~ /dev/ ]]; then
-    # Get here when src/import.bash execute source <( sed -E "" < "$__SRC_DIR"/modules/"$file".bash )
-    # BASH_SOURCE[0]: /dev/fd/63
-    # BASH_SOURCE[1]: /dev/fd/63
-    # BASH_SOURCE[2]: /dev/fd/63
-    # BASH_SOURCE[3]: .../lobash/src/import.bash
-    src_dir="$(dirname "${BASH_SOURCE[3]}")"
+  if [[ -n $IS_LOBASH_TEST ]]; then
+    src_dir="$LOBASH_ROOT_DIR/src"
   else
     src_dir="$(dirname "${BASH_SOURCE[0]}")/.."
   fi
+
+  local module_path
   module_path="$src_dir/internals/$1.bash"
 
-  source <( sed -E "s/^([A-Za-z0-9]\\w*)\\(\\) ?\\{$/${_LOBASH_INTERNAL_FUNC_PREFIX}\\1\\(\\) \\{/g" < "$module_path" )
+  # source <( sed -E "s/^([A-Za-z0-9]\\w*)\\(\\) ?\\{$/${_LOBASH_INTERNAL_FUNC_PREFIX}\\1\\(\\) \\{/g" < "$module_path" )
+  eval "$(sed -E "s/^([A-Za-z0-9]\\w*)\\(\\) ?\\{$/${_LOBASH_INTERNAL_FUNC_PREFIX}\\1\\(\\) \\{/g" < "$module_path")"
 }
 
 _lobash_import_internals() {
@@ -51,7 +44,12 @@ _lobash_import_internals debug warn error
 # Usage: _lobash_get_module_path module_name
 # function depth: 2
 _lobash_get_module_path() {
-  echo "$(dirname "${BASH_SOURCE[0]}")/$1.bash"
+# echo "${BASH_SOURCE[@]}" >>/tmp/1
+  if [[ -n $IS_LOBASH_TEST ]]; then
+    echo "$LOBASH_ROOT_DIR/src/modules/$1.bash"
+  else
+    echo "$(dirname "${BASH_SOURCE[0]}")/$1.bash"
+  fi
 }
 
 _lobash_get_module_meta_str() {
@@ -69,6 +67,20 @@ _lobash_get_module_meta_str() {
 # else
 #   _lobash_ebug "use old __lobash_imports=${!__lobash_imports[*]}"
 # fi
+
+_lobash_load_module_file() {
+  local module_path=$1
+  local prefix=$2
+  local module_name=$3
+
+  # source <( sed -E "s/^$_LOBASH_PUBLIC_FUNC_PREFIX([A-Za-z0-9]\\w*)\\(\\) ?\\{$/${prefix}\\1\\(\\) \\{/g" < "$module_path" )
+  source "$module_path"
+
+  if [[ -n $prefix ]]; then
+    # source <(echo "$prefix() { l.$module_name \"\$@\"; }")
+    eval "$prefix$module_name() { l.$module_name \"\$@\"; }"
+  fi
+}
 
 _lobash_import() {
   local module_name=$1
@@ -88,7 +100,7 @@ _lobash_import() {
 
   local module_path
   module_path=$(_lobash_get_module_path "$module_name")
-  _lobash_in_debug "S2. To load module_path=${module_path}"
+  _lobash_in_debug "S2. To load module. name=${module_name} module_path=${module_path}"
 
   [[ ! -f $module_path ]] && _lobash_in_error "Not found module '${module_name}'." && return 4
 
@@ -113,11 +125,7 @@ _lobash_import() {
 
   _lobash_in_debug "S5. To load main module. module_path=$module_path"
 
-  if [[ -z $prefix ]]; then
-    source "$module_path"
-  else
-    source <( sed -E "s/^([A-Za-z0-9]\\w*)\\(\\) ?\\{$/${prefix}\\1\\(\\) \\{/g" < "$module_path" )
-  fi
+  _lobash_load_module_file "$module_path" "$prefix" "$module_name"
 
   # __lobash_imports[${import_key}]=loaded
   # _lobash_in_debug "Loaded import_key=${import_key}"
@@ -141,30 +149,28 @@ _lobash_is_valid_lobash_prefix() {
 
 _lobash_imports() {
   local args=( "$@" )
-  local args_len=${#args[*]}
+  local args_len=${#args[@]}
   declare -a names
   local prefix
 
   if [[ $args_len -eq 0 ]]; then
-    _lobash_in_warn "Not found any parameters passed to import function."
+    _lobash_in_error "Not found any parameters passed to import function."
     return 2
-  fi
-
-  if [[ $args_len -eq 1 ]]; then
-    names=( "$1" )
-    prefix=''
+  elif [[ $args_len -eq 1 ]]; then
+    _lobash_in_error "Missing prefix parameter."
+    return 3
   else
     prefix="${args[*]: -1:1}"
 
     if _lobash_is_valid_lobash_prefix "$prefix"; then
       names=( "${args[@]:0:$args_len-1}" )
     else
-      names=( "${args[@]}" )
-      prefix=''
+      _lobash_in_error "Invalid prefix parameter. It must ends with '.' or '-' or '_'. Current value: $prefix"
+      return 4
     fi
   fi
 
-  _lobash_in_debug names="${names[*]}" prefix=${prefix}
+  _lobash_in_debug names="${names[*]}" prefix="${prefix}"
 
   local name
   for name in "${names[@]}"; do

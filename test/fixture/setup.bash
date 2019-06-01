@@ -1,10 +1,10 @@
-load "$TEST_DIR"/fixture/support/load.bash
-load "$TEST_DIR"/fixture/assert/load.bash
+load "$LOBASH_TEST_DIR"/fixture/support/load.bash
+load "$LOBASH_TEST_DIR"/fixture/assert/load.bash
 
 load_src() {
   local path=$1;
   shift
-  load "$ROOT_DIR"/src/"$path".bash "$@"
+  load "$LOBASH_ROOT_DIR"/src/"$path".bash "$@"
 }
 
 load_module() {

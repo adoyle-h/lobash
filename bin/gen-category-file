@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1090
+
+set -o errexit
+set -o nounset
+set -o pipefail
+[[ -n "${XTRACE:+x}" ]] && set -o xtrace
+[[ -n "${VERBOSE:+x}" ]] && set -o verbose
+[[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
+[[ $- =~ [x] ]] && PS4='+[${BASH_SOURCE}:${LINENO}:${FUNCNAME[0]:+${FUNCNAME[0]}}()]: '
+
+readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+
+source "$SCRIPT_DIR"/../src/module_meta.bash
+
+find_cates() {
+  for filepath in $SCRIPT_DIR/../src/modules/*.bash; do
+    # printf '\n[%s]\n' "$(basename "$filepath" .bash)"
+    metadata=$(_get_module_metadata_str "$filepath")
+    grep -E '^Category: \w+$' <<< "$metadata" | sed 's/Category: //' || echo ''
+  done
+}
+
+cates=( $(find_cates) )
+echo "${cates[*]}"

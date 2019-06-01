@@ -3,12 +3,12 @@
 setup_fixture
 load_module ask
 
-@test "ask hello" {
+@test "l.ask hello" {
   skip 'how to test it?'
-  result=$(ask hello)
+  result=$(l.ask hello)
 }
 
-@test "ask hello world" {
+@test "l.ask hello world" {
   skip 'how to test it?'
-  result=$(ask hello world)
+  result=$(l.ask hello world)
 }

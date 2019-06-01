@@ -3,13 +3,13 @@
 # Since: 0.1.0
 # ---
 
-strict_has() {
+l.strict_has() {
   local condition="$1"
   local value="$2"
 
   if [[ "$condition" == "not" ]]; then
     shift 1
-    result=$(strict_has "$@" || echo $?)
+    result=$(l.strict_has "$@" || echo $?)
 
     if [[ $result == true ]]; then
       echo false

@@ -2,30 +2,32 @@
 
 setup_fixture
 
+@test "import without any modules" {
+  load_module import
+  run import
+  assert_failure 'Not found any parameters passed to import function.'
+}
+
 @test "import ask module" {
   load_module import
-  import ask
-
-  assert_equal "$(type -t ask)" "function"
-  assert_equal "$(type -t l.ask)" ""
+  run import ask
+  assert_failure 'Missing prefix parameter.'
 }
 
-@test "import ask module twice" {
+@test "import multi modules" {
   load_module import
-  import ask
-  import ask
+  run import ask first
+  assert_failure 'Missing prefix parameter.'
 }
 
-@test "import trim_start module twice" {
+@test "import multi modules with prefix 'l.'" {
   load_module import
-  import trim_start
-  import trim_start
-}
+  import ask first l.
 
-@test "import trim module twice" {
-  load_module import
-  import trim
-  import trim
+  assert_equal "$(type -t ask)" ""
+  assert_equal "$(type -t first)" ""
+  assert_equal "$(type -t l.ask)" "function"
+  assert_equal "$(type -t l.first)" "function"
 }
 
 @test "import ask module with prefix 'l.'" {
@@ -36,10 +38,32 @@ setup_fixture
   assert_equal "$(type -t l.ask)" "function"
 }
 
-@test "import multi modules" {
+@test "import ask module with prefix 'l_'" {
   load_module import
-  import last first
+  import ask l_
 
-  assert_equal "$(type -t last)" "function"
-  assert_equal "$(type -t first)" "function"
+  assert_equal "$(type -t ask)" ""
+  assert_equal "$(type -t l.ask)" "function"
+  assert_equal "$(type -t l_ask)" "function"
+}
+
+@test "import ask module with prefix 'l-'" {
+  load_module import
+  import ask l-
+
+  assert_equal "$(type -t ask)" ""
+  assert_equal "$(type -t l.ask)" "function"
+  assert_equal "$(type -t l-ask)" "function"
+}
+
+@test "import ask module twice" {
+  load_module import
+  import ask l.
+  import ask l.
+}
+
+@test "import ask module twice with different prefix names" {
+  load_module import
+  import ask l.
+  import ask k.
 }

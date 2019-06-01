@@ -11,19 +11,21 @@ set -o pipefail
 
 readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 
-source "$SCRIPT_DIR"/../src/internals/consts.bash
+source "$SCRIPT_DIR"/../src/import.bash
+# source "$SCRIPT_DIR"/../src/internals/consts.bash
+
+import upper_case path_normalize l.
 
 warn() {
-  printf '[%s] %s\n' "${FUNCNAME[1]}" "$*" >&2
+  printf '[%s] %s\n' "$(upper_case "${FUNCNAME[1]}")" "$*" >&2
 }
 
 error() { warn "$@"; }
 
 check_file() {
-  local err_code=${2}
   if [[ ! -f $1 ]]; then
     error not found module file: "$1"
-    return 101
+    return 3
   fi
 
   local filename extension
@@ -31,58 +33,54 @@ check_file() {
   extension="${filename##*.}"
 
   if [[ $filename == bash ]] || [[ $extension != bash ]]; then
-      error Module file extension must be .bash
-      return "$err_code"
+    error Module file extension must be .bash
+    return 3
   fi
 
   if [[ $filename =~ - ]]; then
-      error Module file name cannot contain \"-\"
-      return "$err_code"
+    error Module file name cannot contain \"-\"
+    return 3
   fi
 
   if [[ $filename =~ [-_.]$ ]]; then
-      error Module file name cannot ends with \"-\" or \"_\" or \".\"
-      return "$err_code"
+    error Module file name cannot ends with \"-\" or \"_\" or \".\"
+    return 3
   fi
 }
 
 check_no_export() {
   local filepath=$1
-  local err_code=$2
   local found
   found=$(grep 'export ' "$filepath" || true)
   if [[ -n $found ]]; then
-      error "'export' variable and function is forbidden."
-      error "Matched text: $found"
-      return "$err_code"
+    error "'export' variable and function is forbidden."
+    error "Matched text: $found"
+    return 3
   fi
 }
 
 check_lodash_typos() {
   local filepath=$1
-  local err_code=$2
   local found
   found=$(grep '[lL][oO][dD][aA][sS][hH]' "$filepath" || true)
   if [[ -n $found ]]; then
-      warn Found word \"lodash\". Is it a typo? Please check your code.
-      warn Matched text: "$found"
-      return "$err_code"
+    warn Found word \"lodash\". Is it a typo? Please check your code.
+    warn Matched text: "$found"
+    return 3
   fi
 }
 
 check_alias() {
-  local err_code=${2}
   local found
   found="$(grep '^alias ' "$1" || true)"
 
   if [[ -n "$found" ]]; then
     error alias is forbidden
-    return "$err_code"
+    return 3
   fi
 }
 
 check_pubilc_function() {
-  local err_code=${2}
   local count found
   found="$(grep -E '^([A-Za-z0-9]\w*)\(\) ?\{$' "$1")"
   count=$(wc -l <<< "$found")
@@ -92,12 +90,11 @@ check_pubilc_function() {
     error Each module must define one public function.
     error Found "'${count}'" public functions:
     error "${found// \{/}"
-    return "$err_code"
+    return 3
   fi
 }
 
 check_metadata() {
-  local err_code=${2}
   local lines found
   found=$(sed -n '/^# ---$/,/^# ---$/p' "$1")
   lines=$( wc -l <<< "$found" )
@@ -105,49 +102,48 @@ check_metadata() {
 
   if [[ $lines -lt 3 ]]; then
     error Module metadata is empty.
-    return "$err_code"
+    return 3
   fi
 
   if [[ $lines -gt $_LOBASH_METADATA_MAX_LINES ]]; then
     error Found \""${lines}"\" lines of metadata code.
-    error Current maximal value of lines is ${_LOBASH_METADATA_MAX_LINES}.
+    error Current maximal value of lines is "${_LOBASH_METADATA_MAX_LINES}".
     error Please contact the repo maintainer to adjust the maximum.
-    return "$err_code"
+    return 3
   fi
 }
 
 check_no_echo() {
   local filepath=$1
-  local err_code=$2
 
   if grep -o ' echo ' "$filepath" >/dev/null; then
     echo 'Use printf instead of echo.'
-    return "$err_code"
+    return 3
   fi
 }
 
 check_duplicated_function() {
   local filepath=$1
-  local err_code=$2
 }
 
 check_module() {
   local filepath=$1
+  filepath=$(path_normalize "$filepath")
 
   rules=(
-    check_file
-    check_alias
-    check_pubilc_function
-    check_metadata
-    check_lodash_typos
-    check_no_export
-    check_no_echo
-    check_duplicated_function
+  check_file
+  check_alias
+  check_pubilc_function
+  check_metadata
+  check_lodash_typos
+  check_no_export
+  # check_no_echo
+  check_duplicated_function
   )
 
   for i in "${!rules[@]}"; do
     local rule_name=${rules[$i]}
-    $rule_name "$filepath" "10$i" || error "[$filepath][$i][$rule_name]"
+    $rule_name "$filepath" || error "[$filepath][Rule: $rule_name]"
   done
 }
 

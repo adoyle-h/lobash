@@ -4,10 +4,8 @@ setup_fixture
 
 @test "import_all" {
   load_module import_all
-  import_all
-
-  assert_equal "$(type -t ask)" "function"
-  assert_equal "$(type -t l.ask)" ""
+  run import_all
+  assert_failure "Module name prefix must ends with '.' or '-' or '_'. Current value: "
 }
 
 @test "import_all with prefix 'l.'" {
@@ -37,11 +35,11 @@ setup_fixture
 @test "import_all with prefix 'l#'" {
   load_module import_all
   run import_all l#
-  assert_failure
+  assert_failure "Module name prefix must ends with '.' or '-' or '_'. Current value: l#"
 }
 
 @test "import_all with prefix 'l'" {
   load_module import_all
   run import_all l
-  assert_failure
+  assert_failure "Module name prefix must ends with '.' or '-' or '_'. Current value: l"
 }

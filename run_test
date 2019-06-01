@@ -9,18 +9,20 @@ set -o pipefail
 [[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
 [[ $- =~ [x] ]] && PS4='+[${BASH_SOURCE}:${LINENO}:${FUNCNAME[0]:+${FUNCNAME[0]}}()]: '
 
-export ROOT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
-export TEST_DIR=$ROOT_DIR/test
+export IS_LOBASH_TEST=1
+LOBASH_ROOT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+export LOBASH_ROOT_DIR
+export LOBASH_TEST_DIR=$LOBASH_ROOT_DIR/test
 
 setup_fixture() {
-  source "$TEST_DIR"/fixture/setup.bash
+  source "$LOBASH_TEST_DIR"/fixture/setup.bash
 }
 export -f setup_fixture
 
 test_dirs=${1:-}
 
 if [ -z "$test_dirs" ]; then
-  test_dirs=( "$TEST_DIR"/{,modules} )
+  test_dirs=( "$LOBASH_TEST_DIR"/{,modules} )
 else
   test_dirs=( "$1" )
 fi

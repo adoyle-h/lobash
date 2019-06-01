@@ -3,9 +3,9 @@
 setup_fixture
 load_module detect_os
 
-@test "detect_os" {
+@test "l.detect_os" {
   skip "how to test it?"
-  run detect_os
+  run l.detect_os
 	assert_success
 	assert_output MacOS
 }
