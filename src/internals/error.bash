@@ -14,8 +14,8 @@
 #   bar=$(foo) # => Still not see any log in shell, but logs records in file /tmp/log
 error() {
   if [[ -z $LOBASH_WARN_OUTPUT ]]; then
-    echo "[error:lobash] $*" >&2
+    echo "[ERROR:LOBASH] $*" >&2
   else
-    echo "[error:lobash] $*" >> "$LOBASH_WARN_OUTPUT"
+    echo "[ERROR:LOBASH] $*" >> "$LOBASH_WARN_OUTPUT"
   fi
 }

@@ -13,9 +13,11 @@
 #   foo() { warn2 hello; }
 #   bar=$(foo) # => Still not see any log in shell, but logs records in file /tmp/log
 warn() {
+  local func=${FUNCNAME[1]}
+
   if [[ -z $LOBASH_WARN_OUTPUT ]]; then
-    echo "[warn:lobash] $*" >&2
+    echo "[WARN:LOBASH:$func] $*" >&2
   else
-    echo "[warn:lobash] $*" >> "$LOBASH_WARN_OUTPUT"
+    echo "[WARN:LOBASH:$func] $*" >> "$LOBASH_WARN_OUTPUT"
   fi
 }

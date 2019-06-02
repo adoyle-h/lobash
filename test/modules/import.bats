@@ -6,7 +6,7 @@ setup_fixture
   load_module import
   run import
   assert_failure
-  assert_output '[error:lobash] Not found any parameters passed to import function.'
+  assert_output '[ERROR:LOBASH] Not found any parameters passed to import function.'
 }
 
 @test "import module without prefix" {
@@ -62,14 +62,14 @@ setup_fixture
   load_module import
   run import ask l#
   assert_failure
-  assert_output "[error:lobash] Not found module 'l#'."
+  assert_output "[ERROR:LOBASH] Not found module 'l#'."
 }
 
 @test "import ask l" {
   load_module import
   run import ask l
   assert_failure
-  assert_output "[error:lobash] Not found module 'l'."
+  assert_output "[ERROR:LOBASH] Not found module 'l'."
 }
 
 @test "import same module twice" {

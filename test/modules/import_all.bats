@@ -39,12 +39,12 @@ setup_fixture
   load_module import_all
   run import_all l#
   assert_failure
-  assert_output "[error:lobash] Not found module 'l#'."
+  assert_output "[ERROR:LOBASH] Not found module 'l#'."
 }
 
 @test "import_all l" {
   load_module import_all
   run import_all l
   assert_failure
-  assert_output "[error:lobash] Not found module 'l'."
+  assert_output "[ERROR:LOBASH] Not found module 'l'."
 }

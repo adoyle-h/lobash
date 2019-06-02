@@ -68,6 +68,11 @@ _import_all() {
 }
 
 _exectue_command() {
+  source "$SCRIPT_DIR"/../src/import.bash
+  local module
+  module="${dispatch_cmd_args[0]}"
+  import "$module"
+  "l.$module" "${dispatch_cmd_args[@]: 1}"
 }
 
 #######################################################################

@@ -21,8 +21,8 @@ debug() {
   local func=${FUNCNAME[1]}
 
   if [[ -z $LOBASH_DEBUG_OUTPUT ]]; then
-    echo "[debug:lobash:$func] $*"
+    echo "[DEBUG:LOBASH:$func] $*"
   else
-    echo "[debug:lobash:$func] $*" >> "$LOBASH_DEBUG_OUTPUT"
+    echo "[DEBUG:LOBASH:$func] $*" >> "$LOBASH_DEBUG_OUTPUT"
   fi
 }

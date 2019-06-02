@@ -5,7 +5,7 @@
 
 _l.load_consts_in_dynamic_source() {
   local src_dir
-  if [[ -n $IS_LOBASH_TEST ]]; then
+  if [[ -n ${IS_LOBASH_TEST:-} ]]; then
     src_dir="$LOBASH_ROOT_DIR/src"
   else
     src_dir="$(dirname "${BASH_SOURCE[0]}")/.."
@@ -16,7 +16,7 @@ _l.load_consts_in_dynamic_source() {
 
 _l.import_internal() {
   local src_dir
-  if [[ -n $IS_LOBASH_TEST ]]; then
+  if [[ -n ${IS_LOBASH_TEST:-} ]]; then
     src_dir="$LOBASH_ROOT_DIR/src"
   else
     src_dir="$(dirname "${BASH_SOURCE[0]}")/.."
@@ -43,7 +43,7 @@ _l.import_internals debug warn error
 
 # Usage: _l.get_module_path module_name
 _l.get_module_path() {
-  if [[ -n $IS_LOBASH_TEST ]]; then
+  if [[ -n ${IS_LOBASH_TEST:-} ]]; then
     echo "$LOBASH_ROOT_DIR/src/modules/$1.bash"
   else
     echo "$(dirname "${BASH_SOURCE[0]}")/$1.bash"
@@ -71,15 +71,10 @@ _l.load_module_file() {
   fi
 }
 
-# @BUG The bug only appear in run_test.
-# The associative array seems not an associative array and cannot be modified by function scope.
-# _lobash_import_cache[any key] will be 'loaded' after _lobash_import_cache[import]=loaded
-# It makes the test cases failed.
-# declare -A _lobash_import_cache
-
 _l.import() {
   local module_name=$1
   local prefix=$2
+  local is_force=$3
 
   _lobash_debug "S1. To load module_name=${module_name} prefix=${prefix}"
 
@@ -87,7 +82,7 @@ _l.import() {
 
   # Associative array only allow [a-zA-Z0-9_] for key naming
   local import_key=_lobash_import_cache_"${prefix//[^a-zA-Z0-9]/_}_${module_name//[^a-zA-Z0-9]/_}"
-  if [[ "${!import_key:-}" == loaded ]]; then
+  if [[ $is_force == false ]] && [[ "${!import_key:-}" == loaded ]]; then
     _lobash_debug "import_key=${import_key} is loaded. skip load"
     return;
   fi
@@ -145,6 +140,12 @@ _l.is_valid_lobash_prefix() {
 }
 
 _l.imports() {
+  local is_force=false
+  if [[ ${1:-} == '-f' ]] || [[ ${1:-} == '--force' ]]; then
+    shift
+    is_force=true
+  fi
+
   local args=( "$@" )
   local args_len=${#args[@]}
   declare -a names
@@ -171,7 +172,7 @@ _l.imports() {
 
   local name
   for name in "${names[@]}"; do
-    _l.import "$name" "$prefix"
+    _l.import "$name" "$prefix" $is_force
   done
 }
 

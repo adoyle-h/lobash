@@ -2,7 +2,7 @@
   <img alt="Lobash Logo" src="./doc/imgs/lobash.svg">
 </p>
 <p align="center">
-  A modern, safe, pure, powerful utility library for shell script development.
+  A modern, safe, powerful utility library for Bash shell script development.
 </p>
 
 **Current project is under development, most APIs are unstable. It will get done soon. Welcome to make contributions.**
@@ -34,14 +34,11 @@
 
 | Supported | Shell    | Version | Reason                                            |
 |:---------:|:---------|:--------|:--------------------------------------------------|
-|     🚫    | Bash     | v3      | It not support associative array and other syntax |
 |     ✅    | Bash     | v4      | -                                                 |
-|     ❔    | Zsh      |         | No tested                                         |
-|     ❔    | Ash      |         | No tested                                         |
-|     ❔    | Fish     |         | No tested                                         |
-|     ❔    | Ksh      |         | `read -A` is different from bash `read -a`        |
-|     ❔    | Xiki     |         | No tested                                         |
-|     🚫    | POSIX sh |         | not supported `local` keyword                     |
+|     🚫    | Bash     | v3      | It not support associative array and other syntax |
+|     🚫    | POSIX sh |         | Not supported `local` keyword                     |
+
+Zsh/Ash/Ksh/Fish/Xiki and other shells are not supported because this utility depends on Bash environment and builtin variables.
 
 ## Dependencies
 
@@ -49,6 +46,7 @@
   - No need install it by yourself. Almost Unix/Linux operating systems have included Perl 5. See the [Perl Binaries](https://www.cpan.org/ports/binaries.html)
   - Alpine not include Perl. Install it by `apk add perl`.
   - Busybox not include Perl. Install it by .
+- Linux commands: grep/awk/sed/wc/mktemp/dirname/basename/cd/pwd/printf/echo/
 
 ## Installation
 
