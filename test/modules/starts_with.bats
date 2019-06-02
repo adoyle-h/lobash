@@ -1,7 +1,7 @@
 #!/usr/bin/env bats
 
 setup_fixture
-load_module l.starts_with
+load_module starts_with
 
 @test "l.starts_with hello o" {
   run l.starts_with "hello" "o"

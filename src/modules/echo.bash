@@ -1,9 +1,9 @@
 # ---
 # Category: Console
 # Since: 0.1.0
+# Usage: l.echo <string1> [...stringN]
 # ---
 
-# Usage: l.echo any string
 # Description: A safe way to echo string. Not support any options.
 #
 # The builtin echo will get unexpected result while execute `b=( -n 123 ); echo "${b[@]}"`.

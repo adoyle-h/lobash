@@ -2,6 +2,7 @@
 # Category: Core
 # Since: 0.1.0
 # Dependent: import
+# Usage: l.import_category <category_name1> <category_nameN> [prefix=l.]
 # ---
 
 _l.import_categories() {

@@ -1,6 +1,7 @@
 # ---
 # Category: Core
 # Since: 0.1.0
+# Usage: l.import [-f] <module_name1> <module_nameN> [prefix=l.]
 # ---
 
 _l.load_consts_in_dynamic_source() {

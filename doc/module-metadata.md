@@ -10,6 +10,8 @@ Like this:
 # Deprecated: false
 # Since: <version>
 # Dependent: a,b,c
+# Usage: l.public_function arguments [options]
+# Description: function description
 # ---
 ```
 
@@ -60,3 +62,9 @@ It is required.
 It indicates this module added since what version.
 
 Available values: The Lobash release version.
+
+## Usage
+
+Follow the http://docopt.org/
+
+## Description

@@ -1,6 +1,8 @@
 # ---
 # Category: Condition
 # Since: 0.1.0
+# Usage: l.strict_has <command>
+# Usage: l.strict_has not <command>
 # ---
 
 l.strict_has() {

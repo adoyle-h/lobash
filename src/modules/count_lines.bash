@@ -1,6 +1,7 @@
 # ---
 # Category: String
 # Since: 0.1.0
+# Usage: l.count_lines <var>
 # ---
 
 # _l.count_lines.streamable() {

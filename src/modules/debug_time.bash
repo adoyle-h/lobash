@@ -1,9 +1,9 @@
 # ---
 # Category: Console
 # Since: 0.1.0
+# Usage: l.debug_time [label]
 # ---
 
-# Usage: l.debug_time [label]
 l.debug_time() {
   local label=${1:-debug}
   local key=_LOBASH_DEBUG_TIME_$label

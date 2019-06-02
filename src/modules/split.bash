@@ -1,9 +1,9 @@
 # ---
 # Category: String
 # Since: 0.1.0
+# Usage: l.split <string> [delimiter=' ']
 # ---
 
-# Usage: split string delimiter
 # l.split() {
 #   local string=$1
 #   local delimiter=${2:- }

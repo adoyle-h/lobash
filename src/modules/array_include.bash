@@ -1,9 +1,9 @@
 # ---
 # Category: Collection
 # Since: 0.1.0
+# Usage: l.array_include <match> <array>
 # ---
 
-# Usage: array_include match "${array[@]}"
 l.array_include() {
   local match="$1"
   local e

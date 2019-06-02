@@ -1,6 +1,7 @@
 # ---
 # Category: String
 # Since: 0.1.0
+# Usage: l.trim_start <string>
 # ---
 
 l.trim_start() {

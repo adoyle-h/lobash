@@ -1,6 +1,8 @@
 # ---
 # Category: Condition
 # Since: 0.1.0
+# Usage: has <command>
+# Usage: has not <command>
 # ---
 
 l.has() {
