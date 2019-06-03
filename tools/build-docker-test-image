@@ -7,12 +7,16 @@ set -o pipefail
 [[ -n "${XTRACE:+x}" ]] && set -o xtrace
 [[ -n "${VERBOSE:+x}" ]] && set -o verbose
 [[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
-[[ $- =~ [x] ]] && PS4='+[${BASH_SOURCE}:${LINENO}:${FUNCNAME[0]:+${FUNCNAME[0]}}()]: '
+[[ $- =~ [x] ]] && PS4='+[${BASH_SOURCE[0]}:${LINENO}|${FUNCNAME[0]:+${FUNCNAME[0]}}()|$?]: '
 
 readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 
-source "$SCRIPT_DIR"/../src/import.bash
 
-import trim str_size
+main() {
+  local version="$1"
+  shift
+  export VERSION="$version"
+  envsubst < "$SCRIPT_DIR"/test.dockerfile | docker build "$@" -t lobash/test-bash:"$version" -
+}
 
-trim "$1" | str_size
+main "$@"

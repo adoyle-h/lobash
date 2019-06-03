@@ -32,11 +32,12 @@
 
 ## Supported Shells
 
-| Supported | Shell    | Version | Reason                                            |
-|:---------:|:---------|:--------|:--------------------------------------------------|
-|     ✅    | Bash     | v4      | -                                                 |
-|     🚫    | Bash     | v3      | It not support associative array and other syntax |
-|     🚫    | POSIX sh |         | Not supported `local` keyword                     |
+| Supported | Shell    | Version         | Reason                                            |
+|:---------:|:---------|:----------------|:--------------------------------------------------|
+|     ❔    | Bash     | v5 and higher   | Not tested yet                                    |
+|     ✅    | Bash     | v4.3 and higher | `declare -n` feature released in v4.3             |
+|     🚫    | Bash     | v3              | It not support associative array and `declare -n` |
+|     🚫    | POSIX sh |                 | Not supported `local` keyword                     |
 
 Zsh/Ash/Ksh/Fish/Xiki and other shells are not supported because this utility depends on Bash environment and builtin variables.
 

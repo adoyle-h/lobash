@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1090
+
+set -o errexit
+set -o nounset
+set -o pipefail
+[[ -n "${XTRACE:+x}" ]] && set -o xtrace
+[[ -n "${VERBOSE:+x}" ]] && set -o verbose
+[[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
+[[ $- =~ [x] ]] && PS4='+[${BASH_SOURCE}:${LINENO}:${FUNCNAME[0]:+${FUNCNAME[0]}}()]: '
+
+readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+
+source "$SCRIPT_DIR"/../src/module_meta.bash
+
+safe_rm() {
+  local path=$1
+  if [[ $path == / ]]; then
+    echo "Dangerous! Do not rm $path"
+    return 2
+  fi
+
+  if [[ $(dirname "$path") == / ]]; then
+    echo "Dangerous! Do not rm $path"
+    return 2
+  fi
+
+  rm -rf "$path"
+}
+
+main() {
+  local CATE_DIR=$SCRIPT_DIR/../src/internals/categories
+  safe_rm "$CATE_DIR"
+  mkdir "$CATE_DIR"
+  local filename category
+  for filepath in $SCRIPT_DIR/../src/modules/*.bash; do
+    # printf '\n[%s]\n' "$(basename "$filepath" .bash)"
+    filename=$(basename "$filepath" .bash)
+    category=$(_get_module_metadata_str "$filepath" | grep -Eo '^Category: \w+$' | sed 's/Category: //' || echo '')
+
+    if [[ -n $category ]]; then
+      echo "$filename " >> "$CATE_DIR/$category"
+    fi
+  done
+}
+
+main "$@"
