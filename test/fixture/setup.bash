@@ -1,3 +1,4 @@
+echo "=2==CI=${CI:-}="
 if [[ -n ${CI:-} ]]; then
   load /test/support/load.bash
   load /test/assert/load.bash

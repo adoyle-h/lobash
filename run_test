@@ -27,4 +27,5 @@ else
   test_dirs=( "$1" )
 fi
 
+echo "=1==CI=${CI:-}="
 exec bats ${CI:+--tap} "${test_dirs[@]}"
