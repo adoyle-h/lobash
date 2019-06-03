@@ -11,8 +11,10 @@ set -o pipefail
 
 dir=$(pwd)
 
+echo "[test-in-docker] BASHVER=${BASHVER:=4.4}"
+
 docker run \
   -v "$dir"/run_test:/lobash/run_test \
   -v "$dir"/src:/lobash/src \
   -v "$dir"/test:/lobash/test \
-  bash:"${BASHVER:-4.4}" /lobash/run_test
+  lobash/test-bash:"${BASHVER}" /lobash/run_test

@@ -13,6 +13,8 @@ RUN git clone --depth 1 https://github.com/bats-core/bats-core.git && \
 RUN git clone --depth 1 https://github.com/jasonkarns/bats-assert-1.git
 RUN git clone --depth 1 https://github.com/jasonkarns/bats-support.git
 
+#---------------------------------------------
+
 FROM bash:$VERSION
 
 LABEL maintainer="ADoyle <adoyle.h@gmail.com>"

@@ -27,10 +27,7 @@ env:
 
 before_install:
   - |
-    if [ "$TRAVIS_OS_NAME" == 'linux' ]; then
-      sudo apt-get update
-      sudo apt-get install -y bash=4
-    else
+    if [[ "$TRAVIS_OS_NAME" == 'osx' ]]; then
       brew install bash@4
     fi
   - |
