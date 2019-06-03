@@ -28,7 +28,7 @@ env:
 before_install:
   - |
     if [[ "$TRAVIS_OS_NAME" == 'osx' ]]; then
-      HOMEBREW_NO_AUTO_UPDATE=1 brew install bash@4.4.12
+      HOMEBREW_NO_AUTO_UPDATE=1 brew install bash
     fi
   - |
     if [[ "$TRAVIS_OS_NAME" == 'linux' ]]; then
