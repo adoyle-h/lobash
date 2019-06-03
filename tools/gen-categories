@@ -28,19 +28,29 @@ safe_rm() {
   rm -rf "$path"
 }
 
+lower_case() {
+  read -r str
+  printf '%s\n' "${str,,}"
+}
+
 main() {
   local CATE_DIR=$SCRIPT_DIR/../src/internals/categories
   safe_rm "$CATE_DIR"
   mkdir "$CATE_DIR"
-  local filename category
+  local filename category filepath
   for filepath in $SCRIPT_DIR/../src/modules/*.bash; do
     # printf '\n[%s]\n' "$(basename "$filepath" .bash)"
     filename=$(basename "$filepath" .bash)
-    category=$(_get_module_metadata_str "$filepath" | grep -Eo '^Category: \w+$' | sed 's/Category: //' || echo '')
+    category=$(_get_module_metadata_str "$filepath" | grep -Eo '^Category: \w+$' | sed 's/Category: //' | lower_case || echo '')
 
     if [[ -n $category ]]; then
-      echo "$filename " >> "$CATE_DIR/$category"
+      printf '%s ' "$filename" >> "$CATE_DIR/$category"
     fi
+  done
+
+  local file
+  for file in "$CATE_DIR"/* ; do
+    printf '\n' >> "$file"
   done
 }
 

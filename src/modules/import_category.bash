@@ -6,12 +6,20 @@
 # ---
 
 _l.import_category() {
-  local category=$1
+  local category=${1,,}
   local prefix=$2
-  local module_names
-  while read -r module_names; do
+  local module_names line
+  local cate_file="$(dirname "${BASH_SOURCE[0]}")"/../internals/categories/"$category"
+
+  if [[ ! -f $cate_file ]]; then
+    _lobash_error "Not found categories: $category"
+    return 2
+  fi
+
+  while read -r line; do
+    module_names=( $line )
     _l.imports "${module_names[@]}" "$prefix"
-  done < "$(dirname "${BASH_SOURCE[0]}")"/../internals/categories/"$category"
+  done < $cate_file
 }
 
 _l.import_categories() {
@@ -29,7 +37,7 @@ _l.import_categories() {
   else
     prefix="${args[*]: -1:1}"
 
-    if _lobash_is_valid_lobash_prefix "$prefix"; then
+    if _l.is_valid_lobash_prefix "$prefix"; then
       categories=( "${args[@]:0:$args_len-1}" )
     else
       categories=( "${args[@]}" )
