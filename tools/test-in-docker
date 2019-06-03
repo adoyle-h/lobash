@@ -14,6 +14,7 @@ dir=$(pwd)
 echo "[test-in-docker] BASHVER=${BASHVER:=4.4}"
 
 docker run \
+  -e CI="${CI:-}"
   -v "$dir"/run_test:/lobash/run_test \
   -v "$dir"/src:/lobash/src \
   -v "$dir"/test:/lobash/test \
