@@ -5,9 +5,5 @@
 # ---
 
 l.is_sourced() {
-  if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then
-    echo false
-  else
-    echo true
-  fi
+  [[ "${BASH_SOURCE[0]}" == "${0}" ]] && echo true || echo false
 }

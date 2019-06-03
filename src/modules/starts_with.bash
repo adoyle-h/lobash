@@ -5,9 +5,5 @@
 # ---
 
 l.starts_with() {
-  if [[ $2${1##"$2"} == "$1" ]]; then
-    echo true
-  else
-    echo false
-  fi
+  [[ $2${1##"$2"} == "$1" ]] && echo true || echo false
 }
