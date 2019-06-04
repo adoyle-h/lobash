@@ -56,19 +56,6 @@ _l.get_module_meta_str() {
   sed -n '/^# ---$/,/^# ---$/p' < "$module_path" | sed '1d;$d;s/^# //'
 }
 
-_l.load_module_file() {
-  local module_path=$1
-  local prefix=$2
-  local module_name=$3
-
-  source "$module_path"
-
-  if [[ -n $prefix ]] && [[ $prefix != "$_LOBASH_DEFAULT_PREFIX" ]]; then
-    # source <(echo "$prefix() { l.$module_name \"\$@\"; }")
-    eval "${prefix}${module_name}() { ${_LOBASH_DEFAULT_PREFIX}${module_name} \"\$@\"; }"
-  fi
-}
-
 _l.import_deps() {
   declare -n deps=$1
   local prefix=$2
@@ -98,30 +85,39 @@ _l.import() {
   if [[ $is_force == false ]] && [[ "${!import_key:-}" == loaded ]]; then
     _lobash_debug "import_key=${import_key} is loaded. skip load"
     return;
+  else
+    # To load module source code
+    local module_path
+    module_path=$(_l.get_module_path "$module_name")
+    _lobash_debug "S2. To load module. name=${module_name} module_path=${module_path}"
+    [[ ! -f $module_path ]] && _lobash_error "Not found module '${module_name}'." && return 4
+
+    local meta_str
+    declare -a meta_deps
+    meta_str="$(_l.get_module_meta_str "$module_path")"
+    _lobash_debug "meta_str=${meta_str}"
+
+    meta_deps=( $( echo "$meta_str" | grep '^Dependent:' | sed -E 's/^Dependent: ?(.*)/\1/;s/,/ /g' || true ) )
+
+    _l.import_deps meta_deps "$prefix"
+
+    _lobash_debug "S5. To load the source code of main module. module_path=$module_path"
+
+    # _l.load_module_file "$module_path" "$prefix" "$module_name"
+    source "$module_path"
+
+    read -r "$import_key" <<< 'loaded'
   fi
 
-  local module_path
-  module_path=$(_l.get_module_path "$module_name")
-  _lobash_debug "S2. To load module. name=${module_name} module_path=${module_path}"
+  _lobash_debug "S6. To set export name of main module."
+  if [[ -n $prefix ]] \
+    && [[ $prefix != "$_LOBASH_DEFAULT_PREFIX" ]] \
+    && [[ $(type -t "${prefix}${module_name}") != function ]]; then
+    # source <(echo "$prefix() { l.$module_name \"\$@\"; }")
+    eval "${prefix}${module_name}() { ${_LOBASH_DEFAULT_PREFIX}${module_name} \"\$@\"; }"
+  fi
 
-  [[ ! -f $module_path ]] && _lobash_error "Not found module '${module_name}'." && return 4
-
-  local meta_str
-  declare -a meta_deps
-  meta_str="$(_l.get_module_meta_str "$module_path")"
-  _lobash_debug "meta_str=${meta_str}"
-
-  meta_deps=( $( echo "$meta_str" | grep '^Dependent:' | sed -E 's/^Dependent: ?(.*)/\1/;s/,/ /g' || true ) )
-
-  _l.import_deps meta_deps "$prefix"
-
-  _lobash_debug "S5. To load main module. module_path=$module_path"
-
-  _l.load_module_file "$module_path" "$prefix" "$module_name"
-
-  read -r "$import_key" <<< 'loaded'
-
-  _lobash_debug "Loaded import_key=${import_key}"
+  _lobash_debug "Loaded module. import_key=${import_key}"
 }
 
 # _l.ends_with() {
