@@ -13,7 +13,7 @@ _get_module_path() {
 
 _get_module_metadata_str() {
   local module_path=$1
-  head -n "$_LOBASH_METADATA_MAX_LINES" "$module_path" | sed -n '/^# ---$/,/^# ---$/p' | sed '1d;$d;s/^# //'
+  sed -n '/^# ---$/,/^# ---$/p' < "$module_path" | sed '1d;$d;s/^# //'
 }
 
 _get_module_metadata_str_by_name() {

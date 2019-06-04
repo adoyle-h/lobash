@@ -62,3 +62,9 @@ load_module ends_with
   assert_success
   assert_output false
 }
+
+@test "l.ends_with 'file bash ' 'bash '" {
+  run l.ends_with "file bash " " bash "
+  assert_success
+  assert_output true
+}

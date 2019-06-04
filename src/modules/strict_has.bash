@@ -9,20 +9,6 @@ l.strict_has() {
   local condition="$1"
   local value="$2"
 
-  if [[ "$condition" == "not" ]]; then
-    shift 1
-    result=$(l.strict_has "$@" || echo $?)
-
-    if [[ $result == true ]]; then
-      echo false
-    elif [[ $result == false ]]; then
-      echo true
-    else
-      return "$result"
-    fi
-    return 0
-  fi
-
   case "$condition" in
     command)
       [[ -x "$(command -v "$value")" ]] && echo true || echo false;;

@@ -45,18 +45,15 @@ _l.import_internals debug warn error
 # Usage: _l.get_module_path module_name
 _l.get_module_path() {
   if [[ -n ${IS_LOBASH_TEST:-} ]]; then
-    echo "$LOBASH_ROOT_DIR/src/modules/$1.bash"
+    printf '%s\n' "$LOBASH_ROOT_DIR/src/modules/$1.bash"
   else
-    echo "$(dirname "${BASH_SOURCE[0]}")/$1.bash"
+    printf '%s\n' "$(dirname "${BASH_SOURCE[0]}")/$1.bash"
   fi
 }
 
 _l.get_module_meta_str() {
-  local module_name=$1
-  local module_path
-  module_path=$(_l.get_module_path "$module_name")
-  _lobash_debug "module_name=${module_name} module_path=${module_path}"
-  head -n "$_LOBASH_METADATA_MAX_LINES" "$module_path" | sed -n '/^# ---$/,/^# ---$/p' | sed '1d;$d;s/^# //'
+  local module_path=$1
+  sed -n '/^# ---$/,/^# ---$/p' < "$module_path" | sed '1d;$d;s/^# //'
 }
 
 _l.load_module_file() {
@@ -69,6 +66,21 @@ _l.load_module_file() {
   if [[ -n $prefix ]] && [[ $prefix != "$_LOBASH_DEFAULT_PREFIX" ]]; then
     # source <(echo "$prefix() { l.$module_name \"\$@\"; }")
     eval "${prefix}${module_name}() { ${_LOBASH_DEFAULT_PREFIX}${module_name} \"\$@\"; }"
+  fi
+}
+
+_l.import_deps() {
+  declare -n deps=$1
+  local prefix=$2
+
+  _lobash_debug "To load meta_deps. deps.size=${#deps[*]}"
+  if [[ ${#deps[@]} -gt 0 ]]; then
+    local dep
+    for dep in "${deps[@]}"; do
+      _lobash_debug "To load dep module=$dep"
+      _l.import "$dep" "$prefix"
+      _lobash_debug "Loaded dep module=$dep"
+    done
   fi
 }
 
@@ -96,22 +108,12 @@ _l.import() {
 
   local meta_str
   declare -a meta_deps
-  meta_str="$(_l.get_module_meta_str "$module_name")"
+  meta_str="$(_l.get_module_meta_str "$module_path")"
   _lobash_debug "meta_str=${meta_str}"
 
-  meta_deps=( $( echo "$meta_str" | grep '^Dependent:' | sed -E 's/^Dependent: ?(.*)/\1/;s/,/ /g' || [[ $? != 0 ]] ) )
+  meta_deps=( $( echo "$meta_str" | grep '^Dependent:' | sed -E 's/^Dependent: ?(.*)/\1/;s/,/ /g' || true ) )
 
-  # _lobash_debug "import_key=${import_key}"
-  _lobash_debug "To load module_path=${module_path} meta_deps=${meta_deps[*]} len=${#meta_deps[*]}"
-
-  if [[ ${#meta_deps[@]} -gt 0 ]]; then
-    local dep
-    for dep in "${meta_deps[@]}"; do
-      _lobash_debug "S4.1. To load dep module=$dep"
-      _l.import "$dep" "$prefix"
-      _lobash_debug "S4.2. Loaded dep module=$dep"
-    done
-  fi
+  _l.import_deps meta_deps "$prefix"
 
   _lobash_debug "S5. To load main module. module_path=$module_path"
 

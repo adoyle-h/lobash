@@ -2,7 +2,7 @@
   <img alt="Lobash Logo" src="./doc/imgs/lobash.svg">
 </p>
 <p align="center">
-  A modern, safe, powerful utility library for Bash shell script development.
+  A modern, safe, powerful utility library for Bash script development.
 </p>
 
 **Current project is under development, most APIs are unstable. It will get done soon. Welcome to make contributions.**
@@ -21,8 +21,10 @@
     - [Import specific modules](#import-specific-modules)
     - [Import all modules](#import-all-modules)
     - [Custom import function prefix](#custom-import-function-prefix)
+    - [Use Command](#use-command)
 - [Examples and Modules](#examples-and-modules)
 - [Debug](#debug)
+- [FAQ](#faq)
 - [Contributions](#contributions)
 - [Versioning](#versioning)
 - [Copyright and License](#copyright-and-license)
@@ -35,11 +37,12 @@
 | Supported | Shell    | Version         | Reason                                            |
 |:---------:|:---------|:----------------|:--------------------------------------------------|
 |     ❔    | Bash     | v5 and higher   | Not tested yet                                    |
+|     ❔    | Zsh      | v5 and higher   | Plan to be compatible later                       |
 |     ✅    | Bash     | v4.3 and higher | `declare -n` feature released in v4.3             |
 |     🚫    | Bash     | v3              | It not support associative array and `declare -n` |
 |     🚫    | POSIX sh |                 | Not supported `local` keyword                     |
 
-Zsh/Ash/Ksh/Fish/Xiki and other shells are not supported because this utility depends on Bash environment and builtin variables.
+Ash/Ksh/Fish/Xiki and other shells are not supported because there are so many [differences](http://hyperpolyglot.org/unix-shells).
 
 ## Dependencies
 
@@ -51,8 +54,9 @@ Zsh/Ash/Ksh/Fish/Xiki and other shells are not supported because this utility de
 
 ## Installation
 
-```
+```sh
 git clone --depth 1 https://github.com/adoyle-h/lobash.git
+# Clone submodules only when you want to run test cases.
 git submodule update --init --recursive
 ```
 
@@ -104,6 +108,14 @@ a_import_all
 ask hello world
 ```
 
+### Use Command
+
+```sh
+./bin/lobash <module_name> <module_args>
+```
+
+Some modules not work in command.
+
 ## Examples and Modules
 
 See the files in [example/](./example) and [test/modules/](./test/modules) to understand how to use Lobash modules.
@@ -111,6 +123,8 @@ See the files in [example/](./example) and [test/modules/](./test/modules) to un
 ## Debug
 
 Set environment variable `LOBASH_DEBUG=true` to print verbose logs.
+
+## [FAQ](./doc/faq.md)
 
 ## Contributions
 

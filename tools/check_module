@@ -104,13 +104,6 @@ check_metadata() {
     error Module metadata is empty.
     return 3
   fi
-
-  if [[ $lines -gt $_LOBASH_METADATA_MAX_LINES ]]; then
-    error Found \""${lines}"\" lines of metadata code.
-    error Current maximal value of lines is "${_LOBASH_METADATA_MAX_LINES}".
-    error Please contact the repo maintainer to adjust the maximum.
-    return 3
-  fi
 }
 
 check_no_echo() {

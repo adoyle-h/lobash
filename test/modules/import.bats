@@ -88,3 +88,11 @@ setup_fixture
   assert_equal "$(type -t l.ask)" "function"
   assert_equal "$(type -t k.ask)" "function"
 }
+
+@test "import a module which has Dependent" {
+  load_module import
+  import strict_has_not
+  assert_equal "$(type -t l.strict_has_not)" "function"
+  assert_equal "$(type -t l.strict_has)" "function"
+  assert_equal "$(type -t l.not)" "function"
+}

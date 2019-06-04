@@ -1,7 +1,6 @@
 # Prevent multiple executions
 [[ -v __LOBASH_CONST_LOADED ]] && return
 
-readonly _LOBASH_METADATA_MAX_LINES=10
 readonly _LOBASH_INTERNAL_FUNC_PREFIX=_lobash_
 readonly _LOBASH_PRIVATE_FUNC_PREFIX=_l.
 readonly _LOBASH_PUBLIC_FUNC_PREFIX=l.

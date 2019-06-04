@@ -45,6 +45,12 @@ load_module starts_with
   assert_output true
 }
 
+@test "l.starts_with 'file bash' 'file '" {
+  run l.starts_with "file bash" "file "
+  assert_success
+  assert_output true
+}
+
 @test "l.starts_with 'file bash' ' file '" {
   run l.starts_with "file bash" " file "
   assert_success
