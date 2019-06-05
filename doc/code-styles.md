@@ -8,6 +8,7 @@
 ## Indentation
 
 - `.bats`, `.bash` files: Indent 2 spaces. No tabs.
+- Dockerfile: Indent 4 spaces. No tabs.
 
 ## File naming
 

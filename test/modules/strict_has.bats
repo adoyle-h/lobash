@@ -2,6 +2,7 @@
 
 setup_fixture
 load_module strict_has
+load_module run
 
 @test 'if [[ l.strict_has == true ]]' {
   test() {
@@ -119,20 +120,22 @@ load_module strict_has
 @test "l.strict_has what type" {
   run l.strict_has what type
   assert_failure 2
-  assert_output ''
+  assert_output 'Invalid Condition: what'
 }
 
 @test "result=\$(l.strict_has what type)" {
   foo() {
-    if [[ $(l.strict_has what type) == true ]]; then
-      echo 1
+    set -e;
+    local r
+    r=$(l.run l.strict_has what type)
+    if [[ $r == true ]]; then
+      echo 3
     else
-      echo 2
+      echo 4
     fi
-    result=$()
   }
 
   run foo
-  assert_success
-  assert_output 2
+  assert_failure 2
+  assert_line -n 0 'Invalid Condition: what'
 }

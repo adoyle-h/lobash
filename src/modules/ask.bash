@@ -1,7 +1,7 @@
 # ---
 # Category: Prompt
 # Since: 0.1.0
-# Usage: l.ask [arg1] [arg2] [...argN]
+# Usage: l.ask <arg>...
 # ---
 
 l.ask() {

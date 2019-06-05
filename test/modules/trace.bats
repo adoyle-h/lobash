@@ -4,13 +4,17 @@ setup_fixture
 load_module trace
 
 @test "l.trace without label" {
-  local result
-  result=$(l.trace | head -n2)
-  assert_equal "$result" $'Trace:\n  # Function (File:Line)'
+  run l.trace
+  assert_success
+  assert_line -n 0    'Trace:'
+  assert_line -n 1    '  # Function (File:Line)'
+  assert_line -n 2 -e '^  - .+'
 }
 
 @test "l.trace with label" {
-  local result
-  result=$(l.trace label | head -n2)
-  assert_equal "$result" $'Trace: label\n  # Function (File:Line)'
+  run l.trace label
+  assert_success
+  assert_line -n 0    'Trace: label'
+  assert_line -n 1    '  # Function (File:Line)'
+  assert_line -n 2 -e '^  - .+'
 }

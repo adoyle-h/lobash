@@ -20,8 +20,11 @@ FROM bash:$VERSION
 LABEL maintainer="ADoyle <adoyle.h@gmail.com>"
 WORKDIR /lobash
 
+RUN apk add --no-cache perl
 RUN mkdir -p /test
+
 COPY --from=0 /test/bats /test/bats
 COPY --from=0 /test/bats-assert-1 /test/assert
 COPY --from=0 /test/bats-support /test/support
+
 ENV PATH=${PATH}:/test/bats/bin

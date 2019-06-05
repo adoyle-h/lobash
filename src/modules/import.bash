@@ -1,26 +1,30 @@
 # ---
-# Category: Core
+# Category: Lobash
 # Since: 0.1.0
-# Usage: l.import [-f] <module_name1> <module_nameN> [prefix=l.]
+# Usage: l.import [-f|--force] <module_name1> <module_nameN> [prefix=l.]
 # ---
 
-_l.load_consts_in_dynamic_source() {
+_lobash_dirname() {
+  printf '%s\n' "${1%/*}"
+}
+
+_lobash_load_internal_consts() {
   local src_dir
   if [[ -n ${IS_LOBASH_TEST:-} ]]; then
     src_dir="$LOBASH_ROOT_DIR/src"
   else
-    src_dir="$(dirname "${BASH_SOURCE[0]}")/.."
+    src_dir="$(_lobash_dirname "${BASH_SOURCE[0]}")/.."
   fi
 
   source "$src_dir"/internals/consts.bash
 }
 
-_l.import_internal() {
+_lobash_import_internal() {
   local src_dir
   if [[ -n ${IS_LOBASH_TEST:-} ]]; then
     src_dir="$LOBASH_ROOT_DIR/src"
   else
-    src_dir="$(dirname "${BASH_SOURCE[0]}")/.."
+    src_dir="$(_lobash_dirname "${BASH_SOURCE[0]}")/.."
   fi
 
   local module_path
@@ -30,43 +34,41 @@ _l.import_internal() {
   eval "$(sed -E "s/^([A-Za-z0-9]\\w*)\\(\\) ?\\{$/${_LOBASH_INTERNAL_FUNC_PREFIX}\\1\\(\\) \\{/g" < "$module_path")"
 }
 
-_l.import_internals() {
+_lobash_import_internals() {
   local name
   for name in "$@"; do
-    _l.import_internal "$name"
+    _lobash_import_internal "$name"
   done
 }
 
-_l.load_consts_in_dynamic_source
-_l.import_internals debug warn error
+_lobash_load_internal_consts
+_lobash_import_internals debug warn error
 
-#--------------------------------------------
+# ------------------------ internal functions above ---------------------------
 
 # Usage: _l.get_module_path module_name
 _l.get_module_path() {
-  if [[ -n ${IS_LOBASH_TEST:-} ]]; then
-    printf '%s\n' "$LOBASH_ROOT_DIR/src/modules/$1.bash"
+  if [[ -z ${IS_LOBASH_TEST:-} ]]; then
+    printf '%s\n' "$(_lobash_dirname "${BASH_SOURCE[0]}")/$1.bash"
   else
-    printf '%s\n' "$(dirname "${BASH_SOURCE[0]}")/$1.bash"
+    printf '%s\n' "$LOBASH_ROOT_DIR/src/modules/$1.bash"
   fi
 }
 
-_l.get_module_meta_str() {
-  local module_path=$1
-  sed -n '/^# ---$/,/^# ---$/p' < "$module_path" | sed '1d;$d;s/^# //'
-}
-
 _l.import_deps() {
-  declare -n deps=$1
+  local module_path=$1
   local prefix=$2
 
-  _lobash_debug "To load meta_deps. deps.size=${#deps[*]}"
+  # Get list of dependent modules names
+  read -ra deps <<< "$( sed -n '/^# ---$/,/^# ---$/p' < "$module_path" \
+    | grep '^# Dependent:' \
+    | sed -E 's/^# Dependent: ?(.*)/\1/;s/,/ /g' \
+    || true )"
+
+  _lobash_debug "To load deps modules. deps.size=${#deps[*]}"
   if [[ ${#deps[@]} -gt 0 ]]; then
-    local dep
     for dep in "${deps[@]}"; do
-      _lobash_debug "To load dep module=$dep"
-      _l.import "$dep" "$prefix"
-      _lobash_debug "Loaded dep module=$dep"
+      _l.import "$dep" "$prefix" false
     done
   fi
 }
@@ -76,7 +78,7 @@ _l.import() {
   local prefix=$2
   local is_force=$3
 
-  _lobash_debug "S1. To load module_name=${module_name} prefix=${prefix}"
+  _lobash_debug "S1. To load module. name=${module_name} prefix=${prefix}"
 
   [[ -z $module_name ]] && _lobash_error "Module name cannot be empty string." && return 3
 
@@ -89,21 +91,12 @@ _l.import() {
     # To load module source code
     local module_path
     module_path=$(_l.get_module_path "$module_name")
-    _lobash_debug "S2. To load module. name=${module_name} module_path=${module_path}"
+    _lobash_debug "S2. module_name=${module_name} module_path=${module_path}"
     [[ ! -f $module_path ]] && _lobash_error "Not found module '${module_name}'." && return 4
 
-    local meta_str
-    declare -a meta_deps
-    meta_str="$(_l.get_module_meta_str "$module_path")"
-    _lobash_debug "meta_str=${meta_str}"
-
-    meta_deps=( $( echo "$meta_str" | grep '^Dependent:' | sed -E 's/^Dependent: ?(.*)/\1/;s/,/ /g' || true ) )
-
-    _l.import_deps meta_deps "$prefix"
+    _l.import_deps "$module_path" "$prefix"
 
     _lobash_debug "S5. To load the source code of main module. module_path=$module_path"
-
-    # _l.load_module_file "$module_path" "$prefix" "$module_name"
     source "$module_path"
 
     read -r "$import_key" <<< 'loaded'
@@ -119,14 +112,6 @@ _l.import() {
 
   _lobash_debug "Loaded module. import_key=${import_key}"
 }
-
-# _l.ends_with() {
-#   if [[ ${1%%"$2"}$2 == "$1" ]]; then
-#     echo true
-#   else
-#     echo false
-#   fi
-# }
 
 _l.is_valid_lobash_prefix() {
   local prefix=$1

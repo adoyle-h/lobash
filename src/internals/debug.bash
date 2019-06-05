@@ -1,4 +1,4 @@
-# Usage: debug msg1 [msg2 ... msgN]
+# Usage: debug <message>...
 # Print logs to stdout.
 # If LOBASH_DEBUG set, print Lobash debug logs to stdout
 # If LOBASH_DEBUG_OUTPUT set, logs pipe to $LOBASH_DEBUG_OUTPUT instead of stdout
@@ -20,7 +20,7 @@ debug() {
 
   local func=${FUNCNAME[1]}
 
-  if [[ -z $LOBASH_DEBUG_OUTPUT ]]; then
+  if [[ -z ${LOBASH_DEBUG_OUTPUT:-} ]]; then
     echo "[DEBUG:LOBASH:$func] $*"
   else
     echo "[DEBUG:LOBASH:$func] $*" >> "$LOBASH_DEBUG_OUTPUT"

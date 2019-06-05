@@ -1,5 +1,5 @@
 # ---
-# Category: Core
+# Category: Lobash
 # Since: 0.1.0
 # Dependent: import
 # Usage: l.import_all [prefix=l.]
@@ -9,7 +9,7 @@ _l.import_all() {
   local prefix=${1:-$_LOBASH_DEFAULT_PREFIX}
 
   local src_dir
-  src_dir="$(dirname "${BASH_SOURCE[0]}")"
+  src_dir="$(_lobash_dirname "${BASH_SOURCE[0]}")"
 
   declare -a modules
   modules=( $(ls "$src_dir") )

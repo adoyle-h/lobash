@@ -8,6 +8,7 @@
 - [Write a module](#write-a-module)
     - [Module template](#module-template)
 - [Write test cases](#write-test-cases)
+    - [Test Checklist](#test-checklist)
 - [Run test](#run-test)
 - [Make a Pull Request](#make-a-pull-request)
 
@@ -86,6 +87,14 @@ load_module l.trim
 ```
 
 You can use many assert helper functions such as `assert_success`, `assert_output` and `assert_equal` which supported by [bats-assert](https://github.com/jasonkarns/bats-assert-1).
+
+### Test Checklist
+
+- [ ] assert success
+- [ ] assert failure
+- [ ] check exit code
+- [ ] check stdout printed
+- [ ] check stderr printed
 
 ## Run test
 

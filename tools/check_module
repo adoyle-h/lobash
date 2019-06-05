@@ -12,12 +12,11 @@ set -o pipefail
 readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 
 source "$SCRIPT_DIR"/../src/import.bash
-# source "$SCRIPT_DIR"/../src/internals/consts.bash
 
-import upper_case path_normalize l.
+import upper_case normalize
 
 warn() {
-  printf '[%s] %s\n' "$(upper_case "${FUNCNAME[1]}")" "$*" >&2
+  printf '[%s] %s\n' "$(l.upper_case "${FUNCNAME[1]}")" "$*" >&2
 }
 
 error() { warn "$@"; }
@@ -121,7 +120,7 @@ check_duplicated_function() {
 
 check_module() {
   local filepath=$1
-  filepath=$(path_normalize "$filepath")
+  filepath=$(l.normalize "$filepath")
 
   rules=(
   check_file

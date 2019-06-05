@@ -89,10 +89,17 @@ setup_fixture
   assert_equal "$(type -t k.ask)" "function"
 }
 
-@test "import a module which has Dependent" {
+@test "import a module which has two Dependents" {
   load_module import
   import strict_has_not
   assert_equal "$(type -t l.strict_has_not)" "function"
   assert_equal "$(type -t l.strict_has)" "function"
   assert_equal "$(type -t l.not)" "function"
+}
+
+@test "import a module which has only one Dependent" {
+  load_module import
+  import count_files
+  assert_equal "$(type -t l.count_files)" "function"
+  assert_equal "$(type -t l.count_lines)" "function"
 }

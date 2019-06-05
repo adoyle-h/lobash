@@ -1,3 +1,7 @@
+# bats not open nounset and pipefail by default
+set -o nounset
+set -o pipefail
+
 if [[ -n ${CI:-} ]]; then
   load /test/support/load.bash
   load /test/assert/load.bash
@@ -13,9 +17,8 @@ load_src() {
 }
 
 load_module() {
-  local module_name=$1;
-  shift
-  _l.import "$module_name" "$@"
+  [[ $# != 1 ]] && echo "load_module must have one argument at least." >&2 && return 3
+  _l.import "$1" l. false
 }
 
 # If import has bug, all test cases will failed

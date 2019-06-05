@@ -1,4 +1,4 @@
-# Usage: error msg1 [msg2 ... msgN]
+# Usage: error <message>...
 # Print logs to stdrr.
 # If LOBASH_WARN_OUTPUT set, logs pipe to $LOBASH_WARN_OUTPUT instead of stdrr
 #
@@ -13,7 +13,7 @@
 #   foo() { warn2 hello; }
 #   bar=$(foo) # => Still not see any log in shell, but logs records in file /tmp/log
 error() {
-  if [[ -z $LOBASH_WARN_OUTPUT ]]; then
+  if [[ -z ${LOBASH_WARN_OUTPUT:-} ]]; then
     echo "[ERROR:LOBASH] $*" >&2
   else
     echo "[ERROR:LOBASH] $*" >> "$LOBASH_WARN_OUTPUT"

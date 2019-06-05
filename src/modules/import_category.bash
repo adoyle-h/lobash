@@ -1,5 +1,5 @@
 # ---
-# Category: Core
+# Category: Lobash
 # Since: 0.1.0
 # Dependent: import
 # Usage: l.import_category <category_name1> <category_nameN> [prefix=l.]
@@ -9,7 +9,7 @@ _l.import_category() {
   local category=${1,,}
   local prefix=$2
   local module_names line
-  local cate_file="$(dirname "${BASH_SOURCE[0]}")"/../internals/categories/"$category"
+  local cate_file="$(_lobash_dirname "${BASH_SOURCE[0]}")"/../internals/categories/"$category"
 
   if [[ ! -f $cate_file ]]; then
     _lobash_error "Not found categories: $category"

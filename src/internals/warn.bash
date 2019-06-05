@@ -1,4 +1,4 @@
-# Usage: warn msg1 [msg2 ... msgN]
+# Usage: warn <message>...
 # Print logs to stdrr.
 # If LOBASH_WARN_OUTPUT set, logs pipe to $LOBASH_WARN_OUTPUT instead of stdrr
 #
@@ -15,7 +15,7 @@
 warn() {
   local func=${FUNCNAME[1]}
 
-  if [[ -z $LOBASH_WARN_OUTPUT ]]; then
+  if [[ -z ${LOBASH_WARN_OUTPUT:-} ]]; then
     echo "[WARN:LOBASH:$func] $*" >&2
   else
     echo "[WARN:LOBASH:$func] $*" >> "$LOBASH_WARN_OUTPUT"

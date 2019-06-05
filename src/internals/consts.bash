@@ -1,5 +1,5 @@
 # Prevent multiple executions
-[[ -v __LOBASH_CONST_LOADED ]] && return
+[[ -n ${__LOBASH_CONST_LOADED:-} ]] && return
 
 readonly _LOBASH_INTERNAL_FUNC_PREFIX=_lobash_
 readonly _LOBASH_PRIVATE_FUNC_PREFIX=_l.

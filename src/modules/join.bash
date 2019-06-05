@@ -1,7 +1,7 @@
 # ---
 # Category: Condition
 # Since: 0.1.0
-# Usage: l.join <IFS> <arg1> <arg2> [...argN]
+# Usage: l.join <IFS> <arg>...
 # ---
 
 l.join() {

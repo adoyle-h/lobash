@@ -1,7 +1,7 @@
 # ---
 # Category: Array
 # Since: 0.1.0
-# Usage: l.union_array <var_name1> <var_name2> [...var_nameN]
+# Usage: l.union_array <var_name>...
 # Status: not work
 # Bash: 4.3.0
 # ---

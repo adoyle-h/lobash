@@ -1,7 +1,7 @@
 # ---
 # Category: Prompt
 # Since: 0.1.0
-# Usage: l.choose <option1> <option2> [...optionN]
+# Usage: l.choose <option>...
 # ---
 
 l.choose() {

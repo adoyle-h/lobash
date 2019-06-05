@@ -34,13 +34,13 @@
 
 ## Supported Shells
 
-| Supported | Shell    | Version         | Reason                                            |
-|:---------:|:---------|:----------------|:--------------------------------------------------|
-|     ❔    | Bash     | v5 and higher   | Not tested yet                                    |
-|     ❔    | Zsh      | v5 and higher   | Plan to be compatible later                       |
-|     ✅    | Bash     | v4.3 and higher | `declare -n` feature released in v4.3             |
-|     🚫    | Bash     | v3              | It not support associative array and `declare -n` |
-|     🚫    | POSIX sh |                 | Not supported `local` keyword                     |
+| Supported | Shell    | Version              | Reason                                            |
+|:---------:|:---------|:---------------------|:--------------------------------------------------|
+|     ❔    | Zsh      | v5 and higher        | Plan to be compatible later                       |
+|     ❔    | Bash     | v5 and higher        | Not tested yet                                    |
+|     ✅    | Bash     | v4.3, v4.4           | `declare -n` feature released in v4.3             |
+|     🚫    | Bash     | v3, v4.0, v4.1, v4.2 | It not support associative array and `declare -n` |
+|     🚫    | POSIX sh |                      | Not supported `local` keyword                     |
 
 Ash/Ksh/Fish/Xiki and other shells are not supported because there are so many [differences](http://hyperpolyglot.org/unix-shells).
 
