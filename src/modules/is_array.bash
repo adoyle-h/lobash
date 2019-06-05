@@ -1,5 +1,5 @@
 # ---
-# Category: Condition
+# Category: Array
 # Since: 0.1.0
 # Usage: l.is_array <var_name>
 # ---

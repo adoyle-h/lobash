@@ -1,1 +1,1 @@
-has hash is_sourced join strict_has 
+has if is_sourced not strict_has strict_has_not 

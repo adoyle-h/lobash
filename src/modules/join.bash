@@ -1,5 +1,5 @@
 # ---
-# Category: Condition
+# Category: String
 # Since: 0.1.0
 # Usage: l.join <IFS> <arg>...
 # ---

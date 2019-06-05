@@ -1,1 +1,1 @@
-get_cur_file_path path_normalize path_relative 
+basename dirname normalize pwd relative 
