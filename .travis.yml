@@ -25,7 +25,7 @@ env:
 before_install:
   - |
     if [[ "$TRAVIS_OS_NAME" == 'osx' ]]; then
-      HOMEBREW_NO_AUTO_UPDATE=1 brew install bash
+      ./tools/install-bash ${BASHVER}
     fi
   - |
     if [[ "$TRAVIS_OS_NAME" == 'linux' ]]; then
@@ -37,8 +37,9 @@ script:
     if [[ "$TRAVIS_OS_NAME" == 'linux' ]]; then
       time ./tools/test-in-docker
     else
+      which bash
       bash --version
-      time run_test
+      time bash ./run_test
     fi
 
 notifications:

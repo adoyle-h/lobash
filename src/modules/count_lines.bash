@@ -25,13 +25,15 @@
 l.count_lines() {
   local count=0
   if [[ $# == 0 ]]; then
-    while read -r; do
-      count=$(( "$count" + 1 ))
+    # It is piping
+    while read -r -d $'\n' _; do
+      ((count++))
     done
-
     printf '%s\n' "$count"
   else
-    count=$(wc -l <<< "$1")
-    printf '%s\n' "${count// /}"
+    while read -r -d $'\n' _; do
+      ((count++))
+    done <<< "$1"
+    printf '%s\n' "$count"
   fi
 }
