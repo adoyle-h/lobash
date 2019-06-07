@@ -121,7 +121,9 @@ a_import_all
 ask hello world
 ```
 
-### [Module Usages](./doc/module-usages.md)
+### Module Usages
+
+See [./doc/module-usages.md](./doc/module-usages.md).
 
 ### Use Command
 

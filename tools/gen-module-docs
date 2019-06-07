@@ -35,8 +35,7 @@ lower_case() {
 
 print_category() {
   local category=$1
-  local cate_name=category_$1
-  local -n c=$cate_name
+  local -n c=category_$1
 
   echo "Print Category: ${category^}"
   printf '\n%s\n' "## ${category^}" >> "$TARGET"
@@ -66,6 +65,19 @@ print_category() {
     fi
 
     printf -- '- More Examples: [../test/modules/%s.bats](../test/modules/%s.bats)\n' "$module_name" "$module_name" >> "$TARGET"
+  done
+}
+
+print_toc() {
+  echo "Print TOC"
+  printf '\n%s\n\n' "## TOC" >> "$TARGET"
+
+  for category in "${categories[@]}"; do
+    printf -- '- [%s](#%s)\n' "${category^}" "$category" >> "$TARGET"
+    local -n c=category_$category
+    for module_name in "${c[@]}"; do
+      printf -- '  - [%s](#%s)\n' "${module_name}"  "${module_name}" >> "$TARGET"
+    done
   done
 }
 
@@ -115,6 +127,8 @@ EOF
   categories=( $(echo "${categories[@]}" | sort) )
 
   echo "Categories=${categories[*]}"
+
+  print_toc
 
   for category in "${categories[@]}"; do
     print_category "$category"
