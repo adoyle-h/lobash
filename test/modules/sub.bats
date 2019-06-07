@@ -10,6 +10,12 @@ load_module sub
   assert_output ''
 }
 
+@test "l.sub 0" {
+  local y=0
+  l.sub y
+  assert_equal "$y" -1
+}
+
 @test "l.sub 4" {
   local y=4
   local r

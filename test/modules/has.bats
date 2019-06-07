@@ -95,13 +95,16 @@ load_module has
 }
 
 @test "l.has (not) alias gti, which has been defined" {
-  skip 'why the test is failed?'
+  shopt -s expand_aliases
+
   alias gti='git'
   result=$(l.has alias gti && echo true || echo false)
   assert_equal "$result" true
 
   result=$(l.has not alias gti && echo true || echo false)
   assert_equal "$result" false
+
+  shopt -u expand_aliases
 }
 
 @test "l.has (not) the xxx, which not defined" {
@@ -125,13 +128,16 @@ load_module has
 }
 
 @test "l.has (not) the agti, which is alias" {
-  skip 'why the test is failed?'
+  shopt -s expand_aliases
+
   alias agti='git'
   result=$(l.has the agti && echo true || echo false)
   assert_equal "$result" true
 
   result=$(l.has not the agti && echo true || echo false)
   assert_equal "$result" false
+
+  shopt -u expand_aliases
 }
 
 @test "l.has (not) the function, which is keyword" {
@@ -157,9 +163,9 @@ load_module has
 @test "l.has (not) what type" {
   run l.has what type
   assert_failure 3
-  assert_output ''
+  assert_output 'Invalid Condition: what'
 
   run l.has not what type
   assert_failure 3
-  assert_output ''
+  assert_output 'Invalid Condition: what'
 }

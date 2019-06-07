@@ -25,7 +25,7 @@ _l.import_category() {
 _l.import_categories() {
   local args=( "$@" )
   local args_len=${#args[@]}
-  declare -a categories
+  local -a categories
   local prefix
 
   if [[ $args_len -eq 0 ]]; then

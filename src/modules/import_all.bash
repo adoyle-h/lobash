@@ -11,14 +11,12 @@ _l.import_all() {
   local src_dir
   src_dir="$(_lobash_dirname "${BASH_SOURCE[0]}")"
 
-  declare -a modules
-  modules=( $(ls "$src_dir") )
+  local -a modules=( $(ls "$src_dir") )
+  local -a module_names
+  local module
 
   _lobash_debug modules.size="${#modules[*]}" modules="${modules[*]}"
 
-  declare -a module_names
-
-  local module
   for module in "${modules[@]}"; do
     local name=${module%.bash}
     [[ ${_LOBASH_IMPORT_ENTRIES[*]} =~ ${name} ]] && continue

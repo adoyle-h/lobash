@@ -5,8 +5,8 @@ load_module trim
 
 @test "l.trim" {
   run l.trim
-  assert_failure 3
-  assert_output "Missing argument"
+  assert_failure 1
+  assert_output -p ': $1'
 }
 
 @test "l.trim ''" {

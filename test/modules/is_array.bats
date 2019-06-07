@@ -4,10 +4,17 @@ setup_fixture
 load_module is_array
 
 @test "l.is_array array" {
-  local y=(a h)
+  local -a y=(a h)
   run l.is_array y
 	assert_success
 	assert_output true
+}
+
+@test "l.is_array number" {
+  local -i y=1
+  run l.is_array y
+	assert_success
+	assert_output false
 }
 
 @test "l.is_array string" {
@@ -17,11 +24,13 @@ load_module is_array
 	assert_output false
 }
 
-@test "l.is_array empty" {
+@test "l.is_array ''" {
   run l.is_array ''
 	assert_success
 	assert_output false
+}
 
+@test "l.is_array" {
   run l.is_array
 	assert_success
 	assert_output false

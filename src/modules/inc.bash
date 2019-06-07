@@ -5,6 +5,6 @@
 # ---
 
 l.inc() {
-  declare -n var=$1
-  ((var+=${2:-1})) || true
+  local -n l_inc_arg1=$1
+  ((l_inc_arg1+=${2:-1})) || true
 }

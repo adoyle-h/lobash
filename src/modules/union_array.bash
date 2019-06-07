@@ -7,9 +7,9 @@
 # ---
 
 l.union_array() {
-  declare -n a=$1
-  declare -n b=$2
-  declare -a arr;
-  arr=("${a[@]}" "${b[@]}")
+  local -n l_union_array_a=$1
+  local -n l_union_array_b=$2
+  local -a arr;
+  arr=("${l_union_array_a[@]}" "${l_union_array_b[@]}")
   echo "${arr[@]}"
 }

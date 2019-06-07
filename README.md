@@ -95,6 +95,16 @@ import_all l.
 l.ask hello world
 ```
 
+Attention: import_all is slow.
+
+```sh
+time import_all
+
+real    0m2.034s
+user    0m1.048s
+sys     0m2.535s
+```
+
 ### Custom import function prefix
 
 `import` and `import_all` may be conflicting with your shell environment.

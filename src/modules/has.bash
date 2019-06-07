@@ -11,8 +11,13 @@ l.has() {
 
   if [[ "$condition" == "not" ]]; then
     shift 1
+
+    local origFlags="$-"
+    set +e
     l.has "${@}"
     local result=$?
+    set "-$origFlags"
+
     if [[ $result == 0 ]]; then
       return 1
     elif [[ $result == 1 ]]; then
@@ -37,7 +42,7 @@ l.has() {
       type -t "$value"
       return $?;;
     *)
-      # Invalid Condition
+      echo "Invalid Condition: $condition" >&2
       return 3;;
   esac > /dev/null
 

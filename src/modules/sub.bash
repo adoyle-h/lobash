@@ -5,6 +5,6 @@
 # ---
 
 l.sub() {
-  declare -n var=$1
-  ((var-=${2:-1})) || true
+  local -n l_sub_arg1=$1
+  ((l_sub_arg1-=${2:-1})) || true
 }

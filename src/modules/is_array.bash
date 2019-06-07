@@ -5,8 +5,10 @@
 # ---
 
 l.is_array() {
+  [[ -z ${1:-} ]] && echo false && return 0
+
   local str
-  str=$(declare -p -- "${1:-}" 2>/dev/null)
+  str=$(declare -p -- "$1" 2>/dev/null || true)
   [[ -z $str ]] && echo false && return 0
 
   local start="declare -a "

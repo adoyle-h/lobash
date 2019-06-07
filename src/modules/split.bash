@@ -24,7 +24,7 @@ l.split() {
   local delimiter="${2:- }"
   [[ $# -gt 1 ]] && [[ -z $2 ]] && printf '%s\n' "$string" && return 0
 
-  words=()
+  local -a words
   while read -rd "$delimiter" i; do
     words+=("$i")
   done < <(printf '%s%s' "$string" "$delimiter")

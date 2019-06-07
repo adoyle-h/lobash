@@ -131,7 +131,7 @@ _l.imports() {
 
   local args=( "$@" )
   local args_len=${#args[@]}
-  declare -a names
+  local -a names
   local prefix
 
   if [[ $args_len -eq 0 ]]; then

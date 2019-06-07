@@ -23,5 +23,18 @@ load_module() {
   _l.import "$1" l. false
 }
 
+# Fix: bats-core reset "set -e"
+# https://github.com/bats-core/bats-core/blob/master/libexec/bats-core/bats-exec-test#L60
+run() {
+  local origFlags="$-"
+  set +eET
+  local origIFS="$IFS"
+  output="$(set -e; "$@" 2>&1)"
+  status="$?"
+  IFS=$'\n' lines=($output)
+  IFS="$origIFS"
+  set "-$origFlags"
+}
+
 # If import has bug, all test cases will failed
 load_src modules/import
