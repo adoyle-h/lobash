@@ -45,7 +45,7 @@ _lobash_import_internals debug warn error
 
 # ------------------------ internal functions above ---------------------------
 
-# Usage: _l.get_module_path module_name
+## Usage: _l.get_module_path module_name
 _l.get_module_path() {
   if [[ -z ${IS_LOBASH_TEST:-} ]]; then
     printf '%s\n' "$(_lobash_dirname "${BASH_SOURCE[0]}")/$1.bash"

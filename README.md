@@ -21,6 +21,7 @@
     - [Import specific modules](#import-specific-modules)
     - [Import all modules](#import-all-modules)
     - [Custom import function prefix](#custom-import-function-prefix)
+    - [Module Usages](#module-usages)
     - [Use Command](#use-command)
 - [Examples and Modules](#examples-and-modules)
 - [Debug](#debug)
@@ -119,6 +120,8 @@ a_import_all
 # no differences
 ask hello world
 ```
+
+### [Module Usages](./doc/module-usages.md)
 
 ### Use Command
 
