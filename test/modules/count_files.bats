@@ -10,6 +10,11 @@ load_module count_files
   run l.count_files "$temp_dir"
   assert_success
   assert_output 0
+}
+
+@test "l.count_files /temp_dir/ with no file" {
+  local temp_dir
+  temp_dir=$(mktemp -d)
 
   run l.count_files "$temp_dir/"
   assert_success

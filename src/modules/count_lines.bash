@@ -2,6 +2,8 @@
 # Category: String
 # Since: 0.1.0
 # Usage: l.count_lines <var>
+# Description: The command and process substitution always trim blank line. So l.count_lines do not accept normal parameter passing.
+# Description: Refer to https://stackoverflow.com/a/37706905
 # ---
 
 # _l.count_lines.streamable() {
@@ -27,13 +29,11 @@ l.count_lines() {
   if [[ $# == 0 ]]; then
     # It is piping
     while read -r -d $'\n' _; do
-      ((count++))
+      ((count+=1))
     done
     printf '%s\n' "$count"
   else
-    while read -r -d $'\n' _; do
-      ((count++))
-    done <<< "$1"
-    printf '%s\n' "$count"
+    echo "Please use pipe to pass parameter." >&2
+    return 3
   fi
 }
