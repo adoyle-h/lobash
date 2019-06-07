@@ -197,7 +197,7 @@
 
 ### count_lines
 
-- Usage: `l.count_lines <var>`
+- Usage: `printf '' | l.count_lines`
 - Description: The command and process substitution always trim blank line. So l.count_lines do not accept normal parameter passing.
 Refer to https://stackoverflow.com/a/37706905
 - Since: 0.1.0

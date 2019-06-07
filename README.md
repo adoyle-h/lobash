@@ -13,10 +13,10 @@
 
 <!-- MarkdownTOC GFM -->
 
-- [Supported Shells](#supported-shells)
-- [Dependencies](#dependencies)
 - [Installation](#installation)
 - [Prerequisites](#prerequisites)
+    - [Supported Shells](#supported-shells)
+    - [Dependencies](#dependencies)
 - [Usage](#usage)
     - [Module Usages](#module-usages)
     - [Import specific modules](#import-specific-modules)
@@ -33,7 +33,21 @@
 
 <!-- /MarkdownTOC -->
 
-## Supported Shells
+## Installation
+
+```sh
+git clone --depth 1 https://github.com/adoyle-h/lobash.git
+# Clone submodules only when you want to run test cases.
+git submodule update --init --recursive
+```
+
+## Prerequisites
+
+1. All modules are written and tested with the shell options: `set -o errexit`, `set -o pipefail` and `shopt -s inherit_errexit`. Lobash not enable these options. Make sure the same shell options enabled by yourself, otherwise there may be unexpected behaviors with Lobash.
+2. Run Lobash modules in the shell from [Supported Shells List](#supported-shells).
+3. Make sure [dependencies](#dependencies) installed.
+
+### Supported Shells
 
 | Supported | Shell    | Version          | Main Reasons                                       |
 |:---------:|:---------|:-----------------|:---------------------------------------------------|
@@ -47,26 +61,13 @@
 
 Ash/Ksh/Fish/Xiki and other shells are not supported because there are so many [differences](http://hyperpolyglot.org/unix-shells).
 
-## Dependencies
+### Dependencies
 
 - Perl 5.8.8 and higher.
   - No need install it by yourself. Almost Unix/Linux operating systems have included Perl 5. See the [Perl Binaries](https://www.cpan.org/ports/binaries.html)
   - Alpine not include Perl. Install it by `apk add perl`.
   - Busybox not include Perl. Install it by .
-- Linux commands: grep/awk/sed/wc/mktemp/dirname/basename/cd/pwd/printf/echo/
-
-## Installation
-
-```sh
-git clone --depth 1 https://github.com/adoyle-h/lobash.git
-# Clone submodules only when you want to run test cases.
-git submodule update --init --recursive
-```
-
-## Prerequisites
-
-1. The command which invokes Lobash should set `set -o errexit` and `set -o pipefail`. Otherwise, there are no guarantees that Lobash will execute right behaviors.
-
+- Linux commands: grep/awk/sed/mktemp/dirname/basename/cd/printf/echo/
 
 ## Usage
 
