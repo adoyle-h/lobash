@@ -83,15 +83,13 @@ print_toc() {
 
 main() {
   local TARGET=$SCRIPT_DIR/../doc/module-usages.md
-  cat <<EOF > "$TARGET"
-# Module Usages
-EOF
-
   local -A map
   local -a categories
 
+  local -i module_count=0
   local filepath module_name category dependent since
   for filepath in $SCRIPT_DIR/../src/modules/*.bash; do
+    ((module_count+=1))
     module_name=$(basename "$filepath" .bash)
     metadatas=$(_get_module_metadata_str "$filepath")
 
@@ -127,6 +125,20 @@ EOF
   categories=( $(echo "${categories[@]}" | sort) )
 
   echo "Categories=${categories[*]}"
+
+  local -i test_cases_count=0
+  for i in $(grep -hrc '@test' "$SCRIPT_DIR/../test/modules/"); do
+    (( test_cases_count+=i ))
+  done
+  for i in $(grep -hc '@test' "$SCRIPT_DIR/../test/import.bats"); do
+    (( test_cases_count+=i ))
+  done
+
+  cat <<EOF > "$TARGET"
+# Module Usages
+
+${#categories[*]} Categories, ${module_count} Modules, ${test_cases_count} Test Cases.
+EOF
 
   print_toc
 

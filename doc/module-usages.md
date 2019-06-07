@@ -1,5 +1,7 @@
 # Module Usages
 
+17 Categories, 58 Modules, 316 Test Cases.
+
 ## TOC
 
 - [Collection](#collection)
