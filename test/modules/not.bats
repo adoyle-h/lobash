@@ -17,18 +17,18 @@ load_module not
 
 @test "l.not ''" {
   run l.not
-  assert_failure 2
+  assert_failure 3
   assert_output "Invalid condition! It must be one of 'true' and 'false'. Current value="
 }
 
 @test "l.not" {
   run l.not
-  assert_failure 2
+  assert_failure 3
   assert_output "Invalid condition! It must be one of 'true' and 'false'. Current value="
 }
 
 @test "l.not xxx" {
   run l.not xxx
-  assert_failure 2
+  assert_failure 3
   assert_output "Invalid condition! It must be one of 'true' and 'false'. Current value=xxx"
 }

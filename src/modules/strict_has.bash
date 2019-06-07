@@ -24,6 +24,6 @@ l.strict_has() {
       type -t "$value" >/dev/null && echo true || echo false;;
     *)
       echo "Invalid Condition: $condition" >&2
-      return 2;;
+      return 3;;
   esac
 }

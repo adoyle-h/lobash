@@ -6,6 +6,6 @@
 # ---
 
 l.first() {
-  local -n a=$1
-  printf '%s\n' "${a[@]:0:1}"
+  local -n l_first_arg1=$1
+  printf '%s\n' "${l_first_arg1[@]:0:1}"
 }

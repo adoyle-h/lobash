@@ -1,6 +1,8 @@
-# bats not open nounset and pipefail by default
+# bats not open errexit, nounset and pipefail by default
+set -o errexit
 set -o nounset
 set -o pipefail
+shopt -s inherit_errexit
 
 if [[ -n ${CI:-} ]]; then
   load /test/support/load.bash

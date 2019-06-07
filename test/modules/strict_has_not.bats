@@ -98,7 +98,7 @@ load_module strict_has_not
     l.strict_has_not what type
   }
   run test
-  assert_failure 2
+  assert_failure 3
   assert_output 'Invalid Condition: what'
 }
 
@@ -106,15 +106,15 @@ load_module strict_has_not
   foo() {
     set -e;
     local r
-    r=$(l.run l.strict_has_not what type)
+    r=$(l.strict_has_not what type)
     if [[ $r == true ]]; then
-      echo 3
+      echo 13
     else
-      echo 4
+      echo 14
     fi
   }
 
   run foo
-  assert_failure 2
+  assert_failure 3
   assert_line -n 0 'Invalid Condition: what'
 }

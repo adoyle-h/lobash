@@ -99,7 +99,7 @@ setup_fixture
 
 @test "import a module which has only one Dependent" {
   load_module import
-  import count_files
-  assert_equal "$(type -t l.count_files)" "function"
-  assert_equal "$(type -t l.count_lines)" "function"
+  import relative
+  assert_equal "$(type -t l.relative)" "function"
+  assert_equal "$(type -t l.normalize)" "function"
 }

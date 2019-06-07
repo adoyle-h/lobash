@@ -1,8 +1,8 @@
 # ---
 # Category: Condition
 # Since: 0.1.0
-# Usage: has <command>
-# Usage: has not <command>
+# Usage: l.has <command>
+# Usage: l.has not <command>
 # ---
 
 l.has() {
@@ -38,7 +38,7 @@ l.has() {
       return $?;;
     *)
       # Invalid Condition
-      return 2;;
+      return 3;;
   esac > /dev/null
 
   return 1

@@ -6,7 +6,8 @@
 # ---
 
 l.trim() {
-  [[ $# -eq 0 ]] && return 2
-
-  l.trim_end "$(l.trim_start "$1")"
+  local r
+  echo $SHELLOPTS
+  r=$(l.trim_start "$1")
+  l.trim_end "$r"
 }

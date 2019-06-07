@@ -5,7 +5,7 @@
 # ---
 
 l.trim_start() {
-  [[ $# -eq 0 ]] && return 2
+  [[ $# -eq 0 ]] && echo "Missing argument" >&2 && return 3
 
   if [[ $# -eq 1 ]]; then
     printf '%s\n' "${1#"${1%%[![:space:]]*}"}"

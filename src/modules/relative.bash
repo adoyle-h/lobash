@@ -1,7 +1,7 @@
 # ---
 # Category: Path
 # Since: 0.1.0
-# Dependent normalize
+# Dependent: normalize
 # Usage: l.relative <path1> <path2>
 # ---
 

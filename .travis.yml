@@ -17,8 +17,6 @@ os:
   - osx
 
 env:
-  - BASHVER=4.2
-  - BASHVER=4.3
   - BASHVER=4.4
   - BASHVER=5.0
 

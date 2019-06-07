@@ -3,6 +3,18 @@
 setup_fixture
 load_module trim_start
 
+@test "l.trim_start" {
+  run l.trim_start
+  assert_failure 3
+  assert_output "Missing argument"
+}
+
+@test "l.trim_start ''" {
+  run l.trim_start ''
+  assert_success
+  assert_output ''
+}
+
 @test "l.trim_start '  hah'" {
   run l.trim_start '  hah'
   assert_success

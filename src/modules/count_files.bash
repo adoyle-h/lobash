@@ -1,7 +1,6 @@
 # ---
 # Category: File
 # Since: 0.1.0
-## Dependent: count_lines
 # Usage: l.count_files <directory_path>
 # ---
 

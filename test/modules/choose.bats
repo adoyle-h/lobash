@@ -20,7 +20,7 @@ load_module choose
     echo 0 | l.choose a b
   }
   run test
-  assert_failure 2
+  assert_failure 4
   assert_line -n 2 'Invalid choose number: 0'
 }
 
@@ -29,7 +29,7 @@ load_module choose
     echo 3 | l.choose a b
   }
   run test
-  assert_failure 2
+  assert_failure 4
   assert_line -n 2 'Invalid choose number: 3'
 }
 
@@ -38,8 +38,8 @@ load_module choose
     echo a | l.choose a b
   }
   run test
-  assert_failure 2
-  assert_line -n 2 'Invalid choose number: a'
+  assert_failure 3
+  assert_line -n 2 'Must enter an integer. Current: a'
 }
 
 @test "l.choose a b c d e f g h i j k l m n o p q r s t" {

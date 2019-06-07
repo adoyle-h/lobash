@@ -8,18 +8,18 @@
 _l.import_category() {
   local category=${1,,}
   local prefix=$2
-  local module_names line
-  local cate_file="$(_lobash_dirname "${BASH_SOURCE[0]}")"/../internals/categories/"$category"
+  local module_names line cate_file
+  cate_file="$(_lobash_dirname "${BASH_SOURCE[0]}")"/../internals/categories/"$category"
 
   if [[ ! -f $cate_file ]]; then
     _lobash_error "Not found categories: $category"
-    return 2
+    return 3
   fi
 
   while read -r line; do
     module_names=( $line )
     _l.imports "${module_names[@]}" "$prefix"
-  done < $cate_file
+  done < "$cate_file"
 }
 
 _l.import_categories() {
@@ -30,7 +30,7 @@ _l.import_categories() {
 
   if [[ $args_len -eq 0 ]]; then
     _lobash_error "Not found any parameters passed to import_category function."
-    return 2
+    return 4
   elif [[ $args_len -eq 1 ]]; then
     categories=( "${args[@]}" )
     prefix=$_LOBASH_DEFAULT_PREFIX

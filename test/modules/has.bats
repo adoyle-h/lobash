@@ -156,10 +156,10 @@ load_module has
 
 @test "l.has (not) what type" {
   run l.has what type
-  assert_failure 2
+  assert_failure 3
   assert_output ''
 
   run l.has not what type
-  assert_failure 2
+  assert_failure 3
   assert_output ''
 }

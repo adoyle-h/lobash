@@ -1,5 +1,6 @@
+# shellcheck disable=SC1090
 # Prevent multiple executions
-[[ -v __LOBASH_IMPORT_BASH_LOADED ]] && return
+[[ -n ${__LOBASH_IMPORT_BASH_LOADED:-} ]] && return
 
 __SRC_DIR="$(dirname "${BASH_SOURCE[0]}")"
 __PREFIX=${2:-}
@@ -11,8 +12,8 @@ if [[ -z $__PREFIX ]]; then
     source "$__SRC_DIR"/modules/"$file".bash
   done
 else
-  if [[ ! ${__PREFIX: -1:1} =~ [a-zA-Z0-9] ]] && [[ ! ${__PREFIX: -1:1} =~ [._-] ]]; then
-    echo 'The import prefix must end with letter which matches [._-a-zA-Z0-9]' >&2
+  if [[ ! ${__PREFIX: -1:1} =~ [-_.a-zA-Z0-9] ]]; then
+    echo 'The import prefix must end with letter which matches [-._a-zA-Z0-9]' >&2
     return 3
   fi
 
