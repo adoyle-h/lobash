@@ -1,7 +1,7 @@
 # ---
 # Category: Lobash
 # Since: 0.1.0
-# Usage: l.import [-f|--force] <module_name1> <module_nameN> [prefix=l.]
+# Usage: import [-f|--force] <module_name>... [prefix=l.]
 # ---
 
 _lobash_dirname() {

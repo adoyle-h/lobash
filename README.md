@@ -18,12 +18,12 @@
 - [Installation](#installation)
 - [Prerequisites](#prerequisites)
 - [Usage](#usage)
+    - [Module Usages](#module-usages)
     - [Import specific modules](#import-specific-modules)
+    - [Import modules by categories](#import-modules-by-categories)
     - [Import all modules](#import-all-modules)
     - [Custom import function prefix](#custom-import-function-prefix)
-    - [Module Usages](#module-usages)
     - [Use Command](#use-command)
-- [Examples and Modules](#examples-and-modules)
 - [Debug](#debug)
 - [FAQ](#faq)
 - [Contributions](#contributions)
@@ -70,28 +70,58 @@ git submodule update --init --recursive
 
 ## Usage
 
+### Module Usages
+
+See [./doc/module-usages.md](./doc/module-usages.md).
+
 ### Import specific modules
 
 ```sh
 source ./src/import.bash
 
-# Usage: import <module_name1> <module_name2> <prefix>
-# The prefix must end with `_` or `-` or `.`
-import ask first last l.
+# Usage: import [-f|--force] <module_name>... [prefix=l.]
+# The prefix must end with `_` or `-` or `.`, defaults to 'l.'
+import ask first last
 
 l.ask hello world
 l.first a b c
 l.last a b c
 ```
 
+### Import modules by categories
+
+```sh
+source ./src/import.bash
+
+# Usage: import_category <category_name>... [prefix=l.]
+# The prefix must end with `_` or `-` or `.`, defaults to 'l.'
+import_category string prompt
+
+l.ask hello world
+l.choose a b c
+printf 'a\nb\nc\n' | l.count_lines
+```
+
+Attention: import_all is slow.
+
+```sh
+time import_all
+
+real    0m2.034s
+user    0m1.048s
+sys     0m2.535s
+```
+
+Available categories see [here](./src/internals/categories).
+
 ### Import all modules
 
 ```sh
 source ./src/import.bash
 
-# Usage: import <prefix>
-# The prefix must end with `_` or `-` or `.`
-import_all l.
+# Usage: import_all [prefix=l.]
+# The prefix must end with `_` or `-` or `.`, defaults to 'l.'
+import_all
 
 l.ask hello world
 ```
@@ -121,10 +151,6 @@ a_import_all
 ask hello world
 ```
 
-### Module Usages
-
-See [./doc/module-usages.md](./doc/module-usages.md).
-
 ### Use Command
 
 ```sh
@@ -132,10 +158,6 @@ See [./doc/module-usages.md](./doc/module-usages.md).
 ```
 
 Some modules not work in command.
-
-## Examples and Modules
-
-See the files in [example/](./example) and [test/modules/](./test/modules) to understand how to use Lobash modules.
 
 ## Debug
 

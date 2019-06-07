@@ -18,6 +18,7 @@
 
 Read below links before making any contributions.
 
+- Each contributor should sign CLA before pull request.
 - [Code Styles](./code-styles.md)
 - [How to write a function](./how-to-write-a-function.md)
 

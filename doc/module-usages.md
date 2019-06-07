@@ -1,6 +1,6 @@
 # Module Usages
 
-17 Categories, 58 Modules, 316 Test Cases.
+17 Categories, 58 Modules, 315 Test Cases.
 
 ## TOC
 
@@ -198,6 +198,8 @@
 ### count_lines
 
 - Usage: `l.count_lines <var>`
+- Description: The command and process substitution always trim blank line. So l.count_lines do not accept normal parameter passing.
+Refer to https://stackoverflow.com/a/37706905
 - Since: 0.1.0
 - More Examples: [../test/modules/count_lines.bats](../test/modules/count_lines.bats)
 
@@ -394,20 +396,20 @@ l.has not <command>`
 
 ### import
 
-- Usage: `l.import [-f|--force] <module_name1> <module_nameN> [prefix=l.]`
+- Usage: `import [-f|--force] <module_name>... [prefix=l.]`
 - Since: 0.1.0
 - More Examples: [../test/modules/import.bats](../test/modules/import.bats)
 
 ### import_all
 
-- Usage: `l.import_all [prefix=l.]`
+- Usage: `import_all [prefix=l.]`
 - Dependent: import
 - Since: 0.1.0
 - More Examples: [../test/modules/import_all.bats](../test/modules/import_all.bats)
 
 ### import_category
 
-- Usage: `l.import_category <category_name1> <category_nameN> [prefix=l.]`
+- Usage: `import_category <category_name>... [prefix=l.]`
 - Dependent: import
 - Since: 0.1.0
 - More Examples: [../test/modules/import_category.bats](../test/modules/import_category.bats)

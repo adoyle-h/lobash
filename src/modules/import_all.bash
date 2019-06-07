@@ -2,7 +2,7 @@
 # Category: Lobash
 # Since: 0.1.0
 # Dependent: import
-# Usage: l.import_all [prefix=l.]
+# Usage: import_all [prefix=l.]
 # ---
 
 _l.import_all() {

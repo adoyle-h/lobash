@@ -2,7 +2,7 @@
 # Category: Lobash
 # Since: 0.1.0
 # Dependent: import
-# Usage: l.import_category <category_name1> <category_nameN> [prefix=l.]
+# Usage: import_category <category_name>... [prefix=l.]
 # ---
 
 _l.import_category() {
