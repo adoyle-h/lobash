@@ -2,33 +2,50 @@
 # Category: Path
 # Since: 0.1.0
 # Usage: l.normalize <path>
+# Dependent: split, join
 # ---
 
 l.normalize() {
   if [[ -z ${1:-} ]]; then
-    echo 'Input path cannot be empty string' >&2
-    return 2
-  fi
-
-  if [[ $1 == '/' ]]; then
-    echo '/'
+    echo '.'
     return 0
   fi
 
-  local temp_dir filename target_dir output
-  temp_dir=$(mktemp -d)
-  mkdir -p "$temp_dir/t/$1"
-
-  filename=$(basename "$1")
-  if [[ $filename == '.' ]]; then
-    filename=''
+  if [[ ${1} == '.' ]]; then
+    echo '.'
+    return 0
   fi
-  target_dir="$(cd "$(dirname "$temp_dir/t/$1")" && pwd)"
-  output=$(printf '%s/%s\n' "${target_dir##$temp_dir/t}" "$filename")
 
-  if [[ $output == / ]]; then
-    echo "$output"
+  local words=( $(l.split "$1" '/') )
+  local -a list=()
+  local -a pre_list=()
+  local n=0
+  local i
+
+  if [[ ${1:0:1} == '/' ]]; then
+    pre_list+=(/)
   else
-    echo "${output%%/}"
+    for i in "${words[@]}"; do
+      if [[ $i =~ ^'.' ]]; then
+        ((n+=1))
+        pre_list+=("$i")
+      else
+        break
+      fi
+    done
   fi
+
+  for (( ; n < ${#words[@]}; n++ )); do
+    i=${words[$n]}
+    if [[ $i == '' ]] || [[ $i == '.' ]]; then
+      true
+    elif [[ $i == '..' ]]; then
+      local k=$(( ${#list[@]} - 1)) || true
+      [[ $k > -1 ]] && unset list["$k"]
+    else
+      list+=("$i")
+    fi
+  done
+
+  printf '%s%s\n' "$(l.join pre_list '/')" "$(l.join list '/')"
 }

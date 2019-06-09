@@ -1,6 +1,6 @@
 # Module Usages
 
-18 Categories, 60 Modules, 349 Test Cases.
+18 Categories, 60 Modules, 363 Test Cases.
 
 ## TOC
 
@@ -139,6 +139,7 @@
 ### normalize
 
 - Usage: `l.normalize <path>`
+- Dependent: split, join
 - Since: 0.1.0
 - More Examples: [../test/modules/normalize.bats](../test/modules/normalize.bats)
 
@@ -165,7 +166,8 @@
 
 ### compose
 
-- Usage: `l.compose <arg> [<fn>]...`
+- Usage: `l.compose [<function_name_or_string>]...`
+- Description: Function composition
 - Since: 0.1.0
 - More Examples: [../test/modules/compose.bats](../test/modules/compose.bats)
 
@@ -220,7 +222,7 @@ Refer to https://stackoverflow.com/a/37706905
 
 ### join
 
-- Usage: `l.join <IFS> <arg>...`
+- Usage: `l.join <array_name> [<delimiter>=,]`
 - Since: 0.1.0
 - More Examples: [../test/modules/join.bats](../test/modules/join.bats)
 

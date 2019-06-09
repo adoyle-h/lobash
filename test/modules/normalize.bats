@@ -5,12 +5,12 @@ load_module normalize
 
 @test "l.normalize and l.normalize ''" {
   run l.normalize ''
-  assert_failure 2
-  assert_output 'Input path cannot be empty string'
+  assert_success
+  assert_output '.'
 
   run l.normalize
-  assert_failure 2
-  assert_output 'Input path cannot be empty string'
+  assert_success
+  assert_output '.'
 }
 
 @test "l.normalize . and ./" {
@@ -20,23 +20,49 @@ load_module normalize
 
   run l.normalize ./
   assert_success
-  assert_output ./
+  assert_output .
 }
 
-@test "l.normalize ../ and ../../" {
+@test "l.normalize .. and ../ and ../../" {
+  run l.normalize ..
+  assert_success
+  assert_output ..
+
   run l.normalize ../
   assert_success
-  assert_output ../
+  assert_output ..
 
   run l.normalize ../../
   assert_success
-  assert_output ../../
+  assert_output ../..
 }
 
 @test "l.normalize /" {
   run l.normalize /
   assert_success
   assert_output /
+}
+
+@test "l.normalize /../" {
+  run l.normalize /../
+  assert_success
+  assert_output /
+}
+
+@test "l.normalize /a/../../" {
+  run l.normalize /a/../../
+  assert_success
+  assert_output /
+
+  run l.normalize /a/../..
+  assert_success
+  assert_output /
+}
+
+@test "l.normalize /a//b" {
+  run l.normalize /a//b
+  assert_success
+  assert_output /a/b
 }
 
 @test "l.normalize /a/b/c" {
@@ -115,14 +141,4 @@ load_module normalize
   run l.normalize /a/b/../c.bash
   assert_success
   assert_output /a/c.bash
-}
-
-@test "l.normalize /a/../../" {
-  run l.normalize /a/../../
-  assert_success
-  assert_output /
-
-  run l.normalize /a/../..
-  assert_success
-  assert_output /
 }

@@ -1,13 +1,17 @@
 # ---
 # Category: String
 # Since: 0.1.0
-# Usage: l.join <IFS> <arg>...
+# Usage: l.join <array_name> [<delimiter>=,]
 # ---
 
 l.join() {
-  local _IFS=${IFS:- }
-  IFS=${1}
-  shift
-  printf '%s\n' "$*"
+  local -n l_join_arg1=$1
+  local _IFS=$IFS
+  if [[ $# == 1 ]]; then
+    IFS=,
+  else
+    IFS=${2}
+  fi
+  printf '%s\n' "${l_join_arg1[*]}"
   IFS=$_IFS
 }

@@ -3,7 +3,7 @@
 setup_fixture
 load_module compose
 
-@test "l.compose" {
+@test "l.compose foo bar baz" {
   foo() {
     dirname /a/b/c/bash
   }
@@ -21,7 +21,21 @@ load_module compose
   assert_output "baz=bar=/a/b/c"
 }
 
-@test "l.compose" {
+@test "l.compose bar baz" {
+  bar() {
+    echo "bar"
+  }
+
+  baz() {
+    echo "baz=$1"
+  }
+
+  run l.compose bar baz
+  assert_success
+  assert_output "baz=bar"
+}
+
+@test "l.compose str bar baz" {
   bar() {
     echo "bar=$1"
   }
@@ -30,12 +44,12 @@ load_module compose
     echo "baz=$1"
   }
 
-  run l.compose foo bar baz
+  run l.compose str bar baz
   assert_success
-  assert_output "baz=bar=foo"
+  assert_output "baz=bar=str"
 }
 
-@test "l.compose" {
+@test "l.compose (return 3) bar baz" {
   bar() {
     echo "bar=$1"
     return 3
@@ -45,7 +59,7 @@ load_module compose
     echo "baz=$1"
   }
 
-  run l.compose foo bar baz
-  assert_success
-  assert_output "baz=bar=foo"
+  run l.compose str bar baz
+  assert_failure 3
+  assert_output ""
 }
