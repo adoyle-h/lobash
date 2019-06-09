@@ -50,7 +50,7 @@ print_category() {
       if [[ $length == 1 ]]; then
         printf -- '- Usage: `%s`\n' "${map[${module_name}_usage_0]}" >> "$TARGET"
       else
-        printf -- '- Usage:\n'
+        printf -- '- Usage:\n' >> "$TARGET"
         for (( i = 0; i < "$length"; i++ )); do
           printf -- '  - `%s`\n' "${map[${module_name}_usage_$i]}" >> "$TARGET"
         done
@@ -62,7 +62,7 @@ print_category() {
       if [[ $length == 1 ]]; then
         printf -- '- Description: %s\n' "${map[${module_name}_description_0]}" >> "$TARGET"
       else
-        printf -- '- Description:\n'
+        printf -- '- Description:\n' >> "$TARGET"
         for (( i = 0; i < "$length"; i++ )); do
           printf -- '  - %s\n' "${map[${module_name}_description_$i]}" >> "$TARGET"
         done
@@ -106,12 +106,12 @@ print_toc() {
 
 add_to_map() {
   local name=$1
-  local -a _founds
   local -a founds=()
-  _founds=( "$(echo "$metadatas" | grep -Eo "^${name^}: .+$" | sed "s/${name^}: //" || true)" )
-  for i in "${_founds[@]}"; do
+  while read -r i
+  do
     [[ -n "$i" ]] && founds+=("$i")
-  done
+  done < <(echo "$metadatas" | grep -Eo "^${name^}: .+$" | sed "s/${name^}: //" || true)
+
   map[${module_name}_${name}_sum]=${#founds[@]}
   for (( i = 0; i < ${#founds[@]}; i++ )); do
     map[${module_name}_${name}_$i]="${founds["$i"]}"

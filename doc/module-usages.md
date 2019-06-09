@@ -124,24 +124,27 @@
 
 ### basename
 
-- Usage: `l.basename <path>
-echo <path> | l.basename`
+- Usage:
+  - `l.basename <path>`
+  - `echo <path> | l.basename`
 - Description: Alternative to basename command. It much faster because using shell parameter expansion.
 - Since: 0.1.0
 - More Examples: [../test/modules/basename.bats](../test/modules/basename.bats)
 
 ### dirname
 
-- Usage: `l.dirname <path>
-echo <path> | l.dirname`
+- Usage:
+  - `l.dirname <path>`
+  - `echo <path> | l.dirname`
 - Description: Alternative to dirname command. It much faster because using shell parameter expansion.
 - Since: 0.1.0
 - More Examples: [../test/modules/dirname.bats](../test/modules/dirname.bats)
 
 ### normalize
 
-- Usage: `l.normalize <path>
-echo <path> | l.normalize`
+- Usage:
+  - `l.normalize <path>`
+  - `echo <path> | l.normalize`
 - Dependent: [`split`](#split) [`join`](#join)
 - Since: 0.1.0
 - More Examples: [../test/modules/normalize.bats](../test/modules/normalize.bats)
@@ -197,8 +200,9 @@ echo <path> | l.normalize`
 
 ### extname
 
-- Usage: `l.extname <string>
-echo <string> | l.extname`
+- Usage:
+  - `l.extname <string>`
+  - `echo <string> | l.extname`
 - Since: 0.1.0
 - More Examples: [../test/modules/extname.bats](../test/modules/extname.bats)
 
@@ -206,10 +210,12 @@ echo <string> | l.extname`
 
 ### count_lines
 
-- Usage: `l.count_lines <string>
-echo <string> | l.count_lines`
-- Description: The command and process substitution always trim blank line. So l.count_lines do not accept normal parameter passing.
-Refer to https://stackoverflow.com/a/37706905
+- Usage:
+  - `l.count_lines <string>`
+  - `echo <string> | l.count_lines`
+- Description:
+  - The command and process substitution always trim blank line. So l.count_lines do not accept normal parameter passing.
+  - Refer to https://stackoverflow.com/a/37706905
 - Since: 0.1.0
 - More Examples: [../test/modules/count_lines.bats](../test/modules/count_lines.bats)
 
@@ -227,15 +233,17 @@ Refer to https://stackoverflow.com/a/37706905
 
 ### lower_case
 
-- Usage: `l.lower_case <string>
-echo <string> | l.lower_case`
+- Usage:
+  - `l.lower_case <string>`
+  - `echo <string> | l.lower_case`
 - Since: 0.1.0
 - More Examples: [../test/modules/lower_case.bats](../test/modules/lower_case.bats)
 
 ### lower_first
 
-- Usage: `l.lower_first <string>
-echo <string> | l.lower_first`
+- Usage:
+  - `l.lower_first <string>`
+  - `echo <string> | l.lower_first`
 - Since: 0.1.0
 - More Examples: [../test/modules/lower_first.bats](../test/modules/lower_first.bats)
 
@@ -272,37 +280,42 @@ echo <string> | l.lower_first`
 
 ### trim
 
-- Usage: `l.trim <string>
-echo <string> | l.trim`
+- Usage:
+  - `l.trim <string>`
+  - `echo <string> | l.trim`
 - Dependent: [`trim_start`](#trim_start) [`trim_end`](#trim_end)
 - Since: 0.1.0
 - More Examples: [../test/modules/trim.bats](../test/modules/trim.bats)
 
 ### trim_end
 
-- Usage: `l.trim_end <string> [chars=[[:space:]]]
-echo <string> | l.trim_end [chars=[[:space:]]]`
+- Usage:
+  - `l.trim_end <string> [chars=[[:space:]]]`
+  - `echo <string> | l.trim_end [chars=[[:space:]]]`
 - Since: 0.1.0
 - More Examples: [../test/modules/trim_end.bats](../test/modules/trim_end.bats)
 
 ### trim_start
 
-- Usage: `l.trim_start <string>
-echo <string> | l.trim_start`
+- Usage:
+  - `l.trim_start <string>`
+  - `echo <string> | l.trim_start`
 - Since: 0.1.0
 - More Examples: [../test/modules/trim_start.bats](../test/modules/trim_start.bats)
 
 ### upper_case
 
-- Usage: `l.upper_case <string>
-echo <string> | l.upper_case`
+- Usage:
+  - `l.upper_case <string>`
+  - `echo <string> | l.upper_case`
 - Since: 0.1.0
 - More Examples: [../test/modules/upper_case.bats](../test/modules/upper_case.bats)
 
 ### upper_first
 
-- Usage: `l.upper_first <string>
-echo <string> | l.upper_first`
+- Usage:
+  - `l.upper_first <string>`
+  - `echo <string> | l.upper_first`
 - Since: 0.1.0
 - More Examples: [../test/modules/upper_first.bats](../test/modules/upper_first.bats)
 
@@ -346,9 +359,10 @@ echo <string> | l.upper_first`
 ### echo
 
 - Usage: `l.echo <string>...`
-- Description: A safe way to echo string. Not support any options.
-The builtin echo will get unexpected result while execute `b=( -n 123 ); echo "${b[@]}"`.
-See https://github.com/anordal/shellharden/blob/master/how_to_do_things_safely_in_bash.md#echo--printf
+- Description:
+  - A safe way to echo string. Not support any options.
+  - The builtin echo will get unexpected result while execute `b=( -n 123 ); echo "${b[@]}"`.
+  - See https://github.com/anordal/shellharden/blob/master/how_to_do_things_safely_in_bash.md#echo--printf
 - Since: 0.1.0
 - More Examples: [../test/modules/echo.bats](../test/modules/echo.bats)
 
@@ -356,8 +370,9 @@ See https://github.com/anordal/shellharden/blob/master/how_to_do_things_safely_i
 
 ### has
 
-- Usage: `l.has <command>
-l.has not <command>`
+- Usage:
+  - `l.has <command>`
+  - `l.has not <command>`
 - Since: 0.1.0
 - More Examples: [../test/modules/has.bats](../test/modules/has.bats)
 
