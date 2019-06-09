@@ -2,27 +2,35 @@
 # Category: Path
 # Since: 0.1.0
 # Usage: l.normalize <path>
+# Usage: echo <path> | l.normalize
 # Dependent: split, join
 # ---
 
 l.normalize() {
-  if [[ -z ${1:-} ]]; then
+  local path
+  if [[ -t 0 ]]; then
+    path=${1:-}
+  else
+    IFS='' read -r path
+  fi
+
+  if [[ -z ${path} ]]; then
     echo '.'
     return 0
   fi
 
-  if [[ ${1} == '.' ]]; then
+  if [[ ${path} == '.' ]]; then
     echo '.'
     return 0
   fi
 
-  local words=( $(l.split "$1" '/') )
+  local words=( $(l.split "$path" '/') )
   local -a list=()
   local -a pre_list=()
   local n=0
   local i
 
-  if [[ ${1:0:1} == '/' ]]; then
+  if [[ ${path:0:1} == '/' ]]; then
     pre_list+=(/)
   else
     for i in "${words[@]}"; do

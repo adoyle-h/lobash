@@ -9,6 +9,15 @@ load_module lower_case
   assert_output 'abc'
 }
 
+@test "echo 'abc' | l.lower_case" {
+  t() {
+    echo 'abc' | l.lower_case
+  }
+  run t
+  assert_success
+  assert_output 'abc'
+}
+
 @test "l.lower_case 'Abc'" {
   run l.lower_case 'Abc'
   assert_success
@@ -17,6 +26,15 @@ load_module lower_case
 
 @test "l.lower_case 'ABc'" {
   run l.lower_case 'ABc'
+  assert_success
+  assert_output 'abc'
+}
+
+@test "echo 'ABc' | l.lower_case" {
+  t() {
+    echo 'ABc' | l.lower_case
+  }
+  run t
   assert_success
   assert_output 'abc'
 }
@@ -35,6 +53,15 @@ load_module lower_case
 
 @test "l.lower_case ' ABC DE '" {
   run l.lower_case ' ABC DE '
+  assert_success
+  assert_output ' abc de '
+}
+
+@test "echo ' ABC DE ' | l.lower_case" {
+  t() {
+    echo ' ABC DE ' | l.lower_case
+  }
+  run t
   assert_success
   assert_output ' abc de '
 }

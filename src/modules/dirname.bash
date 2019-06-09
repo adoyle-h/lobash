@@ -2,9 +2,21 @@
 # Category: Path
 # Since: 0.1.0
 # Usage: l.dirname <path>
+# Usage: echo <path> | l.dirname
 # Description: Alternative to dirname command. It much faster because using shell parameter expansion.
 # ---
 
 l.dirname() {
-  printf '%s\n' "${1%/*}"
+  local str
+  if [[ -t 0 ]]; then
+    str=$1
+  else
+    IFS='' read -r str
+  fi
+
+  [[ $str == '/' ]] && echo '/' && return 0
+  [[ $str =~ ^'../' ]] && echo '.' && return 0
+  [[ ! $str =~ / ]] && echo '.' && return 0
+
+  printf '%s\n' "${str%/*}"
 }

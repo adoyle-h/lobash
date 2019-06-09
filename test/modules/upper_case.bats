@@ -9,6 +9,15 @@ load_module upper_case
   assert_output 'ABC'
 }
 
+@test "echo 'abc' | l.upper_case" {
+  t() {
+    echo 'abc' | l.upper_case
+  }
+  run t
+  assert_success
+  assert_output 'ABC'
+}
+
 @test "l.upper_case 'Abc'" {
   run l.upper_case 'Abc'
   assert_success
@@ -35,6 +44,15 @@ load_module upper_case
 
 @test "l.upper_case ' abc de '" {
   run l.upper_case ' abc de '
+  assert_success
+  assert_output ' ABC DE '
+}
+
+@test "echo ' abc de ' | l.upper_case" {
+  t() {
+    echo ' abc de ' | l.upper_case
+  }
+  run t
   assert_success
   assert_output ' ABC DE '
 }

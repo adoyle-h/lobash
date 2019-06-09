@@ -15,6 +15,15 @@ load_module lower_first
   assert_output 'abc'
 }
 
+@test "echo 'Abc' | l.lower_first" {
+  t() {
+    echo 'Abc' | l.lower_first
+  }
+  run t
+  assert_success
+  assert_output 'abc'
+}
+
 @test "l.lower_first 'ABc'" {
   run l.lower_first 'ABc'
   assert_success
@@ -29,6 +38,15 @@ load_module lower_first
 
 @test "l.lower_first 'ABC DE'" {
   run l.lower_first 'ABC DE'
+  assert_success
+  assert_output 'aBC DE'
+}
+
+@test "echo 'ABC DE' | l.lower_first" {
+  t() {
+    echo 'ABC DE' | l.lower_first
+  }
+  run t
   assert_success
   assert_output 'aBC DE'
 }

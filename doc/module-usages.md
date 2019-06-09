@@ -1,6 +1,6 @@
 # Module Usages
 
-18 Categories, 60 Modules, 363 Test Cases.
+18 Categories, 60 Modules, 392 Test Cases.
 
 ## TOC
 
@@ -29,10 +29,10 @@
 - [String](#string)
   - [count_lines](#count_lines)
   - [ends_with](#ends_with)
-  - [get_matched](#get_matched)
   - [join](#join)
   - [lower_case](#lower_case)
   - [lower_first](#lower_first)
+  - [match](#match)
   - [split](#split)
   - [starts_with](#starts_with)
   - [str_include](#str_include)
@@ -124,21 +124,24 @@
 
 ### basename
 
-- Usage: `l.basename <path>`
+- Usage: `l.basename <path>
+echo <path> | l.basename`
 - Description: Alternative to basename command. It much faster because using shell parameter expansion.
 - Since: 0.1.0
 - More Examples: [../test/modules/basename.bats](../test/modules/basename.bats)
 
 ### dirname
 
-- Usage: `l.dirname <path>`
+- Usage: `l.dirname <path>
+echo <path> | l.dirname`
 - Description: Alternative to dirname command. It much faster because using shell parameter expansion.
 - Since: 0.1.0
 - More Examples: [../test/modules/dirname.bats](../test/modules/dirname.bats)
 
 ### normalize
 
-- Usage: `l.normalize <path>`
+- Usage: `l.normalize <path>
+echo <path> | l.normalize`
 - Dependent: split, join
 - Since: 0.1.0
 - More Examples: [../test/modules/normalize.bats](../test/modules/normalize.bats)
@@ -194,7 +197,8 @@
 
 ### extname
 
-- Usage: `l.extname <string>`
+- Usage: `l.extname <string>
+echo <string> | l.extname`
 - Since: 0.1.0
 - More Examples: [../test/modules/extname.bats](../test/modules/extname.bats)
 
@@ -202,7 +206,8 @@
 
 ### count_lines
 
-- Usage: `printf '' | l.count_lines`
+- Usage: `l.count_lines <string>
+echo <string> | l.count_lines`
 - Description: The command and process substitution always trim blank line. So l.count_lines do not accept normal parameter passing.
 Refer to https://stackoverflow.com/a/37706905
 - Since: 0.1.0
@@ -214,12 +219,6 @@ Refer to https://stackoverflow.com/a/37706905
 - Since: 0.1.0
 - More Examples: [../test/modules/ends_with.bats](../test/modules/ends_with.bats)
 
-### get_matched
-
-- Usage: `l.get_matched regex [index=1] string`
-- Since: 0.1.0
-- More Examples: [../test/modules/get_matched.bats](../test/modules/get_matched.bats)
-
 ### join
 
 - Usage: `l.join <array_name> [<delimiter>=,]`
@@ -228,15 +227,24 @@ Refer to https://stackoverflow.com/a/37706905
 
 ### lower_case
 
-- Usage: `l.lower_case <string>`
+- Usage: `l.lower_case <string>
+echo <string> | l.lower_case`
 - Since: 0.1.0
 - More Examples: [../test/modules/lower_case.bats](../test/modules/lower_case.bats)
 
 ### lower_first
 
-- Usage: `l.lower_first <string>`
+- Usage: `l.lower_first <string>
+echo <string> | l.lower_first`
 - Since: 0.1.0
 - More Examples: [../test/modules/lower_first.bats](../test/modules/lower_first.bats)
+
+### match
+
+- Usage: `l.match "string" "regex" [index=1]`
+- Description: Return matched part of string. Return empty string if no matched. Support capturing groups.
+- Since: 0.1.0
+- More Examples: [../test/modules/match.bats](../test/modules/match.bats)
 
 ### split
 
@@ -286,13 +294,15 @@ echo <string> | l.trim_start`
 
 ### upper_case
 
-- Usage: `l.upper_case <string>`
+- Usage: `l.upper_case <string>
+echo <string> | l.upper_case`
 - Since: 0.1.0
 - More Examples: [../test/modules/upper_case.bats](../test/modules/upper_case.bats)
 
 ### upper_first
 
-- Usage: `l.upper_first <string>`
+- Usage: `l.upper_first <string>
+echo <string> | l.upper_first`
 - Since: 0.1.0
 - More Examples: [../test/modules/upper_first.bats](../test/modules/upper_first.bats)
 

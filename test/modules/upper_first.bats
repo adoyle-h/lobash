@@ -9,6 +9,15 @@ load_module upper_first
   assert_output 'Abc'
 }
 
+@test "echo 'abc' | l.upper_first" {
+  t() {
+    echo 'abc' | l.upper_first
+  }
+  run t
+  assert_success
+  assert_output 'Abc'
+}
+
 @test "l.upper_first 'Abc'" {
   run l.upper_first 'Abc'
   assert_success
@@ -33,8 +42,26 @@ load_module upper_first
   assert_output ' abc de '
 }
 
+@test "echo ' abc de ' | l.upper_first" {
+  t() {
+    echo ' abc de ' | l.upper_first
+  }
+  run t
+  assert_success
+  assert_output ' abc de '
+}
+
 @test "l.upper_first 'a bc d'" {
   run l.upper_first 'a bc d'
+  assert_success
+  assert_output 'A bc d'
+}
+
+@test "echo 'a bc d' | l.upper_first" {
+  t() {
+    echo 'a bc d' | l.upper_first
+  }
+  run t
   assert_success
   assert_output 'A bc d'
 }

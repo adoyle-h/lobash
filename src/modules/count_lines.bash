@@ -1,7 +1,8 @@
 # ---
 # Category: String
 # Since: 0.1.0
-# Usage: printf '' | l.count_lines
+# Usage: l.count_lines <string>
+# Usage: echo <string> | l.count_lines
 # Description: The command and process substitution always trim blank line. So l.count_lines do not accept normal parameter passing.
 # Description: Refer to https://stackoverflow.com/a/37706905
 # ---
