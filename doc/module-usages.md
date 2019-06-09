@@ -116,7 +116,7 @@
 ### choose
 
 - Usage: `l.choose <item>...`
-- Dependent: is_integer
+- Dependent: [`is_integer`](#is_integer)
 - Since: 0.1.0
 - More Examples: [../test/modules/choose.bats](../test/modules/choose.bats)
 
@@ -142,7 +142,7 @@ echo <path> | l.dirname`
 
 - Usage: `l.normalize <path>
 echo <path> | l.normalize`
-- Dependent: split, join
+- Dependent: [`split`](#split) [`join`](#join)
 - Since: 0.1.0
 - More Examples: [../test/modules/normalize.bats](../test/modules/normalize.bats)
 
@@ -155,7 +155,7 @@ echo <path> | l.normalize`
 ### relative
 
 - Usage: `l.relative <path1> <path2>`
-- Dependent: normalize
+- Dependent: [`normalize`](#normalize)
 - Since: 0.1.0
 - More Examples: [../test/modules/relative.bats](../test/modules/relative.bats)
 
@@ -274,7 +274,7 @@ echo <string> | l.lower_first`
 
 - Usage: `l.trim <string>
 echo <string> | l.trim`
-- Dependent: trim_start, trim_end
+- Dependent: [`trim_start`](#trim_start) [`trim_end`](#trim_end)
 - Since: 0.1.0
 - More Examples: [../test/modules/trim.bats](../test/modules/trim.bats)
 
@@ -387,7 +387,7 @@ l.has not <command>`
 ### strict_has_not
 
 - Usage: `strict_has_not <command>`
-- Dependent: strict_has, not
+- Dependent: [`strict_has`](#strict_has) [`not`](#not)
 - Since: 0.1.0
 - More Examples: [../test/modules/strict_has_not.bats](../test/modules/strict_has_not.bats)
 
@@ -402,14 +402,14 @@ l.has not <command>`
 ### import_all
 
 - Usage: `import_all [prefix=l.]`
-- Dependent: import
+- Dependent: [`import`](#import)
 - Since: 0.1.0
 - More Examples: [../test/modules/import_all.bats](../test/modules/import_all.bats)
 
 ### import_category
 
 - Usage: `import_category <category_name>... [prefix=l.]`
-- Dependent: import
+- Dependent: [`import`](#import)
 - Since: 0.1.0
 - More Examples: [../test/modules/import_category.bats](../test/modules/import_category.bats)
 
@@ -506,6 +506,6 @@ l.has not <command>`
 ### trace_time
 
 - Usage: `l.trace_time [label]`
-- Dependent: now
+- Dependent: [`now`](#now)
 - Since: 0.1.0
 - More Examples: [../test/modules/trace_time.bats](../test/modules/trace_time.bats)

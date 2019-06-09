@@ -44,23 +44,46 @@ print_category() {
 
     printf '\n%s\n\n' "### ${module_name}" >> "$TARGET"
 
-    if [[ ${map[${module_name}_usage]} ]]; then
-      printf -- '- Usage: `%s`\n' "${map[${module_name}_usage]}" >> "$TARGET"
+    local length
+    if [[ ${map[${module_name}_usage_sum]} -gt 0 ]]; then
+      length=${map[${module_name}_usage_sum]}
+      if [[ $length == 1 ]]; then
+        printf -- '- Usage: `%s`\n' "${map[${module_name}_usage_0]}" >> "$TARGET"
+      else
+        printf -- '- Usage:\n'
+        for (( i = 0; i < "$length"; i++ )); do
+          printf -- '  - `%s`\n' "${map[${module_name}_usage_$i]}" >> "$TARGET"
+        done
+      fi
     fi
 
-    if [[ ${map[${module_name}_description]} ]]; then
-      printf -- '- %s\n' "Description: ${map[${module_name}_description]}" >> "$TARGET"
+    if [[ ${map[${module_name}_description_sum]} -gt 0 ]]; then
+      length=${map[${module_name}_description_sum]}
+      if [[ $length == 1 ]]; then
+        printf -- '- Description: %s\n' "${map[${module_name}_description_0]}" >> "$TARGET"
+      else
+        printf -- '- Description:\n'
+        for (( i = 0; i < "$length"; i++ )); do
+          printf -- '  - %s\n' "${map[${module_name}_description_$i]}" >> "$TARGET"
+        done
+      fi
     fi
 
-    if [[ ${map[${module_name}_dependent]} ]]; then
-      printf -- '- %s\n' "Dependent: ${map[${module_name}_dependent]}" >> "$TARGET"
+    if [[ -n ${map[${module_name}_dependent_0]:-} ]]; then
+      printf -- '- %s' "Dependent:" >> "$TARGET"
+      local deps=( ${map[${module_name}_dependent_0]//,/ } )
+      for dep in "${deps[@]}"; do
+        printf -- ' [`%s`](#%s)' "${dep}" "${dep}" >> "$TARGET"
+      done
+
+      printf '%s\n' '' >> "$TARGET"
     fi
 
-    if [[ -n ${map[${module_name}_since]} ]]; then
-      printf -- '- %s\n' "Since: ${map[${module_name}_since]}" >> "$TARGET"
+    if [[ -n ${map[${module_name}_since_0]:-} ]]; then
+      printf -- '- %s\n' "Since: ${map[${module_name}_since_0]}" >> "$TARGET"
     fi
 
-    if [[ ${map[${module_name}_deprecated]} == true ]]; then
+    if [[ ${map[${module_name}_deprecated_0]:-} == true ]]; then
       printf -- '- %s\n' 'Deprecated: true' >> "$TARGET"
     fi
 
@@ -81,6 +104,20 @@ print_toc() {
   done
 }
 
+add_to_map() {
+  local name=$1
+  local -a _founds
+  local -a founds=()
+  _founds=( "$(echo "$metadatas" | grep -Eo "^${name^}: .+$" | sed "s/${name^}: //" || true)" )
+  for i in "${_founds[@]}"; do
+    [[ -n "$i" ]] && founds+=("$i")
+  done
+  map[${module_name}_${name}_sum]=${#founds[@]}
+  for (( i = 0; i < ${#founds[@]}; i++ )); do
+    map[${module_name}_${name}_$i]="${founds["$i"]}"
+  done
+}
+
 main() {
   local TARGET=$SCRIPT_DIR/../doc/module-usages.md
   local -A map
@@ -94,11 +131,6 @@ main() {
     metadatas=$(_get_module_metadata_str "$filepath")
 
     category=$(echo "$metadatas" | grep -Eo '^Category: .+$' | sed 's/Category: //' | lower_case || echo '')
-    deprecated=$(echo "$metadatas" | grep -Eo '^Deprecated: .+$' | sed 's/Deprecated: //' || echo '')
-    dependent=$(echo "$metadatas" | grep -Eo '^Dependent: .+$' | sed 's/Dependent: //' || echo '')
-    since=$(echo "$metadatas" | grep -Eo '^Since: .+$' | sed 's/Since: //' || echo '')
-    usage=$(echo "$metadatas" | grep -Eo '^Usage: .+$' | sed 's/Usage: //' || echo '')
-    description=$(echo "$metadatas" | grep -Eo '^Description: .+$' | sed 's/Description: //' || echo '')
 
     if [[ -z $category ]]; then
       category='Unknown'
@@ -115,11 +147,10 @@ main() {
     declare -n cate=$cate_name
     cate+=("$module_name")
 
-    map[${module_name}_deprecated]=$deprecated
-    map[${module_name}_dependent]=$dependent
-    map[${module_name}_since]=$since
-    map[${module_name}_usage]=$usage
-    map[${module_name}_description]=$description
+    add_to_map usage
+    add_to_map description
+    add_to_map since
+    add_to_map dependent
   done
 
   categories=( $(echo "${categories[@]}" | sort) )
