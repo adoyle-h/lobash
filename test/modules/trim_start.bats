@@ -5,8 +5,8 @@ load_module trim_start
 
 @test "l.trim_start" {
   run l.trim_start
-  assert_failure 3
-  assert_output "Missing argument"
+  assert_success
+  assert_output ''
 }
 
 @test "l.trim_start ''" {
@@ -15,68 +15,146 @@ load_module trim_start
   assert_output ''
 }
 
-@test "l.trim_start '  hah'" {
-  run l.trim_start '  hah'
+@test "echo '' | l.trim_start" {
+  t() {
+    echo '' | l.trim_start
+  }
+  run t
   assert_success
-  assert_output "hah"
+  assert_output ''
 }
 
-@test "l.trim_start 'hah'" {
-  run l.trim_start 'hah'
+@test "l.trim_start '  n'" {
+  run l.trim_start '  n'
   assert_success
-  assert_output "hah"
+  assert_output "n"
 }
 
-@test "l.trim_start  'hah   '" {
-  run l.trim_start  'hah   '
+@test "echo '  n' | l.trim_start" {
+  t() {
+    echo '  n' | l.trim_start
+  }
+  run t
   assert_success
-  assert_output "hah   "
+  assert_output 'n'
 }
 
-@test "l.trim_start '   hah   '" {
-  run l.trim_start '   hah   '
+@test "l.trim_start 'xxx'" {
+  run l.trim_start 'xxx'
   assert_success
-  assert_output "hah   "
+  assert_output "xxx"
 }
 
-@test "l.trim_start  '   hah  bbb '" {
-  run l.trim_start '   hah  bbb '
+@test "echo 'xxx' | l.trim_start" {
+  t() {
+    echo 'xxx' | l.trim_start
+  }
+  run t
   assert_success
-  assert_output "hah  bbb "
+  assert_output 'xxx'
 }
 
-@test "l.trim_start '  hah' ''" {
-  run l.trim_start '  hah' ''
+@test "l.trim_start 'ok   '" {
+  run l.trim_start 'ok   '
   assert_success
-  assert_output "  hah"
+  assert_output 'ok   '
 }
 
-@test "l.trim_start '  hah' ' '" {
-  run l.trim_start '  hah' ' '
+@test "echo 'ok   ' | l.trim_start" {
+  t() {
+    echo 'ok   ' | l.trim_start
+  }
+  run t
   assert_success
-  assert_output " hah"
+  assert_output 'ok   '
 }
 
-@test "l.trim_start '  hah' ' h'" {
-  run l.trim_start '  hah' ' h'
+@test "l.trim_start '   abc   '" {
+  run l.trim_start '   abc   '
   assert_success
-  assert_output "  hah"
+  assert_output "abc   "
 }
 
-@test "l.trim_start '  hah' '  h'" {
-  run l.trim_start '  hah' '  h'
+@test "echo '   abc   ' | l.trim_start" {
+  t() {
+    echo '   abc   ' | l.trim_start
+  }
+  run t
   assert_success
-  assert_output "ah"
+  assert_output 'abc   '
 }
 
-@test "l.trim_start '  hah' 'h'" {
-  run l.trim_start '  hah' 'h'
+@test "l.trim_start 'prefix.file' 'prefix.'" {
+  run l.trim_start 'prefix.file' 'prefix.'
   assert_success
-  assert_output "  hah"
+  assert_output "file"
 }
 
-@test "l.trim_start '  hah' 'h  '" {
-  run l.trim_start '  hah' 'h  '
+@test "echo 'prefix.file' | l.trim_start 'prefix.'" {
+  t() {
+    echo 'prefix.file' | l.trim_start 'prefix.'
+  }
+  run t
   assert_success
-  assert_output "  hah"
+  assert_output "file"
+}
+
+@test "l.trim_start 'prefix.file  ' 'prefix.'" {
+  run l.trim_start 'prefix.file  ' 'prefix.'
+  assert_success
+  assert_output "file  "
+}
+
+@test "echo 'prefix.file  ' | l.trim_start 'prefix.'" {
+  t() {
+    echo 'prefix.file  ' | l.trim_start 'prefix.'
+  }
+  run t
+  assert_success
+  assert_output "file  "
+}
+
+@test "l.trim_start 'prefix.file' ' prefix.'" {
+  run l.trim_start 'prefix.file' ' prefix.'
+  assert_success
+  assert_output "prefix.file"
+}
+
+@test "echo 'prefix.file' | l.trim_start ' prefix.'" {
+  t() {
+    echo 'prefix.file' | l.trim_start ' prefix.'
+  }
+  run t
+  assert_success
+  assert_output "prefix.file"
+}
+
+@test "l.trim_start ' prefix.file' ' prefix.'" {
+  run l.trim_start ' prefix.file' ' prefix.'
+  assert_success
+  assert_output "file"
+}
+
+@test "echo ' prefix.file' | l.trim_start ' prefix.'" {
+  t() {
+    echo ' prefix.file' | l.trim_start ' prefix.'
+  }
+  run t
+  assert_success
+  assert_output "file"
+}
+
+@test "l.trim_start ' prefix. file ' ' prefix.'" {
+  run l.trim_start ' prefix. file ' ' prefix.'
+  assert_success
+  assert_output " file "
+}
+
+@test "echo ' prefix. file ' | l.trim_start ' prefix.'" {
+  t() {
+    echo ' prefix. file ' | l.trim_start ' prefix.'
+  }
+  run t
+  assert_success
+  assert_output " file "
 }

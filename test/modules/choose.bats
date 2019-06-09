@@ -3,16 +3,13 @@
 setup_fixture
 load_module choose
 
-
 @test "l.choose a b. Enter 2" {
   test() {
     echo 2 | l.choose a b
   }
   run test
   assert_success
-  assert_line -n 0 -e '- 1.+a'
-  assert_line -n 1 -e '- 2.+b'
-  assert_line -n 2 'b'
+  assert_output 'b'
 }
 
 @test "l.choose a b. Enter 0" {
@@ -21,7 +18,7 @@ load_module choose
   }
   run test
   assert_failure 4
-  assert_line -n 2 'Invalid choose number: 0'
+  assert_output 'Invalid choose number: 0'
 }
 
 @test "l.choose a b. Enter 3" {
@@ -30,7 +27,7 @@ load_module choose
   }
   run test
   assert_failure 4
-  assert_line -n 2 'Invalid choose number: 3'
+  assert_output 'Invalid choose number: 3'
 }
 
 @test "l.choose a b. Enter a" {
@@ -39,17 +36,14 @@ load_module choose
   }
   run test
   assert_failure 3
-  assert_line -n 2 'Must enter an integer. Current: a'
+  assert_output 'Must enter an integer. Current: a'
 }
 
 @test "l.choose a b c d e f g h i j k l m n o p q r s t" {
   test() {
-    echo 20 | l.choose a b c d e f g h i j k l m n o p q r s t
+    echo 11 | l.choose a b c d e f g h i j k
   }
   run test
   assert_success
-  assert_line -n 0 -e '- 1.+a'
-  assert_line -n 1 -e '- 2.+b'
-  assert_line -n 19 -e '- 20.+t'
-  assert_line -n 20 't'
+  assert_output 'k'
 }

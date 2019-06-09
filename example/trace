@@ -11,7 +11,12 @@ shopt -s inherit_errexit
 readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 
 source "$SCRIPT_DIR"/../src/import.bash
-import ask choose
+import trim trace_start trace_end
 
-result=$(l.ask hello)
-echo "result=${result}"
+l.trace_start
+echo '  123  ' | l.trim
+l.trace_end
+
+l.trace_start 2 abc
+l.trim ' abc '
+l.trace_end

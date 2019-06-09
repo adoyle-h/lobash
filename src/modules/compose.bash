@@ -8,6 +8,8 @@ l.compose() {
   local -a args=( "$1" )
   shift
 
+  [[ $(type -t "$value") == function ]]
+
   for f in "$@"; do
     args=( "$($f "${args[@]}")" )
   done

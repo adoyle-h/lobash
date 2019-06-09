@@ -8,5 +8,5 @@
 # ---
 
 l.echo() {
-  printf '%b\n' "$*"
+  printf -- '%b\n' "$*"
 }

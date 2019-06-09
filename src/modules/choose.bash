@@ -2,18 +2,19 @@
 # Category: Prompt
 # Since: 0.1.0
 # Dependent: is_integer
-# Usage: l.choose <option>...
+# Usage: l.choose <item>...
 # ---
 
 l.choose() {
   local items=("$@")
 
+  printf -- '  %s\n' 'No. Item' >/dev/tty
   local i
   for i in "${!items[@]}"; do
-    printf -- '- %s\t%s\n' $(("$i" + 1)) "${items[$i]}"
+    printf -- '- %-2d  %s\n' $(("$i" + 1)) "${items[$i]}" >/dev/tty
   done
 
-  read -r -p "Please enter the number choose: " num
+  read -r -p "Please enter the number to choose: " num
 
   local r
   r=$(l.is_integer "$num")

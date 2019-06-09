@@ -8,14 +8,13 @@
 
 l.count_lines() {
   local count=0
-  if [[ $# == 0 ]]; then
-    # It is piping
+  if [[ -t 0 ]]; then
+    [[ -z ${1:-} ]] && printf '0\n' && return 0
+    wc -l <<< "$1" | tr -d ' '
+  else
     while read -r -d $'\n' _; do
       ((count+=1))
     done
     printf '%s\n' "$count"
-  else
-    echo "Please use pipe to pass parameter." >&2
-    return 3
   fi
 }

@@ -2,14 +2,24 @@
 # Category: String
 # Since: 0.1.0
 # Usage: l.trim_start <string>
+# Usage: echo <string> | l.trim_start
 # ---
 
 l.trim_start() {
-  [[ $# -eq 0 ]] && echo "Missing argument" >&2 && return 3
-
-  if [[ $# -eq 1 ]]; then
-    printf '%s\n' "${1#"${1%%[![:space:]]*}"}"
+  if [[ -t 0 ]]; then
+    local str=${1:-}
+    if [[ $# == 2 ]]; then
+      printf '%s\n' "${str##$2}"
+    else
+      # https://stackoverflow.com/a/3352015
+      printf '%s\n' "${str#"${str%%[![:space:]]*}"}"
+    fi
   else
-    printf '%s\n' "${1##$2}"
+    IFS='' read -r str
+    if [[ $# == 1 ]]; then
+      printf '%s\n' "${str##$1}"
+    else
+      printf '%s\n' "${str#"${str%%[![:space:]]*}"}"
+    fi
   fi
 }

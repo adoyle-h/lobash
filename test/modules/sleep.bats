@@ -12,7 +12,7 @@ load_module now
   assert_success
   elapsed=$(( $(l.now) - $last ))
 
-  if [[ $elapsed -gt 50 ]] && [[ $elapsed -lt 150 ]]; then
+  if [[ $elapsed -gt 40 ]] && [[ $elapsed -lt 160 ]]; then
     true
   else
     echo "elapsed=$elapsed"
@@ -28,7 +28,7 @@ load_module now
   assert_success
   elapsed=$(( $(l.now) - $last ))
 
-  if [[ $elapsed -gt 950 ]] && [[ $elapsed -lt 1050 ]]; then
+  if [[ $elapsed -gt 940 ]] && [[ $elapsed -lt 1060 ]]; then
     true
   else
     echo "elapsed=$elapsed"
@@ -44,7 +44,7 @@ load_module now
   assert_success
   elapsed=$(( $(l.now) - $last ))
 
-  if [[ $elapsed -gt 1950 ]] && [[ $elapsed -lt 2050 ]]; then
+  if [[ $elapsed -gt 1940 ]] && [[ $elapsed -lt 2060 ]]; then
     true
   else
     echo "elapsed=$elapsed"

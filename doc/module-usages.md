@@ -1,6 +1,6 @@
 # Module Usages
 
-17 Categories, 58 Modules, 315 Test Cases.
+18 Categories, 60 Modules, 349 Test Cases.
 
 ## TOC
 
@@ -51,9 +51,6 @@
   - [xdg](#xdg)
 - [Console](#console)
   - [echo](#echo)
-  - [trace](#trace)
-  - [trace_count](#trace_count)
-  - [trace_time](#trace_time)
 - [Condition](#condition)
   - [has](#has)
   - [if](#if)
@@ -79,6 +76,12 @@
 - [Time](#time)
   - [now](#now)
   - [now_s](#now_s)
+- [Debug](#debug)
+  - [trace_count](#trace_count)
+  - [trace_end](#trace_end)
+  - [trace_stack](#trace_stack)
+  - [trace_start](#trace_start)
+  - [trace_time](#trace_time)
 
 ## Collection
 
@@ -106,13 +109,13 @@
 
 ### ask
 
-- Usage: `l.ask <arg>...`
+- Usage: `l.ask <msg>...`
 - Since: 0.1.0
 - More Examples: [../test/modules/ask.bats](../test/modules/ask.bats)
 
 ### choose
 
-- Usage: `l.choose <option>...`
+- Usage: `l.choose <item>...`
 - Dependent: is_integer
 - Since: 0.1.0
 - More Examples: [../test/modules/choose.bats](../test/modules/choose.bats)
@@ -259,20 +262,23 @@ Refer to https://stackoverflow.com/a/37706905
 
 ### trim
 
-- Usage: `l.trim <string>`
+- Usage: `l.trim <string>
+echo <string> | l.trim`
 - Dependent: trim_start, trim_end
 - Since: 0.1.0
 - More Examples: [../test/modules/trim.bats](../test/modules/trim.bats)
 
 ### trim_end
 
-- Usage: `l.trim_end <string>`
+- Usage: `l.trim_end <string> [chars=[[:space:]]]
+echo <string> | l.trim_end [chars=[[:space:]]]`
 - Since: 0.1.0
 - More Examples: [../test/modules/trim_end.bats](../test/modules/trim_end.bats)
 
 ### trim_start
 
-- Usage: `l.trim_start <string>`
+- Usage: `l.trim_start <string>
+echo <string> | l.trim_start`
 - Since: 0.1.0
 - More Examples: [../test/modules/trim_start.bats](../test/modules/trim_start.bats)
 
@@ -333,25 +339,6 @@ The builtin echo will get unexpected result while execute `b=( -n 123 ); echo "$
 See https://github.com/anordal/shellharden/blob/master/how_to_do_things_safely_in_bash.md#echo--printf
 - Since: 0.1.0
 - More Examples: [../test/modules/echo.bats](../test/modules/echo.bats)
-
-### trace
-
-- Usage: `l.trace [label]`
-- Since: 0.1.0
-- More Examples: [../test/modules/trace.bats](../test/modules/trace.bats)
-
-### trace_count
-
-- Usage: `l.trace_count [label]`
-- Since: 0.1.0
-- More Examples: [../test/modules/trace_count.bats](../test/modules/trace_count.bats)
-
-### trace_time
-
-- Usage: `l.trace_time [label]`
-- Dependent: now
-- Since: 0.1.0
-- More Examples: [../test/modules/trace_time.bats](../test/modules/trace_time.bats)
 
 ## Condition
 
@@ -477,3 +464,36 @@ l.has not <command>`
 - Description: Print the timestamp of the number of seconds that have elapsed since the Unix epoch (1 January 1970 00:00:00 UTC).
 - Since: 0.1.0
 - More Examples: [../test/modules/now_s.bats](../test/modules/now_s.bats)
+
+## Debug
+
+### trace_count
+
+- Usage: `l.trace_count [label]`
+- Since: 0.1.0
+- More Examples: [../test/modules/trace_count.bats](../test/modules/trace_count.bats)
+
+### trace_end
+
+- Usage: `l.trace_end`
+- Since: 0.1.0
+- More Examples: [../test/modules/trace_end.bats](../test/modules/trace_end.bats)
+
+### trace_stack
+
+- Usage: `l.trace_stack [label]`
+- Since: 0.1.0
+- More Examples: [../test/modules/trace_stack.bats](../test/modules/trace_stack.bats)
+
+### trace_start
+
+- Usage: `l.trace_start [PS4_level=1] [label]`
+- Since: 0.1.0
+- More Examples: [../test/modules/trace_start.bats](../test/modules/trace_start.bats)
+
+### trace_time
+
+- Usage: `l.trace_time [label]`
+- Dependent: now
+- Since: 0.1.0
+- More Examples: [../test/modules/trace_time.bats](../test/modules/trace_time.bats)

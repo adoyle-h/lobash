@@ -5,7 +5,12 @@
 # ---
 
 l.not() {
-  local condition="${1:-}"
+  if [[ -t 0 ]]; then
+    local condition="${1:-}"
+  else
+    read -r condition
+  fi
+
   if [[ $condition == true ]]; then
     echo false;
   elif [[ $condition == false ]]; then

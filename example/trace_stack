@@ -11,7 +11,22 @@ shopt -s inherit_errexit
 readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 
 source "$SCRIPT_DIR"/../src/import.bash
-import ask choose
+import trace_stack
 
-result=$(l.ask hello)
-echo "result=${result}"
+
+foo() {
+  l.trace_stack foo
+}
+
+# It will print:
+# Trace Function Stack:
+#   # Function (File:Line)
+#   - main (./example/trace:0)
+l.trace_stack
+
+# It will print:
+# Trace Function Stack: foo
+#   # Function (File:Line)
+#   - foo (./example/trace:36)
+#   - main (./example/trace:0)
+foo

@@ -1,5 +1,5 @@
 # ---
-# Category: Console
+# Category: Debug
 # Since: 0.1.0
 # Usage: l.trace_count [label]
 # Attention: l.trace_count should run in same process. It will not work in subprocess such as $(l.trace_count)

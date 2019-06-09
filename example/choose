@@ -11,7 +11,7 @@ shopt -s inherit_errexit
 readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 
 source "$SCRIPT_DIR"/../src/import.bash
-import ask choose
+import choose
 
-result=$(l.ask hello)
+result=$(l.choose a b c d e f g h i j k l m n o p q r s t)
 echo "result=${result}"

@@ -11,18 +11,8 @@ shopt -s inherit_errexit
 readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 
 source "$SCRIPT_DIR"/../src/import.bash
-import_all
+import trim
 
-str=$(l.join ',' a 'b c' d e)
-echo "# l.join ',' a 'b c' d e" "=> $str"
+echo '  123  ' | l.trim
 
-list=( $(l.split "$str" ',') )
-echo "# l.split '$str' ','" "=> ${list[*]}"
-
-echo "# list size" "=> ${#list[@]}"
-
-first_item=$(l.first list)
-echo "# l.first list" "=> ${first_item}"
-
-last_item=$(l.last list)
-echo "# l.last list" "=> ${last_item}"
+l.trim ' abc '

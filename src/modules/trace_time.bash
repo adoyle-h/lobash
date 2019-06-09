@@ -1,5 +1,5 @@
 # ---
-# Category: Console
+# Category: Debug
 # Since: 0.1.0
 # Usage: l.trace_time [label]
 # Dependent: now

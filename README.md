@@ -13,6 +13,7 @@
 
 <!-- MarkdownTOC GFM -->
 
+- [Features](#features)
 - [Installation](#installation)
 - [Prerequisites](#prerequisites)
     - [Supported Shells](#supported-shells)
@@ -32,6 +33,14 @@
 - [References](#references)
 
 <!-- /MarkdownTOC -->
+
+## Features
+
+- Modular
+- Rich Functions
+- Easy to use
+- Robustness and Safe
+- Fast
 
 ## Installation
 
@@ -67,13 +76,13 @@ Ash/Ksh/Fish/Xiki and other shells are not supported because there are so many [
   - No need install it by yourself. Almost Unix/Linux operating systems have included Perl 5. See the [Perl Binaries](https://www.cpan.org/ports/binaries.html)
   - Alpine not include Perl. Install it by `apk add perl`.
   - Busybox not include Perl. Install it by .
-- Linux commands: grep/awk/sed/mktemp/dirname/basename/cd/printf/echo/
+- Linux commands: grep/awk/sed/mktemp/dirname/basename/cd/printf/echo/wc
 
 ## Usage
 
 ### Module Usages
 
-See [./doc/module-usages.md](./doc/module-usages.md).
+See [examples]('./example/') and [./doc/module-usages.md](./doc/module-usages.md).
 
 ### Import specific modules
 
@@ -101,16 +110,6 @@ import_category string prompt
 l.ask hello world
 l.choose a b c
 printf 'a\nb\nc\n' | l.count_lines
-```
-
-Attention: import_all is slow.
-
-```sh
-time import_all
-
-real    0m2.034s
-user    0m1.048s
-sys     0m2.535s
 ```
 
 Available categories see [here](./src/internals/categories).
