@@ -1,6 +1,6 @@
 # Module Usages
 
-18 Categories, 60 Modules, 392 Test Cases.
+19 Categories, 64 Modules, 398 Test Cases.
 
 ## TOC
 
@@ -36,6 +36,7 @@
   - [split](#split)
   - [starts_with](#starts_with)
   - [str_include](#str_include)
+  - [str_len](#str_len)
   - [str_size](#str_size)
   - [trim](#trim)
   - [trim_end](#trim_end)
@@ -44,6 +45,10 @@
   - [upper_first](#upper_first)
 - [Variable](#variable)
   - [cur_function_name](#cur_function_name)
+- [Terminal](#terminal)
+  - [cursor_col](#cursor_col)
+  - [cursor_pos](#cursor_pos)
+  - [cursor_row](#cursor_row)
 - [System](#system)
   - [detect_os](#detect_os)
   - [hostname](#hostname)
@@ -272,9 +277,17 @@
 - Since: 0.1.0
 - More Examples: [../test/modules/str_include.bats](../test/modules/str_include.bats)
 
+### str_len
+
+- Usage: `l.str_len <string>`
+- Description: return the byte length of string.
+- Since: 0.1.0
+- More Examples: [../test/modules/str_len.bats](../test/modules/str_len.bats)
+
 ### str_size
 
 - Usage: `l.str_size <string>`
+- Description: return the sum of letters.
 - Since: 0.1.0
 - More Examples: [../test/modules/str_size.bats](../test/modules/str_size.bats)
 
@@ -326,6 +339,28 @@
 - Usage: `l.cur_function_name`
 - Since: 0.1.0
 - More Examples: [../test/modules/cur_function_name.bats](../test/modules/cur_function_name.bats)
+
+## Terminal
+
+### cursor_col
+
+- Usage: `l.cursor_col`
+- Since: 0.1.0
+- More Examples: [../test/modules/cursor_col.bats](../test/modules/cursor_col.bats)
+
+### cursor_pos
+
+- Usage:
+  - `l.cursor_pos`
+  - `IFS=';' c_pos=( $(l.cursor_pos) )`
+- Since: 0.1.0
+- More Examples: [../test/modules/cursor_pos.bats](../test/modules/cursor_pos.bats)
+
+### cursor_row
+
+- Usage: `l.cursor_row`
+- Since: 0.1.0
+- More Examples: [../test/modules/cursor_row.bats](../test/modules/cursor_row.bats)
 
 ## System
 

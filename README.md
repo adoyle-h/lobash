@@ -68,6 +68,8 @@ git submodule update --init --recursive
 |     🚫    | Bash     | v3               | Associative array not supported  until v4.0        |
 |     🚫    | POSIX sh |                  | `local` keyword not supported                      |
 
+There is [a list](http://mywiki.wooledge.org/BashFAQ/061) of which features were added to specific releases (versions) of Bash.
+
 Ash/Ksh/Fish/Xiki and other shells are not supported because there are so many [differences](http://hyperpolyglot.org/unix-shells).
 
 ### Dependencies
@@ -82,7 +84,7 @@ Ash/Ksh/Fish/Xiki and other shells are not supported because there are so many [
 
 ### Module Usages
 
-See [examples]('./example/') and [./doc/module-usages.md](./doc/module-usages.md).
+See [examples](./example/) and [./doc/module-usages.md](./doc/module-usages.md).
 
 ### Import specific modules
 
