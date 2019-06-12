@@ -13,7 +13,7 @@
 
 <!-- MarkdownTOC GFM -->
 
-- [Features](#features)
+- [What is Lobash?](#what-is-lobash)
 - [Installation](#installation)
 - [Prerequisites](#prerequisites)
     - [Supported Shells](#supported-shells)
@@ -34,13 +34,17 @@
 
 <!-- /MarkdownTOC -->
 
-## Features
+## What is Lobash?
+
+A collections of functions to enhance development efficiency.  
+A modern, safe, powerful utility library for Bash script development.
+
+Features:
 
 - Modular
-- Rich Functions
 - Easy to use
+- Rich Functions
 - Robustness and Safe
-- Fast
 
 ## Installation
 

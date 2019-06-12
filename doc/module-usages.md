@@ -1,6 +1,6 @@
 # Module Usages
 
-19 Categories, 64 Modules, 398 Test Cases.
+19 Categories, 64 Modules, 400 Test Cases.
 
 ## TOC
 
@@ -114,7 +114,11 @@
 
 ### ask
 
-- Usage: `l.ask <msg>...`
+- Usage: `l.ask <message> [<default>=Y]`
+- Description:
+  - Print a message and read Yes/No answer from stdin.
+  - when default=Y, if will return YES by default.
+  - when default=N, if will return NO by default.
 - Since: 0.1.0
 - More Examples: [../test/modules/ask.bats](../test/modules/ask.bats)
 
