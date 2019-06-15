@@ -1,8 +1,8 @@
 # ---
 # Category: Debug
 # Since: 0.1.0
-# Usage: l.trace_start [PS4_level=1] [label]
-# Arguments: PS4_level 1,2,3
+# Usage: l.trace_start [PS4_level=2] [label]
+# Arguments: PS4_level  Valid Values: 1,2,3
 # ---
 # shellcheck disable=SC2034
 
@@ -11,7 +11,7 @@ l.trace_start() {
   local label=${2:-}
   [[ -n "$label" ]] && label="[$label]"
 
-  case ${1:-1} in
+  case ${1:-2} in
     1 )
       PS4='+'${label}'[${LINENO}|${FUNCNAME[0]:+${FUNCNAME[0]}}()|$?${XTRACE_PIPE:+|${PIPESTATUS[*]}}]: '
       ;;

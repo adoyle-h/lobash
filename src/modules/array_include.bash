@@ -1,14 +1,15 @@
 # ---
 # Category: Collection
 # Since: 0.1.0
-# Usage: l.array_include <match> <array>
+# Usage: l.array_include <array_name> <match>
 # ---
 
 l.array_include() {
-  local match="$1"
+  local -n l_array_include_arg_array=$1
+  local match="$2"
   local e
   shift
-  for e; do
+  for e in "${l_array_include_arg_array[@]}"; do
     [[ "$e" == "$match" ]] && echo true && return 0;
   done
 
