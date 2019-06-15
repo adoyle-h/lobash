@@ -1,7 +1,8 @@
 # ---
 # Category: Util
 # Since: 0.1.0
-# Usage: l.benchmark <arg>...
+# Usage: l.benchmark <command> [<repeats>=10]
+# Description: Run command in repeats to get benchmarks.
 # ---
 
 _l.run_benchmark() {
@@ -16,7 +17,7 @@ _l.run_benchmark() {
 
 l.benchmark() {
   local c=$1
-  local repeats=$2
+  local repeats=${2:-10}
 
   echo "Benchmarking: Run command '$c' [$repeats] times.";
   echo "============="
