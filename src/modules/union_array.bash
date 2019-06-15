@@ -2,8 +2,7 @@
 # Category: Array
 # Since: 0.1.0
 # Usage: l.union_array <var_name>...
-# Status: not work
-# Bash: 4.3.0
+# Description: Create an array of unique values from all given arrays.
 # ---
 
 l.union_array() {

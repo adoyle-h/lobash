@@ -2,6 +2,7 @@
 # Category: Debug
 # Since: 0.1.0
 # Usage: l.trace_stack [label]
+# Description: Print current function stack for debug.
 # ---
 
 l.trace_stack() {

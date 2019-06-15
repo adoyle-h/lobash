@@ -3,6 +3,8 @@
 # Since: 0.1.0
 # Dependent: import
 # Usage: import_all [prefix=l.]
+# Description: Import all Lobash modules.
+# Description: <prefix> must end with `.`, `-`, `_`
 # ---
 
 _l.import_all() {

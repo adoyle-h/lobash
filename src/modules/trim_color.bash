@@ -3,7 +3,7 @@
 # Since: 0.1.0
 # Usage: l.trim_color <string>
 # Usage: echo <string> | l.trim_color
-# Description: trim color escape code in string
+# Description: Remove color escape code in string
 # ---
 
 l.trim_color() {

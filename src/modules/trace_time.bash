@@ -3,6 +3,7 @@
 # Since: 0.1.0
 # Usage: l.trace_time [label]
 # Dependent: now
+# Description: Print current timestamp, last timestamp and the elapsed time in millisecond.
 # ---
 
 l.trace_time() {

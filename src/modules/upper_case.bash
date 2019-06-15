@@ -3,6 +3,7 @@
 # Since: 0.1.0
 # Usage: l.upper_case <string>
 # Usage: echo <string> | l.upper_case
+# Description: Convert all characters of string to upper case.
 # ---
 
 # l.upper_case() {

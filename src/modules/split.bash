@@ -2,6 +2,7 @@
 # Category: String
 # Since: 0.1.0
 # Usage: l.split <string> [delimiter=' ']
+# Description: Splits string by delimiter.
 # ---
 
 l.split() {

@@ -3,6 +3,7 @@
 # Since: 0.1.0
 # Usage: l.trim_end <string> [chars=[[:space:]]]
 # Usage: echo <string> | l.trim_end [chars=[[:space:]]]
+# Description: Remove trailing whitespace or specified characters from string.
 # ---
 
 l.trim_end() {

@@ -3,6 +3,7 @@
 # Since: 0.1.0
 # Usage: l.lower_first <string>
 # Usage: echo <string> | l.lower_first
+# Description: Convert the first character of string to lower case.
 # ---
 
 # CAVEAT: Requires bash 4+

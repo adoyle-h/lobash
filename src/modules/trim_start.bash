@@ -3,6 +3,7 @@
 # Since: 0.1.0
 # Usage: l.trim_start <string>
 # Usage: echo <string> | l.trim_start
+# Description: Remove leading whitespace or specified characters from string.
 # ---
 
 l.trim_start() {

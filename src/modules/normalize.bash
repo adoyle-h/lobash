@@ -4,6 +4,8 @@
 # Usage: l.normalize <path>
 # Usage: echo <path> | l.normalize
 # Dependent: split, join
+# Description: Normalize the given path which can be an unexisted path.
+# Description: Trailing `/` always be removed.
 # ---
 
 l.normalize() {

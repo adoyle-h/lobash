@@ -2,6 +2,7 @@
 # Category: String
 # Since: 0.1.0
 # Usage: l.join <array_name> [<delimiter>=,]
+# Description: Convert all elements in array into a string separated by delimiter.
 # ---
 
 l.join() {

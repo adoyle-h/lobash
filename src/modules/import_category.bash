@@ -3,6 +3,8 @@
 # Since: 0.1.0
 # Dependent: import
 # Usage: import_category <category_name>... [prefix=l.]
+# Description: Import Lobash modules by categories.
+# Description: <prefix> must end with `.`, `-`, `_`
 # ---
 
 _l.import_category() {

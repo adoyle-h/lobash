@@ -3,6 +3,7 @@
 # Since: 0.1.0
 # Usage: l.lower_case <string>
 # Usage: echo <string> | l.lower_case
+# Description: Convert all characters of string to lower case.
 # ---
 
 # l.lower_case() {

@@ -154,6 +154,9 @@
 - Usage:
   - `l.normalize <path>`
   - `echo <path> | l.normalize`
+- Description:
+  - Normalize the given path which can be an unexisted path.
+  - Trailing `/` always be removed.
 - Dependent: [`split`](#split) [`join`](#join)
 - Since: 0.1.0
 - More Examples: [../test/modules/normalize.bats](../test/modules/normalize.bats)
@@ -161,6 +164,7 @@
 ### pwd
 
 - Usage: `l.pwd`
+- Description: Return the current working directory as set by the cd builtin.
 - Since: 0.1.0
 - More Examples: [../test/modules/pwd.bats](../test/modules/pwd.bats)
 
@@ -231,6 +235,7 @@
 ### join
 
 - Usage: `l.join <array_name> [<delimiter>=,]`
+- Description: Convert all elements in array into a string separated by delimiter.
 - Since: 0.1.0
 - More Examples: [../test/modules/join.bats](../test/modules/join.bats)
 
@@ -239,6 +244,7 @@
 - Usage:
   - `l.lower_case <string>`
   - `echo <string> | l.lower_case`
+- Description: Convert all characters of string to lower case.
 - Since: 0.1.0
 - More Examples: [../test/modules/lower_case.bats](../test/modules/lower_case.bats)
 
@@ -247,6 +253,7 @@
 - Usage:
   - `l.lower_first <string>`
   - `echo <string> | l.lower_first`
+- Description: Convert the first character of string to lower case.
 - Since: 0.1.0
 - More Examples: [../test/modules/lower_first.bats](../test/modules/lower_first.bats)
 
@@ -260,32 +267,35 @@
 ### split
 
 - Usage: `l.split <string> [delimiter=' ']`
+- Description: Splits string by delimiter.
 - Since: 0.1.0
 - More Examples: [../test/modules/split.bats](../test/modules/split.bats)
 
 ### starts_with
 
 - Usage: `l.starts_with <string> <match>`
+- Description: Return `true` or `false`. Check if a string starts with given match string.
 - Since: 0.1.0
 - More Examples: [../test/modules/starts_with.bats](../test/modules/starts_with.bats)
 
 ### str_include
 
 - Usage: `str_include <string> <match>`
+- Description: Return `true` or `false`. Check if a string includes given match string.
 - Since: 0.1.0
 - More Examples: [../test/modules/str_include.bats](../test/modules/str_include.bats)
 
 ### str_len
 
 - Usage: `l.str_len <string>`
-- Description: return the byte length of string.
+- Description: Return the byte length of string.
 - Since: 0.1.0
 - More Examples: [../test/modules/str_len.bats](../test/modules/str_len.bats)
 
 ### str_size
 
 - Usage: `l.str_size <string>`
-- Description: return the sum of letters.
+- Description: Return the sum of string letters.
 - Since: 0.1.0
 - More Examples: [../test/modules/str_size.bats](../test/modules/str_size.bats)
 
@@ -294,6 +304,7 @@
 - Usage:
   - `l.trim <string>`
   - `echo <string> | l.trim`
+- Description: Remove leading and trailing whitespace from string.
 - Dependent: [`trim_start`](#trim_start) [`trim_end`](#trim_end)
 - Since: 0.1.0
 - More Examples: [../test/modules/trim.bats](../test/modules/trim.bats)
@@ -303,7 +314,7 @@
 - Usage:
   - `l.trim_color <string>`
   - `echo <string> | l.trim_color`
-- Description: trim color escape code in string
+- Description: Remove color escape code in string
 - Since: 0.1.0
 - More Examples: [../test/modules/trim_color.bats](../test/modules/trim_color.bats)
 
@@ -312,6 +323,7 @@
 - Usage:
   - `l.trim_end <string> [chars=[[:space:]]]`
   - `echo <string> | l.trim_end [chars=[[:space:]]]`
+- Description: Remove trailing whitespace or specified characters from string.
 - Since: 0.1.0
 - More Examples: [../test/modules/trim_end.bats](../test/modules/trim_end.bats)
 
@@ -320,6 +332,7 @@
 - Usage:
   - `l.trim_start <string>`
   - `echo <string> | l.trim_start`
+- Description: Remove leading whitespace or specified characters from string.
 - Since: 0.1.0
 - More Examples: [../test/modules/trim_start.bats](../test/modules/trim_start.bats)
 
@@ -328,6 +341,7 @@
 - Usage:
   - `l.upper_case <string>`
   - `echo <string> | l.upper_case`
+- Description: Convert all characters of string to upper case.
 - Since: 0.1.0
 - More Examples: [../test/modules/upper_case.bats](../test/modules/upper_case.bats)
 
@@ -336,6 +350,7 @@
 - Usage:
   - `l.upper_first <string>`
   - `echo <string> | l.upper_first`
+- Description: Convert the first character of string to upper case.
 - Since: 0.1.0
 - More Examples: [../test/modules/upper_first.bats](../test/modules/upper_first.bats)
 
@@ -352,6 +367,7 @@
 ### cursor_col
 
 - Usage: `l.cursor_col`
+- Description: get column number of current cursor position
 - Since: 0.1.0
 - More Examples: [../test/modules/cursor_col.bats](../test/modules/cursor_col.bats)
 
@@ -360,12 +376,14 @@
 - Usage:
   - `l.cursor_pos`
   - `IFS=';' c_pos=( $(l.cursor_pos) )`
+- Description: get current cursor position. It will print "row;column" with default IFS.
 - Since: 0.1.0
 - More Examples: [../test/modules/cursor_pos.bats](../test/modules/cursor_pos.bats)
 
 ### cursor_row
 
 - Usage: `l.cursor_row`
+- Description: get row number of current cursor position
 - Since: 0.1.0
 - More Examples: [../test/modules/cursor_row.bats](../test/modules/cursor_row.bats)
 
@@ -396,6 +414,7 @@
 ### xdg
 
 - Usage: `l.get_xdg_config_home`
+- Description: Return XDG_CONFIG_HOME. Return `${HOME}/.config` if XDG_CONFIG_HOME not set.
 - Since: 0.1.0
 - More Examples: [../test/modules/xdg.bats](../test/modules/xdg.bats)
 
@@ -416,37 +435,52 @@
 ### has
 
 - Usage:
-  - `l.has <command>`
-  - `l.has not <command>`
+  - `l.has <condition> <what>`
+  - `l.has not <condition> <what>`
+- Description:
+  - Exit with 0 or 1. Check if command/function/alias/keyword/builtin or anything existed.
+  - <condition>  Valid value: `command`, `function`, `alias`, `keyword`, `builtin`, `the`
+  - This method is not recommended. Use strict_has instead.
 - Since: 0.1.0
 - More Examples: [../test/modules/has.bats](../test/modules/has.bats)
 
 ### if
 
-- Usage: `l.if <condition> <then> <else>`
+- Usage: `l.if <condition> <then> [<else>]`
+- Description:
+  - The difference from shell builtin `if` is when condition function throw exception it will ended immediately.
+  - <condition> can be function name, string and number. The function should return `true`/`0` or `false`/`1`.
+  - <then> and <else> must be function name. And <else> is optional.
+  - When <condition> is true, <then> function will be invoked. Otherwise <else> will be invoked if it passed.
 - Since: 0.1.0
 - More Examples: [../test/modules/if.bats](../test/modules/if.bats)
 
 ### is_sourced
 
+- Description: Detect current file whether is sourced or not.
 - Since: 0.1.0
 - More Examples: [../test/modules/is_sourced.bats](../test/modules/is_sourced.bats)
 
 ### not
 
 - Usage: `l.not <condition>`
+- Description: <condition> must be `true` or `false`. This function returns the opposite value.
 - Since: 0.1.0
 - More Examples: [../test/modules/not.bats](../test/modules/not.bats)
 
 ### strict_has
 
-- Usage: `l.strict_has <command>`
+- Usage: `l.strict_has <condition> <what>`
+- Description:
+  - Return `true` or `false`. Check if command/function/alias/keyword/builtin or anything existed.
+  - <condition>  Valid value: `command`, `function`, `alias`, `keyword`, `builtin`, `the`
 - Since: 0.1.0
 - More Examples: [../test/modules/strict_has.bats](../test/modules/strict_has.bats)
 
 ### strict_has_not
 
-- Usage: `strict_has_not <command>`
+- Usage: `strict_has_not <condition> <what>`
+- Description: Opposite to strict_has.
 - Dependent: [`strict_has`](#strict_has) [`not`](#not)
 - Since: 0.1.0
 - More Examples: [../test/modules/strict_has_not.bats](../test/modules/strict_has_not.bats)
@@ -455,13 +489,20 @@
 
 ### import
 
-- Usage: `import [-f|--force] <module_name>... [prefix=l.]`
+- Usage: `import [-f|--force] <module_name>... [<prefix>=l.]`
+- Description:
+  - Import Lobash modules.
+  - <prefix> must end with `.`, `-`, `_`
+  - -f, --force  To force refresh module codes. Because imported modules will be cached by default.
 - Since: 0.1.0
 - More Examples: [../test/modules/import.bats](../test/modules/import.bats)
 
 ### import_all
 
 - Usage: `import_all [prefix=l.]`
+- Description:
+  - Import all Lobash modules.
+  - <prefix> must end with `.`, `-`, `_`
 - Dependent: [`import`](#import)
 - Since: 0.1.0
 - More Examples: [../test/modules/import_all.bats](../test/modules/import_all.bats)
@@ -469,6 +510,9 @@
 ### import_category
 
 - Usage: `import_category <category_name>... [prefix=l.]`
+- Description:
+  - Import Lobash modules by categories.
+  - <prefix> must end with `.`, `-`, `_`
 - Dependent: [`import`](#import)
 - Since: 0.1.0
 - More Examples: [../test/modules/import_category.bats](../test/modules/import_category.bats)
@@ -477,13 +521,15 @@
 
 ### inc
 
-- Usage: `l.inc <var_name> [addend=1]`
+- Usage: `l.inc <var_name> [<addend>=1]`
+- Description: Increase number with addend.
 - Since: 0.1.0
 - More Examples: [../test/modules/inc.bats](../test/modules/inc.bats)
 
 ### sub
 
-- Usage: `l.sub <var_name> [addend=1]`
+- Usage: `l.sub <var_name> [<subtrahend>=1]`
+- Description: Subtract number with subtrahend.
 - Since: 0.1.0
 - More Examples: [../test/modules/sub.bats](../test/modules/sub.bats)
 
@@ -498,6 +544,7 @@
 ### union_array
 
 - Usage: `l.union_array <var_name>...`
+- Description: Create an array of unique values from all given arrays.
 - Since: 0.1.0
 - More Examples: [../test/modules/union_array.bats](../test/modules/union_array.bats)
 
@@ -541,31 +588,40 @@
 
 ### trace_count
 
-- Usage: `l.trace_count [label]`
+- Usage: `l.trace_count [<label>=trace]`
+- Description:
+  - It prints a count which increased after each called.
+  - Attention: l.trace_count should run in same process. It will not work in subprocess such as $(l.trace_count)
 - Since: 0.1.0
 - More Examples: [../test/modules/trace_count.bats](../test/modules/trace_count.bats)
 
 ### trace_end
 
 - Usage: `l.trace_end`
+- Description: Close xtrace mode and reset PS4. Cooperated with trace_start.
 - Since: 0.1.0
 - More Examples: [../test/modules/trace_end.bats](../test/modules/trace_end.bats)
 
 ### trace_stack
 
 - Usage: `l.trace_stack [label]`
+- Description: Print current function stack for debug.
 - Since: 0.1.0
 - More Examples: [../test/modules/trace_stack.bats](../test/modules/trace_stack.bats)
 
 ### trace_start
 
-- Usage: `l.trace_start [PS4_level=2] [label]`
+- Usage: `l.trace_start [<PS4_level>=2] [<label>]`
+- Description:
+  - PS4_level  Valid Values: `1`, `2`, `3`. Different level changes different prompt message format.
+  - Open xtrace mode and set PS4. It will print each script line with nice prompt for debug.
 - Since: 0.1.0
 - More Examples: [../test/modules/trace_start.bats](../test/modules/trace_start.bats)
 
 ### trace_time
 
 - Usage: `l.trace_time [label]`
+- Description: Print current timestamp, last timestamp and the elapsed time in millisecond.
 - Dependent: [`now`](#now)
 - Since: 0.1.0
 - More Examples: [../test/modules/trace_time.bats](../test/modules/trace_time.bats)

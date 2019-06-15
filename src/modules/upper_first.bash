@@ -3,6 +3,7 @@
 # Since: 0.1.0
 # Usage: l.upper_first <string>
 # Usage: echo <string> | l.upper_first
+# Description: Convert the first character of string to upper case.
 # ---
 
 # CAVEAT: Requires bash 4+

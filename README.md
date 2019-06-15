@@ -39,10 +39,10 @@
 
 Javascript has a powerful library [Lodash](https://github.com/lodash/lodash).
 Bash script development is complex and fallible.
-So I build Lobash for enhancing development efficiency.
+So I write Lobash with pure Bash script for enhancing development efficiency.
 
 Lobash is a library not command. You should `source ./src/import.bash` to use Lobash.
-It provides a `import` function to import a collections of Lobash modules (functions) .
+It provides a `import` function to import Lobash modules (functions) .
 
 Lobash Features:
 
@@ -54,8 +54,9 @@ Lobash Features:
 ## Installation
 
 ```sh
+# Download source codes
 git clone --depth 1 https://github.com/adoyle-h/lobash.git
-# Clone submodules only when you want to run test cases.
+# This step is optional. Clone submodules only if you want to run test cases.
 git submodule update --init --recursive
 ```
 

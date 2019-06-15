@@ -2,6 +2,7 @@
 # Category: Condition
 # Since: 0.1.0
 # Usage: l.not <condition>
+# Description: <condition> must be `true` or `false`. This function returns the opposite value.
 # ---
 
 l.not() {

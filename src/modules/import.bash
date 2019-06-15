@@ -1,7 +1,10 @@
 # ---
 # Category: Lobash
 # Since: 0.1.0
-# Usage: import [-f|--force] <module_name>... [prefix=l.]
+# Usage: import [-f|--force] <module_name>... [<prefix>=l.]
+# Description: Import Lobash modules.
+# Description: <prefix> must end with `.`, `-`, `_`
+# Description: -f, --force  To force refresh module codes. Because imported modules will be cached by default.
 # ---
 
 _lobash_dirname() {

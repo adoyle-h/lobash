@@ -1,8 +1,9 @@
 # ---
 # Category: Debug
 # Since: 0.1.0
-# Usage: l.trace_start [PS4_level=2] [label]
-# Arguments: PS4_level  Valid Values: 1,2,3
+# Usage: l.trace_start [<PS4_level>=2] [<label>]
+# Description: PS4_level  Valid Values: `1`, `2`, `3`. Different level changes different prompt message format.
+# Description: Open xtrace mode and set PS4. It will print each script line with nice prompt for debug.
 # ---
 # shellcheck disable=SC2034
 

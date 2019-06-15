@@ -2,7 +2,7 @@
 # Category: String
 # Since: 0.1.0
 # Usage: l.str_len <string>
-# Description: return the byte length of string.
+# Description: Return the byte length of string.
 # ---
 
 l.str_len() {
