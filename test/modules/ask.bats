@@ -12,7 +12,7 @@ load_module ask
   assert_equal "$r" 'YES'
 }
 
-@test "echo Yes | l.ask hello" {
+@test "echo yes | l.ask hello" {
   local r
   r=$(echo yes | l.ask hello)
   assert_equal "$r" 'YES'

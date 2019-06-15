@@ -25,7 +25,7 @@ safe_rm() {
     return 3
   fi
 
-  rm -rf "$path"
+  rm -rf -- "$path"
 }
 
 lower_case() {
