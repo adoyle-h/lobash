@@ -13,8 +13,8 @@ setup_fixture
   load_module import_category
   import_category String File Prompt
 
-  assert_equal "$(type -t ends_with)" ""
-  assert_equal "$(type -t l.ends_with)" "function"
+  assert_equal "$(type -t end_with)" ""
+  assert_equal "$(type -t l.end_with)" "function"
   assert_equal "$(type -t l.trim)" "function"
   assert_equal "$(type -t l.ask)" "function"
   assert_equal "$(type -t l.extname)" "function"
@@ -24,8 +24,8 @@ setup_fixture
   load_module import_category
   import_category String
 
-  assert_equal "$(type -t ends_with)" ""
-  assert_equal "$(type -t l.ends_with)" "function"
+  assert_equal "$(type -t end_with)" ""
+  assert_equal "$(type -t l.end_with)" "function"
   assert_equal "$(type -t l.trim)" "function"
 }
 
@@ -34,7 +34,7 @@ setup_fixture
   import_category String l.
 
   assert_equal "$(type -t l.trim)" "function"
-  assert_equal "$(type -t l.ends_with)" "function"
+  assert_equal "$(type -t l.end_with)" "function"
 }
 
 @test "import_category String with prefix 'l_'" {

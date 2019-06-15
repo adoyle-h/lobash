@@ -26,13 +26,13 @@
   - [extname](#extname)
 - [String](#string)
   - [count_lines](#count_lines)
-  - [ends_with](#ends_with)
+  - [end_with](#end_with)
   - [join](#join)
   - [lower_case](#lower_case)
   - [lower_first](#lower_first)
   - [match](#match)
   - [split](#split)
-  - [starts_with](#starts_with)
+  - [start_with](#start_with)
   - [str_include](#str_include)
   - [str_len](#str_len)
   - [str_size](#str_size)
@@ -233,11 +233,11 @@
 - Since: 0.1.0
 - More Examples: [../test/modules/count_lines.bats](../test/modules/count_lines.bats)
 
-### ends_with
+### end_with
 
-- Usage: `l.ends_with <string> <match>`
+- Usage: `l.end_with <string> <match>`
 - Since: 0.1.0
-- More Examples: [../test/modules/ends_with.bats](../test/modules/ends_with.bats)
+- More Examples: [../test/modules/end_with.bats](../test/modules/end_with.bats)
 
 ### join
 
@@ -278,12 +278,12 @@
 - Since: 0.1.0
 - More Examples: [../test/modules/split.bats](../test/modules/split.bats)
 
-### starts_with
+### start_with
 
-- Usage: `l.starts_with <string> <match>`
+- Usage: `l.start_with <string> <match>`
 - Description: Return `true` or `false`. Check if a string starts with given match string.
 - Since: 0.1.0
-- More Examples: [../test/modules/starts_with.bats](../test/modules/starts_with.bats)
+- More Examples: [../test/modules/start_with.bats](../test/modules/start_with.bats)
 
 ### str_include
 
