@@ -1,1 +1,1 @@
-count_lines ends_with join lower_case lower_first match split starts_with str_include str_len str_size trim trim_end trim_start upper_case upper_first 
+count_lines ends_with join lower_case lower_first match split starts_with str_include str_len str_size trim trim_color trim_end trim_start upper_case upper_first 

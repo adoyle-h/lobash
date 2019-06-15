@@ -1,6 +1,6 @@
 # Module Usages
 
-19 Categories, 64 Modules, 400 Test Cases.
+18 Categories, 64 Modules, 411 Test Cases.
 
 ## TOC
 
@@ -20,8 +20,6 @@
 - [Util](#util)
   - [benchmark](#benchmark)
   - [compose](#compose)
-- [Color](#color)
-  - [color](#color)
 - [File](#file)
   - [count_file_lines](#count_file_lines)
   - [count_files](#count_files)
@@ -39,6 +37,7 @@
   - [str_len](#str_len)
   - [str_size](#str_size)
   - [trim](#trim)
+  - [trim_color](#trim_color)
   - [trim_end](#trim_end)
   - [trim_start](#trim_start)
   - [upper_case](#upper_case)
@@ -92,7 +91,7 @@
 
 ### array_include
 
-- Usage: `l.array_include <match> <array>`
+- Usage: `l.array_include <array_name> <match>`
 - Since: 0.1.0
 - More Examples: [../test/modules/array_include.bats](../test/modules/array_include.bats)
 
@@ -125,6 +124,7 @@
 ### choose
 
 - Usage: `l.choose <item>...`
+- Description: Prompt user to choose one item from options. The function will return the value of chosen item.
 - Dependent: [`is_integer`](#is_integer)
 - Since: 0.1.0
 - More Examples: [../test/modules/choose.bats](../test/modules/choose.bats)
@@ -175,7 +175,8 @@
 
 ### benchmark
 
-- Usage: `l.benchmark <arg>...`
+- Usage: `l.benchmark <command> [<repeats>=10]`
+- Description: Run command in repeats to get benchmarks.
 - Since: 0.1.0
 - More Examples: [../test/modules/benchmark.bats](../test/modules/benchmark.bats)
 
@@ -185,13 +186,6 @@
 - Description: Function composition
 - Since: 0.1.0
 - More Examples: [../test/modules/compose.bats](../test/modules/compose.bats)
-
-## Color
-
-### color
-
-- Since: 0.1.0
-- More Examples: [../test/modules/color.bats](../test/modules/color.bats)
 
 ## File
 
@@ -304,6 +298,15 @@
 - Since: 0.1.0
 - More Examples: [../test/modules/trim.bats](../test/modules/trim.bats)
 
+### trim_color
+
+- Usage:
+  - `l.trim_color <string>`
+  - `echo <string> | l.trim_color`
+- Description: trim color escape code in string
+- Since: 0.1.0
+- More Examples: [../test/modules/trim_color.bats](../test/modules/trim_color.bats)
+
 ### trim_end
 
 - Usage:
@@ -383,7 +386,10 @@
 ### sleep
 
 - Usage: `l.sleep <number_or_float>`
-- Description: Same to sleep command but support float
+- Description:
+  - Same to sleep command but support float.
+  - When run it in Linux/Unix System, the precision of sleep time is 1ms. The deviation of sleep time is 1~2ms by actual measurement.
+  - When run it in MacOS, the precision of sleep time is 100ms. The deviation of sleep time is 40~50ms by actual measurement.
 - Since: 0.1.0
 - More Examples: [../test/modules/sleep.bats](../test/modules/sleep.bats)
 
@@ -553,7 +559,7 @@
 
 ### trace_start
 
-- Usage: `l.trace_start [PS4_level=1] [label]`
+- Usage: `l.trace_start [PS4_level=2] [label]`
 - Since: 0.1.0
 - More Examples: [../test/modules/trace_start.bats](../test/modules/trace_start.bats)
 
