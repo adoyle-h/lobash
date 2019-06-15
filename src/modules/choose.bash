@@ -3,6 +3,7 @@
 # Since: 0.1.0
 # Dependent: is_integer
 # Usage: l.choose <item>...
+# Description: Prompt user to choose one item from options. The function will return the value of chosen item.
 # ---
 
 l.choose() {
