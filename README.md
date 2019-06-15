@@ -16,6 +16,7 @@
 - [What is Lobash?](#what-is-lobash)
 - [Installation](#installation)
 - [Prerequisites](#prerequisites)
+    - [Supported Platform](#supported-platform)
     - [Supported Shells](#supported-shells)
     - [Dependencies](#dependencies)
 - [Usage](#usage)
@@ -36,10 +37,14 @@
 
 ## What is Lobash?
 
-A collections of functions to enhance development efficiency.  
-A modern, safe, powerful utility library for Bash script development.
+Javascript has a powerful library [Lodash](https://github.com/lodash/lodash).
+Bash script development is complex and fallible.
+So I build Lobash for enhancing development efficiency.
 
-Features:
+Lobash is a library not command. You should `source ./src/import.bash` to use Lobash.
+It provides a `import` function to import a collections of Lobash modules (functions) .
+
+Lobash Features:
 
 - Modular
 - Easy to use
@@ -60,12 +65,21 @@ git submodule update --init --recursive
 2. Run Lobash modules in the shell from [Supported Shells List](#supported-shells).
 3. Make sure [dependencies](#dependencies) installed.
 
+### Supported Platform
+
+| Supported | Platform | Version | Main Reasons                       |
+|:---------:|:---------|:--------|:-----------------------------------|
+|     ✅    | MacOS    | *       | -                                  |
+|     ✅    | Linux    | *       | -                                  |
+|     ❔    | BSD      | -       | Not tested yet. Maybe not support. |
+|     🚫    | Windows  | -       | Never and ever supported.          |
+
 ### Supported Shells
 
 | Supported | Shell    | Version          | Main Reasons                                       |
 |:---------:|:---------|:-----------------|:---------------------------------------------------|
-|     ❔    | Zsh      | v5 and higher    | Plan to be compatible later                        |
-|     ❔    | Bash     | v5 and higher    | Not tested yet                                     |
+|     ❔    | Zsh      | v5 and higher    | Coming soon. Under compatible testing.             |
+|     ❔    | Bash     | v5 and higher    | Not tested yet.                                    |
 |     ✅    | Bash     | v4.4             | -                                                  |
 |     🚫    | Bash     | v4.3             | `shopt -s inherit_errexit` not supported util v4.4 |
 |     🚫    | Bash     | v4.0, v4.1, v4.2 | Nameref not support util v4.3                      |
@@ -159,11 +173,12 @@ ask hello world
 
 ### Use Command
 
+Many modules not work as command.
+This command is only used for certain scenarios.
+
 ```sh
 ./bin/lobash <module_name> <module_args>
 ```
-
-Some modules not work in command.
 
 ## Debug
 
