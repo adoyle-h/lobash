@@ -1,6 +1,6 @@
 # Module Usages
 
-18 Categories, 64 Modules, 411 Test Cases.
+16 Categories, 73 Modules, 441 Test Cases.
 
 ## TOC
 
@@ -58,7 +58,20 @@
 - [Condition](#condition)
   - [has](#has)
   - [if](#if)
+  - [is_array](#is_array)
+  - [is_dir](#is_dir)
+  - [is_executable](#is_executable)
+  - [is_executable_file](#is_executable_file)
+  - [is_false](#is_false)
+  - [is_file](#is_file)
+  - [is_float](#is_float)
+  - [is_integer](#is_integer)
+  - [is_link](#is_link)
+  - [is_number](#is_number)
+  - [is_readable](#is_readable)
   - [is_sourced](#is_sourced)
+  - [is_true](#is_true)
+  - [is_writeable](#is_writeable)
   - [not](#not)
   - [strict_has](#strict_has)
   - [strict_has_not](#strict_has_not)
@@ -69,14 +82,6 @@
 - [Arithmetic](#arithmetic)
   - [inc](#inc)
   - [sub](#sub)
-- [Array](#array)
-  - [is_array](#is_array)
-  - [union_array](#union_array)
-- [Number](#number)
-  - [is_float](#is_float)
-  - [is_integer](#is_integer)
-- [Unknown](#Unknown)
-  - [is_matched](#is_matched)
 - [Time](#time)
   - [now](#now)
   - [now_s](#now_s)
@@ -86,6 +91,8 @@
   - [trace_stack](#trace_stack)
   - [trace_start](#trace_start)
   - [trace_time](#trace_time)
+- [Array](#array)
+  - [union_array](#union_array)
 
 ## Collection
 
@@ -455,11 +462,93 @@
 - Since: 0.1.0
 - More Examples: [../test/modules/if.bats](../test/modules/if.bats)
 
+### is_array
+
+- Usage: `l.is_array <var_name>`
+- Since: 0.1.0
+- More Examples: [../test/modules/is_array.bats](../test/modules/is_array.bats)
+
+### is_dir
+
+- Usage: `l.is_dir <var>`
+- Since: 0.1.0
+- More Examples: [../test/modules/is_dir.bats](../test/modules/is_dir.bats)
+
+### is_executable
+
+- Usage: `l.is_executable <var>`
+- Description: Similar to `[[ -x ]]`. Return `true` or `false`.
+- Since: 0.1.0
+- More Examples: [../test/modules/is_executable.bats](../test/modules/is_executable.bats)
+
+### is_executable_file
+
+- Usage: `l.is_executable_file <var>`
+- Description: Similar to `l.is_executable`. But directory will return false.
+- Dependent: [`is_dir`](#is_dir)
+- Since: 0.1.0
+- More Examples: [../test/modules/is_executable_file.bats](../test/modules/is_executable_file.bats)
+
+### is_false
+
+- Usage: `l.is_false <var>`
+- Dependent: [`is_integer`](#is_integer)
+- Since: 0.1.0
+- More Examples: [../test/modules/is_false.bats](../test/modules/is_false.bats)
+
+### is_file
+
+- Usage: `l.is_file <var>`
+- Since: 0.1.0
+- More Examples: [../test/modules/is_file.bats](../test/modules/is_file.bats)
+
+### is_float
+
+- Usage: `l.is_float <str>`
+- Since: 0.1.0
+- More Examples: [../test/modules/is_float.bats](../test/modules/is_float.bats)
+
+### is_integer
+
+- Usage: `l.is_integer <str>`
+- Since: 0.1.0
+- More Examples: [../test/modules/is_integer.bats](../test/modules/is_integer.bats)
+
+### is_link
+
+- Usage: `l.is_link <var>`
+- Since: 0.1.0
+- More Examples: [../test/modules/is_link.bats](../test/modules/is_link.bats)
+
+### is_number
+
+- Usage: `l.is_number <str>`
+- Since: 0.1.0
+- More Examples: [../test/modules/is_number.bats](../test/modules/is_number.bats)
+
+### is_readable
+
+- Usage: `l.is_readable <var>`
+- Since: 0.1.0
+- More Examples: [../test/modules/is_readable.bats](../test/modules/is_readable.bats)
+
 ### is_sourced
 
 - Description: Detect current file whether is sourced or not.
 - Since: 0.1.0
 - More Examples: [../test/modules/is_sourced.bats](../test/modules/is_sourced.bats)
+
+### is_true
+
+- Usage: `l.is_true <var>`
+- Since: 0.1.0
+- More Examples: [../test/modules/is_true.bats](../test/modules/is_true.bats)
+
+### is_writeable
+
+- Usage: `l.is_writeable <var>`
+- Since: 0.1.0
+- More Examples: [../test/modules/is_writeable.bats](../test/modules/is_writeable.bats)
 
 ### not
 
@@ -533,41 +622,6 @@
 - Since: 0.1.0
 - More Examples: [../test/modules/sub.bats](../test/modules/sub.bats)
 
-## Array
-
-### is_array
-
-- Usage: `l.is_array <var_name>`
-- Since: 0.1.0
-- More Examples: [../test/modules/is_array.bats](../test/modules/is_array.bats)
-
-### union_array
-
-- Usage: `l.union_array <var_name>...`
-- Description: Create an array of unique values from all given arrays.
-- Since: 0.1.0
-- More Examples: [../test/modules/union_array.bats](../test/modules/union_array.bats)
-
-## Number
-
-### is_float
-
-- Usage: `l.is_float <str>`
-- Since: 0.1.0
-- More Examples: [../test/modules/is_float.bats](../test/modules/is_float.bats)
-
-### is_integer
-
-- Usage: `l.is_integer <str>`
-- Since: 0.1.0
-- More Examples: [../test/modules/is_integer.bats](../test/modules/is_integer.bats)
-
-## Unknown
-
-### is_matched
-
-- More Examples: [../test/modules/is_matched.bats](../test/modules/is_matched.bats)
-
 ## Time
 
 ### now
@@ -625,3 +679,12 @@
 - Dependent: [`now`](#now)
 - Since: 0.1.0
 - More Examples: [../test/modules/trace_time.bats](../test/modules/trace_time.bats)
+
+## Array
+
+### union_array
+
+- Usage: `l.union_array <var_name>...`
+- Description: Create an array of unique values from all given arrays.
+- Since: 0.1.0
+- More Examples: [../test/modules/union_array.bats](../test/modules/union_array.bats)

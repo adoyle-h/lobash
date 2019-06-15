@@ -1,5 +1,5 @@
 # ---
-# Category: Number
+# Category: Condition
 # Since: 0.1.0
 # Usage: l.is_float <str>
 # ---

@@ -8,6 +8,7 @@
 # Description: This method is not recommended. Use strict_has instead.
 # ---
 
+# Reference: https://github.com/qzb/is.sh/blob/master/is.sh
 l.has() {
   local condition="$1"
   local value="$2"
