@@ -13,7 +13,15 @@ readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 source "$SCRIPT_DIR"/../src/import.bash
 import_all
 
-str=$(l.join ',' a 'b c' d e)
+arr1=(a 'b c')
+arr2=(d e)
+echo "# arr1=(a 'b c')"
+echo "# arr2=(d e)"
+
+arr=( $(l.union_array arr1 arr2) )
+echo "# l.union_array arr1 arr2" "=> ${arr[*]}"
+
+str=$(l.join arr ',')
 echo "# l.join ',' a 'b c' d e" "=> $str"
 
 list=( $(l.split "$str" ',') )
