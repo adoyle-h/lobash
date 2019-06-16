@@ -28,17 +28,20 @@ The value of `Category` must be upper camel case.
 
 Available values:
 
-- Collection
-- Color
+- Arithmetic
+- Array
 - Condition
-- Core
+- Console
+- Debug
 - File
-- Float
-- Number
 - Path
 - Prompt
 - String
 - System
+- Terminal
+- Time
+- Util
+- Lobash
 
 ## Deprecated
 

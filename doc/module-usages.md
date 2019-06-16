@@ -1,13 +1,14 @@
 # Module Usages
 
-16 Categories, 74 Modules, 441 Test Cases.
+15 Categories, 75 Modules, 454 Test Cases.
 
 ## TOC
 
-- [Collection](#collection)
+- [Array](#array)
   - [array_include](#array_include)
   - [first](#first)
   - [last](#last)
+  - [union_array](#union_array)
 - [Prompt](#prompt)
   - [ask](#ask)
   - [choose](#choose)
@@ -55,6 +56,7 @@
   - [xdg](#xdg)
 - [Console](#console)
   - [echo](#echo)
+  - [echo_array](#echo_array)
 - [Condition](#condition)
   - [has](#has)
   - [if](#if)
@@ -92,10 +94,8 @@
   - [trace_stack](#trace_stack)
   - [trace_start](#trace_start)
   - [trace_time](#trace_time)
-- [Array](#array)
-  - [union_array](#union_array)
 
-## Collection
+## Array
 
 ### array_include
 
@@ -116,6 +116,14 @@
 - Description: It will return the value of argN.
 - Since: 0.1.0
 - More Examples: [../test/modules/last.bats](../test/modules/last.bats)
+
+### union_array
+
+- Usage: `l.union_array <array_name>...`
+- Description: Create an array of unique values from all given arrays.
+- Dependent: [`echo_array`](#echo_array)
+- Since: 0.1.0
+- More Examples: [../test/modules/union_array.bats](../test/modules/union_array.bats)
 
 ## Prompt
 
@@ -288,7 +296,7 @@
 
 ### str_include
 
-- Usage: `str_include <string> <match>`
+- Usage: `str_include <string> <sub-string>`
 - Description: Return `true` or `false`. Check if a string includes given match string.
 - Since: 0.1.0
 - More Examples: [../test/modules/str_include.bats](../test/modules/str_include.bats)
@@ -437,6 +445,13 @@
   - See https://github.com/anordal/shellharden/blob/master/how_to_do_things_safely_in_bash.md#echo--printf
 - Since: 0.1.0
 - More Examples: [../test/modules/echo.bats](../test/modules/echo.bats)
+
+### echo_array
+
+- Usage: `l.echo_array <array_name>`
+- Description: print each values of array with newline.
+- Since: 0.1.0
+- More Examples: [../test/modules/echo_array.bats](../test/modules/echo_array.bats)
 
 ## Condition
 
@@ -686,12 +701,3 @@
 - Dependent: [`now`](#now)
 - Since: 0.1.0
 - More Examples: [../test/modules/trace_time.bats](../test/modules/trace_time.bats)
-
-## Array
-
-### union_array
-
-- Usage: `l.union_array <var_name>...`
-- Description: Create an array of unique values from all given arrays.
-- Since: 0.1.0
-- More Examples: [../test/modules/union_array.bats](../test/modules/union_array.bats)
