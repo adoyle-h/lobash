@@ -1,5 +1,5 @@
 # ---
-# Category: Collection
+# Category: Array
 # Since: 0.1.0
 # Usage: l.array_include <array_name> <match>
 # ---

@@ -3,10 +3,22 @@
 setup_fixture
 load_module match
 
+@test "l.match 'hello world' 'hello'" {
+  run l.match 'hello world' 'hello'
+  assert_success
+  assert_output ''
+}
+
 @test "l.match '    hello' '^[[:space:]]*(.*)'" {
   run l.match '    hello' '^[[:space:]]*(.*)'
   assert_success
   assert_output 'hello'
+}
+
+@test "l.match '    hello' '^[[:space:]]*(.*)' 0" {
+  run l.match '    hello' '^[[:space:]]*(.*)' 0
+  assert_failure
+  assert_output 'index cannot be 0'
 }
 
 @test "l.match '#FFFFFF' '^(#?([a-fA-F0-9]{6}|[a-fA-F0-9]{3}))$'" {

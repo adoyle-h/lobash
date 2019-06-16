@@ -6,9 +6,15 @@
 # ---
 
 l.match() {
+  [[ ${3:-} == 0 ]] && echo "index cannot be 0" >&2 && return 3
+
   if [[ $1 =~ $2 ]]; then
-    printf '%s\n' "${BASH_REMATCH[${3:-1}]}"
+    if (( ${#BASH_REMATCH[@]} > 1 )); then
+      printf '%s\n' "${BASH_REMATCH[${3:-1}]}"
+    else
+      echo ''
+    fi
   else
-    true
+    echo ''
   fi
 }
