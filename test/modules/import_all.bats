@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 
 setup_fixture
+load_src modules/import_category
 
 @test "import_all without prefix" {
   load_module import_all
@@ -39,12 +40,12 @@ setup_fixture
   load_module import_all
   run import_all l#
   assert_failure
-  assert_output "[ERROR:LOBASH] Not found module 'l#'."
+  assert_output "[ERROR:LOBASH] Not found categories: l#"
 }
 
 @test "import_all l" {
   load_module import_all
   run import_all l
   assert_failure
-  assert_output "[ERROR:LOBASH] Not found module 'l'."
+  assert_output "[ERROR:LOBASH] Not found categories: l"
 }

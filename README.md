@@ -44,6 +44,8 @@ So I write Lobash with pure Bash script for enhancing development efficiency.
 Lobash is a library not command. You should `source ./src/import.bash` to use Lobash.
 It provides a `import` function to import Lobash modules (functions) .
 
+If you do not know the difference between executing a Bash script and sourcing it, read [this](https://superuser.com/q/176783).
+
 Lobash Features:
 
 - Modular

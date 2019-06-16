@@ -1,0 +1,1 @@
+has if is_array is_bash is_dir is_executable is_executable_file is_false is_file is_float is_integer is_link is_number is_readable is_true is_writeable is_zsh not strict_has strict_has_not 

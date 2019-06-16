@@ -7,6 +7,17 @@
 # Description: -f, --force  To force refresh module codes. Because imported modules will be cached by default.
 # ---
 
+_lobash_get_shell_type() {
+  if [[ -n $BASH_VERSION ]]; then
+    echo bash
+  elif [[ -n $ZSH_VERSION ]]; then
+    echo zsh
+  else
+    echo 'Lobash only work in Bash and Zsh.' >&2
+    return 5
+  fi
+}
+
 _lobash_dirname() {
   printf '%s\n' "${1%/*}"
 }

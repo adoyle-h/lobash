@@ -15,7 +15,13 @@ fi
 load_src() {
   local path=$1;
   shift
-  load "$LOBASH_ROOT_DIR"/src/"$path".bash "$@"
+  load "$LOBASH_ROOT_DIR/src/$path.bash" "$@"
+}
+
+load_fixtrue() {
+  local path=$1;
+  shift
+  load "$LOBASH_TEST_DIR/fixtrue/$path.bash" "$@"
 }
 
 load_module() {

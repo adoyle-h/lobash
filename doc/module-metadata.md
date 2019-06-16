@@ -12,6 +12,9 @@ Like this:
 # Dependent: a,b,c
 # Usage: l.public_function arguments [options]
 # Description: function description
+# Bash: true
+# Zsh: true
+# Status: tested
 # ---
 ```
 
@@ -39,7 +42,7 @@ Available values:
 
 ## Deprecated
 
-It is optional. Defaults to `false`.
+It is optional. Default to `false`.
 
 Available values:
 
@@ -68,3 +71,28 @@ Available values: The Lobash release version.
 Follow the http://docopt.org/
 
 ## Description
+
+It is optional.
+
+Any descriptions of module.
+It can be multiple.
+
+## Bash
+
+It is optional. Default to `true`.
+
+Whether support Bash or not.
+
+## Zsh
+
+It is optional. Default to `true`.
+
+Whether support Zsh or not.
+
+# Status
+
+It is optional. Default to `tested`.
+
+Available values:
+
+- `tested`

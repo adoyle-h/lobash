@@ -10,24 +10,15 @@
 _l.import_all() {
   local prefix=${1:-$_LOBASH_DEFAULT_PREFIX}
 
-  local src_dir
+  local src_dir shell_type
   src_dir="$(_lobash_dirname "${BASH_SOURCE[0]}")"
+  shell_type=$(_lobash_get_shell_type)
 
-  local -a modules=( $(ls "$src_dir") )
-  local -a module_names
-  local module
+  local -a categories=( $(find "$src_dir/../internals/categories/${shell_type}" -type f -exec basename {} \; ) )
 
-  _lobash_debug modules.size="${#modules[*]}" modules="${modules[*]}"
+  _lobash_debug "_l.import_categories ${categories[*]} $prefix"
 
-  for module in "${modules[@]}"; do
-    local name=${module%.bash}
-    [[ ${_LOBASH_IMPORT_ENTRIES[*]} =~ ${name} ]] && continue
-    module_names+=("$name")
-  done
-
-  _lobash_debug module_names.size="${#module_names[*]}" module_names="${module_names[*]}"
-
-  _l.imports "${module_names[@]}" "$prefix"
+  _l.import_categories "${categories[@]}" "$prefix"
 }
 
 # For replace custom prefix of public method. Private method name never changed.

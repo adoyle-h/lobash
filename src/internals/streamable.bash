@@ -1,7 +1,7 @@
 # ---
 # Category: Stream
 # Since: 0.1.0
-# Status: NOT_WORK
+# Status: not work
 # ---
 
 # Usage: l.streamable function_name parameter_size "$@"

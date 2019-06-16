@@ -10,8 +10,10 @@
 _l.import_category() {
   local category=${1,,}
   local prefix=$2
+  local shell_type=$3
   local module_names line cate_file
-  cate_file="$(_lobash_dirname "${BASH_SOURCE[0]}")"/../internals/categories/"$category"
+
+  cate_file="$(_lobash_dirname "${BASH_SOURCE[0]}")/../internals/categories/$shell_type/$category"
 
   if [[ ! -f $cate_file ]]; then
     _lobash_error "Not found categories: $category"
@@ -28,7 +30,9 @@ _l.import_categories() {
   local args=( "$@" )
   local args_len=${#args[@]}
   local -a categories
-  local prefix
+  local prefix shell_type
+
+  shell_type=$(_lobash_get_shell_type)
 
   if [[ $args_len -eq 0 ]]; then
     _lobash_error "Not found any parameters passed to import_category function."
@@ -50,7 +54,7 @@ _l.import_categories() {
   _lobash_debug category_names="${categories[*]}" prefix="${prefix}"
 
   for c in "${categories[@]}"; do
-    _l.import_category "$c" "$prefix"
+    _l.import_category "$c" "$prefix" "$shell_type"
   done
 }
 

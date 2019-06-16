@@ -11,7 +11,7 @@ shopt -s inherit_errexit
 [[ $- =~ [x] ]] && PS4='+[${BASH_SOURCE[0]}:${LINENO}|${FUNCNAME[0]:+${FUNCNAME[0]}}()|$?${XTRACE_PIPE:+|${PIPESTATUS[*]}}]: '
 
 readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
-source "$SCRIPT_DIR"/../src/module_meta.bash
+source "$SCRIPT_DIR"/../src/internals/module_meta.bash
 
 safe_rm() {
   local path=$1
@@ -124,7 +124,7 @@ main() {
   local -a categories
 
   local -i module_count=0
-  local filepath module_name category dependent since
+  local filepath module_name category metadatas
   for filepath in $SCRIPT_DIR/../src/modules/*.bash; do
     ((module_count+=1))
     module_name=$(basename "$filepath" .bash)

@@ -11,7 +11,8 @@ set -o pipefail
 
 readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 
-source "$SCRIPT_DIR"/../src/module_meta.bash
+source "$SCRIPT_DIR"/../src/internals/module_meta.bash
+source "$SCRIPT_DIR"/../src/modules/array_include.bash
 
 safe_rm() {
   local path=$1
@@ -33,23 +34,55 @@ lower_case() {
   printf '%s\n' "${str,,}"
 }
 
+get_metas() {
+  local name=$1
+  local i
+  while read -r i; do
+    if [[ -n "$i" ]]; then
+      printf '%s\n' "$i"
+    fi
+  done < <(echo "$metadatas" | grep -Eo "^${name}: .+$" | sed "s/${name}: //" || echo "${2:-}")
+}
+
 main() {
   local CATE_DIR=$SCRIPT_DIR/../src/internals/categories
   safe_rm "$CATE_DIR"
-  mkdir "$CATE_DIR"
-  local filename category filepath
+  mkdir -p "$CATE_DIR/bash"
+  mkdir -p "$CATE_DIR/zsh"
+
+  local filepath module_name category metadatas bash_support zsh_support
   for filepath in $SCRIPT_DIR/../src/modules/*.bash; do
-    # printf '\n[%s]\n' "$(basename "$filepath" .bash)"
-    filename=$(basename "$filepath" .bash)
-    category=$(_get_module_metadata_str "$filepath" | grep -Eo '^Category: \w+$' | sed 's/Category: //' | lower_case || echo '')
+    module_name=$(basename "$filepath" .bash)
+
+    if [[ $(l.array_include _LOBASH_IMPORT_ENTRIES "$module_name") == true ]] ; then
+      continue
+    fi
+
+    metadatas=$(_get_module_metadata_str "$filepath")
+    category=$(get_metas Category)
+    bash_support=$(get_metas Bash true)
+    zsh_support=$(get_metas Zsh true)
 
     if [[ -n $category ]]; then
-      printf '%s ' "$filename" >> "$CATE_DIR/$category"
+      category=${category,,}
+      echo "Added to category: $category/$module_name [Bash=$bash_support][Zsh=$zsh_support]"
+
+      if [[ $bash_support == true ]]; then
+        printf '%s ' "$module_name" >> "$CATE_DIR/bash/$category"
+      fi
+
+      if [[ $zsh_support == true ]]; then
+        printf '%s ' "$module_name" >> "$CATE_DIR/zsh/$category"
+      fi
     fi
   done
 
   local file
-  for file in "$CATE_DIR"/* ; do
+  for file in "$CATE_DIR"/bash/* ; do
+    printf '\n' >> "$file"
+  done
+
+  for file in "$CATE_DIR"/zsh/* ; do
     printf '\n' >> "$file"
   done
 }

@@ -1,6 +1,6 @@
 # Module Usages
 
-16 Categories, 73 Modules, 441 Test Cases.
+16 Categories, 74 Modules, 441 Test Cases.
 
 ## TOC
 
@@ -59,6 +59,7 @@
   - [has](#has)
   - [if](#if)
   - [is_array](#is_array)
+  - [is_bash](#is_bash)
   - [is_dir](#is_dir)
   - [is_executable](#is_executable)
   - [is_executable_file](#is_executable_file)
@@ -69,9 +70,9 @@
   - [is_link](#is_link)
   - [is_number](#is_number)
   - [is_readable](#is_readable)
-  - [is_sourced](#is_sourced)
   - [is_true](#is_true)
   - [is_writeable](#is_writeable)
+  - [is_zsh](#is_zsh)
   - [not](#not)
   - [strict_has](#strict_has)
   - [strict_has_not](#strict_has_not)
@@ -468,6 +469,12 @@
 - Since: 0.1.0
 - More Examples: [../test/modules/is_array.bats](../test/modules/is_array.bats)
 
+### is_bash
+
+- Usage: `l.is_bash`
+- Since: 0.1.0
+- More Examples: [../test/modules/is_bash.bats](../test/modules/is_bash.bats)
+
 ### is_dir
 
 - Usage: `l.is_dir <var>`
@@ -532,12 +539,6 @@
 - Since: 0.1.0
 - More Examples: [../test/modules/is_readable.bats](../test/modules/is_readable.bats)
 
-### is_sourced
-
-- Description: Detect current file whether is sourced or not.
-- Since: 0.1.0
-- More Examples: [../test/modules/is_sourced.bats](../test/modules/is_sourced.bats)
-
 ### is_true
 
 - Usage: `l.is_true <var>`
@@ -549,6 +550,12 @@
 - Usage: `l.is_writeable <var>`
 - Since: 0.1.0
 - More Examples: [../test/modules/is_writeable.bats](../test/modules/is_writeable.bats)
+
+### is_zsh
+
+- Usage: `l.is_zsh`
+- Since: 0.1.0
+- More Examples: [../test/modules/is_zsh.bats](../test/modules/is_zsh.bats)
 
 ### not
 

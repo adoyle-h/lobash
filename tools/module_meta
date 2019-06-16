@@ -11,6 +11,6 @@ set -o pipefail
 
 readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 
-source "$SCRIPT_DIR"/../src/module_meta.bash
+source "$SCRIPT_DIR"/../src/internals/module_meta.bash
 
 _get_module_metadata_str_by_name "$1"
