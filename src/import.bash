@@ -18,7 +18,11 @@ else
   fi
 
   for file in "${_LOBASH_IMPORT_ENTRIES[@]}"; do
-    source <( sed -E "s/^([A-Za-z0-9]\\w*)\\(\\) ?\\{$/${__PREFIX}\\1\\(\\) \\{/" < "$__SRC_DIR"/modules/"$file".bash )
+    if [[ $__LOBASH_OS == Linux ]]; then
+      source <( sed -E "s/^([A-Za-z0-9]\\w*)\\(\\) ?\\{$/${__PREFIX}\\1\\(\\) \\{/" < "$__SRC_DIR"/modules/"$file".bash )
+    else
+      source <( sed -E "s/^([A-Za-z0-9][[:print:]]*)\\(\\) ?\\{$/${__PREFIX}\\1\\(\\) \\{/" < "$__SRC_DIR"/modules/"$file".bash )
+    fi
   done
 fi
 

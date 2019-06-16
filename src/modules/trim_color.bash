@@ -16,5 +16,12 @@ l.trim_color() {
     read -r str
   fi
 
-  sed -E "s,${ecs}[[0-9]*(;[0-9]+)*m,,g" <<< "$str"
+  if [[ $__LOBASH_OS == Linux ]]; then
+    sed -E "s,${ecs}[[0-9]*(;[0-9]+)*m,,g" <<< "$str"
+  elif [[ $__LOBASH_OS == MacOS ]] || [[ $__LOBASH_OS == BSD ]]; then
+    sed -E "s,\\${ecs}[[0-9]*(;[0-9]+)*m,,g" <<< "$str"
+  else
+    echo "Only MacOS/BSD/Linux systems are valid." >&2
+    return 5
+  fi
 }

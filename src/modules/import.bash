@@ -44,7 +44,11 @@ _lobash_import_internal() {
   local module_path
   module_path="$src_dir/internals/$1.bash"
 
-  eval "$(sed -E "s/^([A-Za-z0-9]\\w*)\\(\\) ?\\{$/${_LOBASH_INTERNAL_FUNC_PREFIX}\\1\\(\\) \\{/g" < "$module_path")"
+  if [[ $__LOBASH_OS == Linux ]]; then
+    eval "$(sed -E "s/^([A-Za-z0-9]\\w*)\\(\\) ?\\{$/${_LOBASH_INTERNAL_FUNC_PREFIX}\\1\\(\\) \\{/g" < "$module_path")"
+  else
+    eval "$(sed -E "s/^([A-Za-z0-9][[:print:]]*)\\(\\) ?\\{$/${_LOBASH_INTERNAL_FUNC_PREFIX}\\1\\(\\) \\{/g" < "$module_path")"
+  fi
 }
 
 _lobash_import_internals() {

@@ -38,8 +38,8 @@
 ## What is Lobash?
 
 Javascript has a powerful library [Lodash](https://github.com/lodash/lodash).
-Bash script development is complex and fallible.
-So I write Lobash with pure Bash script for enhancing development efficiency.
+Bash script development is complex and fallible. And shell script may be interpreted different with different shell and external commands (like BSD and GNU utilities).
+So I write Lobash for enhancing shell script development efficiency and making it compatible with Bash and Zsh, MacOS and Linux System.
 
 Lobash is a library not command. You should `source ./src/import.bash` to use Lobash.
 It provides a `import` function to import Lobash modules (functions) .
@@ -99,7 +99,9 @@ Ash/Ksh/Fish/Xiki and other shells are not supported because there are so many [
   - No need install it by yourself. Almost Unix/Linux operating systems have included Perl 5. See the [Perl Binaries](https://www.cpan.org/ports/binaries.html)
   - Alpine not include Perl. Install it by `apk add perl`.
   - Busybox not include Perl. Install it by .
-- Linux commands: grep/awk/sed/mktemp/dirname/basename/cd/printf/echo/wc
+- Linux commands:
+  - grep/awk/mktemp/dirname/basename/cd/printf/echo/wc
+  - sed: BSD and GNU are both supported
 
 ## Usage
 
