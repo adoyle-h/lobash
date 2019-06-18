@@ -4,89 +4,89 @@ setup_fixture
 load_module split
 
 @test "l.split 'a,asd,bcd,d' ','" {
+  local -a target
   local expect=(a asd bcd d)
-  run l.split 'a,asd,bcd,d' ','
+  l.split 'a,asd,bcd,d' target ','
 
-  assert_success
-  assert_equal ${#lines[@]} ${#expect[@]}
   for (( i=0 ; i < ${#expect[@]} ; i++ )) ; do
-    assert_line -n $i ${expect[i]}
+    assert_equal "${target[i]}" "${expect[i]}"
   done
+  assert_equal "${#target[@]}" "${#expect[@]}"
 }
 
 @test "l.split 'a asd bcd d' ' '" {
+  local -a target
   local expect=(a asd bcd d)
-  run l.split 'a asd bcd d' ' '
+  l.split 'a asd bcd d' target ' '
 
-  assert_success
-  assert_equal ${#lines[@]} ${#expect[@]}
+  assert_equal "${#target[@]}" "${#expect[@]}"
   for (( i=0 ; i < ${#expect[@]} ; i++ )) ; do
-    assert_line -n $i ${expect[i]}
+    assert_equal "${target[i]}" "${expect[i]}"
   done
 }
 
 @test "l.split 'a ad bcd d'" {
+  local -a target
   local expect=(a ad bcd d)
-  run l.split 'a ad bcd d'
+  l.split 'a ad bcd d' target
 
-  assert_success
-  assert_equal ${#lines[@]} ${#expect[@]}
   for (( i=0 ; i < ${#expect[@]} ; i++ )) ; do
-    assert_line -n $i ${expect[i]}
+    assert_equal "${target[i]}" "${expect[i]}"
   done
+  assert_equal "${#target[@]}" "${#expect[@]}"
 }
 
 @test "l.split '../..' '/'" {
+  local -a target
   local expect=('..' '..')
-  run l.split '../..' '/'
+  l.split '../..' target '/'
 
-  assert_success
-  assert_equal ${#lines[@]} ${#expect[@]}
   for (( i=0 ; i < ${#expect[@]} ; i++ )) ; do
-    assert_line -n $i ${expect[i]}
+    assert_equal "${target[i]}" "${expect[i]}"
   done
+  assert_equal "${#target[@]}" "${#expect[@]}"
 }
 
 @test "l.split '../' '/'" {
+  local -a target
   local expect=('..' '')
-  run l.split '../' '/'
+  l.split '../' target '/'
 
-  assert_success
-  assert_equal ${#lines[@]} ${#expect[@]}
   for (( i=0 ; i < ${#expect[@]} ; i++ )) ; do
-    assert_line -n $i ${expect[i]}
+    assert_equal "${target[i]}" "${expect[i]}"
   done
+  assert_equal "${#target[@]}" "${#expect[@]}"
 }
 
 @test "l.split '/../' '/'" {
+  local -a target
   local expect=('' '..' '')
-  run l.split '../' '/'
+  l.split '/../' target '/'
 
-  assert_success
-  assert_equal ${#lines[@]} ${#expect[@]}
   for (( i=0 ; i < ${#expect[@]} ; i++ )) ; do
-    assert_line -n $i ${expect[i]}
+    assert_equal "${target[i]}" "${expect[i]}"
   done
+  assert_equal "${#target[@]}" "${#expect[@]}"
 }
 
 @test "l.split 'a b ' ' '" {
+  local -a target
   local expect=('a' 'b' '')
-  run l.split 'a b ' ' '
+  l.split 'a b ' target ' '
 
-  assert_success
-  assert_equal ${#lines[@]} ${#expect[@]}
   for (( i=0 ; i < ${#expect[@]} ; i++ )) ; do
-    assert_line -n $i ${expect[i]}
+    assert_equal "${target[i]}" "${expect[i]}"
   done
+  assert_equal "${#target[@]}" "${#expect[@]}"
 }
 
 @test "l.split 'ab c' ''" {
-  local expect=('a' 'b' '' 'c')
-  run l.split 'ab c' ''
+  local -a target
+  local expect=('a' 'b' ' ' 'c')
+  l.split 'ab c' target ''
 
-  assert_success
-  assert_equal ${#lines[@]} ${#expect[@]}
   for (( i=0 ; i < ${#expect[@]} ; i++ )) ; do
-    assert_line -n $i ${expect[i]}
+    assert_equal "${target[i]}" "${expect[i]}"
   done
+  assert_equal "${#target[@]}" "${#expect[@]}"
 }
