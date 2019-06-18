@@ -16,11 +16,12 @@ l.has() {
   if [[ "$condition" == "not" ]]; then
     shift 1
 
-    local origFlags="$-"
+    local e=false
+    [[ $- =~ e ]] && e=true
     set +e
     l.has "${@}"
     local result=$?
-    set "-$origFlags"
+    [[ $e == true ]] && set -e
 
     if [[ $result == 0 ]]; then
       return 1
