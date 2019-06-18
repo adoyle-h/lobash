@@ -26,7 +26,8 @@ l.normalize() {
     return 0
   fi
 
-  local words=( $(l.split "$path" '/') )
+  local -a words
+  l.split "$path" words '/'
   local -a list=()
   local -a pre_list=()
   local n=0
