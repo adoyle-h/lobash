@@ -6,6 +6,10 @@
 # Description: get current cursor position. It will print "row;column" with default IFS.
 # ---
 
+# l.cursor_pos() {
+#   stty size
+# }
+
 # Refer to https://unix.stackexchange.com/a/183121
 l.cursor_pos() {
   local CURPOS
