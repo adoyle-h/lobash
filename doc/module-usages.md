@@ -1,6 +1,6 @@
 # Module Usages
 
-15 Categories, 75 Modules, 454 Test Cases.
+15 Categories, 76 Modules, 459 Test Cases.
 
 ## TOC
 
@@ -21,6 +21,7 @@
 - [Util](#util)
   - [benchmark](#benchmark)
   - [compose](#compose)
+  - [repeat](#repeat)
 - [File](#file)
   - [count_file_lines](#count_file_lines)
   - [count_files](#count_files)
@@ -206,6 +207,13 @@
 - Description: Function composition
 - Since: 0.1.0
 - More Examples: [../test/modules/compose.bats](../test/modules/compose.bats)
+
+### repeat
+
+- Usage: `l.repeat <N> <command_name> [<command_args>]...`
+- Description: Execute command in N times.
+- Since: 0.1.0
+- More Examples: [../test/modules/repeat.bats](../test/modules/repeat.bats)
 
 ## File
 
