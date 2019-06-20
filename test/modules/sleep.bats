@@ -12,11 +12,9 @@ load_module now
   now=$(l.now)
 
   elapsed=$(( now - last ))
+  # echo "elapsed=$elapsed" > /dev/tty
 
-  # Total deviation 60~80ms:
-  # 40~50ms deviation of l.sleep
-  # 20~30ms deviation of test code (why?)
-  if [[ $elapsed -gt 100 ]] && [[ $elapsed -lt 180 ]]; then
+  if [[ $elapsed -gt 100 ]] && [[ $elapsed -lt 150 ]]; then
     true
   else
     echo "elapsed=$elapsed"
@@ -32,7 +30,9 @@ load_module now
   now=$(l.now)
 
   elapsed=$(( now - last ))
-  if [[ $elapsed -gt 1000 ]] && [[ $elapsed -lt 1080 ]]; then
+  # echo "elapsed=$elapsed" > /dev/tty
+
+  if [[ $elapsed -gt 1000 ]] && [[ $elapsed -lt 1050 ]]; then
     true
   else
     echo "elapsed=$elapsed"
@@ -48,7 +48,9 @@ load_module now
   now=$(l.now)
 
   elapsed=$(( now - last ))
-  if [[ $elapsed -gt 2000 ]] && [[ $elapsed -lt 2080 ]]; then
+  # echo "elapsed=$elapsed" > /dev/tty
+
+  if [[ $elapsed -gt 2000 ]] && [[ $elapsed -lt 2050 ]]; then
     true
   else
     echo "elapsed=$elapsed"

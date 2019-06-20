@@ -4,7 +4,7 @@
 # Usage: l.sleep <number_or_float>
 # Description: Same to sleep command but support float.
 # Description: When run it in Linux/Unix System, the precision of sleep time is 1ms. The deviation of sleep time is 1~2ms by actual measurement.
-# Description: When run it in MacOS, the precision of sleep time is 100ms. The deviation of sleep time is 40~50ms by actual measurement.
+# Description: When run it in MacOS, the precision of sleep time is 100ms. The deviation of sleep time is 30~40ms by actual measurement.
 # ---
 
 # This way is accurate but has bug. Sleep can be cancelled when stdin get 99999 characters in time.
@@ -12,6 +12,12 @@
 #   read -rst "${1:-1}" -N 99999 || true
 # }
 
+# MacOS will show shows "/dev/fd/62: Permission denied" on `exec {_sleep_fd}<> <(true)`. So we make a workaround.
+if [[ $OSTYPE =~ darwin ]]; then
+  _l_sleep_temp=$(mktemp -u)
+  # Create a FIFO special file
+  mkfifo -m 700 "$_l_sleep_temp"
+fi
 
 # Refer to below links
 # - https://blog.dhampir.no/content/sleeping-without-a-subprocess-in-bash-and-how-to-sleep-forever
@@ -25,13 +31,14 @@ l.sleep() {
 
   if [[ $OSTYPE =~ darwin ]]; then
     # MacOS will show shows "/dev/fd/62: Permission denied" on `exec {_sleep_fd}<> <(true)`. So we make a workaround.
+
+    # local _l_sleep_temp
     # Get available temp file path
-    local temp
-    temp=$(mktemp -u)
-    # Create a FIFO special file
-    mkfifo -m 700 "$temp"
-    exec {_sleep_fd}<>"$temp"
-    rm -f "$temp"
+    # _l_sleep_temp=$(mktemp -u)
+    # # Create a FIFO special file
+    # mkfifo -m 700 "$_l_sleep_temp"
+    exec {_sleep_fd}<>"$_l_sleep_temp"
+    # rm -f "$_l_sleep_temp"
   else
     exec {_sleep_fd}<> <(true)
   fi
