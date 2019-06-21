@@ -1,6 +1,6 @@
 # Module Usages
 
-15 Categories, 76 Modules, 459 Test Cases.
+15 Categories, 77 Modules, 464 Test Cases.
 
 ## TOC
 
@@ -21,6 +21,7 @@
 - [Util](#util)
   - [benchmark](#benchmark)
   - [compose](#compose)
+  - [random](#random)
   - [repeat](#repeat)
 - [File](#file)
   - [count_file_lines](#count_file_lines)
@@ -207,6 +208,15 @@
 - Description: Function composition
 - Since: 0.1.0
 - More Examples: [../test/modules/compose.bats](../test/modules/compose.bats)
+
+### random
+
+- Usage: `l.random [<length>=10] [<pattern>=a-zA-Z0-9@#*=[]]`
+- Description:
+  - Return a random string in specific length.
+  - The <pattern> is allowed characters in range.
+- Since: 0.1.0
+- More Examples: [../test/modules/random.bats](../test/modules/random.bats)
 
 ### repeat
 
@@ -431,7 +441,7 @@
 - Description:
   - Same to sleep command but support float.
   - When run it in Linux/Unix System, the precision of sleep time is 1ms. The deviation of sleep time is 1~2ms by actual measurement.
-  - When run it in MacOS, the precision of sleep time is 100ms. The deviation of sleep time is 40~50ms by actual measurement.
+  - When run it in MacOS, the precision of sleep time is 100ms. The deviation of sleep time is 30~40ms by actual measurement.
 - Since: 0.1.0
 - More Examples: [../test/modules/sleep.bats](../test/modules/sleep.bats)
 
