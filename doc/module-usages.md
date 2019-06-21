@@ -1,6 +1,6 @@
 # Module Usages
 
-15 Categories, 77 Modules, 464 Test Cases.
+16 Categories, 80 Modules, 477 Test Cases.
 
 ## TOC
 
@@ -51,6 +51,10 @@
   - [cursor_col](#cursor_col)
   - [cursor_pos](#cursor_pos)
   - [cursor_row](#cursor_row)
+- [Time](#time)
+  - [date](#date)
+  - [now](#now)
+  - [now_s](#now_s)
 - [System](#system)
   - [detect_os](#detect_os)
   - [hostname](#hostname)
@@ -80,6 +84,9 @@
   - [not](#not)
   - [strict_has](#strict_has)
   - [strict_has_not](#strict_has_not)
+- [Color](#color)
+  - [hex_to_rgb](#hex_to_rgb)
+  - [rgb_to_hex](#rgb_to_hex)
 - [Lobash](#lobash)
   - [import](#import)
   - [import_all](#import_all)
@@ -87,9 +94,6 @@
 - [Arithmetic](#arithmetic)
   - [inc](#inc)
   - [sub](#sub)
-- [Time](#time)
-  - [now](#now)
-  - [now_s](#now_s)
 - [Debug](#debug)
   - [trace_count](#trace_count)
   - [trace_end](#trace_end)
@@ -421,6 +425,30 @@
 - Since: 0.1.0
 - More Examples: [../test/modules/cursor_row.bats](../test/modules/cursor_row.bats)
 
+## Time
+
+### date
+
+- Usage: `l.date [<format>=]`
+- Description: Refer to 'man strftime' for <format>.
+- Since: 0.1.0
+- More Examples: [../test/modules/date.bats](../test/modules/date.bats)
+
+### now
+
+- Usage: `l.now`
+- Description: Print the timestamp of the number of milliseconds that have elapsed since the Unix epoch (1 January 1970 00:00:00 UTC).
+- Since: 0.1.0
+- More Examples: [../test/modules/now.bats](../test/modules/now.bats)
+
+### now_s
+
+- Usage: `l.now_s`
+- Description: Print the timestamp of the number of seconds that have elapsed since the Unix epoch (1 January 1970 00:00:00 UTC).
+- Dependent: [`date`](#date)
+- Since: 0.1.0
+- More Examples: [../test/modules/now_s.bats](../test/modules/now_s.bats)
+
 ## System
 
 ### detect_os
@@ -447,7 +475,7 @@
 
 ### xdg
 
-- Usage: `l.get_xdg_config_home`
+- Usage: `l.xdg_config_home`
 - Description: Return XDG_CONFIG_HOME. Return `${HOME}/.config` if XDG_CONFIG_HOME not set.
 - Since: 0.1.0
 - More Examples: [../test/modules/xdg.bats](../test/modules/xdg.bats)
@@ -614,6 +642,23 @@
 - Since: 0.1.0
 - More Examples: [../test/modules/strict_has_not.bats](../test/modules/strict_has_not.bats)
 
+## Color
+
+### hex_to_rgb
+
+- Usage: `l.hex_to_rgb <HEX>`
+- Description: Return a list contains <R> <G> <B>.
+- Since: 0.1.0
+- More Examples: [../test/modules/hex_to_rgb.bats](../test/modules/hex_to_rgb.bats)
+
+### rgb_to_hex
+
+- Usage: `l.rgb_to_hex <R> <G> <B>`
+- Description: Return hex string. Like '#ffffff'
+- Dependent: [`is_number`](#is_number)
+- Since: 0.1.0
+- More Examples: [../test/modules/rgb_to_hex.bats](../test/modules/rgb_to_hex.bats)
+
 ## Lobash
 
 ### import
@@ -661,22 +706,6 @@
 - Description: Subtract number with subtrahend.
 - Since: 0.1.0
 - More Examples: [../test/modules/sub.bats](../test/modules/sub.bats)
-
-## Time
-
-### now
-
-- Usage: `l.now`
-- Description: Print the timestamp of the number of milliseconds that have elapsed since the Unix epoch (1 January 1970 00:00:00 UTC).
-- Since: 0.1.0
-- More Examples: [../test/modules/now.bats](../test/modules/now.bats)
-
-### now_s
-
-- Usage: `l.now_s`
-- Description: Print the timestamp of the number of seconds that have elapsed since the Unix epoch (1 January 1970 00:00:00 UTC).
-- Since: 0.1.0
-- More Examples: [../test/modules/now_s.bats](../test/modules/now_s.bats)
 
 ## Debug
 
