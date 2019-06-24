@@ -12,10 +12,8 @@ readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 
 
 main() {
-  local version="$1"
-  shift
-  export VERSION="$version"
-  envsubst < "$SCRIPT_DIR"/test.dockerfile | docker build "$@" -t lobash/test-bash:"$version" -
+  export VERSION="${BASHVER:-4.4}"
+  envsubst < "$SCRIPT_DIR"/test.dockerfile | docker build "$@" -t lobash/test-bash:"$VERSION" -
 }
 
 main "$@"
