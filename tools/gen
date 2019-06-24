@@ -10,5 +10,9 @@ shopt -s inherit_errexit
 
 readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 
+echo "[Todo] $SCRIPT_DIR/gen-categories"
 "$SCRIPT_DIR"/gen-categories
+echo "[Todo] $SCRIPT_DIR/gen-module-docs"
 "$SCRIPT_DIR"/gen-module-docs
+echo "[Todo] $SCRIPT_DIR/gen-configs"
+"$SCRIPT_DIR"/gen-configs

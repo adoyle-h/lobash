@@ -20,13 +20,11 @@
     - [Supported Shells](#supported-shells)
     - [Dependencies](#dependencies)
 - [Usage](#usage)
-    - [Module Usages](#module-usages)
-    - [Import specific modules](#import-specific-modules)
-    - [Import modules by categories](#import-modules-by-categories)
-    - [Import all modules](#import-all-modules)
-    - [Custom import function prefix](#custom-import-function-prefix)
-    - [Use Command](#use-command)
-- [Debug](#debug)
+- [Module Usages](#module-usages)
+- [Bin Command](#bin-command)
+- [Development](#development)
+    - [Import specific modules for testing](#import-specific-modules-for-testing)
+    - [Debug](#debug)
 - [FAQ](#faq)
 - [Contributions](#contributions)
 - [Versioning](#versioning)
@@ -105,87 +103,61 @@ Ash/Ksh/Fish/Xiki and other shells are not supported because there are so many [
 
 ## Usage
 
-### Module Usages
+First, generate your own `lobash.bash` file by `./generate`.
+
+```sh
+# generate ./dist/lobash.bash
+./generate
+
+# or generate lobash to specific path
+./generate <target-path>
+
+# or generate lobash to specific path and change Lobash function prefix
+PREFIX=lobash_ ./generate <target-path>
+```
+
+When you use Lobash to build a library or framework, it is necessary to set `PREFIX` with unique namespace for avoiding naming collisions.
+When you build a command, `PREFIX` is unnecessary.
+
+Second, load your own `lobash.bash` file in your scripts.
+
+```sh
+source <path-to-lobash.bash>
+# All Lobash modules are loaded. If PREFIX not set when generated.
+l.ask 'Hello Lobash?'
+
+# If PREFIX=lobash_ set
+# lobash_ask 'Hello Lobash?'
+```
+
+## Module Usages
 
 See [examples](./example/) and [./doc/module-usages.md](./doc/module-usages.md).
 
-### Import specific modules
+## Bin Command
+
+Many modules not work as command.
+The `./bin/lobash` command is only used for certain scenarios.
 
 ```sh
-source ./src/import.bash
+./bin/lobash <module_name> [<module_args>]...
+```
 
-# Usage: import [-f|--force] <module_name>... [prefix=l.]
-# The prefix must end with `_` or `-` or `.`, defaults to 'l.'
-import ask first last
+## Development
+
+### Import specific modules for testing
+
+```sh
+source ./src/load_internals.bash
+_lobash.import_internals module_meta
+_lobash.import ask first last
 
 l.ask hello world
 l.first a b c
 l.last a b c
 ```
 
-### Import modules by categories
-
-```sh
-source ./src/import.bash
-
-# Usage: import_category <category_name>... [prefix=l.]
-# The prefix must end with `_` or `-` or `.`, defaults to 'l.'
-import_category string prompt
-
-l.ask hello world
-l.choose a b c
-printf 'a\nb\nc\n' | l.count_lines
-```
-
-Available categories see [here](./src/internals/categories).
-
-### Import all modules
-
-```sh
-source ./src/import.bash
-
-# Usage: import_all [prefix=l.]
-# The prefix must end with `_` or `-` or `.`, defaults to 'l.'
-import_all
-
-l.ask hello world
-```
-
-Attention: import_all is slow.
-
-```sh
-time import_all
-
-real    0m2.034s
-user    0m1.048s
-sys     0m2.535s
-```
-
-### Custom import function prefix
-
-`import` and `import_all` may be conflicting with your shell environment.
-So you can custom import function prefix can like that,
-
-```sh
-source ./src/import.bash a_
-
-# you get `a_import_all` and `a_import` functions
-a_import_all
-
-# no differences
-ask hello world
-```
-
-### Use Command
-
-Many modules not work as command.
-This command is only used for certain scenarios.
-
-```sh
-./bin/lobash <module_name> <module_args>
-```
-
-## Debug
+### Debug
 
 Set environment variable `LOBASH_DEBUG=true` to print verbose logs.
 

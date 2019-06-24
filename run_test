@@ -19,6 +19,13 @@ setup_fixture() {
 }
 export -f setup_fixture
 
+if [[ ${1:-} == '-d' ]]; then
+  shift
+  load_module() {
+    source "$LOBASH_ROOT_DIR/dist/lobash.bash"
+  }
+fi
+
 test_dirs=${1:-}
 
 if [ -z "$test_dirs" ]; then

@@ -14,9 +14,5 @@ l.dirname() {
     IFS='' read -r str
   fi
 
-  [[ $str == '/' ]] && echo '/' && return 0
-  [[ $str =~ ^'../' ]] && echo '.' && return 0
-  [[ ! $str =~ / ]] && echo '.' && return 0
-
-  printf '%s\n' "${str%/*}"
+  _lobash.dirname "$str"
 }

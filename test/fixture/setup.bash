@@ -26,7 +26,7 @@ load_fixtrue() {
 
 load_module() {
   [[ $# != 1 ]] && echo "load_module must have one argument at least." >&2 && return 3
-  _l.import "$1" l. false
+  _lobash._import "$1" l. false
 }
 
 # Fix: bats-core reset "set -e"
@@ -43,4 +43,4 @@ run() {
 }
 
 # If import has bug, all test cases will failed
-load_src modules/import
+load_src load_internals

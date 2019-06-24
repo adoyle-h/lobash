@@ -1,0 +1,111 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1090,SC2016
+
+set -o errexit
+set -o nounset
+set -o pipefail
+shopt -s inherit_errexit
+[[ -n "${VERBOSE:+x}" ]] && set -o verbose
+[[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
+
+readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+
+source "$SCRIPT_DIR"/../src/load_internals.bash
+_lobash.import_internals module_meta
+_lobash.import sort lower_case
+
+generate() {
+  local category=${1,,}
+  local -n c=category_$category
+
+  printf -- '-[ ]   %s\n' "${category^}" >> "$TARGET_BASH"
+  printf -- '-[ ]   %s\n' "${category^}" >> "$TARGET_ZSH"
+
+  for module_name in "${c[@]}"; do
+    if [[ ${map[${module_name}_bash_0]} == true ]]; then
+      printf -- '  -[ ] %s\n' "$module_name" >> "$TARGET_BASH"
+    fi
+
+    if [[ ${map[${module_name}_zsh_0]} == true ]]; then
+      printf -- '  -[ ] %s\n' "$module_name" >> "$TARGET_ZSH"
+    fi
+  done
+
+  echo >> "$TARGET_BASH"
+  echo >> "$TARGET_ZSH"
+}
+
+add_to_map() {
+  local name=$1
+  local -a founds=()
+  local i
+  while read -r i; do
+    [[ -n "$i" ]] && founds+=("$i")
+  done < <(echo "$metadatas" | grep -Eo "^${name^}: .+$" | sed "s/${name^}: //" || echo "${2:-}" )
+
+  map[${module_name}_${name}_sum]=${#founds[@]}
+  for (( i = 0; i < ${#founds[@]}; i++ )); do
+    map[${module_name}_${name}_$i]="${founds["$i"]}"
+  done
+}
+
+main() {
+  local TARGET_BASH="$SCRIPT_DIR/../config.bash.example"
+  local TARGET_ZSH="$SCRIPT_DIR/../config.zsh.example"
+  local -A map
+  local -a categories
+
+  local -i module_count=0
+  local filepath module_name category metadatas
+  for filepath in $SCRIPT_DIR/../src/modules/*.bash; do
+    ((module_count+=1))
+    module_name=$(basename "$filepath" .bash)
+    metadatas=$(_lobash.get_module_metadata_str "$filepath")
+
+    category=$(echo "$metadatas" | grep -Eo '^Category: .+$' | sed 's/Category: //' | l.lower_case || echo '')
+
+    if [[ -z $category ]]; then
+      category='Unknown'
+    fi
+
+    local cate_name=category_${category}
+    echo "Scan file: $category/$module_name"
+
+    if [[ -z ${!cate_name:-} ]]; then
+      eval "declare -g -a ${cate_name}"
+      categories+=("${category}")
+    fi
+
+    declare -n cate=$cate_name
+    cate+=("$module_name")
+
+    add_to_map bash true
+    add_to_map zsh true
+  done
+
+  categories=( $(l.sort categories) )
+
+  cat <<EOF > "$TARGET_BASH"
+# Select modules or categories to export
+# -[ ]  Unselected
+# -[x]  Selected
+
+EOF
+
+  cat <<EOF > "$TARGET_ZSH"
+# Select modules or categories to export
+# -[ ]  Unselected
+# -[x]  Selected
+
+EOF
+
+  for category in "${categories[@]}"; do
+    [[ -z $category ]] && continue
+    generate "$category"
+  done
+
+  echo "Generate: $TARGET_BASH"
+  echo "Generate: $TARGET_ZSH"
+}
+
+main "$@"

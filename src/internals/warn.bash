@@ -12,7 +12,7 @@
 #   LOBASH_WARN_OUTPUT=/tmp/log
 #   foo() { warn2 hello; }
 #   bar=$(foo) # => Still not see any log in shell, but logs records in file /tmp/log
-warn() {
+_lobash.warn() {
   local func=${FUNCNAME[1]}
 
   if [[ -z ${LOBASH_WARN_OUTPUT:-} ]]; then

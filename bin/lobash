@@ -6,16 +6,12 @@
 # LICENSE: Apache License, Version 2.0
 # Bash Version: 3.x and higher
 
-# shellcheck disable=SC1090,SC2155
 set -o errexit
-set -o errtrace
 set -o nounset
 set -o pipefail
 shopt -s inherit_errexit
-[[ -n "${XTRACE:+x}" ]] && set -o xtrace
 [[ -n "${VERBOSE:+x}" ]] && set -o verbose
 [[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
-[[ $- =~ [x] ]] && PS4='+[${BASH_SOURCE[0]}:${LINENO}|${FUNCNAME[0]:+${FUNCNAME[0]}}()|$?]: '
 
 readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 
@@ -63,16 +59,9 @@ opt_parse() {
 #                           private methods                           #
 #######################################################################
 
-_import_all() {
-  . "$SCRIPT_DIR"/../src/import.bash
-  import_all l.
-}
-
 _exectue_command() {
-  source "$SCRIPT_DIR"/../src/import.bash
-  local module
-  module="${dispatch_cmd_args[0]}"
-  import "$module"
+  local module="${dispatch_cmd_args[0]}"
+  _lobash.import "$module"
   "l.$module" "${dispatch_cmd_args[@]: 1}"
 }
 
@@ -89,6 +78,7 @@ main() {
     exit 0
   fi
 
+  source "$SCRIPT_DIR/../src/load_internals.bash"
   _exectue_command
 }
 

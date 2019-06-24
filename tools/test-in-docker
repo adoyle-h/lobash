@@ -4,19 +4,18 @@
 set -o errexit
 set -o nounset
 set -o pipefail
-[[ -n "${XTRACE:+x}" ]] && set -o xtrace
+shopt -s inherit_errexit
 [[ -n "${VERBOSE:+x}" ]] && set -o verbose
 [[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
-[[ $- =~ [x] ]] && PS4='+[${BASH_SOURCE[0]}:${LINENO}|${FUNCNAME[0]:+${FUNCNAME[0]}}()|$?]: '
 
-dir=$(pwd)
+readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 
 echo "[test-in-docker] BASHVER=${BASHVER:=4.4}"
 
 docker run \
   --rm -it \
   -e CI=true \
-  -v "$dir"/run_test:/lobash/run_test \
-  -v "$dir"/src:/lobash/src \
-  -v "$dir"/test:/lobash/test \
+  -v "$SCRIPT_DIR"/../run_test:/lobash/run_test \
+  -v "$SCRIPT_DIR"/../src:/lobash/src \
+  -v "$SCRIPT_DIR"/../test:/lobash/test \
   lobash/test-bash:"${BASHVER}" /lobash/run_test

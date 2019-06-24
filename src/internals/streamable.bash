@@ -4,7 +4,7 @@
 # Status: not work
 # ---
 
-# Usage: l.streamable function_name parameter_size "$@"
+# Usage: _lobash.streamable function_name parameter_size "$@"
 # Arguments:
 #   - function_name: Call the function_name if not a stream invoke
 #   - parameter_size: The parameter size of function_name
@@ -12,7 +12,7 @@
 #   - reducer: Defaults to "_$function_name.streamable". Call the reducer if it is a stream invoke
 #              The reducer function should be ($prev_value, $line, $index) => $new_value
 # Return: echo the result return from reducer or function_name.
-l.streamable() {
+_lobash.streamable() {
   local function_name=$1
   local parameter_size=$2
   local reducer=_$function_name.streamable

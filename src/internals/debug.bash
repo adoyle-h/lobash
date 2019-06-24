@@ -15,8 +15,8 @@
 #   LOBASH_DEBUG_OUTPUT=/tmp/log
 #   foo() { debug2 hello; }
 #   bar=$(foo) # => Still not see any log in shell, but logs records in file /tmp/log
-debug() {
-  if [[ -z ${LOBASH_DEBUG:-} ]]; then return; fi
+_lobash.debug() {
+  [[ -z ${LOBASH_DEBUG:-} ]] && return
 
   local func=${FUNCNAME[1]}
 

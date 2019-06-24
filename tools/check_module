@@ -4,16 +4,15 @@
 set -o errexit
 set -o nounset
 set -o pipefail
-[[ -n "${XTRACE:+x}" ]] && set -o xtrace
+shopt -s inherit_errexit
 [[ -n "${VERBOSE:+x}" ]] && set -o verbose
 [[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
-[[ $- =~ [x] ]] && PS4='+[${BASH_SOURCE[0]}:${LINENO}|${FUNCNAME[0]:+${FUNCNAME[0]}}()|$?]: '
 
 readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 
-source "$SCRIPT_DIR"/../src/import.bash
+source "$SCRIPT_DIR"/../src/load_internals.bash
 
-import upper_case normalize
+_lobash.import upper_case normalize
 
 warn() {
   printf '[%s] %s\n' "$(l.upper_case "${FUNCNAME[1]}")" "$*" >&2

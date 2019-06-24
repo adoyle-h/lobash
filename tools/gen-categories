@@ -4,15 +4,15 @@
 set -o errexit
 set -o nounset
 set -o pipefail
-[[ -n "${XTRACE:+x}" ]] && set -o xtrace
+shopt -s inherit_errexit
 [[ -n "${VERBOSE:+x}" ]] && set -o verbose
 [[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
-[[ $- =~ [x] ]] && PS4='+[${BASH_SOURCE}:${LINENO}:${FUNCNAME[0]:+${FUNCNAME[0]}}()]: '
 
 readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 
-source "$SCRIPT_DIR"/../src/internals/module_meta.bash
-source "$SCRIPT_DIR"/../src/modules/array_include.bash
+source "$SCRIPT_DIR"/../src/load_internals.bash
+_lobash.import_internals module_meta
+_lobash.import array_include
 
 safe_rm() {
   local path=$1
@@ -58,7 +58,7 @@ main() {
       continue
     fi
 
-    metadatas=$(_get_module_metadata_str "$filepath")
+    metadatas=$(_lobash.get_module_metadata_str "$filepath")
     category=$(get_metas Category)
     bash_support=$(get_metas Bash true)
     zsh_support=$(get_metas Zsh true)

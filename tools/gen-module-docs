@@ -5,13 +5,14 @@ set -o errexit
 set -o nounset
 set -o pipefail
 shopt -s inherit_errexit
-[[ -n "${XTRACE:+x}" ]] && set -o xtrace
 [[ -n "${VERBOSE:+x}" ]] && set -o verbose
 [[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
-[[ $- =~ [x] ]] && PS4='+[${BASH_SOURCE[0]}:${LINENO}|${FUNCNAME[0]:+${FUNCNAME[0]}}()|$?${XTRACE_PIPE:+|${PIPESTATUS[*]}}]: '
 
 readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
-source "$SCRIPT_DIR"/../src/internals/module_meta.bash
+
+source "$SCRIPT_DIR"/../src/load_internals.bash
+_lobash.import_internals module_meta
+_lobash.import sort lower_case
 
 safe_rm() {
   local path=$1
@@ -26,11 +27,6 @@ safe_rm() {
   fi
 
   rm -rf -- "$path"
-}
-
-lower_case() {
-  read -r str
-  printf '%s\n' "${str,,}"
 }
 
 print_category() {
@@ -128,9 +124,9 @@ main() {
   for filepath in $SCRIPT_DIR/../src/modules/*.bash; do
     ((module_count+=1))
     module_name=$(basename "$filepath" .bash)
-    metadatas=$(_get_module_metadata_str "$filepath")
+    metadatas=$(_lobash.get_module_metadata_str "$filepath")
 
-    category=$(echo "$metadatas" | grep -Eo '^Category: .+$' | sed 's/Category: //' | lower_case || echo '')
+    category=$(echo "$metadatas" | grep -Eo '^Category: .+$' | sed 's/Category: //' | l.lower_case || echo '')
 
     if [[ -z $category ]]; then
       category='Unknown'
@@ -153,7 +149,7 @@ main() {
     add_to_map dependent
   done
 
-  categories=( $(echo "${categories[@]}" | sort) )
+  categories=( $(l.sort categories) )
 
   echo "Categories=${categories[*]}"
 
