@@ -72,3 +72,15 @@ load_module ask
   r=$(echo '' | l.ask 'hello world' Y)
   assert_equal "$r" 'YES'
 }
+
+@test "echo 'yn' | l.ask 'hello world'" {
+  local r
+  r=$(echo 'yn' | l.ask 'hello world')
+  assert_equal "$r" 'Invalid Answer'
+}
+
+@test "echo 'yesn' | l.ask 'hello world'" {
+  local r
+  r=$(echo 'yesn' | l.ask 'hello world')
+  assert_equal "$r" 'Invalid Answer'
+}

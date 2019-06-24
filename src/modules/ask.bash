@@ -23,20 +23,15 @@ l.ask() {
   fi
 
   read -rp "$msg $prompt " answer
-  case $answer in
-    [Yy]* )
-      echo YES
-      ;;
-    [Nn]* )
-      echo NO
-      ;;
-    '')
-      echo "$default"
-      ;;
-    *)
-      echo Invalid Answer
-      ;;
-  esac
+  if [[ $answer =~ ^[Yy][Ee]?[Ss]?$ ]]; then
+    echo YES
+  elif [[ $answer =~ ^[Nn][Oo]?$ ]]; then
+    echo NO
+  elif [[ $answer == '' ]]; then
+    echo "$default"
+  else
+    echo 'Invalid Answer'
+  fi
 
   return 0
 }
