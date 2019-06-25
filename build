@@ -14,8 +14,8 @@ source "$SCRIPT_DIR/src/load_internals.bash"
 _lobash.import ask
 
 check_support() {
-  if [[ $_lobash_os != 'MacOS' ]] && [[ $_lobash_os != 'Linux' ]]; then
-    echo "Not support current system: $_lobash_os" >&2
+  if [[ $_LOBASH_OS != 'MacOS' ]] && [[ $_LOBASH_OS != 'Linux' ]]; then
+    echo "Not support current system: $_LOBASH_OS" >&2
     return 3
   fi
 }
@@ -82,17 +82,23 @@ write() {
 
 fwrite() {
   write ''
-  if [[ $_lobash_os == 'Linux' ]]; then
-   <"$1" \
-    sed -E "s/\\b(_lobash_|_lobash.|l\\.|_l\\.|_l_)([_a-zA-Z0-9]+)/\\1${UNIQ_KEY}_\\2/g" \
-    | sed -E "s/\\bl_([_a-zA-Z0-9]+)/${PREFIX}_\\1/g" \
-    >> "$TARGET"
-  elif [[ $_lobash_os == 'MacOS' ]]; then
-   <"$1" \
-    sed -E "s/[[:<:]](_lobash_|_lobash.|l\\.|_l\\.|_l_)([_a-zA-Z0-9]+)/\\1${UNIQ_KEY}_\\2/g" \
-    | sed -E "s/[[:<:]]l_([_a-zA-Z0-9]+)/${PREFIX}_\\1/g" \
-    >> "$TARGET"
+
+  local prefixes="${_LOBASH_INTERNAL_FUNC_PREFIX}|${_LOBASH_INTERNAL_CONST_PREFIX}|${_LOBASH_PRIVATE_FUNC_PREFIX}|${_LOBASH_PRIVATE_CONST_PREFIX}|${_LOBASH_PUBLIC_FUNC_PREFIX}"
+  prefixes=${prefixes//\./\\.}
+
+  local word_boundary
+  if [[ $_LOBASH_OS == 'Linux' ]]; then
+    word_boundary='\b'
+  elif [[ $_LOBASH_OS == 'MacOS' ]]; then
+    word_boundary='[[:<:]]'
+  else
+    echo "Unexpected _LOBASH_OS=$_LOBASH_OS" >&2
   fi
+
+  <"$1" \
+    sed -E "s/${word_boundary}($prefixes)([_a-zA-Z0-9]+)/\\1${UNIQ_KEY}_\\2/g" \
+    | sed -E "s/${word_boundary}${_LOBASH_PUBLIC_CONST_PREFIX}([_a-zA-Z0-9]+)/${PREFIX}_\\1/g" \
+    >> "$TARGET"
 }
 
 generate() {

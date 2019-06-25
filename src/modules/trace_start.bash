@@ -8,7 +8,7 @@
 # shellcheck disable=SC2034
 
 l.trace_start() {
-  _l_trace_start_old_ps4=$PS4
+  declare -g _L_TRACE_OLD_PS4=$PS4
   local label=${2:-}
   [[ -n "$label" ]] && label="[$label]"
 

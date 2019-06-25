@@ -11,25 +11,28 @@ The module name suggests to start with a verb.
 ### Prefix keywords
 
 - `l.` public method
-- `l_` public constant
+- `L_` public constant
 - `_l.` private method
-- `_l_` private constant
+- `_L_` private constant
 - `_lobash.` internal method
-- `_lobash_` internal constant
+- `_LOBASH_` internal constant
+- `l_` function local variable
 
-Public method name must be prefixed with `l.` and written in below format,
+For examples, public method must naming prefixed with `l.` and written in below format,
 
 ```sh
 l.hello_world() {
 }
 ```
 
-If private method needed, the name of private method must be prefixed with `_l.` and written in below format,
+Private method must naming prefixed with `_l.` and written in below format,
 
 ```sh
 _l.private_function() {
 }
 ```
+
+The internals are which in `src/internals/` folder.
 
 ### Module template
 

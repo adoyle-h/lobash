@@ -7,5 +7,5 @@
 
 l.trace_end() {
   set +o xtrace
-  PS4=${_l_trace_start_old_ps4:-$PS4}
+  PS4=${_L_TRACE_OLD_PS4:-$PS4}
 }

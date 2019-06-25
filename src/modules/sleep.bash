@@ -14,9 +14,9 @@
 
 # MacOS will show shows "/dev/fd/62: Permission denied" on `exec {_sleep_fd}<> <(true)`. So we make a workaround.
 if [[ $OSTYPE =~ darwin ]]; then
-  _l_sleep_temp=$(mktemp -u)
+  _L_SLEEP_TEMP=$(mktemp -u)
   # Create a FIFO special file
-  mkfifo -m 700 "$_l_sleep_temp"
+  mkfifo -m 700 "$_L_SLEEP_TEMP"
 fi
 
 # Refer to below links
@@ -32,13 +32,13 @@ l.sleep() {
   if [[ $OSTYPE =~ darwin ]]; then
     # MacOS will show shows "/dev/fd/62: Permission denied" on `exec {_sleep_fd}<> <(true)`. So we make a workaround.
 
-    # local _l_sleep_temp
+    # local _L_SLEEP_TEMP
     # Get available temp file path
-    # _l_sleep_temp=$(mktemp -u)
+    # _L_SLEEP_TEMP=$(mktemp -u)
     # # Create a FIFO special file
-    # mkfifo -m 700 "$_l_sleep_temp"
-    exec {_sleep_fd}<>"$_l_sleep_temp"
-    # rm -f "$_l_sleep_temp"
+    # mkfifo -m 700 "$_L_SLEEP_TEMP"
+    exec {_sleep_fd}<>"$_L_SLEEP_TEMP"
+    # rm -f "$_L_SLEEP_TEMP"
   else
     exec {_sleep_fd}<> <(true)
   fi

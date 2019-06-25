@@ -5,5 +5,5 @@
 # ---
 
 l.detect_os() {
-  _lobash_detect_os
+  _lobash.detect_os
 }
