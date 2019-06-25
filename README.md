@@ -103,17 +103,17 @@ Ash/Ksh/Fish/Xiki and other shells are not supported because there are so many [
 
 ## Usage
 
-First, generate your own `lobash.bash` file by `./generate`.
+First, build your own `lobash.bash` file by `./build`.
 
 ```sh
-# generate ./dist/lobash.bash
-./generate
+# build ./dist/lobash.bash
+./build
 
-# or generate lobash to specific path
-./generate <target-path>
+# or build Lobash to specific path
+./build <target-path>
 
-# or generate lobash to specific path and change Lobash function prefix
-PREFIX=lobash_ ./generate <target-path>
+# or build Lobash to specific path and change Lobash function prefix
+PREFIX=lobash_ ./build <target-path>
 ```
 
 When you use Lobash to build a library or framework, it is necessary to set `PREFIX` with unique namespace for avoiding naming collisions.
@@ -123,7 +123,7 @@ Second, load your own `lobash.bash` file in your scripts.
 
 ```sh
 source <path-to-lobash.bash>
-# All Lobash modules are loaded. If PREFIX not set when generated.
+# All Lobash modules are loaded. If PREFIX not set when building.
 l.ask 'Hello Lobash?'
 
 # If PREFIX=lobash_ set
