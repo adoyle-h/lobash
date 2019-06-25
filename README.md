@@ -121,7 +121,7 @@ When you build a command, `PREFIX` is unnecessary.
 
 The `PREFIX` only effect Lobash public functions and variables names.
 
-Second, load your own `lobash.bash` file in your scripts.
+Second, load your own `lobash.bash` file in your scripts and all Lobash functions will be imported to current shell environment.
 
 ```sh
 source <path-to-lobash.bash>
@@ -130,6 +130,16 @@ l.ask 'Hello Lobash?'
 
 # If PREFIX=lobash_ set
 # lobash_ask 'Hello Lobash?'
+```
+
+Load `lobash.bash` is fast, nearly 0.058s.
+
+```sh
+time source ./dist/lobash.bash
+
+real    0m0.058s
+user    0m0.022s
+sys     0m0.036s
 ```
 
 ## Module Usages

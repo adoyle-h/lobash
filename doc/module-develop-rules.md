@@ -89,7 +89,7 @@ You can use many assert helper functions such as `assert_success`, `assert_outpu
 
 ## Run test
 
-`./test` or `./test <path-to-test-file-or-directory>`.
+`./test` or `./test ./tests/modules/${module_name}.bats`.
 
 ## Forbidden export
 

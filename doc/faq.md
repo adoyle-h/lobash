@@ -1,7 +1,5 @@
 # FAQ
 
-## Why not Bash v3, v4.0 and v4.1?
+## Why not support other shells?
 
-This project heavily dependent on `nameref` feature, which is very useful but supported since v4.2.
-
-## Why not support Zsh and other shells?
+Bash and Zsh are the most prevalent shells in the world. Compatible with other shells are too complex and benefit limited.
