@@ -24,7 +24,7 @@ init() {
   check_support
 
   if [[ -z ${1:-} ]]; then
-    TARGET=dist/lobash.bash
+    TARGET=$SCRIPT_DIR/dist/lobash.bash
   else
     if [[ -d $1 ]]; then
       TARGET=${1}/lobash.bash
@@ -32,6 +32,8 @@ init() {
       TARGET=${1}
     fi
   fi
+
+  mkdir -p "$(dirname "$TARGET")"
 
   PREFIX=${PREFIX:-l.}
   VERSION=$(cat "$SCRIPT_DIR/version")
