@@ -22,10 +22,12 @@ l.ask() {
     return 3
   fi
 
+  local answer
   read -rp "$msg $prompt " answer
-  if [[ $answer =~ ^[Yy][Ee]?[Ss]?$ ]]; then
+  answer=${answer,,}
+  if [[ $answer =~ ^ye?s?$ ]]; then
     echo YES
-  elif [[ $answer =~ ^[Nn][Oo]?$ ]]; then
+  elif [[ $answer =~ ^no?$ ]]; then
     echo NO
   elif [[ $answer == '' ]]; then
     echo "$default"
