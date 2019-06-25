@@ -11,6 +11,7 @@ l.trim() {
   if [[ -t 0 ]]; then
     l.trim_start "${1:-}" | l.trim_end
   else
+    local str
     read -r str
     l.trim_start <<< "$str" | l.trim_end
   fi

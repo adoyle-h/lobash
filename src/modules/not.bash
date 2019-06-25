@@ -6,8 +6,9 @@
 # ---
 
 l.not() {
+  local condition
   if [[ -t 0 ]]; then
-    local condition="${1:-}"
+    condition="${1:-}"
   else
     read -r condition
   fi

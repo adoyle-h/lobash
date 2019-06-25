@@ -19,6 +19,7 @@ _lobash.get_module_path() {
 _lobash.import_deps() {
   local module_path=$1
   local prefix=$2
+  local deps
 
   # Get list of dependent modules names
   read -ra deps <<< "$( sed -n '/^# ---$/,/^# ---$/p' < "$module_path" \

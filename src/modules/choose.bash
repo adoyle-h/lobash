@@ -18,6 +18,7 @@ l.choose() {
     done
   fi
 
+  local num
   read -r -p "Please enter the number to choose: " num
 
   local r

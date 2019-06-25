@@ -7,8 +7,9 @@
 # ---
 
 l.trim_end() {
+  local str
   if [[ -t 0 ]]; then
-    local str=${1:-}
+    str=${1:-}
     if [[ $# == 2 ]]; then
       printf '%s\n' "${str%%$2}"
     else

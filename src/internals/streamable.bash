@@ -21,6 +21,7 @@ _lobash.streamable() {
   local prev=''
 
   if [[ $# == $(( "$parameter_size" + 1  )) ]]; then
+    local line
     while read -r line; do
       prev=$($reducer "$prev" "$line" "$index")
       index=$(( "$index" + 1 ))

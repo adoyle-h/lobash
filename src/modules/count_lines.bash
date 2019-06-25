@@ -8,11 +8,11 @@
 # ---
 
 l.count_lines() {
-  local count=0
   if [[ -t 0 ]]; then
     [[ -z ${1:-} ]] && printf '0\n' && return 0
     wc -l <<< "$1" | tr -d ' '
   else
+    local count=0
     while read -r -d $'\n' _; do
       ((count+=1))
     done
