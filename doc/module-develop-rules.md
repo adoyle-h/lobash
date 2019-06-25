@@ -48,8 +48,8 @@ See the [Module Metadata](./module-metadata.md) document for detail.
 
 ## Write test cases
 
-Module test cases must be put in `test/` folder.
-The file path of test case must be corresponding with source file path. For example, `src/modules/ask.bash` to `test/modules/ask.bats`; `src/import.bash` to `test/import.bats`.
+Module test cases must be put in `tests/` folder.
+The file path of test case must be corresponding with source file path. For example, `src/modules/ask.bash` to `tests/modules/ask.bats`.
 
 It is based on [bats-core](https://github.com/bats-core/bats-core).
 
@@ -86,7 +86,7 @@ You can use many assert helper functions such as `assert_success`, `assert_outpu
 
 ## Run test
 
-`./run_test` or `./run_test <path-to-test-file-or-directory>`.
+`./test` or `./test <path-to-test-file-or-directory>`.
 
 ## Forbidden export
 

@@ -1,8 +1,8 @@
-[submodule "test/fixture/assert"]
-	path = test/fixture/assert
+[submodule "tests/fixture/assert"]
+	path = tests/fixture/assert
 	url = https://github.com/jasonkarns/bats-assert-1.git
-    shallow = true
-[submodule "test/fixture/support"]
-	path = test/fixture/support
+	shallow = true
+[submodule "tests/fixture/support"]
+	path = tests/fixture/support
 	url = https://github.com/jasonkarns/bats-support.git
-    shallow = true
+	shallow = true

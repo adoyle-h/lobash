@@ -83,7 +83,7 @@ print_category() {
       printf -- '- %s\n' 'Deprecated: true' >> "$TARGET"
     fi
 
-    printf -- '- More Examples: [../test/modules/%s.bats](../test/modules/%s.bats)\n' "$module_name" "$module_name" >> "$TARGET"
+    printf -- '- More Examples: [../tests/modules/%s.bats](../tests/modules/%s.bats)\n' "$module_name" "$module_name" >> "$TARGET"
   done
 }
 
@@ -154,10 +154,10 @@ main() {
   echo "Categories=${categories[*]}"
 
   local -i test_cases_count=0
-  for i in $(grep -hrc '@test' "$SCRIPT_DIR/../test/modules/"); do
+  for i in $(grep -hrc '@test' "$SCRIPT_DIR/../tests/modules/"); do
     (( test_cases_count+=i ))
   done
-  for i in $(grep -hc '@test' "$SCRIPT_DIR/../test/import.bats"); do
+  for i in $(grep -hc '@test' "$SCRIPT_DIR/../tests/import.bats"); do
     (( test_cases_count+=i ))
   done
 

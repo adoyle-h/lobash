@@ -20,9 +20,9 @@ fi
 docker run \
   --rm -it \
   -e CI=true \
-  -v "$SCRIPT_DIR"/../run_test:/lobash/run_test \
+  -v "$SCRIPT_DIR"/../test:/lobash/test \
   -v "$SCRIPT_DIR"/../build:/lobash/build \
   -v "$SCRIPT_DIR"/../version:/lobash/version \
   -v "$SCRIPT_DIR"/../src:/lobash/src \
-  -v "$SCRIPT_DIR"/../test:/lobash/test \
-  lobash/test-bash:"${BASHVER}" bash -c '/lobash/build && /lobash/run_test -d'
+  -v "$SCRIPT_DIR"/../tests:/lobash/tests \
+  lobash/test-bash:"${BASHVER}" bash -c '/lobash/build && /lobash/test -d'

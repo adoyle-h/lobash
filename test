@@ -4,15 +4,14 @@
 set -o errexit
 set -o nounset
 set -o pipefail
-[[ -n "${XTRACE:+x}" ]] && set -o xtrace
+shopt -s inherit_errexit
 [[ -n "${VERBOSE:+x}" ]] && set -o verbose
 [[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
-[[ $- =~ [x] ]] && PS4='+[${BASH_SOURCE}:${LINENO}:${FUNCNAME[0]:+${FUNCNAME[0]}}()]: '
 
 export IS_LOBASH_TEST=1
 LOBASH_ROOT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 export LOBASH_ROOT_DIR
-export LOBASH_TEST_DIR=$LOBASH_ROOT_DIR/test
+export LOBASH_TEST_DIR=$LOBASH_ROOT_DIR/tests
 
 setup_fixture() {
   source "$LOBASH_TEST_DIR"/fixture/setup.bash
