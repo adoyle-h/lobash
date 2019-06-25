@@ -109,15 +109,17 @@ First, build your own `lobash.bash` file by `./build`.
 # build ./dist/lobash.bash
 ./build
 
-# or build Lobash to specific path
+# Or build Lobash to specific path
 ./build <target-path>
 
-# or build Lobash to specific path and change Lobash function prefix
+# Or build Lobash to specific path and change Lobash function prefix
 PREFIX=lobash_ ./build <target-path>
 ```
 
 When you use Lobash to build a library or framework, it is necessary to set `PREFIX` with unique namespace for avoiding naming collisions.
 When you build a command, `PREFIX` is unnecessary.
+
+The `PREFIX` only effect Lobash public functions and variables names.
 
 Second, load your own `lobash.bash` file in your scripts.
 
@@ -150,7 +152,7 @@ The `./bin/lobash` command is only used for certain scenarios.
 ```sh
 source ./src/load_internals.bash
 _lobash.import_internals module_meta
-_lobash.import ask first last
+_lobash.imports ask first last
 
 l.ask hello world
 l.first a b c

@@ -26,7 +26,7 @@ load_fixtrue() {
 
 load_module() {
   [[ $# != 1 ]] && echo "load_module must have one argument at least." >&2 && return 3
-  _lobash._import "$1" l. false
+  _lobash.imports "$1"
 }
 
 # Fix: bats-core reset "set -e"

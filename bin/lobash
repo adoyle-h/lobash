@@ -61,7 +61,7 @@ opt_parse() {
 
 _exectue_command() {
   local module="${dispatch_cmd_args[0]}"
-  _lobash.import "$module"
+  _lobash.imports "$module"
   "l.$module" "${dispatch_cmd_args[@]: 1}"
 }
 

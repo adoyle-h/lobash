@@ -11,13 +11,23 @@ readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 
 # shellcheck source=./src/load_internals.bash
 source "$SCRIPT_DIR/src/load_internals.bash"
-_lobash.import ask
+_lobash.imports ask
 
 check_support() {
   if [[ $_LOBASH_OS != 'MacOS' ]] && [[ $_LOBASH_OS != 'Linux' ]]; then
     echo "Not support current system: $_LOBASH_OS" >&2
     return 3
   fi
+}
+
+is_valid_lobash_prefix() {
+  local prefix=$1
+
+  [[ ${prefix%%.}. == "$prefix" ]] && return 0
+  [[ ${prefix%%-}- == "$prefix" ]] && return 0
+  [[ ${prefix%%_}_ == "$prefix" ]] && return 0
+
+  return 1
 }
 
 init() {
@@ -36,11 +46,17 @@ init() {
   mkdir -p "$(dirname "$TARGET")"
 
   PREFIX=${PREFIX:-l.}
+
+  if ! is_valid_lobash_prefix "$PREFIX"; then
+    echo "Invalid PREFIX=\"$PREFIX\". PREFIX must end with one of '_', '-', '.'" >&2
+    return 4
+  fi
+
   VERSION=$(cat "$SCRIPT_DIR/version")
   # LOBASH_POUCH_TIME must never change
   LOBASH_POUCH_TIME=1561389473
 
-  UNIQ_KEY=${VERSION//./_}_$(( $(date '+%s') - LOBASH_POUCH_TIME ))_$RANDOM
+  UNIQ_KEY=${VERSION//[^[:alnum:]]/_}_$(( $(date '+%s') - LOBASH_POUCH_TIME ))_$RANDOM
 }
 
 safe_rm() {
@@ -95,9 +111,12 @@ fwrite() {
     echo "Unexpected _LOBASH_OS=$_LOBASH_OS" >&2
   fi
 
+  local public_const_prefix=${PREFIX//[^[:alnum:]]/_}
+  public_const_prefix=${public_const_prefix^^}
+
   <"$1" \
     sed -E "s/${word_boundary}($prefixes)([_a-zA-Z0-9]+)/\\1${UNIQ_KEY}_\\2/g" \
-    | sed -E "s/${word_boundary}${_LOBASH_PUBLIC_CONST_PREFIX}([_a-zA-Z0-9]+)/${PREFIX}_\\1/g" \
+    | sed -E "s/${word_boundary}${_LOBASH_PUBLIC_CONST_PREFIX}([_a-zA-Z0-9]+)/${public_const_prefix}\\1/g" \
     >> "$TARGET"
 }
 
@@ -117,6 +136,8 @@ generate() {
   fwrite "$SCRIPT_DIR"/src/internals/dirname.bash
   fwrite "$SCRIPT_DIR"/src/internals/detect_os.bash
   fwrite "$SCRIPT_DIR"/src/internals/consts.bash
+  write "_LOBASH_${UNIQ_KEY}_PREFIX=$PREFIX"
+  fwrite "$SCRIPT_DIR"/src/internals/helpers.bash
 
   write ''
   write '######################## Private Methods ########################'

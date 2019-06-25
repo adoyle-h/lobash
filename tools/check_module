@@ -12,7 +12,7 @@ readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 
 source "$SCRIPT_DIR"/../src/load_internals.bash
 
-_lobash.import upper_case normalize
+_lobash.imports upper_case normalize
 
 warn() {
   printf '[%s] %s\n' "$(l.upper_case "${FUNCNAME[1]}")" "$*" >&2
