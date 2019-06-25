@@ -9,11 +9,14 @@
 l.choose() {
   local items=("$@")
 
-  printf -- '  %s\n' 'No. Item' >/dev/tty
-  local i
-  for i in "${!items[@]}"; do
-    printf -- '- %-2d  %s\n' $(("$i" + 1)) "${items[$i]}" >/dev/tty
-  done
+  # command may invoked in no-login shell
+  if [[ $- =~ i ]]; then
+    printf -- '  %s\n' 'No. Item' >/dev/tty
+    local i
+    for i in "${!items[@]}"; do
+      printf -- '- %-2d  %s\n' $(("$i" + 1)) "${items[$i]}" >/dev/tty
+    done
+  fi
 
   read -r -p "Please enter the number to choose: " num
 
