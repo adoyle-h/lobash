@@ -28,7 +28,10 @@ install:
   - |
     # Default Travis CI use Bash 4.3 in Linux, and 3.2 in MacOS.
     # Out script use shopt -s inherit_errexit but only Bash 4.4+ supported.
-    if [[ ! -x $TRAVIS_BUILD_DIR/build-bash/bin/bash ]]; then
+    if [[ -x $TRAVIS_BUILD_DIR/build-bash/bin/bash ]]; then
+      echo "Use cache: build-bash"
+    else
+      echo "No cache, to install and build Bash ${BASHVER}"
       ./tools/install-bash ${BASHVER} 2>&1 >> build.log || cat build.log
     fi
   - |
@@ -42,8 +45,9 @@ install:
 
 script:
   - export PATH="$TRAVIS_BUILD_DIR/build-bash/bin:$PATH"
-  - bash --version
+  - printf "%s\n%s\n" "The Bash used for test:" "$(bash --version)"
   - |
+    # Start to test
     if [[ "$TRAVIS_OS_NAME" == 'linux' ]]; then
       time bash ./tools/test-in-docker
     else
