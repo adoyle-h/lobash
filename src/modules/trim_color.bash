@@ -14,7 +14,7 @@ l.trim_color() {
   elif [[ $_LOBASH_OS == MacOS ]] || [[ $_LOBASH_OS == BSD ]]; then
     sed -E "s,\\${ecs}[[0-9]*(;[0-9]+)*m,,g" <<< "$str"
   else
-    echo "The trim_color function is supported only in MacOS/BSD/Linux systems." >&2
+    echo "Unexpected _LOBASH_OS=$_LOBASH_OS" >&2
     return 5
   fi
 }
