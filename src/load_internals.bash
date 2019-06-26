@@ -15,17 +15,18 @@ _lobash.import_internals() {
   done
 }
 
+_lobash.import_basic_internals() {
+  if [[ -n ${IS_LOBASH_TEST:-} ]]; then
+    # shellcheck source=./internals_order.bash
+    source "$LOBASH_ROOT_DIR/src/basic_internals.bash"
+  else
+    # shellcheck source=./internals_order.bash
+    source "$(dirname "${BASH_SOURCE[0]}")/basic_internals.bash"
+  fi
 
-# shellcheck source=./internals/check_shell.bash
-# shellcheck source=./internals/dirname.bash
-# shellcheck source=./internals/detect_os.bash
-# shellcheck source=./internals/consts.bash
-# shellcheck source=./internals/debug.bash
-# shellcheck source=./internals/warn.bash
-# shellcheck source=./internals/error.bash
-# shellcheck source=./internals/import.bash
-_lobash.import_internals \
-  check_shell \
-  dirname detect_os detect_shell consts \
-  debug warn error \
-  import
+  _lobash.import_internals "${_LOBASH_BASIC_INTERNALS[@]}"
+  unset -v _LOBASH_BASIC_INTERNALS
+}
+
+_lobash.import_basic_internals
+unset -f _lobash.import_basic_internals
