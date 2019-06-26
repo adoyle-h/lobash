@@ -22,9 +22,6 @@
 - [Usage](#usage)
 - [Module Usages](#module-usages)
 - [Bin Command](#bin-command)
-- [Development](#development)
-    - [Import specific modules for testing](#import-specific-modules-for-testing)
-    - [Debug](#debug)
 - [FAQ](#faq)
 - [Contributions](#contributions)
 - [Versioning](#versioning)
@@ -154,24 +151,6 @@ The `./bin/lobash` command is only used for certain scenarios.
 ```sh
 ./bin/lobash <module_name> [<module_args>]...
 ```
-
-## Development
-
-### Import specific modules for testing
-
-```sh
-source ./src/load_internals.bash
-_lobash.import_internals module_meta
-_lobash.imports ask first last
-
-l.ask hello world
-l.first a b c
-l.last a b c
-```
-
-### Debug
-
-Set environment variable `LOBASH_DEBUG=true` to print verbose logs.
 
 ## [FAQ](./doc/faq.md)
 

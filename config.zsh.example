@@ -36,6 +36,7 @@
   -[ ] is_writeable
   -[ ] is_zsh
   -[ ] not
+  -[ ] not.p
   -[ ] strict_has
   -[ ] strict_has_not
 
@@ -54,11 +55,15 @@
   -[ ] count_file_lines
   -[ ] count_files
   -[ ] extname
+  -[ ] extname.p
 
 -[ ]   Path
   -[ ] basename
+  -[ ] basename.p
   -[ ] dirname
+  -[ ] dirname.p
   -[ ] normalize
+  -[ ] normalize.p
   -[ ] pwd
   -[ ] relative
 
@@ -68,10 +73,13 @@
 
 -[ ]   String
   -[ ] count_lines
+  -[ ] count_lines.p
   -[ ] end_with
   -[ ] join
   -[ ] lower_case
+  -[ ] lower_case.p
   -[ ] lower_first
+  -[ ] lower_first.p
   -[ ] match
   -[ ] split
   -[ ] start_with
@@ -79,11 +87,17 @@
   -[ ] str_len
   -[ ] str_size
   -[ ] trim
+  -[ ] trim.p
   -[ ] trim_color
+  -[ ] trim_color.p
   -[ ] trim_end
+  -[ ] trim_end.p
   -[ ] trim_start
+  -[ ] trim_start.p
   -[ ] upper_case
+  -[ ] upper_case.p
   -[ ] upper_first
+  -[ ] upper_first.p
 
 -[ ]   System
   -[ ] detect_os

@@ -1,14 +1,30 @@
-# Module Develop Rules
+# How to write modules
+
+## TOC
+
+<!-- MarkdownTOC GFM -->
+
+- [Write a module](#write-a-module)
+    - [Module path](#module-path)
+    - [Function and constant name prefix keywords](#function-and-constant-name-prefix-keywords)
+    - [Module template](#module-template)
+- [Write test cases](#write-test-cases)
+    - [Test checklist](#test-checklist)
+- [Run test](#run-test)
+- [Internal Module](#internal-module)
+- [Forbidden export](#forbidden-export)
+
+<!-- /MarkdownTOC -->
 
 ## Write a module
 
-**One module must have only one public function.**
+### Module path
 
-Suppose that you will implement a module which named `hello_world`.
-Create a file at `src/modules/hello_world.bash`.
-The module name suggests to start with a verb.
+The module path must match the regexp `src/modules/[_a-zA-Z0-9]+\.bash`
 
-### Prefix keywords
+It is suggested to the module name should start with a verb.
+
+### Function and constant name prefix keywords
 
 - `l.` public method
 - `L_` public constant
@@ -18,10 +34,15 @@ The module name suggests to start with a verb.
 - `_LOBASH_` internal constant
 - `l_` function local variable
 
-For examples, public method must naming prefixed with `l.` and written in below format,
+**One module must have only one public function.**
+
+For examples, suppose that you will implement a module which named `hello_world`.
+
+Public method must naming prefixed with `l.` and written in below format,
 
 ```sh
 l.hello_world() {
+  printf '%s\n' 'hello world'
 }
 ```
 
@@ -29,10 +50,9 @@ Private method must naming prefixed with `_l.` and written in below format,
 
 ```sh
 _l.private_function() {
+  printf '%s\n' 'xxx'
 }
 ```
-
-The internals are which in `src/internals/` folder.
 
 ### Module template
 
@@ -90,6 +110,10 @@ You can use many assert helper functions such as `assert_success`, `assert_outpu
 ## Run test
 
 `./test` or `./test ./tests/modules/${module_name}.bats`.
+
+## Internal Module
+
+See [./internal-modules.md](./internal-modules.md).
 
 ## Forbidden export
 

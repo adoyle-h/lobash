@@ -15,8 +15,13 @@ Read below links before making any contributions.
 
 - Each contributor should sign CLA before pull request.
 - [Code Styles](./code-styles.md)
-- [How to write a function](./how-to-write-a-function.md)
-- [Module Develop Rules](./module-develop-rules.md)
+- [Git Message](./git-message.md)
+- [How to write functions](./how-to-write-functions.md)
+- [How to write modules](./how-to-write-modules.md)
+- [Module Metadata](./module-metadata.md)
+- [Pipeline Module](./pipeline-module.md)
+- [Internal Modules](./internal-modules.md)
+- [Test](./test.md)
 
 ## Make a Pull Request
 

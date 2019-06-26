@@ -1,6 +1,6 @@
 # Module Usages
 
-15 Categories, 78 Modules, 460 Test Cases.
+15 Categories, 92 Modules, 492 Test Cases.
 
 ## TOC
 
@@ -35,6 +35,7 @@
   - [is_writeable](#is_writeable)
   - [is_zsh](#is_zsh)
   - [not](#not)
+  - [not.p](#not.p)
   - [strict_has](#strict_has)
   - [strict_has_not](#strict_has_not)
 - [Console](#console)
@@ -50,10 +51,14 @@
   - [count_file_lines](#count_file_lines)
   - [count_files](#count_files)
   - [extname](#extname)
+  - [extname.p](#extname.p)
 - [Path](#path)
   - [basename](#basename)
+  - [basename.p](#basename.p)
   - [dirname](#dirname)
+  - [dirname.p](#dirname.p)
   - [normalize](#normalize)
+  - [normalize.p](#normalize.p)
   - [pwd](#pwd)
   - [relative](#relative)
 - [Prompt](#prompt)
@@ -61,10 +66,13 @@
   - [choose](#choose)
 - [String](#string)
   - [count_lines](#count_lines)
+  - [count_lines.p](#count_lines.p)
   - [end_with](#end_with)
   - [join](#join)
   - [lower_case](#lower_case)
+  - [lower_case.p](#lower_case.p)
   - [lower_first](#lower_first)
+  - [lower_first.p](#lower_first.p)
   - [match](#match)
   - [split](#split)
   - [start_with](#start_with)
@@ -72,11 +80,17 @@
   - [str_len](#str_len)
   - [str_size](#str_size)
   - [trim](#trim)
+  - [trim.p](#trim.p)
   - [trim_color](#trim_color)
+  - [trim_color.p](#trim_color.p)
   - [trim_end](#trim_end)
+  - [trim_end.p](#trim_end.p)
   - [trim_start](#trim_start)
+  - [trim_start.p](#trim_start.p)
   - [upper_case](#upper_case)
+  - [upper_case.p](#upper_case.p)
   - [upper_first](#upper_first)
+  - [upper_first.p](#upper_first.p)
 - [System](#system)
   - [detect_os](#detect_os)
   - [hostname](#hostname)
@@ -294,6 +308,14 @@
 - Since: 0.1.0
 - More Examples: [../tests/modules/not.bats](../tests/modules/not.bats)
 
+### not.p
+
+- Usage: `echo <condition> | l.not.p`
+- Description: The pipeline version of l.not
+- Dependent: [`not`](#not)
+- Since: 0.1.0
+- More Examples: [../tests/modules/not.p.bats](../tests/modules/not.p.bats)
+
 ### strict_has
 
 - Usage: `l.strict_has <condition> <what>`
@@ -388,43 +410,67 @@
 
 ### extname
 
-- Usage:
-  - `l.extname <string>`
-  - `echo <string> | l.extname`
+- Usage: `l.extname <path>`
+- Description: Returns the extension of the path, from the last occurrence of the . (period) character to end of string in the last portion of the path. If there is no . in the last portion of the path, or if the first character of the basename of path (see path.basename()) is ., then an empty string is returned.
 - Since: 0.1.0
 - More Examples: [../tests/modules/extname.bats](../tests/modules/extname.bats)
+
+### extname.p
+
+- Usage: `echo <path> | l.extname.p`
+- Description: The pipeline of l.extname
+- Dependent: [`extname`](#extname)
+- Since: 0.1.0
+- More Examples: [../tests/modules/extname.p.bats](../tests/modules/extname.p.bats)
 
 ## Path
 
 ### basename
 
-- Usage:
-  - `l.basename <path>`
-  - `echo <path> | l.basename`
+- Usage: `l.basename <path>`
 - Description: Alternative to basename command. It much faster because using shell parameter expansion.
 - Since: 0.1.0
 - More Examples: [../tests/modules/basename.bats](../tests/modules/basename.bats)
 
+### basename.p
+
+- Usage: `echo <path> | l.basename.p`
+- Description: The pipeline version of l.basename
+- Dependent: [`basename`](#basename)
+- Since: 0.1.0
+- More Examples: [../tests/modules/basename.p.bats](../tests/modules/basename.p.bats)
+
 ### dirname
 
-- Usage:
-  - `l.dirname <path>`
-  - `echo <path> | l.dirname`
+- Usage: `l.dirname <path>`
 - Description: Alternative to dirname command. It much faster because using shell parameter expansion.
 - Since: 0.1.0
 - More Examples: [../tests/modules/dirname.bats](../tests/modules/dirname.bats)
 
+### dirname.p
+
+- Usage: `echo <path> | l.dirname.p`
+- Description: Alternative to dirname command. It much faster because using shell parameter expansion.
+- Since: 0.1.0
+- More Examples: [../tests/modules/dirname.p.bats](../tests/modules/dirname.p.bats)
+
 ### normalize
 
-- Usage:
-  - `l.normalize <path>`
-  - `echo <path> | l.normalize`
+- Usage: `l.normalize <path>`
 - Description:
   - Normalize the given path which can be an unexisted path.
   - Trailing `/` always be removed.
 - Dependent: [`split`](#split) [`join`](#join)
 - Since: 0.1.0
 - More Examples: [../tests/modules/normalize.bats](../tests/modules/normalize.bats)
+
+### normalize.p
+
+- Usage: `echo <path> | l.normalize.p`
+- Description: The pipeline version of l.normalize
+- Dependent: [`normalize`](#normalize)
+- Since: 0.1.0
+- More Examples: [../tests/modules/normalize.p.bats](../tests/modules/normalize.p.bats)
 
 ### pwd
 
@@ -464,14 +510,19 @@
 
 ### count_lines
 
-- Usage:
-  - `l.count_lines <string>`
-  - `echo <string> | l.count_lines`
+- Usage: `l.count_lines <string>`
 - Description:
   - The command and process substitution always trim blank line. So l.count_lines do not accept normal parameter passing.
   - Refer to https://stackoverflow.com/a/37706905
 - Since: 0.1.0
 - More Examples: [../tests/modules/count_lines.bats](../tests/modules/count_lines.bats)
+
+### count_lines.p
+
+- Usage: `echo <string> | l.count_lines.p`
+- Description: The pipeline version of l.count_lines
+- Since: 0.1.0
+- More Examples: [../tests/modules/count_lines.p.bats](../tests/modules/count_lines.p.bats)
 
 ### end_with
 
@@ -488,12 +539,18 @@
 
 ### lower_case
 
-- Usage:
-  - `l.lower_case <string>`
-  - `echo <string> | l.lower_case`
+- Usage: `l.lower_case <string>`
 - Description: Convert all characters of string to lower case.
 - Since: 0.1.0
 - More Examples: [../tests/modules/lower_case.bats](../tests/modules/lower_case.bats)
+
+### lower_case.p
+
+- Usage: `echo <string> | l.lower_case.p`
+- Description: The pipeline version of l.lower_case
+- Dependent: [`lower_case`](#lower_case)
+- Since: 0.1.0
+- More Examples: [../tests/modules/lower_case.p.bats](../tests/modules/lower_case.p.bats)
 
 ### lower_first
 
@@ -503,6 +560,14 @@
 - Description: Convert the first character of string to lower case.
 - Since: 0.1.0
 - More Examples: [../tests/modules/lower_first.bats](../tests/modules/lower_first.bats)
+
+### lower_first.p
+
+- Usage: `echo <string> | l.lower_first.p`
+- Description: The pipeline version of l.lower_first
+- Dependent: [`lower_first`](#lower_first)
+- Since: 0.1.0
+- More Examples: [../tests/modules/lower_first.p.bats](../tests/modules/lower_first.p.bats)
 
 ### match
 
@@ -548,58 +613,94 @@
 
 ### trim
 
-- Usage:
-  - `l.trim <string>`
-  - `echo <string> | l.trim`
+- Usage: `l.trim <string>`
 - Description: Remove leading and trailing whitespace from string.
 - Dependent: [`trim_start`](#trim_start) [`trim_end`](#trim_end)
 - Since: 0.1.0
 - More Examples: [../tests/modules/trim.bats](../tests/modules/trim.bats)
 
+### trim.p
+
+- Usage: `echo <string> | l.trim.p`
+- Description: The pipeline version of l.trim
+- Dependent: [`trim`](#trim)
+- Since: 0.1.0
+- More Examples: [../tests/modules/trim.p.bats](../tests/modules/trim.p.bats)
+
 ### trim_color
 
-- Usage:
-  - `l.trim_color <string>`
-  - `echo <string> | l.trim_color`
+- Usage: `l.trim_color <string>`
 - Description: Remove color escape code in string
 - Since: 0.1.0
 - More Examples: [../tests/modules/trim_color.bats](../tests/modules/trim_color.bats)
 
+### trim_color.p
+
+- Usage: `echo <string> | l.trim_color.p`
+- Description: The pipeline version of l.trim_color
+- Dependent: [`trim_color`](#trim_color)
+- Since: 0.1.0
+- More Examples: [../tests/modules/trim_color.p.bats](../tests/modules/trim_color.p.bats)
+
 ### trim_end
 
-- Usage:
-  - `l.trim_end <string> [chars=[[:space:]]]`
-  - `echo <string> | l.trim_end [chars=[[:space:]]]`
+- Usage: `l.trim_end <string> [chars=[[:space:]]]`
 - Description: Remove trailing whitespace or specified characters from string.
 - Since: 0.1.0
 - More Examples: [../tests/modules/trim_end.bats](../tests/modules/trim_end.bats)
 
+### trim_end.p
+
+- Usage: `echo <string> | l.trim_end.p [chars=[[:space:]]]`
+- Description: The pipeline version l.trim_end
+- Dependent: [`trim_end`](#trim_end)
+- Since: 0.1.0
+- More Examples: [../tests/modules/trim_end.p.bats](../tests/modules/trim_end.p.bats)
+
 ### trim_start
 
-- Usage:
-  - `l.trim_start <string>`
-  - `echo <string> | l.trim_start`
+- Usage: `l.trim_start <string> [<chars>=[[:space:]]]`
 - Description: Remove leading whitespace or specified characters from string.
 - Since: 0.1.0
 - More Examples: [../tests/modules/trim_start.bats](../tests/modules/trim_start.bats)
 
+### trim_start.p
+
+- Usage: `echo <string> | l.trim_start.p [<chars>=[[:space:]]]`
+- Description: The pipeline version of l.trim_start
+- Dependent: [`trim_start`](#trim_start)
+- Since: 0.1.0
+- More Examples: [../tests/modules/trim_start.p.bats](../tests/modules/trim_start.p.bats)
+
 ### upper_case
 
-- Usage:
-  - `l.upper_case <string>`
-  - `echo <string> | l.upper_case`
+- Usage: `l.upper_case <string>`
 - Description: Convert all characters of string to upper case.
 - Since: 0.1.0
 - More Examples: [../tests/modules/upper_case.bats](../tests/modules/upper_case.bats)
 
+### upper_case.p
+
+- Usage: `echo <string> | l.upper_case.p`
+- Description: The pipeline version of l.upper_case
+- Dependent: [`upper_case`](#upper_case)
+- Since: 0.1.0
+- More Examples: [../tests/modules/upper_case.p.bats](../tests/modules/upper_case.p.bats)
+
 ### upper_first
 
-- Usage:
-  - `l.upper_first <string>`
-  - `echo <string> | l.upper_first`
+- Usage: `l.upper_first <string>`
 - Description: Convert the first character of string to upper case.
 - Since: 0.1.0
 - More Examples: [../tests/modules/upper_first.bats](../tests/modules/upper_first.bats)
+
+### upper_first.p
+
+- Usage: `echo <string> | l.upper_first.p`
+- Description: The pipeline version of l.upper_first
+- Dependent: [`upper_first`](#upper_first)
+- Since: 0.1.0
+- More Examples: [../tests/modules/upper_first.p.bats](../tests/modules/upper_first.p.bats)
 
 ## System
 

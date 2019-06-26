@@ -12,7 +12,7 @@ readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 
 source "$SCRIPT_DIR"/../src/load_internals.bash
 _lobash.import_internals module_meta
-_lobash.imports sort lower_case
+_lobash.imports sort lower_case.p
 
 generate() {
   local category=${1,,}
@@ -62,7 +62,7 @@ main() {
     module_name=$(basename "$filepath" .bash)
     metadatas=$(_lobash.get_module_metadata_str "$filepath")
 
-    category=$(echo "$metadatas" | grep -Eo '^Category: .+$' | sed 's/Category: //' | l.lower_case || echo '')
+    category=$(echo "$metadatas" | grep -Eo '^Category: .+$' | sed 's/Category: //' | l.lower_case.p || echo '')
 
     if [[ -z $category ]]; then
       category='Unknown'

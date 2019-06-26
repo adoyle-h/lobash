@@ -1,6 +1,8 @@
-# How to write a function
+# How to write functions
 
 ## Function Name
+
+Must match the regexp `[_a-zA-Z0-9]+\.bash`
 
 ## How to return a Boolean value
 
@@ -29,3 +31,7 @@ References:
 - Group capturing is different. `\0` in GNU and `&` in BSD.
 - `\w` in GNU and [`[[:alnum:]]`](https://www.freebsd.org/cgi/man.cgi?query=re_format&sektion=7&apropos=0&manpath=FreeBSD+12.0-RELEASE+and+Ports) in BSD.
 - sed command options are different.
+
+## Prefer printf than echo
+
+Use `printf '%s\n' 'hello world'` not `echo 'hello world'`
