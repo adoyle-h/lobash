@@ -5,13 +5,12 @@
   A modern, safe, powerful utility library for Bash script development.
 </p>
 
-[![Build Status](https://travis-ci.org/adoyle-h/lobash.svg?branch=master)](https://travis-ci.org/adoyle-h/lobash)
-
 ## TOC
 
 <!-- MarkdownTOC GFM -->
 
 - [What is Lobash?](#what-is-lobash)
+- [Build Status](#build-status)
 - [Installation](#installation)
 - [Prerequisites](#prerequisites)
     - [Supported Platform](#supported-platform)
@@ -47,6 +46,11 @@ Lobash Features:
 - Easy to use
 - Rich Functions
 - Robust and Safe
+
+## Build Status
+
+- [Master Branch][]: [![Build Status/master](https://travis-ci.com/adoyle-h/lobash.svg?branch=master)](https://travis-ci.com/adoyle-h/lobash)
+- [Develop Branch][]: [![Build Status/test](https://travis-ci.com/adoyle-h/lobash.svg?branch=test)](https://travis-ci.com/adoyle-h/lobash)
 
 ## Installation
 
@@ -205,3 +209,5 @@ See the [NOTICE][] file distributed with this work for additional information re
 
 [LICENSE]: ./LICENSE
 [NOTICE]: ./NOTICE
+[Master Branch]: https://github.com/adoyle-h/lobash/tree/master
+[Develop Branch]: https://github.com/adoyle-h/lobash/tree/develop
