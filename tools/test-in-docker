@@ -20,7 +20,7 @@ fi
 docker run \
   --rm \
   -e DOCKER=true \
-  -e CI=true \
+  -e CI="${CI:-}" \
   -v "$SCRIPT_DIR"/../test:/lobash/test \
   -v "$SCRIPT_DIR"/../build:/lobash/build \
   -v "$SCRIPT_DIR"/../version:/lobash/version \
