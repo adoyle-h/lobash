@@ -33,4 +33,8 @@ else
   test_dirs=( "$1" )
 fi
 
+if [[ -z ${DOCKER:-} ]]; then
+  export PATH="$LOBASH_TEST_DIR/fixture/bats/bin:${PATH}"
+fi
+
 exec bats ${CI:+--tap} "${test_dirs[@]}"

@@ -20,10 +20,11 @@ env:
   - BASHVER=4.4
   - BASHVER=5.0
 
-before_install:
+install:
+  # Default Travis CI use Bash 4.3 in Linux, and 3.2 in MacOS.
+  - ./tools/install-bash ${BASHVER} 2>&1 >> build.log || cat build.log
   - |
     if [[ "$TRAVIS_OS_NAME" == 'osx' ]]; then
-      ./tools/install-bash ${BASHVER}
       git submodule update --init --depth 1
     fi
   - |
@@ -32,12 +33,12 @@ before_install:
     fi
 
 script:
+  - export PATH="$TRAVIS_BUILD_DIR/build-bash/bin:$PATH"
+  - bash --version
   - |
     if [[ "$TRAVIS_OS_NAME" == 'linux' ]]; then
-      time ./tools/test-in-docker
+      time bash ./tools/test-in-docker
     else
-      which bash
-      bash --version
       time bash ./test
     fi
 

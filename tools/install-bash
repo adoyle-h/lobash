@@ -4,28 +4,19 @@
 set -o errexit
 set -o nounset
 set -o pipefail
-shopt -s inherit_errexit
 [[ -n "${VERBOSE:+x}" ]] && set -o verbose
 [[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
 
 # GNU Mirror List: https://www.gnu.org/prep/ftp.html
-readonly MIRROR=https://gnu.freemirror.org
-readonly VERSION=$1
-readonly BASH_PREFIX=/usr/local
-readonly BASH_PATH="$BASH_PREFIX/bin/bash"
+MIRROR=https://gnu.freemirror.org
+VERSION=$1
+BASH_PREFIX=$TRAVIS_BUILD_DIR/build-bash
 
-mkdir -p /usr/local/build/
-cd /usr/local/build/
+mkdir -p "$TRAVIS_BUILD_DIR/build-bash"
+cd "$TRAVIS_BUILD_DIR/build-bash"
 curl -O $MIRROR/gnu/bash/bash-"$VERSION".tar.gz
 tar xzf bash-"$VERSION".tar.gz
 cd "bash-$VERSION"
-./configure --prefix=$BASH_PREFIX
+./configure --prefix="$BASH_PREFIX"
 make
 sudo make install
-
-printf '\nWhitelisting the new bash...\n'
-grep -q $BASH_PATH /private/etc/shells || echo $BASH_PATH | sudo tee -a /private/etc/shells
-
-printf '\nSetting default shell:\n'
-chsh -s $BASH_PATH
-sudo chsh -s $BASH_PATH

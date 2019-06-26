@@ -4,7 +4,7 @@ set -o nounset
 set -o pipefail
 shopt -s inherit_errexit
 
-if [[ -n ${CI:-} ]]; then
+if [[ -n ${DOCKER:-} ]]; then
   load /test/support/load.bash
   load /test/assert/load.bash
 else

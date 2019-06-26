@@ -6,3 +6,6 @@
 	path = tests/fixture/support
 	url = https://github.com/jasonkarns/bats-support.git
 	shallow = true
+[submodule "tests/fixture/bats"]
+	path = tests/fixture/bats
+	url = https://github.com/bats-core/bats-core.git
