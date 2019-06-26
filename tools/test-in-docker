@@ -26,4 +26,4 @@ docker run \
   -v "$SCRIPT_DIR"/../version:/lobash/version \
   -v "$SCRIPT_DIR"/../src:/lobash/src \
   -v "$SCRIPT_DIR"/../tests:/lobash/tests \
-  lobash/test-bash:"${BASHVER}" bash -c '/lobash/build && /lobash/test -d'
+  lobash/test-bash:"${BASHVER}" bash -c "/lobash/build && /lobash/test -d $*"
