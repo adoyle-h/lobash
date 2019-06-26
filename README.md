@@ -108,8 +108,8 @@ Ash/Ksh/Fish/Xiki and other shells are not supported because there are so many [
 First, build your own `lobash.bash` file by `./build`.
 
 ```sh
-# build ./dist/lobash.bash
 ./build
+# Generated Lobash file: /Users/adoyle/Workspace/Shell/lobash/dist/lobash.bash
 
 # Or build Lobash to specific path
 ./build <target-path>

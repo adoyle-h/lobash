@@ -9,8 +9,7 @@ shopt -s inherit_errexit
 [[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
 
 readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+source "$SCRIPT_DIR"/init.bash
 
-source "$SCRIPT_DIR"/../src/import.bash
-import count_lines
-
-l.count_lines < "$1"
+result=$(l.choose a b c d e f g h i j k l m n o p q r s t)
+echo "result=${result}"

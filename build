@@ -40,6 +40,7 @@ init() {
   mkdir -p "$(dirname "$TARGET")"
 
   PREFIX=${PREFIX:-l.}
+  OVERWRITE=${OVERWRITE:-no}
 
   if ! is_valid_lobash_prefix "$PREFIX"; then
     echo "Invalid PREFIX=\"$PREFIX\". PREFIX must end with one of '_', '-', '.'" >&2
@@ -69,7 +70,7 @@ safe_rm() {
 }
 
 clean() {
-  if [[ -f $TARGET ]]; then
+  if [[ $OVERWRITE != yes ]] && [[ -f $TARGET ]]; then
     local answer
     answer=$(l.ask "Existed file: ${TARGET}. Overwrite it?" N)
     echo "$answer"
@@ -148,7 +149,7 @@ generate() {
     write "$PREFIX$module() { l.${UNIQ_KEY}_$module \"\$@\"; }"
   done
 
-  echo "Generated lobash file: $TARGET"
+  echo "Generated Lobash file: $TARGET"
 }
 
 main() {

@@ -1,6 +1,6 @@
 # Module Usages
 
-15 Categories, 92 Modules, 492 Test Cases.
+15 Categories, 93 Modules, 494 Test Cases.
 
 ## TOC
 
@@ -95,7 +95,7 @@
   - [detect_os](#detect_os)
   - [hostname](#hostname)
   - [sleep](#sleep)
-  - [xdg](#xdg)
+  - [xdg_config_home](#xdg_config_home)
 - [Terminal](#terminal)
   - [cursor_col](#cursor_col)
   - [cursor_pos](#cursor_pos)
@@ -107,6 +107,7 @@
 - [Util](#util)
   - [benchmark](#benchmark)
   - [compose](#compose)
+  - [detect_shell](#detect_shell)
   - [random](#random)
   - [repeat](#repeat)
 - [Variable](#variable)
@@ -375,6 +376,7 @@
 - Usage: `l.trace_stack [label]`
 - Description: Print current function stack for debug.
 - Since: 0.1.0
+- Executable Example: [../example/modules/trace_stack](../example/modules/trace_stack)
 - More Examples: [../tests/modules/trace_stack.bats](../tests/modules/trace_stack.bats)
 
 ### trace_start
@@ -496,6 +498,7 @@
   - when default=Y, if will return YES by default.
   - when default=N, if will return NO by default.
 - Since: 0.1.0
+- Executable Example: [../example/modules/ask](../example/modules/ask)
 - More Examples: [../tests/modules/ask.bats](../tests/modules/ask.bats)
 
 ### choose
@@ -504,6 +507,7 @@
 - Description: Prompt user to choose one item from options. The function will return the value of chosen item.
 - Dependent: [`is_integer`](#is_integer)
 - Since: 0.1.0
+- Executable Example: [../example/modules/choose](../example/modules/choose)
 - More Examples: [../tests/modules/choose.bats](../tests/modules/choose.bats)
 
 ## String
@@ -515,6 +519,7 @@
   - The command and process substitution always trim blank line. So l.count_lines do not accept normal parameter passing.
   - Refer to https://stackoverflow.com/a/37706905
 - Since: 0.1.0
+- Executable Example: [../example/modules/count_lines](../example/modules/count_lines)
 - More Examples: [../tests/modules/count_lines.bats](../tests/modules/count_lines.bats)
 
 ### count_lines.p
@@ -522,6 +527,7 @@
 - Usage: `echo <string> | l.count_lines.p`
 - Description: The pipeline version of l.count_lines
 - Since: 0.1.0
+- Executable Example: [../example/modules/count_lines](../example/modules/count_lines)
 - More Examples: [../tests/modules/count_lines.p.bats](../tests/modules/count_lines.p.bats)
 
 ### end_with
@@ -617,6 +623,7 @@
 - Description: Remove leading and trailing whitespace from string.
 - Dependent: [`trim_start`](#trim_start) [`trim_end`](#trim_end)
 - Since: 0.1.0
+- Executable Example: [../example/modules/trim](../example/modules/trim)
 - More Examples: [../tests/modules/trim.bats](../tests/modules/trim.bats)
 
 ### trim.p
@@ -625,6 +632,7 @@
 - Description: The pipeline version of l.trim
 - Dependent: [`trim`](#trim)
 - Since: 0.1.0
+- Executable Example: [../example/modules/trim](../example/modules/trim)
 - More Examples: [../tests/modules/trim.p.bats](../tests/modules/trim.p.bats)
 
 ### trim_color
@@ -726,12 +734,12 @@
 - Since: 0.1.0
 - More Examples: [../tests/modules/sleep.bats](../tests/modules/sleep.bats)
 
-### xdg
+### xdg_config_home
 
 - Usage: `l.xdg_config_home`
 - Description: Return XDG_CONFIG_HOME. Return `${HOME}/.config` if XDG_CONFIG_HOME not set.
 - Since: 0.1.0
-- More Examples: [../tests/modules/xdg.bats](../tests/modules/xdg.bats)
+- More Examples: [../tests/modules/xdg_config_home.bats](../tests/modules/xdg_config_home.bats)
 
 ## Terminal
 
@@ -797,6 +805,12 @@
 - Description: Function composition
 - Since: 0.1.0
 - More Examples: [../tests/modules/compose.bats](../tests/modules/compose.bats)
+
+### detect_shell
+
+- Usage: `l.detect_shell`
+- Since: 0.1.0
+- More Examples: [../tests/modules/detect_shell.bats](../tests/modules/detect_shell.bats)
 
 ### random
 

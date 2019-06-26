@@ -83,6 +83,11 @@ print_category() {
       printf -- '- %s\n' 'Deprecated: true' >> "$TARGET"
     fi
 
+    local example_path="../example/modules/${module_name%%.p}"
+    if [[ -f ${SCRIPT_DIR}/$example_path ]]; then
+      printf -- '- %s\n' "Executable Example: [$example_path]($example_path)" >> "$TARGET"
+    fi
+
     printf -- '- More Examples: [../tests/modules/%s.bats](../tests/modules/%s.bats)\n' "$module_name" "$module_name" >> "$TARGET"
   done
 }

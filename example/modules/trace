@@ -9,14 +9,20 @@ shopt -s inherit_errexit
 [[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
 
 readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
-
-source "$SCRIPT_DIR"/../src/import.bash
-import trim trace_start trace_end
+source "$SCRIPT_DIR"/init.bash
 
 l.trace_start
 echo '  123  ' | l.trim
 l.trace_end
 
-l.trace_start 2 abc
+l.trace_start 1 lv-1
+l.trim ' abc '
+l.trace_end
+
+l.trace_start 2 lv-2
+l.trim ' abc '
+l.trace_end
+
+l.trace_start 3 lv-3
 l.trim ' abc '
 l.trace_end

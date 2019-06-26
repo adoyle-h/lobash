@@ -9,10 +9,7 @@ shopt -s inherit_errexit
 [[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
 
 readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
-
-source "$SCRIPT_DIR"/../src/import.bash
-import trace_stack
-
+source "$SCRIPT_DIR"/init.bash
 
 foo() {
   l.trace_stack foo

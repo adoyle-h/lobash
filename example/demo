@@ -10,8 +10,7 @@ shopt -s inherit_errexit
 
 readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 
-source "$SCRIPT_DIR"/../src/import.bash
-import_all
+source "$SCRIPT_DIR"/../dist/lobash.bash
 
 arr1=(a 'b c')
 arr2=(d e)
