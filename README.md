@@ -5,8 +5,6 @@
   A modern, safe, powerful utility library for Bash script development.
 </p>
 
-**Current project is under development, most APIs are unstable. It will get done soon. Welcome to make contributions.**
-
 [![Build Status](https://travis-ci.org/adoyle-h/lobash.svg?branch=master)](https://travis-ci.org/adoyle-h/lobash)
 
 ## TOC
@@ -20,6 +18,8 @@
     - [Supported Shells](#supported-shells)
     - [Dependencies](#dependencies)
 - [Usage](#usage)
+    - [Build your lobash.bash](#build-your-lobashbash)
+    - [Load lobash.bash in your scripts](#load-lobashbash-in-your-scripts)
 - [Module Usages](#module-usages)
 - [Bin Command](#bin-command)
 - [FAQ](#faq)
@@ -46,7 +46,7 @@ Lobash Features:
 - Modular
 - Easy to use
 - Rich Functions
-- Robustness and Safe
+- Robust and Safe
 
 ## Installation
 
@@ -59,7 +59,6 @@ git submodule update --init --recursive
 
 ## Prerequisites
 
-1. All modules are written and tested with the shell options: `set -o errexit`, `set -o pipefail` and `shopt -s inherit_errexit`. Lobash not enable these options. Make sure the same shell options enabled by yourself, otherwise there may be unexpected behaviors with Lobash.
 2. Run Lobash modules in the shell from [Supported Shells List](#supported-shells).
 3. Make sure [dependencies](#dependencies) installed.
 
@@ -100,6 +99,8 @@ Ash/Ksh/Fish/Xiki and other shells are not supported because there are so many [
 
 ## Usage
 
+### Build your lobash.bash
+
 First, build your own `lobash.bash` file by `./build`.
 
 ```sh
@@ -118,16 +119,37 @@ When you build a command, `PREFIX` is unnecessary.
 
 The `PREFIX` only effect Lobash public functions and variables names.
 
+
+### Load lobash.bash in your scripts
+
 Second, load your own `lobash.bash` file in your scripts and all Lobash functions will be imported to current shell environment.
 
 ```sh
+#!/usr/bin/env bash
+
+set -o errexit
+set -o nounset
+set -o pipefail
+shopt -s inherit_errexit
+
+# It will load all Lobash modules
 source <path-to-lobash.bash>
-# All Lobash modules are loaded. If PREFIX not set when building.
+# Call l.<module_name> when PREFIX not set when building.
 l.ask 'Hello Lobash?'
 
-# If PREFIX=lobash_ set
+# Call <PREFIX>.<module_name> when PREFIX=lobash_ set
 # lobash_ask 'Hello Lobash?'
 ```
+
+All Lobash modules are written and tested with the shell options:
+
+  - `set -o errexit`,
+  - `set -o nounset`,
+  - `set -o pipefail`
+  - `shopt -s inherit_errexit`
+
+**Lobash not enable these options by default. Make sure the same shell options enabled before call Lobash functions in your scripts. Otherwise there may be unexpected behaviors with it.**
+
 
 Load `lobash.bash` is fast, nearly 0.058s.
 
