@@ -13,13 +13,6 @@ readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 source "$SCRIPT_DIR/src/load_internals.bash"
 _lobash.imports ask
 
-check_support() {
-  if [[ $_LOBASH_OS != 'MacOS' ]] && [[ $_LOBASH_OS != 'Linux' ]]; then
-    echo "Not support current system: $_LOBASH_OS" >&2
-    return 3
-  fi
-}
-
 is_valid_lobash_prefix() {
   local prefix=$1
 
@@ -31,7 +24,8 @@ is_valid_lobash_prefix() {
 }
 
 init() {
-  check_support
+  _lobash.check_shell
+  _lobash.check_os
 
   if [[ -z ${1:-} ]]; then
     TARGET=$SCRIPT_DIR/dist/lobash.bash
@@ -132,12 +126,13 @@ generate() {
   write ''
   write '######################## Lobash Internals ########################'
 
-  fwrite "$SCRIPT_DIR"/src/internals/check_shell.bash
-  fwrite "$SCRIPT_DIR"/src/internals/dirname.bash
-  fwrite "$SCRIPT_DIR"/src/internals/detect_os.bash
-  fwrite "$SCRIPT_DIR"/src/internals/consts.bash
+  # shellcheck source=./src/basic_internals.bash
+  source "$SCRIPT_DIR"/src/basic_internals.bash
+
+  for name in "${_LOBASH_BASIC_INTERNALS[@]}"; do
+    fwrite "$SCRIPT_DIR/src/internals/$name.bash"
+  done
   write "_LOBASH_${UNIQ_KEY}_PREFIX=$PREFIX"
-  fwrite "$SCRIPT_DIR"/src/internals/helpers.bash
 
   write ''
   write '######################## Private Methods ########################'

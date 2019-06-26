@@ -8,11 +8,11 @@
 # shellcheck source=./internals/error.bash
 # shellcheck source=./internals/import.bash
 _LOBASH_BASIC_INTERNALS=(
-  check_shell
-  dirname
   detect_os
   detect_shell
   consts
+  check_support
+  dirname
   debug
   warn
   error
