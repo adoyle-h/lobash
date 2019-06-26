@@ -20,9 +20,17 @@ env:
   - BASHVER=4.4
   - BASHVER=5.0
 
+cache:
+  directories:
+    - $TRAVIS_BUILD_DIR/build-bash
+
 install:
-  # Default Travis CI use Bash 4.3 in Linux, and 3.2 in MacOS.
-  - ./tools/install-bash ${BASHVER} 2>&1 >> build.log || cat build.log
+  - |
+    # Default Travis CI use Bash 4.3 in Linux, and 3.2 in MacOS.
+    # Out script use shopt -s inherit_errexit but only Bash 4.4+ supported.
+    if [[ ! -x $TRAVIS_BUILD_DIR/build-bash/bin/bash ]]; then
+      ./tools/install-bash ${BASHVER} 2>&1 >> build.log || cat build.log
+    fi
   - |
     if [[ "$TRAVIS_OS_NAME" == 'osx' ]]; then
       git submodule update --init --depth 1
