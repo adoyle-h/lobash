@@ -21,14 +21,8 @@ readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 
 usage() {
 cat <<EOF
-Usage: $0 [Options] <required> [optional]
-
-Options:
-    -h --help               Show help
-
-Parameters:
-    <required>
-    <optional>
+Usage: lobash [-h|--help]
+Usage: lobash mod <module_name> [<module_args>]...
 EOF
 }
 
@@ -59,10 +53,13 @@ opt_parse() {
 #                           private methods                           #
 #######################################################################
 
-_exectue_command() {
-  local module="${dispatch_cmd_args[0]}"
+exec_module() {
+  # shellcheck source=../src/load_internals.bash
+  source "$SCRIPT_DIR/../src/load_internals.bash"
+  local module=$1
   _lobash.imports "$module"
-  "l.$module" "${dispatch_cmd_args[@]: 1}"
+  shift
+  "l.$module" "$@"
 }
 
 #######################################################################
@@ -78,8 +75,9 @@ main() {
     exit 0
   fi
 
-  source "$SCRIPT_DIR/../src/load_internals.bash"
-  _exectue_command
+  if [[ $arg0 == mod ]]; then
+    exec_module "${dispatch_cmd_args[@]:1}"
+  fi
 }
 
 main "$@"
