@@ -3,7 +3,7 @@
 # Since: 0.1.0
 # Usage: l.random [<length>=10] [<pattern>=a-zA-Z0-9@#*=[]]
 # Description: Return a random string in specific length.
-# Description: The <pattern> is allowed characters in range.
+# Description: The `<pattern>` is allowed characters in range.
 # ---
 
 l.random() {

@@ -140,21 +140,21 @@
 ### first
 
 - Usage: `l.first <array_name>`
-- Description: It will return the value of arg1.
+- Description: Return the first value of array.
 - Since: 0.1.0
 - More Examples: [../tests/modules/first.bats](../tests/modules/first.bats)
 
 ### last
 
 - Usage: `l.last <array_name>`
-- Description: It will return the value of argN.
+- Description: Return the last value of array.
 - Since: 0.1.0
 - More Examples: [../tests/modules/last.bats](../tests/modules/last.bats)
 
 ### sort
 
 - Usage: `l.sort <array_name> [<sort-opts>]...`
-- Description: Sort an array. The <sort-opts> are options of sort command.
+- Description: Sort an array. The `<sort-opts>` are options of sort command.
 - Since: 0.1.0
 - More Examples: [../tests/modules/sort.bats](../tests/modules/sort.bats)
 
@@ -171,7 +171,7 @@
 ### hex_to_rgb
 
 - Usage: `l.hex_to_rgb <HEX>`
-- Description: Return a list contains <R> <G> <B>.
+- Description: Return a list contains `<R> <G> <B>`.
 - Since: 0.1.0
 - More Examples: [../tests/modules/hex_to_rgb.bats](../tests/modules/hex_to_rgb.bats)
 
@@ -192,7 +192,7 @@
   - `l.has not <condition> <what>`
 - Description:
   - Exit with 0 or 1. Check if command/function/alias/keyword/builtin or anything existed.
-  - <condition>  Valid value: `command`, `function`, `alias`, `keyword`, `builtin`, `the`
+  - `<condition>` Valid value: `command`, `function`, `alias`, `keyword`, `builtin`, `the`
   - This method is not recommended. Use strict_has instead.
 - Since: 0.1.0
 - More Examples: [../tests/modules/has.bats](../tests/modules/has.bats)
@@ -202,41 +202,44 @@
 - Usage: `l.if <condition> <then> [<else>]`
 - Description:
   - The difference from shell builtin `if` is when condition function throw exception it will ended immediately.
-  - <condition> can be function name, string and number. The function should return `true`/`0` or `false`/`1`.
-  - <then> and <else> must be function name. And <else> is optional.
-  - When <condition> is true, <then> function will be invoked. Otherwise <else> will be invoked if it passed.
+  - `<condition>` can be function name, string and number. The function should return `true`/`0` or `false`/`1`.
+  - `<then>` and `<else>` must be function name. And `<else>` is optional.
+  - When `<condition>` is true, `<then>` function will be invoked. Otherwise `<else>` will be invoked if it passed.
 - Since: 0.1.0
 - More Examples: [../tests/modules/if.bats](../tests/modules/if.bats)
 
 ### is_array
 
 - Usage: `l.is_array <var_name>`
+- Description: Return `true` or `false`.
 - Since: 0.1.0
 - More Examples: [../tests/modules/is_array.bats](../tests/modules/is_array.bats)
 
 ### is_bash
 
 - Usage: `l.is_bash`
+- Description: Return `true` or `false`.
 - Since: 0.1.0
 - More Examples: [../tests/modules/is_bash.bats](../tests/modules/is_bash.bats)
 
 ### is_dir
 
-- Usage: `l.is_dir <var>`
+- Usage: `l.is_dir <path>`
+- Description: Return `true` or `false`.
 - Since: 0.1.0
 - More Examples: [../tests/modules/is_dir.bats](../tests/modules/is_dir.bats)
 
 ### is_executable
 
-- Usage: `l.is_executable <var>`
+- Usage: `l.is_executable <path>`
 - Description: Similar to `[[ -x ]]`. Return `true` or `false`.
 - Since: 0.1.0
 - More Examples: [../tests/modules/is_executable.bats](../tests/modules/is_executable.bats)
 
 ### is_executable_file
 
-- Usage: `l.is_executable_file <var>`
-- Description: Similar to `l.is_executable`. But directory will return false.
+- Usage: `l.is_executable_file <path>`
+- Description: Similar to `l.is_executable`. But if `<path>` is directory it will return false.
 - Dependent: [`is_dir`](#is_dir)
 - Since: 0.1.0
 - More Examples: [../tests/modules/is_executable_file.bats](../tests/modules/is_executable_file.bats)
@@ -244,68 +247,78 @@
 ### is_false
 
 - Usage: `l.is_false <var>`
+- Description: Return `true` or `false`.
 - Dependent: [`is_integer`](#is_integer)
 - Since: 0.1.0
 - More Examples: [../tests/modules/is_false.bats](../tests/modules/is_false.bats)
 
 ### is_file
 
-- Usage: `l.is_file <var>`
+- Usage: `l.is_file <path>`
+- Description: Return `true` or `false`.
 - Since: 0.1.0
 - More Examples: [../tests/modules/is_file.bats](../tests/modules/is_file.bats)
 
 ### is_float
 
 - Usage: `l.is_float <str>`
+- Description: Return `true` or `false`.
 - Since: 0.1.0
 - More Examples: [../tests/modules/is_float.bats](../tests/modules/is_float.bats)
 
 ### is_integer
 
 - Usage: `l.is_integer <str>`
+- Description: Return `true` or `false`.
 - Since: 0.1.0
 - More Examples: [../tests/modules/is_integer.bats](../tests/modules/is_integer.bats)
 
 ### is_link
 
-- Usage: `l.is_link <var>`
+- Usage: `l.is_link <path>`
+- Description: Return `true` or `false`.
 - Since: 0.1.0
 - More Examples: [../tests/modules/is_link.bats](../tests/modules/is_link.bats)
 
 ### is_number
 
 - Usage: `l.is_number <str>`
+- Description: Return `true` or `false`.
 - Since: 0.1.0
 - More Examples: [../tests/modules/is_number.bats](../tests/modules/is_number.bats)
 
 ### is_readable
 
-- Usage: `l.is_readable <var>`
+- Usage: `l.is_readable <path>`
+- Description: Return `true` or `false`.
 - Since: 0.1.0
 - More Examples: [../tests/modules/is_readable.bats](../tests/modules/is_readable.bats)
 
 ### is_true
 
-- Usage: `l.is_true <var>`
+- Usage: `l.is_true <str>`
+- Description: Return `true` or `false`.
 - Since: 0.1.0
 - More Examples: [../tests/modules/is_true.bats](../tests/modules/is_true.bats)
 
 ### is_writeable
 
-- Usage: `l.is_writeable <var>`
+- Usage: `l.is_writeable <path>`
+- Description: Return `true` or `false`.
 - Since: 0.1.0
 - More Examples: [../tests/modules/is_writeable.bats](../tests/modules/is_writeable.bats)
 
 ### is_zsh
 
 - Usage: `l.is_zsh`
+- Description: Return `true` or `false`.
 - Since: 0.1.0
 - More Examples: [../tests/modules/is_zsh.bats](../tests/modules/is_zsh.bats)
 
 ### not
 
 - Usage: `l.not <condition>`
-- Description: <condition> must be `true` or `false`. This function returns the opposite value.
+- Description: `<condition>` must be `true` or `false`. This function returns the opposite value.
 - Since: 0.1.0
 - More Examples: [../tests/modules/not.bats](../tests/modules/not.bats)
 
@@ -322,7 +335,7 @@
 - Usage: `l.strict_has <condition> <what>`
 - Description:
   - Return `true` or `false`. Check if command/function/alias/keyword/builtin or anything existed.
-  - <condition>  Valid value: `command`, `function`, `alias`, `keyword`, `builtin`, `the`
+  - `<condition>` Valid value: `command`, `function`, `alias`, `keyword`, `builtin`, `the`
 - Since: 0.1.0
 - More Examples: [../tests/modules/strict_has.bats](../tests/modules/strict_has.bats)
 
@@ -340,7 +353,7 @@
 
 - Usage: `l.echo <string>...`
 - Description:
-  - A safe way to echo string. Not support any options.
+  - A easy and safe way to print string. Not support any options.
   - The builtin echo will get unexpected result while execute `b=( -n 123 ); echo "${b[@]}"`.
   - See https://github.com/anordal/shellharden/blob/master/how_to_do_things_safely_in_bash.md#echo--printf
 - Since: 0.1.0
@@ -349,7 +362,7 @@
 ### echo_array
 
 - Usage: `l.echo_array <array_name>`
-- Description: print each values of array with newline.
+- Description: Print each values of array with newline.
 - Since: 0.1.0
 - More Examples: [../tests/modules/echo_array.bats](../tests/modules/echo_array.bats)
 
@@ -401,12 +414,14 @@
 ### count_file_lines
 
 - Usage: `l.count_file_lines <filepath>`
+- Description: Count lines of file. Similar to `wc -l`.
 - Since: 0.1.0
 - More Examples: [../tests/modules/count_file_lines.bats](../tests/modules/count_file_lines.bats)
 
 ### count_files
 
 - Usage: `l.count_files <directory_path>`
+- Description: Count the sum of files under `<directory_path>`.
 - Since: 0.1.0
 - More Examples: [../tests/modules/count_files.bats](../tests/modules/count_files.bats)
 
@@ -452,7 +467,7 @@
 ### dirname.p
 
 - Usage: `echo <path> | l.dirname.p`
-- Description: Alternative to dirname command. It much faster because using shell parameter expansion.
+- Description: The pipeline version of l.dirname
 - Since: 0.1.0
 - More Examples: [../tests/modules/dirname.p.bats](../tests/modules/dirname.p.bats)
 
@@ -477,7 +492,7 @@
 ### pwd
 
 - Usage: `l.pwd`
-- Description: Return the current working directory as set by the cd builtin.
+- Description: Return the current working directory as set by the `cd` builtin command.
 - Since: 0.1.0
 - More Examples: [../tests/modules/pwd.bats](../tests/modules/pwd.bats)
 
@@ -516,7 +531,8 @@
 
 - Usage: `l.count_lines <string>`
 - Description:
-  - The command and process substitution always trim blank line. So l.count_lines do not accept normal parameter passing.
+  - Count lints of string like `wc -l`.
+  - The Bash command substitution always trim blank line. So l.count_lines do not accept normal parameter passing.
   - Refer to https://stackoverflow.com/a/37706905
 - Since: 0.1.0
 - Executable Example: [../example/modules/count_lines](../example/modules/count_lines)
@@ -533,6 +549,7 @@
 ### end_with
 
 - Usage: `l.end_with <string> <match>`
+- Description: Return `true` or `false`.
 - Since: 0.1.0
 - More Examples: [../tests/modules/end_with.bats](../tests/modules/end_with.bats)
 
@@ -585,7 +602,7 @@
 ### split
 
 - Usage: `l.split <string> <output_array_name> [<delimiter>=' ']`
-- Description: Splits string by delimiter. The result will be assigned to <output_array_name>.
+- Description: Splits string by delimiter. The result will be assigned to `<output_array_name>`.
 - Since: 0.1.0
 - More Examples: [../tests/modules/split.bats](../tests/modules/split.bats)
 
@@ -715,12 +732,14 @@
 ### detect_os
 
 - Usage: `l.detect_os`
+- Description: Return the name of current operator system.
 - Since: 0.1.0
 - More Examples: [../tests/modules/detect_os.bats](../tests/modules/detect_os.bats)
 
 ### hostname
 
 - Usage: `l.hostname`
+- Description: Return current hostname.
 - Since: 0.1.0
 - More Examples: [../tests/modules/hostname.bats](../tests/modules/hostname.bats)
 
@@ -746,7 +765,7 @@
 ### cursor_col
 
 - Usage: `l.cursor_col`
-- Description: get column number of current cursor position
+- Description: Get column number of current cursor position.
 - Since: 0.1.0
 - More Examples: [../tests/modules/cursor_col.bats](../tests/modules/cursor_col.bats)
 
@@ -755,14 +774,14 @@
 - Usage:
   - `l.cursor_pos`
   - `IFS=';' c_pos=( $(l.cursor_pos) )`
-- Description: get current cursor position. It will print "row;column" with default IFS.
+- Description: Get current cursor position. It will print "row;column" with default IFS.
 - Since: 0.1.0
 - More Examples: [../tests/modules/cursor_pos.bats](../tests/modules/cursor_pos.bats)
 
 ### cursor_row
 
 - Usage: `l.cursor_row`
-- Description: get row number of current cursor position
+- Description: Get row number of current cursor position.
 - Since: 0.1.0
 - More Examples: [../tests/modules/cursor_row.bats](../tests/modules/cursor_row.bats)
 
@@ -771,7 +790,7 @@
 ### date
 
 - Usage: `l.date [<format>=]`
-- Description: Refer to 'man strftime' for <format>.
+- Description: Refer to 'man strftime' for `<format>`.
 - Since: 0.1.0
 - More Examples: [../tests/modules/date.bats](../tests/modules/date.bats)
 
@@ -809,6 +828,7 @@
 ### detect_shell
 
 - Usage: `l.detect_shell`
+- Description: Return the type of shell.
 - Since: 0.1.0
 - More Examples: [../tests/modules/detect_shell.bats](../tests/modules/detect_shell.bats)
 
@@ -817,7 +837,7 @@
 - Usage: `l.random [<length>=10] [<pattern>=a-zA-Z0-9@#*=[]]`
 - Description:
   - Return a random string in specific length.
-  - The <pattern> is allowed characters in range.
+  - The `<pattern>` is allowed characters in range.
 - Since: 0.1.0
 - More Examples: [../tests/modules/random.bats](../tests/modules/random.bats)
 
@@ -833,5 +853,6 @@
 ### cur_function_name
 
 - Usage: `l.cur_function_name`
+- Description: Return the name of current function where the l.cur_function_name called in.
 - Since: 0.1.0
 - More Examples: [../tests/modules/cur_function_name.bats](../tests/modules/cur_function_name.bats)

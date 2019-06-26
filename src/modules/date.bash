@@ -2,7 +2,7 @@
 # Category: Time
 # Since: 0.1.0
 # Usage: l.date [<format>=]
-# Description: Refer to 'man strftime' for <format>.
+# Description: Refer to 'man strftime' for `<format>`.
 # ---
 
 # Reference: https://github.com/dylanaraps/pure-bash-bible#get-the-current-date-using-strftime

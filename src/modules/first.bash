@@ -2,7 +2,7 @@
 # Category: Array
 # Since: 0.1.0
 # Usage: l.first <array_name>
-# Description: It will return the value of arg1.
+# Description: Return the first value of array.
 # ---
 
 l.first() {

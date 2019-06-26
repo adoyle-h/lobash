@@ -2,7 +2,7 @@
 # Category: Color
 # Since: 0.1.0
 # Usage: l.hex_to_rgb <HEX>
-# Description: Return a list contains <R> <G> <B>.
+# Description: Return a list contains `<R> <G> <B>`.
 # ---
 
 # Reference: https://github.com/dylanaraps/pure-bash-bible#convert-a-hex-color-to-rgb

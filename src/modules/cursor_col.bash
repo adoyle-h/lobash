@@ -2,7 +2,7 @@
 # Category: Terminal
 # Since: 0.1.0
 # Usage: l.cursor_col
-# Description: get column number of current cursor position
+# Description: Get column number of current cursor position.
 # ---
 
 # Refer to https://unix.stackexchange.com/a/183121

@@ -3,7 +3,7 @@
 # Since: 0.1.0
 # Usage: l.strict_has <condition> <what>
 # Description: Return `true` or `false`. Check if command/function/alias/keyword/builtin or anything existed.
-# Description: <condition>  Valid value: `command`, `function`, `alias`, `keyword`, `builtin`, `the`
+# Description: `<condition>` Valid value: `command`, `function`, `alias`, `keyword`, `builtin`, `the`
 # ---
 
 l.strict_has() {

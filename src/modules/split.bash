@@ -2,7 +2,7 @@
 # Category: String
 # Since: 0.1.0
 # Usage: l.split <string> <output_array_name> [<delimiter>=' ']
-# Description: Splits string by delimiter. The result will be assigned to <output_array_name>.
+# Description: Splits string by delimiter. The result will be assigned to `<output_array_name>`.
 # ---
 
 _l.split() {

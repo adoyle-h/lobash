@@ -4,7 +4,7 @@
 # Usage: l.has <condition> <what>
 # Usage: l.has not <condition> <what>
 # Description: Exit with 0 or 1. Check if command/function/alias/keyword/builtin or anything existed.
-# Description: <condition>  Valid value: `command`, `function`, `alias`, `keyword`, `builtin`, `the`
+# Description: `<condition>` Valid value: `command`, `function`, `alias`, `keyword`, `builtin`, `the`
 # Description: This method is not recommended. Use strict_has instead.
 # ---
 

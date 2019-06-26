@@ -3,7 +3,7 @@
 # Since: 0.1.0
 # Usage: l.cursor_pos
 # Usage: IFS=';' c_pos=( $(l.cursor_pos) )
-# Description: get current cursor position. It will print "row;column" with default IFS.
+# Description: Get current cursor position. It will print "row;column" with default IFS.
 # ---
 
 # l.cursor_pos() {

@@ -2,7 +2,7 @@
 # Category: Array
 # Since: 0.1.0
 # Usage: l.last <array_name>
-# Description: It will return the value of argN.
+# Description: Return the last value of array.
 # ---
 
 l.last() {
