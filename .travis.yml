@@ -24,6 +24,7 @@ before_install:
   - |
     if [[ "$TRAVIS_OS_NAME" == 'osx' ]]; then
       ./tools/install-bash ${BASHVER}
+      git submodule update --init --depth 1
     fi
   - |
     if [[ "$TRAVIS_OS_NAME" == 'linux' ]]; then
@@ -37,7 +38,7 @@ script:
     else
       which bash
       bash --version
-      time bash ./run_test
+      time bash ./test
     fi
 
 notifications:
