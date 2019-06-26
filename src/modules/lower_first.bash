@@ -6,14 +6,7 @@
 # Description: Convert the first character of string to lower case.
 # ---
 
-# CAVEAT: Requires bash 4+
 l.lower_first() {
-  local str
-  if [[ -t 0 ]]; then
-    str=$1
-  else
-    IFS='' read -r str
-  fi
-
+  local str=${1:-}
   printf '%s\n' "${str,}"
 }

@@ -1,15 +1,18 @@
 #!/usr/bin/env bats
 
 setup_fixture
-load_module trim_color
+load_module trim_color.p
 
-@test "l.trim_color 'string'" {
-  run l.trim_color 'string'
+@test "echo 'string' | l.trim_color.p" {
+  t() {
+    echo 'string' | l.trim_color.p
+  }
+  run t
   assert_success
   assert_output 'string'
 }
 
-@test "l.trim_color colored string" {
+@test "colored string | l.trim_color.p " {
   local RED='\e[31m'
   local GREEN='\e[32m'
   local RESET_ALL='\e[0m'
@@ -18,7 +21,10 @@ load_module trim_color
   local BLK_BLUE='\e[34;5m'
 
   local str=$(echo -e "${RED}RED ${RESET_ALL}and ${GREEN}GREEN ${RESET_ALL}and ${UL_YELLOW}UL_YELLOW and ${BG_CYAN}BG_CYAN and ${BLK_BLUE}BLK_BLUE")
-  run l.trim_color "$str"
+  t() {
+    echo -e "$str" | l.trim_color.p
+  }
+  run t
   assert_success
   assert_output 'RED and GREEN and UL_YELLOW and BG_CYAN and BLK_BLUE'
 }
@@ -32,7 +38,10 @@ load_module trim_color
   local BLK_BLUE='\033[34;5m'
 
   local str=$(echo -e "${RED}RED ${RESET_ALL}and ${GREEN}GREEN ${RESET_ALL}and ${UL_YELLOW}UL_YELLOW and ${BG_CYAN}BG_CYAN and ${BLK_BLUE}BLK_BLUE")
-  run l.trim_color "$str"
+  t() {
+    echo -e "$str" | l.trim_color.p
+  }
+  run t
   assert_success
   assert_output 'RED and GREEN and UL_YELLOW and BG_CYAN and BLK_BLUE'
 }
@@ -46,7 +55,10 @@ load_module trim_color
   local BLK_BLUE='\x1B[34;5m'
 
   local str=$(echo -e "${RED}RED ${RESET_ALL}and ${GREEN}GREEN ${RESET_ALL}and ${UL_YELLOW}UL_YELLOW and ${BG_CYAN}BG_CYAN and ${BLK_BLUE}BLK_BLUE")
-  run l.trim_color "$str"
+  t() {
+    echo -e "$str" | l.trim_color.p
+  }
+  run t
   assert_success
   assert_output 'RED and GREEN and UL_YELLOW and BG_CYAN and BLK_BLUE'
 }
@@ -60,7 +72,10 @@ load_module trim_color
   local BLK_BLUE='\u001b[34;5m'
 
   local str=$(echo -e "${RED}RED ${RESET_ALL}and ${GREEN}GREEN ${RESET_ALL}and ${UL_YELLOW}UL_YELLOW and ${BG_CYAN}BG_CYAN and ${BLK_BLUE}BLK_BLUE")
-  run l.trim_color "$str"
+  t() {
+    echo -e "$str" | l.trim_color.p
+  }
+  run t
   assert_success
   assert_output 'RED and GREEN and UL_YELLOW and BG_CYAN and BLK_BLUE'
 }

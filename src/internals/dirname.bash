@@ -1,5 +1,5 @@
 _lobash.dirname() {
-  local str=$1
+  local str=${1:-}
   [[ $str == '/' ]] && echo '/' && return 0
   [[ $str =~ ^'../' ]] && echo '.' && return 0
   [[ ! $str =~ / ]] && echo '.' && return 0

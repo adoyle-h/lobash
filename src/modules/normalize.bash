@@ -2,19 +2,13 @@
 # Category: Path
 # Since: 0.1.0
 # Usage: l.normalize <path>
-# Usage: echo <path> | l.normalize
-# Dependent: split, join
 # Description: Normalize the given path which can be an unexisted path.
 # Description: Trailing `/` always be removed.
+# Dependent: split, join
 # ---
 
 l.normalize() {
-  local path
-  if [[ -t 0 ]]; then
-    path=${1:-}
-  else
-    IFS='' read -r path
-  fi
+  local path=${1:-}
 
   if [[ -z ${path} ]]; then
     echo '.'

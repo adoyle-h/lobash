@@ -6,12 +6,7 @@
 # ---
 
 l.not() {
-  local condition
-  if [[ -t 0 ]]; then
-    condition="${1:-}"
-  else
-    read -r condition
-  fi
+  local condition="${1:-}"
 
   if [[ $condition == true ]]; then
     echo false;

@@ -1,27 +1,16 @@
 # ---
 # Category: String
 # Since: 0.1.0
-# Usage: l.trim_start <string>
-# Usage: echo <string> | l.trim_start
+# Usage: l.trim_start <string> [<chars>=[[:space:]]]
 # Description: Remove leading whitespace or specified characters from string.
 # ---
 
 l.trim_start() {
-  local str
-  if [[ -t 0 ]]; then
-    str=${1:-}
-    if [[ $# == 2 ]]; then
-      printf '%s\n' "${str##$2}"
-    else
-      # https://stackoverflow.com/a/3352015
-      printf '%s\n' "${str#"${str%%[![:space:]]*}"}"
-    fi
+  local str=${1:-}
+  if (( $# < 2 )); then
+    # https://stackoverflow.com/a/3352015
+    printf '%s\n' "${str#"${str%%[![:space:]]*}"}"
   else
-    IFS='' read -r str
-    if [[ $# == 1 ]]; then
-      printf '%s\n' "${str##$1}"
-    else
-      printf '%s\n' "${str#"${str%%[![:space:]]*}"}"
-    fi
+    printf '%s\n' "${str##$2}"
   fi
 }

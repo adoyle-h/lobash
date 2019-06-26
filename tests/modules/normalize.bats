@@ -13,15 +13,6 @@ load_module normalize
   assert_output '.'
 }
 
-@test "echo '' | l.normalize" {
-  t() {
-    echo '' | l.normalize
-  }
-  run t
-  assert_success
-  assert_output '.'
-}
-
 @test "l.normalize . and ./" {
   run l.normalize .
   assert_success
@@ -32,24 +23,19 @@ load_module normalize
   assert_output .
 }
 
-@test "echo './' | l.normalize" {
-  t() {
-    echo './' | l.normalize
-  }
-  run t
-  assert_success
-  assert_output '.'
-}
-
-@test "l.normalize .. and ../ and ../../" {
+@test "l.normalize .." {
   run l.normalize ..
   assert_success
   assert_output ..
+}
 
+@test "l.normalize ../" {
   run l.normalize ../
   assert_success
   assert_output ..
+}
 
+@test "l.normalize ../../" {
   run l.normalize ../../
   assert_success
   assert_output ../..
@@ -59,15 +45,6 @@ load_module normalize
   run l.normalize /
   assert_success
   assert_output /
-}
-
-@test "echo '/' | l.normalize" {
-  t() {
-    echo '/' | l.normalize
-  }
-  run t
-  assert_success
-  assert_output '/'
 }
 
 @test "l.normalize /../" {
@@ -84,15 +61,6 @@ load_module normalize
   run l.normalize /a/../..
   assert_success
   assert_output /
-}
-
-@test "echo '/a/../..' | l.normalize" {
-  t() {
-    echo '/a/../..' | l.normalize
-  }
-  run t
-  assert_success
-  assert_output '/'
 }
 
 @test "l.normalize /a//b" {
@@ -178,13 +146,3 @@ load_module normalize
   assert_success
   assert_output /a/c.bash
 }
-
-@test "echo '/a/b/../c.bash' | l.normalize" {
-  t() {
-    echo '/a/b/../c.bash' | l.normalize
-  }
-  run t
-  assert_success
-  assert_output '/a/c.bash'
-}
-

@@ -3,29 +3,14 @@
 setup_fixture
 load_module upper_case
 
+@test "l.upper_case" {
+  run l.upper_case
+  assert_success
+  assert_output ''
+}
+
 @test "l.upper_case 'abc'" {
   run l.upper_case 'abc'
-  assert_success
-  assert_output 'ABC'
-}
-
-@test "echo 'abc' | l.upper_case" {
-  t() {
-    echo 'abc' | l.upper_case
-  }
-  run t
-  assert_success
-  assert_output 'ABC'
-}
-
-@test "l.upper_case 'Abc'" {
-  run l.upper_case 'Abc'
-  assert_success
-  assert_output 'ABC'
-}
-
-@test "l.upper_case 'ABc'" {
-  run l.upper_case 'ABc'
   assert_success
   assert_output 'ABC'
 }
@@ -36,35 +21,14 @@ load_module upper_case
   assert_output 'ABC'
 }
 
-@test "l.upper_case 'abc de'" {
-  run l.upper_case 'abc de'
-  assert_success
-  assert_output 'ABC DE'
-}
-
 @test "l.upper_case ' abc de '" {
   run l.upper_case ' abc de '
   assert_success
   assert_output ' ABC DE '
 }
 
-@test "echo ' abc de ' | l.upper_case" {
-  t() {
-    echo ' abc de ' | l.upper_case
-  }
-  run t
+@test "l.upper_case 'a A bC D'" {
+  run l.upper_case 'a A bC D'
   assert_success
-  assert_output ' ABC DE '
-}
-
-@test "l.upper_case 'a bc d'" {
-  run l.upper_case 'a bc d'
-  assert_success
-  assert_output 'A BC D'
-}
-
-@test "l.upper_case 'A bC D'" {
-  run l.upper_case 'A bC D'
-  assert_success
-  assert_output "A BC D"
+  assert_output 'A A BC D'
 }
