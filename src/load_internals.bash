@@ -26,6 +26,6 @@ _lobash.import_internals() {
 # shellcheck source=./internals/import.bash
 _lobash.import_internals \
   check_shell \
-  dirname detect_os consts \
+  dirname detect_os detect_shell consts \
   debug warn error \
   import
