@@ -12,13 +12,24 @@ load_module now
   now=$(l.now)
 
   elapsed=$(( now - last ))
-  # echo "elapsed=$elapsed" > /dev/tty
 
-  if [[ $elapsed -gt 100 ]] && [[ $elapsed -lt 150 ]]; then
-    true
+  local flag=false
+  if [[ -n ${CI:-} ]]; then
+    # CI is in low performance, so +60ms
+    if [[ $elapsed -gt 100 ]] && [[ $elapsed -lt 210 ]]; then
+      flag=true
+    fi
   else
+    if [[ $elapsed -gt 100 ]] && [[ $elapsed -lt 150 ]]; then
+      flag=true
+    fi
+  fi
+
+  if [[ $flag == false ]]; then
     echo "elapsed=$elapsed"
     false
+  else
+    true
   fi
 }
 
@@ -30,13 +41,24 @@ load_module now
   now=$(l.now)
 
   elapsed=$(( now - last ))
-  # echo "elapsed=$elapsed" > /dev/tty
 
-  if [[ $elapsed -gt 1000 ]] && [[ $elapsed -lt 1050 ]]; then
-    true
+  local flag=false
+  if [[ -n ${CI:-} ]]; then
+    # CI is in low performance, so +60ms
+    if [[ $elapsed -gt 1000 ]] && [[ $elapsed -lt 1110 ]]; then
+      flag=true
+    fi
   else
+    if [[ $elapsed -gt 1000 ]] && [[ $elapsed -lt 1050 ]]; then
+      flag=true
+    fi
+  fi
+
+  if [[ $flag == false ]]; then
     echo "elapsed=$elapsed"
     false
+  else
+    true
   fi
 }
 
@@ -48,12 +70,23 @@ load_module now
   now=$(l.now)
 
   elapsed=$(( now - last ))
-  # echo "elapsed=$elapsed" > /dev/tty
 
-  if [[ $elapsed -gt 2000 ]] && [[ $elapsed -lt 2050 ]]; then
-    true
+  local flag=false
+  if [[ -n ${CI:-} ]]; then
+    # CI is in low performance, so +60ms
+    if [[ $elapsed -gt 2000 ]] && [[ $elapsed -lt 2110 ]]; then
+      flag=true
+    fi
   else
+    if [[ $elapsed -gt 2000 ]] && [[ $elapsed -lt 2050 ]]; then
+      flag=true
+    fi
+  fi
+
+  if [[ $flag == false ]]; then
     echo "elapsed=$elapsed"
     false
+  else
+    true
   fi
 }
