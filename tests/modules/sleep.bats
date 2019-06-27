@@ -16,11 +16,11 @@ load_module now
   local flag=false
   if [[ -n ${CI:-} ]]; then
     # CI is in low performance, so +60ms
-    if [[ $elapsed -gt 100 ]] && [[ $elapsed -lt 210 ]]; then
+    if [[ $elapsed -gt 50 ]] && [[ $elapsed -lt 210 ]]; then
       flag=true
     fi
   else
-    if [[ $elapsed -gt 100 ]] && [[ $elapsed -lt 150 ]]; then
+    if [[ $elapsed -gt 50 ]] && [[ $elapsed -lt 150 ]]; then
       flag=true
     fi
   fi
@@ -45,11 +45,11 @@ load_module now
   local flag=false
   if [[ -n ${CI:-} ]]; then
     # CI is in low performance, so +60ms
-    if [[ $elapsed -gt 1000 ]] && [[ $elapsed -lt 1110 ]]; then
+    if [[ $elapsed -gt 950 ]] && [[ $elapsed -lt 1110 ]]; then
       flag=true
     fi
   else
-    if [[ $elapsed -gt 1000 ]] && [[ $elapsed -lt 1050 ]]; then
+    if [[ $elapsed -gt 950 ]] && [[ $elapsed -lt 1050 ]]; then
       flag=true
     fi
   fi
@@ -74,11 +74,11 @@ load_module now
   local flag=false
   if [[ -n ${CI:-} ]]; then
     # CI is in low performance, so +60ms
-    if [[ $elapsed -gt 2000 ]] && [[ $elapsed -lt 2110 ]]; then
+    if [[ $elapsed -gt 1950 ]] && [[ $elapsed -lt 2110 ]]; then
       flag=true
     fi
   else
-    if [[ $elapsed -gt 2000 ]] && [[ $elapsed -lt 2050 ]]; then
+    if [[ $elapsed -gt 1950 ]] && [[ $elapsed -lt 2050 ]]; then
       flag=true
     fi
   fi
