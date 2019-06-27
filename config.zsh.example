@@ -103,12 +103,12 @@
   -[ ] detect_os
   -[ ] hostname
   -[ ] sleep
-  -[ ] xdg_config_home
 
 -[ ]   Terminal
   -[ ] cursor_col
   -[ ] cursor_pos
   -[ ] cursor_row
+  -[ ] detect_shell
 
 -[ ]   Time
   -[ ] date
@@ -118,10 +118,10 @@
 -[ ]   Util
   -[ ] benchmark
   -[ ] compose
-  -[ ] detect_shell
-  -[ ] random
   -[ ] repeat
 
 -[ ]   Variable
   -[ ] cur_function_name
+  -[ ] random
+  -[ ] xdg_config_home
 

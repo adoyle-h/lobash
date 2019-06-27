@@ -1,5 +1,5 @@
 # ---
-# Category: Util
+# Category: Variable
 # Since: 0.1.0
 # Usage: l.random [<length>=10] [<pattern>=a-zA-Z0-9@#*=[]]
 # Description: Return a random string in specific length.

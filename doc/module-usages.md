@@ -95,11 +95,11 @@
   - [detect_os](#detect_os)
   - [hostname](#hostname)
   - [sleep](#sleep)
-  - [xdg_config_home](#xdg_config_home)
 - [Terminal](#terminal)
   - [cursor_col](#cursor_col)
   - [cursor_pos](#cursor_pos)
   - [cursor_row](#cursor_row)
+  - [detect_shell](#detect_shell)
 - [Time](#time)
   - [date](#date)
   - [now](#now)
@@ -107,11 +107,11 @@
 - [Util](#util)
   - [benchmark](#benchmark)
   - [compose](#compose)
-  - [detect_shell](#detect_shell)
-  - [random](#random)
   - [repeat](#repeat)
 - [Variable](#variable)
   - [cur_function_name](#cur_function_name)
+  - [random](#random)
+  - [xdg_config_home](#xdg_config_home)
 
 ## Arithmetic
 
@@ -753,13 +753,6 @@
 - Since: 0.1.0
 - More Examples: [../tests/modules/sleep.bats](../tests/modules/sleep.bats)
 
-### xdg_config_home
-
-- Usage: `l.xdg_config_home`
-- Description: Return XDG_CONFIG_HOME. Return `${HOME}/.config` if XDG_CONFIG_HOME not set.
-- Since: 0.1.0
-- More Examples: [../tests/modules/xdg_config_home.bats](../tests/modules/xdg_config_home.bats)
-
 ## Terminal
 
 ### cursor_col
@@ -784,6 +777,13 @@
 - Description: Get row number of current cursor position.
 - Since: 0.1.0
 - More Examples: [../tests/modules/cursor_row.bats](../tests/modules/cursor_row.bats)
+
+### detect_shell
+
+- Usage: `l.detect_shell`
+- Description: Return the type of shell.
+- Since: 0.1.0
+- More Examples: [../tests/modules/detect_shell.bats](../tests/modules/detect_shell.bats)
 
 ## Time
 
@@ -825,22 +825,6 @@
 - Since: 0.1.0
 - More Examples: [../tests/modules/compose.bats](../tests/modules/compose.bats)
 
-### detect_shell
-
-- Usage: `l.detect_shell`
-- Description: Return the type of shell.
-- Since: 0.1.0
-- More Examples: [../tests/modules/detect_shell.bats](../tests/modules/detect_shell.bats)
-
-### random
-
-- Usage: `l.random [<length>=10] [<pattern>=a-zA-Z0-9@#*=[]]`
-- Description:
-  - Return a random string in specific length.
-  - The `<pattern>` is allowed characters in range.
-- Since: 0.1.0
-- More Examples: [../tests/modules/random.bats](../tests/modules/random.bats)
-
 ### repeat
 
 - Usage: `l.repeat <N> <command_name> [<command_args>]...`
@@ -856,3 +840,19 @@
 - Description: Return the name of current function where the l.cur_function_name called in.
 - Since: 0.1.0
 - More Examples: [../tests/modules/cur_function_name.bats](../tests/modules/cur_function_name.bats)
+
+### random
+
+- Usage: `l.random [<length>=10] [<pattern>=a-zA-Z0-9@#*=[]]`
+- Description:
+  - Return a random string in specific length.
+  - The `<pattern>` is allowed characters in range.
+- Since: 0.1.0
+- More Examples: [../tests/modules/random.bats](../tests/modules/random.bats)
+
+### xdg_config_home
+
+- Usage: `l.xdg_config_home`
+- Description: Return XDG_CONFIG_HOME. Return `${HOME}/.config` if XDG_CONFIG_HOME not set.
+- Since: 0.1.0
+- More Examples: [../tests/modules/xdg_config_home.bats](../tests/modules/xdg_config_home.bats)
