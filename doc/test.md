@@ -2,7 +2,7 @@
 
 Run `./test ./tests/modules/${module_name}.bats` to test specific module while local development.
 
-Run `./tools/test-in-docker` or `./build && ./test -d` for final complete testing.
+Run `./tools/test-in-docker` or `./build && ./test -d` for complete testing.
 
 ## Import specific modules for testing
 

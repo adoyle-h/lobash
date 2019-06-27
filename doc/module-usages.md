@@ -1,6 +1,6 @@
 # Module Usages
 
-15 Categories, 93 Modules, 494 Test Cases.
+15 Categories, 93 Modules, 496 Test Cases.
 
 ## TOC
 
@@ -797,7 +797,9 @@
 ### now
 
 - Usage: `l.now`
-- Description: Print the timestamp of the number of milliseconds that have elapsed since the Unix epoch (1 January 1970 00:00:00 UTC).
+- Description:
+  - Print the timestamp of the number of milliseconds that have elapsed since the Unix epoch (1 January 1970 00:00:00 UTC).
+  - Require Perl 5.8.8 and higher install if run in Alpine/Busybox systems. And most Unix/Linux operating systems have included Perl 5. See the [Perl Binaries](https://www.cpan.org/ports/binaries.html).
 - Since: 0.1.0
 - More Examples: [../tests/modules/now.bats](../tests/modules/now.bats)
 

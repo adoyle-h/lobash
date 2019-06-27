@@ -2,7 +2,7 @@
   <img alt="Lobash Logo" src="./doc/imgs/lobash.svg">
 </p>
 <p align="center">
-  A modern, safe, powerful utility library for Bash script development.
+  A modern, safe, powerful utility library for Bash/Zsh script development.
 </p>
 
 ## TOC
@@ -10,6 +10,7 @@
 <!-- MarkdownTOC GFM -->
 
 - [What is Lobash?](#what-is-lobash)
+- [Lobash Features](#lobash-features)
 - [Build Status](#build-status)
 - [Installation](#installation)
 - [Prerequisites](#prerequisites)
@@ -20,8 +21,9 @@
     - [Build your lobash.bash](#build-your-lobashbash)
     - [Load lobash.bash in your scripts](#load-lobashbash-in-your-scripts)
 - [Module Usages](#module-usages)
-- [Bin Command](#bin-command)
+- [Command](#command)
 - [FAQ](#faq)
+- [Test](#test)
 - [Contributions](#contributions)
 - [Versioning](#versioning)
 - [Copyright and License](#copyright-and-license)
@@ -32,15 +34,13 @@
 ## What is Lobash?
 
 Javascript has a powerful library [Lodash](https://github.com/lodash/lodash).
-Bash script development is complex and fallible. And shell script may be interpreted different with different shell and external commands (like BSD and GNU utilities).
-So I write Lobash for enhancing shell script development efficiency and making it compatible with Bash and Zsh, MacOS and Linux System.
+Script script development is complex and fallible. The shell script may be interpreted different with different shell.
+And external commands such like BSD and GNU utilities have different options and behaviors.
 
-Lobash is a library not command. You should `source ./src/import.bash` to use Lobash.
-It provides a `import` function to import Lobash modules (functions) .
+Lobash is a library not a command. It provides collections of functions to improve efficiency of shell script development,
+and make it compatible with Bash/Zsh shells and MacOS/Linux/Alpine/Busybox systems.
 
-If you do not know the difference between executing a Bash script and sourcing it, read [this](https://superuser.com/q/176783).
-
-Lobash Features:
+## Lobash Features
 
 - Modular
 - Easy to use
@@ -63,15 +63,14 @@ git submodule update --init --recursive
 
 ## Prerequisites
 
-2. Run Lobash modules in the shell from [Supported Shells List](#supported-shells).
-3. Make sure [dependencies](#dependencies) installed.
-
 ### Supported Platform
 
 | Supported | Platform | Version | Main Reasons                       |
 |:---------:|:---------|:--------|:-----------------------------------|
 |     ✅    | MacOS    | *       | -                                  |
 |     ✅    | Linux    | *       | -                                  |
+|     ✅    | Busybox  | *       | -                                  |
+|     ✅    | Alpine   | *       | -                                  |
 |     ❔    | BSD      | -       | Not tested yet. Maybe not support. |
 |     🚫    | Windows  | -       | Never and ever supported.          |
 
@@ -79,13 +78,13 @@ git submodule update --init --recursive
 
 | Supported | Shell    | Version          | Main Reasons                                       |
 |:---------:|:---------|:-----------------|:---------------------------------------------------|
-|     ❔    | Zsh      | v5 and higher    | Coming soon. Under compatible testing.             |
-|     ❔    | Bash     | v5 and higher    | Not tested yet.                                    |
+|     ✅    | Zsh      | v5.3 and higher  | -                                                  |
+|     ✅    | Bash     | v5 and higher    | -                                                  |
 |     ✅    | Bash     | v4.4             | -                                                  |
 |     🚫    | Bash     | v4.3             | `shopt -s inherit_errexit` not supported util v4.4 |
 |     🚫    | Bash     | v4.0, v4.1, v4.2 | Nameref not support util v4.3                      |
-|     🚫    | Bash     | v3               | Associative array not supported  until v4.0        |
-|     🚫    | POSIX sh |                  | `local` keyword not supported                      |
+|     🚫    | Bash     | v3               | Associative array not supported until v4.0         |
+|     🚫    | POSIX sh | *                | `local` keyword not supported                      |
 
 There is [a list](http://mywiki.wooledge.org/BashFAQ/061) of which features were added to specific releases (versions) of Bash.
 
@@ -93,12 +92,10 @@ Ash/Ksh/Fish/Xiki and other shells are not supported because there are so many [
 
 ### Dependencies
 
-- Perl 5.8.8 and higher.
-  - No need install it by yourself. Almost Unix/Linux operating systems have included Perl 5. See the [Perl Binaries](https://www.cpan.org/ports/binaries.html)
-  - Alpine not include Perl. Install it by `apk add perl`.
-  - Busybox not include Perl. Install it by .
+Make sure below dependencies have been installed.
+
 - Linux commands:
-  - grep/awk/mktemp/dirname/basename/cd/printf/echo/wc
+  - sed/grep/mktemp/dirname/basename/cd/printf/echo/wc
   - sed: BSD and GNU are both supported
 
 ## Usage
@@ -147,8 +144,8 @@ l.ask 'Hello Lobash?'
 
 All Lobash modules are written and tested with the shell options:
 
-  - `set -o errexit`,
-  - `set -o nounset`,
+  - `set -o errexit`
+  - `set -o nounset`
   - `set -o pipefail`
   - `shopt -s inherit_errexit`
 
@@ -167,31 +164,34 @@ sys     0m0.036s
 
 ## Module Usages
 
-See [examples](./example/) and [./doc/module-usages.md](./doc/module-usages.md).
+See [./doc/module-usages.md](./doc/module-usages.md).
 
-## Bin Command
-
-Many modules not work as command.
-The `./bin/lobash` command is only used for certain scenarios.
+## Command
 
 ```sh
-./bin/lobash <module_name> [<module_args>]...
+./bin/lobash mod <module_name> [<module_args>]...
 ```
+
+The `./bin/lobash` command is only used for certain scenarios.
+Many modules not work as command.
 
 ## [FAQ](./doc/faq.md)
 
+## Test
+
+Run `./test -d`.
+
+See [./doc/test.md](./doc/test.md) more details.
+
 ## Contributions
 
-Contributions are welcomed. Please read [this document](./doc/contribution.md).
+Contributions are welcomed. Please read [./doc/contribution.md](./doc/contribution.md).
 
 ## Versioning
 
 The versioning follows the rules of SemVer 2.0.0.
 
-**Attentions**: anything may have **BREAKING CHANGES** at **ANY TIME** when major version is zero (0.y.z), which is for initial development and the public API should be considered unstable.
-
-For more information on SemVer, please visit http://semver.org/.
-
+For more information on SemVer, please visit http://semver.org/ .
 
 ## Copyright and License
 
@@ -204,6 +204,8 @@ See the [NOTICE][] file distributed with this work for additional information re
 ## References
 
 - [pure-bash-bible](https://github.com/dylanaraps/pure-bash-bible)
+- https://www.gnu.org/software/bash/manual/
+- http://mywiki.wooledge.org/BashFAQ
 
 <!-- Links -->
 

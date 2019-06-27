@@ -13,7 +13,7 @@
 
 Read below links before making any contributions.
 
-- Each contributor should sign CLA before pull request.
+- [Developer Certificate of Origin](./dco.md)
 - [Code Styles](./code-styles.md)
 - [Git Message](./git-message.md)
 - [How to write functions](./how-to-write-functions.md)
