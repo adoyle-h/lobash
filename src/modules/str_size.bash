@@ -6,5 +6,16 @@
 # ---
 
 l.str_size() {
-  printf -- '%s\n' "${#1}"
+  [[ -z ${1:-} ]] && echo 0 && return
+
+  # It not work with double-width characters when environment LANG is not UTF-8.
+  local OLD_LANG
+  [[ -n ${LANG:-} ]] && OLD_LANG=$LANG
+
+  LANG=C.UTF-8
+  printf '%s\n' "${#1}"
+
+  if [[ -n ${OLD_LANG:-} ]]; then
+    LANG=$OLD_LANG
+  fi
 }
