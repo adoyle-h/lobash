@@ -33,19 +33,21 @@
 
 ## What is Lobash?
 
-Javascript has a powerful library [Lodash](https://github.com/lodash/lodash).
-Script script development is complex and fallible. The shell script may be interpreted different with different shell.
-And external commands such like BSD and GNU utilities have different options and behaviors.
+Script script development is complex and fallible. Because the shell script may be interpreted differently with different shells.
+And external commands such like BSD and GNU utilities have different options and behaviors although in same command name.
 
-Lobash is a library not a command. It provides collections of functions to improve efficiency of shell script development,
+Javascript has a powerful library [Lodash](https://github.com/lodash/lodash) for simplifying development.
+So I build Lobash to do similar works for shell development.
+
+Lobash is a library not a command. It provides collections of functions to improve efficiency of shell development,
 and make it compatible with Bash/Zsh shells and MacOS/Linux/Alpine/Busybox systems.
 
 ## Lobash Features
 
-- Modular
-- Easy to use
-- Rich Functions
-- Robust and Safe
+- Modular and easy to use. One module one Function.
+- Rich Functions. Over 90+ modules provided.
+- Robust and Safe. Over 500+ test cases which tested under MacOS/Linux/Alpine/Busybox systems with Bash/Zsh shells.
+- Fast. 0.058s to load Lobash completely.
 
 ## Build Status
 
