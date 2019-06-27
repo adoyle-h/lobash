@@ -10,10 +10,10 @@ shopt -s inherit_errexit
 
 readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 
-
 main() {
-  export VERSION="${BASHVER:-4.4}"
-  envsubst < "$SCRIPT_DIR"/test.dockerfile | docker build "$@" -t lobash/test-bash:"$VERSION" -
+  local version="${BASHVER:-4.4}"
+  export VERSION="$version"
+  envsubst < "$SCRIPT_DIR"/test.bash.dockerfile | docker build "$@" -t lobash/test-bash:"$version" -
 }
 
 main "$@"

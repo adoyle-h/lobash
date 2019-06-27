@@ -1,13 +1,17 @@
-FROM bash:$VERSION
+FROM zshusers/zsh:5.3
 
 WORKDIR /test
 
-RUN \
-    cp /etc/apk/repositories /etc/apk/repositories.bak && \
-    sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories && \
-    apk update
+RUN printf '%s\n%s\n%s\n%s\n' \
+    'deb http://mirrors.163.com/debian/ stretch main non-free contrib' \
+    'deb http://mirrors.163.com/debian/ stretch-updates main non-free contrib' \
+    'deb http://mirrors.163.com/debian/ stretch-backports main non-free contrib' \
+    'deb http://mirrors.163.com/debian-security/ stretch/updates main non-free contrib' \
+    > /etc/apt/sources.list
 
-RUN apk add git
+RUN apt-get update
+RUN apt-get -y install git
+
 RUN git clone --depth 1 https://github.com/bats-core/bats-core.git && \
     ./bats-core/install.sh /test/bats
 RUN git clone --depth 1 https://github.com/jasonkarns/bats-assert-1.git
@@ -15,12 +19,11 @@ RUN git clone --depth 1 https://github.com/jasonkarns/bats-support.git
 
 #---------------------------------------------
 
-FROM bash:$VERSION
+FROM zshusers/zsh:$VERSION
 
 LABEL maintainer="ADoyle <adoyle.h@gmail.com>"
 WORKDIR /lobash
 
-RUN apk add --no-cache perl
 RUN mkdir -p /test
 
 COPY --from=0 /test/bats /test/bats

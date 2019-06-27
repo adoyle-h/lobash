@@ -18,7 +18,7 @@ if [[ -z $(docker images -q lobash/test-bash:"${BASHVER}") ]]; then
 fi
 
 docker run \
-  --rm \
+  --rm -it \
   -e DOCKER=true \
   -e CI="${CI:-}" \
   -v "$SCRIPT_DIR"/../test:/lobash/test \
@@ -26,4 +26,5 @@ docker run \
   -v "$SCRIPT_DIR"/../version:/lobash/version \
   -v "$SCRIPT_DIR"/../src:/lobash/src \
   -v "$SCRIPT_DIR"/../tests:/lobash/tests \
-  lobash/test-bash:"${BASHVER}" bash -c "/lobash/build && /lobash/test -d $*"
+  -v "$SCRIPT_DIR"/../dist:/lobash/dist \
+  lobash/test-bash:"${BASHVER}"

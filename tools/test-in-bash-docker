@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1090
+
+set -o errexit
+set -o nounset
+set -o pipefail
+shopt -s inherit_errexit
+[[ -n "${VERBOSE:+x}" ]] && set -o verbose
+[[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
+
+readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+
+echo "[test-bash-in-docker] BASHVER=${BASHVER:=4.4}"
+
+if [[ -z $(docker images -q lobash/test-bash:"${BASHVER}") ]]; then
+  echo "To build image lobash/test-bash:${BASHVER}"
+  BASHVER=$BASHVER "$SCRIPT_DIR/build-test-bash-image"
+fi
+
+docker run \
+  --rm \
+  -e DOCKER=true \
+  -e CI="${CI:-}" \
+  -v "$SCRIPT_DIR"/../test:/lobash/test \
+  -v "$SCRIPT_DIR"/../build:/lobash/build \
+  -v "$SCRIPT_DIR"/../version:/lobash/version \
+  -v "$SCRIPT_DIR"/../src:/lobash/src \
+  -v "$SCRIPT_DIR"/../tests:/lobash/tests \
+  lobash/test-bash:"${BASHVER}" bash -c "/lobash/build && /lobash/test -d $*"

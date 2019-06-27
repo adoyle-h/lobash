@@ -19,6 +19,11 @@ os:
 env:
   - BASHVER=4.4
   - BASHVER=5.0
+  - ZSHVER=5.3
+  - ZSHVER=5.4
+  - ZSHVER=5.5
+  - ZSHVER=5.6
+  - ZSHVER=5.7
 
 cache:
   directories:
@@ -40,17 +45,27 @@ install:
     fi
   - |
     if [[ "$TRAVIS_OS_NAME" == 'linux' ]]; then
-      docker pull lobash/test-bash:${BASHVER}
+      if [[ -n ${ZSHVER:-} ]]; then
+        docker pull lobash/test-zsh:${ZSHVER}
+      else
+        docker pull lobash/test-bash:${BASHVER}
+      fi
     fi
 
 script:
   - export PATH="$TRAVIS_BUILD_DIR/build-bash/bin:$PATH"
   - printf "%s\n%s\n" "The Bash used for test:" "$(bash --version)"
   - |
-    # Start to test
     if [[ "$TRAVIS_OS_NAME" == 'linux' ]]; then
-      time bash ./tools/test-in-docker
+      if [[ -n ${ZSHVER:-} ]]; then
+        # Start to test in Zsh docker
+        time bash ./tools/test-zsh-in-docker
+      else
+        # Start to test in Bash docker
+        time bash ./tools/test-bash-in-docker
+      fi
     else
+      # Start to test in MacOS
       time bash ./test
     fi
 
