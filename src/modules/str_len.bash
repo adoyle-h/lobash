@@ -6,15 +6,18 @@
 # ---
 
 l.str_len() {
-  local oLang oLcAll bytlen
-  [[ -n ${LC_ALL:-} ]] && oLcAll=$LC_ALL
-  [[ -n ${LANG:-} ]] && oLang=$LANG
+  [[ -z ${1:-} ]] && echo 0 && return
+
+  local old_lang old_lc_all bytlen
+  [[ -n ${LC_ALL:-} ]] && old_lc_all=$LC_ALL
+  [[ -n ${LANG:-} ]] && old_lang=$LANG
 
   LANG=C LC_ALL=C
   bytlen=${#1}
-
-  [[ -n ${oLang:-} ]] && LANG=$oLang
-  [[ -n ${oLcAll:-} ]] && LC_ALL=$oLcAll
-
   printf -- '%s\n' "$bytlen"
+
+  [[ -n ${old_lang:-} ]] && LANG=$old_lang
+  if [[ -n ${old_lc_all:-} ]]; then
+    LC_ALL=$old_lc_all
+  fi
 }

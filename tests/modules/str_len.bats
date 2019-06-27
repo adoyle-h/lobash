@@ -3,6 +3,12 @@
 setup_fixture
 load_module str_len
 
+@test "l.str_len ''" {
+  run l.str_len ''
+	assert_success
+	assert_output 0
+}
+
 @test "l.str_len hello" {
   run l.str_len "hello"
 	assert_success
