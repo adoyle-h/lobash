@@ -19,20 +19,14 @@ generate() {
   local -n c=category_$category
 
   printf -- '-[ ]   %s\n' "${category^}" >> "$TARGET_BASH"
-  printf -- '-[ ]   %s\n' "${category^}" >> "$TARGET_ZSH"
 
   for module_name in "${c[@]}"; do
     if [[ ${map[${module_name}_bash_0]} == true ]]; then
       printf -- '  -[ ] %s\n' "$module_name" >> "$TARGET_BASH"
     fi
-
-    if [[ ${map[${module_name}_zsh_0]} == true ]]; then
-      printf -- '  -[ ] %s\n' "$module_name" >> "$TARGET_ZSH"
-    fi
   done
 
   echo >> "$TARGET_BASH"
-  echo >> "$TARGET_ZSH"
 }
 
 add_to_map() {
@@ -51,7 +45,6 @@ add_to_map() {
 
 main() {
   local TARGET_BASH="$SCRIPT_DIR/../config.bash.example"
-  local TARGET_ZSH="$SCRIPT_DIR/../config.zsh.example"
   local -A map
   local -a categories
 
@@ -80,19 +73,11 @@ main() {
     cate+=("$module_name")
 
     add_to_map bash true
-    add_to_map zsh true
   done
 
   categories=( $(l.sort categories) )
 
   cat <<EOF > "$TARGET_BASH"
-# Select modules or categories to export
-# -[ ]  Unselected
-# -[x]  Selected
-
-EOF
-
-  cat <<EOF > "$TARGET_ZSH"
 # Select modules or categories to export
 # -[ ]  Unselected
 # -[x]  Selected
@@ -105,7 +90,6 @@ EOF
   done
 
   echo "Generate: $TARGET_BASH"
-  echo "Generate: $TARGET_ZSH"
 }
 
 main "$@"

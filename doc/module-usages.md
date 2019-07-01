@@ -1,6 +1,6 @@
 # Module Usages
 
-15 Categories, 93 Modules, 496 Test Cases.
+15 Categories, 92 Modules, 494 Test Cases.
 
 ## TOC
 
@@ -99,7 +99,6 @@
   - [cursor_col](#cursor_col)
   - [cursor_pos](#cursor_pos)
   - [cursor_row](#cursor_row)
-  - [detect_shell](#detect_shell)
 - [Time](#time)
   - [date](#date)
   - [now](#now)
@@ -512,6 +511,7 @@
   - Print a message and read Yes/No answer from stdin.
   - when default=Y, if will return YES by default.
   - when default=N, if will return NO by default.
+- Dependent: [`lower_case`](#lower_case)
 - Since: 0.1.0
 - Executable Example: [../example/modules/ask](../example/modules/ask)
 - More Examples: [../tests/modules/ask.bats](../tests/modules/ask.bats)
@@ -777,13 +777,6 @@
 - Description: Get row number of current cursor position.
 - Since: 0.1.0
 - More Examples: [../tests/modules/cursor_row.bats](../tests/modules/cursor_row.bats)
-
-### detect_shell
-
-- Usage: `l.detect_shell`
-- Description: Return the type of shell.
-- Since: 0.1.0
-- More Examples: [../tests/modules/detect_shell.bats](../tests/modules/detect_shell.bats)
 
 ## Time
 

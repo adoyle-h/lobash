@@ -10,12 +10,7 @@ shopt -s inherit_errexit
 
 readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 
-echo "[test-in-docker] BASHVER=${BASHVER:=4.4}"
-
-if [[ -z $(docker images -q lobash/test-bash:"${BASHVER}") ]]; then
-  echo "To build image lobash/test-bash:${BASHVER}"
-  BASHVER=$BASHVER "$SCRIPT_DIR/build-test-image"
-fi
+echo "[run-in-docker] BASHVER=${BASHVER:=4.4}"
 
 docker run \
   --rm -it \

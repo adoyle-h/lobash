@@ -6,5 +6,5 @@
 # ---
 
 l.is_bash() {
-  [[ -n "${BASH_VERSION:-}" ]] && echo true || echo false
+  _lobash.is_bash
 }

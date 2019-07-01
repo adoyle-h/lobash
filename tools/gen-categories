@@ -48,9 +48,8 @@ main() {
   local CATE_DIR=$SCRIPT_DIR/../src/internals/categories
   safe_rm "$CATE_DIR"
   mkdir -p "$CATE_DIR/bash"
-  mkdir -p "$CATE_DIR/zsh"
 
-  local filepath module_name category metadatas bash_support zsh_support
+  local filepath module_name category metadatas bash_support
   for filepath in $SCRIPT_DIR/../src/modules/*.bash; do
     module_name=$(basename "$filepath" .bash)
 
@@ -61,28 +60,19 @@ main() {
     metadatas=$(_lobash.get_module_metadata_str "$filepath")
     category=$(get_metas Category)
     bash_support=$(get_metas Bash true)
-    zsh_support=$(get_metas Zsh true)
 
     if [[ -n $category ]]; then
       category=${category,,}
-      echo "Added to category: $category/$module_name [Bash=$bash_support][Zsh=$zsh_support]"
+      echo "Added to category: $category/$module_name [Bash=$bash_support]"
 
       if [[ $bash_support == true ]]; then
         printf '%s ' "$module_name" >> "$CATE_DIR/bash/$category"
-      fi
-
-      if [[ $zsh_support == true ]]; then
-        printf '%s ' "$module_name" >> "$CATE_DIR/zsh/$category"
       fi
     fi
   done
 
   local file
   for file in "$CATE_DIR"/bash/* ; do
-    printf '\n' >> "$file"
-  done
-
-  for file in "$CATE_DIR"/zsh/* ; do
     printf '\n' >> "$file"
   done
 }

@@ -10,20 +10,20 @@ shopt -s inherit_errexit
 
 readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 
-echo "[test-zsh-in-docker] ZSHVER=${ZSHVER:=5.3}"
+echo "[test-in-docker] BASHVER=${BASHVER:=4.4}"
 
-if [[ -z $(docker images -q lobash/test-zsh:"${ZSHVER}") ]]; then
-  echo "To build image lobash/test-zsh:${ZSHVER}"
-  ZSHVER=$ZSHVER "$SCRIPT_DIR/build-test-zsh-image"
+if [[ -z $(docker images -q lobash/test-bash:"${BASHVER}") ]]; then
+  echo "To build image lobash/test-bash:${BASHVER}"
+  BASHVER=$BASHVER "$SCRIPT_DIR/build-image"
 fi
 
 docker run \
   --rm \
   -e DOCKER=true \
-  -e CI=true \
+  -e CI="${CI:-}" \
   -v "$SCRIPT_DIR"/../test:/lobash/test \
   -v "$SCRIPT_DIR"/../build:/lobash/build \
   -v "$SCRIPT_DIR"/../version:/lobash/version \
   -v "$SCRIPT_DIR"/../src:/lobash/src \
   -v "$SCRIPT_DIR"/../tests:/lobash/tests \
-  lobash/test-zsh:"${ZSHVER}" bash -c "/lobash/build && /lobash/test -d $*"
+  lobash/test-bash:"${BASHVER}" bash -c "/lobash/build && /lobash/test -d $*"

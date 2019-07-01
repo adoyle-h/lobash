@@ -108,7 +108,6 @@
   -[ ] cursor_col
   -[ ] cursor_pos
   -[ ] cursor_row
-  -[ ] detect_shell
 
 -[ ]   Time
   -[ ] date

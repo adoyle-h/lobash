@@ -8,7 +8,7 @@ RUN \
     apk update
 
 RUN apk add git
-RUN git clone --depth 1 https://github.com/bats-core/bats-core.git && \
+RUN git clone --depth 1 --branch v1.1.0 https://github.com/bats-core/bats-core.git && \
     ./bats-core/install.sh /test/bats
 RUN git clone --depth 1 https://github.com/jasonkarns/bats-assert-1.git
 RUN git clone --depth 1 https://github.com/jasonkarns/bats-support.git

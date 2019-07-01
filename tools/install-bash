@@ -4,19 +4,20 @@
 set -o errexit
 set -o nounset
 set -o pipefail
+shopt -s inherit_errexit
 [[ -n "${VERBOSE:+x}" ]] && set -o verbose
 [[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
 
 # GNU Mirror List: https://www.gnu.org/prep/ftp.html
 MIRROR=https://gnu.freemirror.org
 VERSION=$1
-BASH_PREFIX=$TRAVIS_BUILD_DIR/build-bash
+BUILD_DIR=$TRAVIS_BUILD_DIR/build-bash/$VERSION
 
-mkdir -p "$TRAVIS_BUILD_DIR/build-bash"
-cd "$TRAVIS_BUILD_DIR/build-bash"
+mkdir -p "$BUILD_DIR"
+cd "$TRAVIS_BUILD_DIR"
 curl -O $MIRROR/gnu/bash/bash-"$VERSION".tar.gz
 tar xzf bash-"$VERSION".tar.gz
 cd "bash-$VERSION"
-./configure --prefix="$BASH_PREFIX"
+./configure --prefix="$BUILD_DIR"
 make
 sudo make install

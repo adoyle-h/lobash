@@ -24,9 +24,6 @@ is_valid_lobash_prefix() {
 }
 
 init() {
-  _lobash.check_shell
-  _lobash.check_os
-
   if [[ -z ${1:-} ]]; then
     TARGET=$SCRIPT_DIR/dist/lobash.bash
   else

@@ -13,7 +13,6 @@ readonly _LOBASH_PRIVATE_FUNC_PREFIX=_l.
 readonly _LOBASH_PRIVATE_CONST_PREFIX=_L_
 readonly _LOBASH_PUBLIC_FUNC_PREFIX=l.
 readonly _LOBASH_PUBLIC_CONST_PREFIX=L_
-_LOBASH_PREFIX=l.
+readonly _LOBASH_PREFIX=l.
 
 readonly _LOBASH_OS=$(_lobash.detect_os)
-readonly _LOBASH_SHELL=$(_lobash.detect_shell)

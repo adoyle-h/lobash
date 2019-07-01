@@ -5,6 +5,7 @@
 # Description: Print a message and read Yes/No answer from stdin.
 # Description: when default=Y, if will return YES by default.
 # Description: when default=N, if will return NO by default.
+# Dependent: lower_case
 # ---
 
 l.ask() {
@@ -24,7 +25,8 @@ l.ask() {
 
   local answer
   read -rp "$msg $prompt " answer
-  answer=${answer,,}
+
+  answer=$(l.lower_case "$answer")
   if [[ $answer =~ ^ye?s?$ ]]; then
     echo YES
   elif [[ $answer =~ ^no?$ ]]; then

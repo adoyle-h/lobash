@@ -5,7 +5,7 @@ set -o errexit
 set -o nounset
 set -o pipefail
 shopt -s inherit_errexit
-[[ -n "${VERBOSE:+x}" ]] && set -o verbose
+[[ -n "${VERBOSE:-}" ]] && set -o verbose
 [[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
 
 export IS_LOBASH_TEST=1
@@ -25,16 +25,12 @@ if [[ ${1:-} == '-d' ]]; then
   }
 fi
 
-test_dirs=${1:-}
-
-if [ -z "$test_dirs" ]; then
+if [[ -z "${1:-}" ]]; then
   test_dirs=( "$LOBASH_TEST_DIR"/{,modules} )
 else
   test_dirs=( "$1" )
 fi
 
-if [[ -z ${DOCKER:-} ]]; then
-  export PATH="$LOBASH_TEST_DIR/fixture/bats/bin:${PATH}"
-fi
+export PATH="$LOBASH_TEST_DIR/fixture/bats/bin:${PATH}"
 
 exec bats ${CI:+--tap} "${test_dirs[@]}"

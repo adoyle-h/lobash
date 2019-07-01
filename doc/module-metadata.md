@@ -13,7 +13,6 @@ Like this:
 # Usage: l.public_function arguments [options]
 # Description: function description
 # Bash: true
-# Zsh: true
 # Status: tested
 # ---
 ```
@@ -85,12 +84,6 @@ It can be multiple.
 It is optional. Default to `true`.
 
 Whether support Bash or not.
-
-## Zsh
-
-It is optional. Default to `true`.
-
-Whether support Zsh or not.
 
 # Status
 

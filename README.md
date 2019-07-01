@@ -2,7 +2,7 @@
   <img alt="Lobash Logo" src="./doc/imgs/lobash.svg">
 </p>
 <p align="center">
-  A modern, safe, powerful utility library for Bash/Zsh script development.
+  A modern, safe, powerful utility library for Bash script development.
 </p>
 
 ## TOC
@@ -19,6 +19,7 @@
     - [Dependencies](#dependencies)
 - [Usage](#usage)
     - [Build your lobash.bash](#build-your-lobashbash)
+    - [Edit your scripts and set shell options](#edit-your-scripts-and-set-shell-options)
     - [Load lobash.bash in your scripts](#load-lobashbash-in-your-scripts)
 - [Module Usages](#module-usages)
 - [Command](#command)
@@ -40,13 +41,13 @@ Javascript has a powerful library [Lodash](https://github.com/lodash/lodash) for
 So I build Lobash to do similar works for shell development.
 
 Lobash is a library not a command. It provides collections of functions to improve efficiency of shell development,
-and make it compatible with Bash/Zsh shells and MacOS/Linux/Alpine/Busybox systems.
+and make it compatible with Bash 4.4+ and MacOS/Linux/Alpine/Busybox systems.
 
 ## Lobash Features
 
 - Modular and easy to use. One module one Function.
 - Rich Functions. Over 90+ modules provided.
-- Robust and Safe. Over 500+ test cases which tested under MacOS/Linux/Alpine/Busybox systems with Bash/Zsh shells.
+- Robust and Safe. Over 500+ test cases which tested under MacOS/Linux/Alpine/Busybox systems with Bash.
 - Fast. 0.058s to load Lobash completely.
 
 ## Build Status
@@ -78,19 +79,20 @@ git submodule update --init --recursive
 
 ### Supported Shells
 
-| Supported | Shell    | Version          | Main Reasons                                       |
-|:---------:|:---------|:-----------------|:---------------------------------------------------|
-|     ✅    | Zsh      | v5.3 and higher  | -                                                  |
-|     ✅    | Bash     | v5 and higher    | -                                                  |
-|     ✅    | Bash     | v4.4             | -                                                  |
-|     🚫    | Bash     | v4.3             | `shopt -s inherit_errexit` not supported util v4.4 |
-|     🚫    | Bash     | v4.0, v4.1, v4.2 | Nameref not support util v4.3                      |
-|     🚫    | Bash     | v3               | Associative array not supported until v4.0         |
-|     🚫    | POSIX sh | *                | `local` keyword not supported                      |
+| Supported | Shell    | Version          | Main Reasons                                          |
+|:---------:|:---------|:-----------------|:------------------------------------------------------|
+|     ✅    | Bash     | v5 and higher    | -                                                     |
+|     ✅    | Bash     | v4.4             | -                                                     |
+|     🚫    | Zsh      | v5.3 and higher  | Plan to implement it in another project               |
+|     🚫    | Bash     | v4.3             | `shopt -s inherit_errexit` is not supported util v4.4 |
+|     🚫    | Bash     | v4.0, v4.1, v4.2 | Nameref is not supported util v4.3                    |
+|     🚫    | Bash     | v3               | Associative array is not supported until v4.0         |
+|     🚫    | POSIX sh | *                | `local` keyword not supported                         |
+|     ❔    | Ksh      | *                | No tested                                             |
 
 There is [a list](http://mywiki.wooledge.org/BashFAQ/061) of which features were added to specific releases (versions) of Bash.
 
-Ash/Ksh/Fish/Xiki and other shells are not supported because there are so many [differences](http://hyperpolyglot.org/unix-shells).
+Although most Linux distributions use Bash v4.3, you can upgrade Bash easily and it is backward compatible.
 
 ### Dependencies
 
@@ -122,6 +124,30 @@ When you build a command, `PREFIX` is unnecessary.
 
 The `PREFIX` only effect Lobash public functions and variables names.
 
+### Edit your scripts and set shell options
+
+All Lobash modules are written and tested with the shell options:
+
+- `set -o errexit`
+- `set -o nounset`
+- `set -o pipefail`
+- `shopt -s inherit_errexit`
+
+If you do not understand the meanings of these shell options,
+please read [this article](https://dougrichardson.org/2018/08/03/fail-fast-bash-scripting.html).
+
+**Lobash not enable these options by default. Make sure the same shell options enabled before call Lobash functions in your scripts. Otherwise there may be unexpected behaviors with it.**
+
+If your develop a Bash script, put below codes in head.
+
+```sh
+#!/usr/bin/env bash
+
+set -o errexit
+set -o nounset
+set -o pipefail
+shopt -s inherit_errexit
+```
 
 ### Load lobash.bash in your scripts
 
@@ -144,17 +170,7 @@ l.ask 'Hello Lobash?'
 # lobash_ask 'Hello Lobash?'
 ```
 
-All Lobash modules are written and tested with the shell options:
-
-  - `set -o errexit`
-  - `set -o nounset`
-  - `set -o pipefail`
-  - `shopt -s inherit_errexit`
-
-**Lobash not enable these options by default. Make sure the same shell options enabled before call Lobash functions in your scripts. Otherwise there may be unexpected behaviors with it.**
-
-
-Load `lobash.bash` is fast, nearly 0.058s.
+Load `lobash.bash` is fast, nearly 0.058s in fact.
 
 ```sh
 time source ./dist/lobash.bash

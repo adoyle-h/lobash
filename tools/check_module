@@ -20,7 +20,7 @@ warn() {
 
 error() { warn "$@"; }
 
-check_file() {
+rule_file() {
   if [[ ! -f $1 ]]; then
     error not found module file: "$1"
     return 3
@@ -46,7 +46,7 @@ check_file() {
   fi
 }
 
-check_no_export() {
+rule_no_export() {
   local filepath=$1
   local found
   found=$(grep 'export ' "$filepath" || true)
@@ -57,7 +57,7 @@ check_no_export() {
   fi
 }
 
-check_lodash_typos() {
+rule_lodash_typos() {
   local filepath=$1
   local found
   found=$(grep '[lL][oO][dD][aA][sS][hH]' "$filepath" || true)
@@ -68,7 +68,7 @@ check_lodash_typos() {
   fi
 }
 
-check_alias() {
+rule_alias() {
   local found
   found="$(grep '^alias ' "$1" || true)"
 
@@ -78,7 +78,7 @@ check_alias() {
   fi
 }
 
-check_pubilc_function() {
+rule_pubilc_function() {
   local count found
   found="$(grep -E '^([A-Za-z0-9]\w*)\(\) ?\{$' "$1")"
   count=$(wc -l <<< "$found")
@@ -92,7 +92,7 @@ check_pubilc_function() {
   fi
 }
 
-check_metadata() {
+rule_metadata() {
   local lines found
   found=$(sed -n '/^# ---$/,/^# ---$/p' "$1")
   lines=$( wc -l <<< "$found" )
@@ -104,7 +104,7 @@ check_metadata() {
   fi
 }
 
-check_no_echo() {
+rule_no_echo() {
   local filepath=$1
 
   if grep -o ' echo ' "$filepath" >/dev/null; then
@@ -113,23 +113,24 @@ check_no_echo() {
   fi
 }
 
-check_duplicated_function() {
+rule_duplicated_function() {
   local filepath=$1
 }
 
-check_module() {
+rule_module() {
   local filepath=$1
   filepath=$(l.normalize "$filepath")
 
   rules=(
-  check_file
-  check_alias
-  check_pubilc_function
-  check_metadata
-  check_lodash_typos
-  check_no_export
-  # check_no_echo
-  check_duplicated_function
+    rule_file
+    rule_alias
+    rule_pubilc_function
+    rule_metadata
+    rule_lodash_typos
+    rule_no_export
+    # rule_no_echo
+    rule_duplicated_function
+    rule_never_use_path_var
   )
 
   for i in "${!rules[@]}"; do
@@ -138,17 +139,17 @@ check_module() {
   done
 }
 
-check_all_module() {
+rule_all_module() {
   for filepath in $SCRIPT_DIR/../src/modules/*.bash; do
-    check_module "$filepath"
+    rule_module "$filepath"
   done
 }
 
 main() {
   if [[ $1 == all ]]; then
-    check_all_module
+    rule_all_module
   else
-    check_module "$1"
+    rule_module "$1"
   fi
 }
 
