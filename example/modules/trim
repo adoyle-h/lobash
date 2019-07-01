@@ -11,6 +11,8 @@ shopt -s inherit_errexit
 readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 source "$SCRIPT_DIR"/init.bash
 
-echo '  123  ' | l.trim.p
+a=$(echo '  123  ' | l.trim.p)
+b=$(l.trim ' abcd ')
 
-l.trim ' abc '
+echo "a=$a and a.length=${#a}"
+echo "b=$b and b.length=${#b}"
