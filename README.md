@@ -24,11 +24,12 @@
 - [Module Usages](#module-usages)
 - [Command](#command)
 - [FAQ](#faq)
+- [Who use Lobash](#who-use-lobash)
+- [References](#references)
 - [Test](#test)
 - [Contributions](#contributions)
 - [Versioning](#versioning)
 - [Copyright and License](#copyright-and-license)
-- [References](#references)
 
 <!-- /MarkdownTOC -->
 
@@ -196,6 +197,16 @@ Many modules not work as command.
 
 ## [FAQ](./doc/faq.md)
 
+## Who use Lobash
+
+- [adoyle-h/dotfiles](https://github.com/adoyle-h/dotfiles)
+
+## References
+
+- [pure-bash-bible](https://github.com/dylanaraps/pure-bash-bible)
+- https://www.gnu.org/software/bash/manual/
+- http://mywiki.wooledge.org/BashFAQ
+
 ## Test
 
 Run `./test -d`.
@@ -204,7 +215,9 @@ See [./doc/test.md](./doc/test.md) more details.
 
 ## Contributions
 
-Contributions are welcomed. Please read [./doc/contribution.md](./doc/contribution.md).
+Any suggestions and contributions are always welcome. Please open an [issue][] to talk with me.
+
+Please read [./doc/contribution.md](./doc/contribution.md) before make a Pull Request.
 
 ## Versioning
 
@@ -222,15 +235,11 @@ See the [LICENSE][] file for the specific language governing permissions and lim
 
 See the [NOTICE][] file distributed with this work for additional information regarding copyright ownership.
 
-## References
-
-- [pure-bash-bible](https://github.com/dylanaraps/pure-bash-bible)
-- https://www.gnu.org/software/bash/manual/
-- http://mywiki.wooledge.org/BashFAQ
 
 <!-- Links -->
 
 [LICENSE]: ./LICENSE
 [NOTICE]: ./NOTICE
+[issue]: https://github.com/adoyle-h/dotfiles/issues
 [Master Branch]: https://github.com/adoyle-h/lobash/tree/master
 [Develop Branch]: https://github.com/adoyle-h/lobash/tree/develop
