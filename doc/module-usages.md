@@ -1,6 +1,6 @@
 # Module Usages
 
-15 Categories, 92 Modules, 494 Test Cases.
+15 Categories, 91 Modules, 494 Test Cases.
 
 ## TOC
 
@@ -60,7 +60,6 @@
   - [normalize](#normalize)
   - [normalize.p](#normalize.p)
   - [pwd](#pwd)
-  - [relative](#relative)
 - [Prompt](#prompt)
   - [ask](#ask)
   - [choose](#choose)
@@ -494,13 +493,6 @@
 - Description: Return the current working directory as set by the `cd` builtin command.
 - Since: 0.1.0
 - More Examples: [../tests/modules/pwd.bats](../tests/modules/pwd.bats)
-
-### relative
-
-- Usage: `l.relative <path1> <path2>`
-- Dependent: [`normalize`](#normalize)
-- Since: 0.1.0
-- More Examples: [../tests/modules/relative.bats](../tests/modules/relative.bats)
 
 ## Prompt
 
