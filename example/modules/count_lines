@@ -11,6 +11,4 @@ shopt -s inherit_errexit
 readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 source "$SCRIPT_DIR"/init.bash
 
-l.count_lines.p <<< 'a\nb\n'
-
-l.count_lines "$(printf 'a\nb\n')"
+l.count_lines.p < <(printf 'a\nb\n')

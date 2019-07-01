@@ -1,6 +1,6 @@
 # Module Usages
 
-15 Categories, 91 Modules, 494 Test Cases.
+15 Categories, 90 Modules, 495 Test Cases.
 
 ## TOC
 
@@ -64,7 +64,6 @@
   - [ask](#ask)
   - [choose](#choose)
 - [String](#string)
-  - [count_lines](#count_lines)
   - [count_lines.p](#count_lines.p)
   - [end_with](#end_with)
   - [join](#join)
@@ -519,21 +518,13 @@
 
 ## String
 
-### count_lines
-
-- Usage: `l.count_lines <string>`
-- Description:
-  - Count lints of string like `wc -l`.
-  - The Bash command substitution always trim blank line. So l.count_lines do not accept normal parameter passing.
-  - Refer to https://stackoverflow.com/a/37706905
-- Since: 0.1.0
-- Executable Example: [../example/modules/count_lines](../example/modules/count_lines)
-- More Examples: [../tests/modules/count_lines.bats](../tests/modules/count_lines.bats)
-
 ### count_lines.p
 
 - Usage: `echo <string> | l.count_lines.p`
-- Description: The pipeline version of l.count_lines
+- Description:
+  - Count lints of string like `wc -l`.
+  - The Bash command substitution always trim blank line. So pass argument in pipeline.
+  - Refer to https://stackoverflow.com/a/37706905
 - Since: 0.1.0
 - Executable Example: [../example/modules/count_lines](../example/modules/count_lines)
 - More Examples: [../tests/modules/count_lines.p.bats](../tests/modules/count_lines.p.bats)

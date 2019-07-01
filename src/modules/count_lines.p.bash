@@ -2,7 +2,9 @@
 # Category: String
 # Since: 0.1.0
 # Usage: echo <string> | l.count_lines.p
-# Description: The pipeline version of l.count_lines
+# Description: Count lints of string like `wc -l`.
+# Description: The Bash command substitution always trim blank line. So pass argument in pipeline.
+# Description: Refer to https://stackoverflow.com/a/37706905
 # ---
 
 l.count_lines.p() {
