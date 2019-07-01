@@ -3,8 +3,6 @@
 setup_fixture
 load_module count_lines
 
-skip
-
 @test "l.count_lines ''" {
   run l.count_lines ''
   assert_success
