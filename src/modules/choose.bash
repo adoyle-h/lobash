@@ -6,20 +6,22 @@
 # Description: Prompt user to choose one item from options. The function will return the value of chosen item.
 # ---
 
+_l.choose_prompt() {
+  printf '  %s\n' 'No. Item'
+  local i
+  for i in "${!items[@]}"; do
+    printf -- '- %-2d  %s\n' $(("$i" + 1)) "${items[$i]}"
+  done
+
+  printf 'Please enter the number to choose: \n'
+}
+
 l.choose() {
   local items=("$@")
 
-  # command may invoked in no-login shell
-  if [[ $- =~ i ]]; then
-    printf -- '  %s\n' 'No. Item' >/dev/tty
-    local i
-    for i in "${!items[@]}"; do
-      printf -- '- %-2d  %s\n' $(("$i" + 1)) "${items[$i]}" >/dev/tty
-    done
-  fi
-
-  local num
-  read -r -p "Please enter the number to choose: " num
+  local num prompt
+  prompt=$(_l.choose_prompt)
+  read -r -p "$prompt" num
 
   local r
   r=$(l.is_integer "$num")
