@@ -213,7 +213,9 @@ For more information on SemVer, please visit http://semver.org/ .
 
 ## Copyright and License
 
-Copyright (c) 2019 ADoyle. The project is licensed under the **Apache License Version 2.0**.
+Copyright 2019 ADoyle (adoyle.h@gmail.com) Some Rights Reserved.
+
+The project is licensed under the **Apache License Version 2.0**.
 
 See the [LICENSE][] file for the specific language governing permissions and limitations under the License.
 
