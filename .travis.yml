@@ -4,11 +4,6 @@ git:
   depth: 1
   submodules: false
 
-branches:
-  only:
-    - master
-    - test
-
 if: |
   tag =~ ^v OR \
   branch = "test"
