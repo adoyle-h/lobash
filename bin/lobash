@@ -1,0 +1,83 @@
+#!/usr/bin/env bash
+#
+# Filename:
+# Description:
+# Author: ADoyle <adoyle.h@gmail.com>
+# LICENSE: Apache License, Version 2.0
+# Bash Version: 3.x and higher
+
+set -o errexit
+set -o nounset
+set -o pipefail
+shopt -s inherit_errexit
+[[ -n "${VERBOSE:+x}" ]] && set -o verbose
+[[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
+
+readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+
+#######################################################################
+#                           initialization                            #
+#######################################################################
+
+usage() {
+cat <<EOF
+Usage: lobash [-h|--help]
+Usage: lobash mod <module_name> [<module_args>]...
+EOF
+}
+
+
+declare -A dispatch_cmd_opts
+declare -a dispatch_cmd_args
+
+opt_parse() {
+  while [ $# -gt 0 ];do
+    case $1 in
+      -h)
+        dispatch_cmd_opts[help]=true
+        ;;
+      --help)
+        dispatch_cmd_opts[help]=true
+        ;;
+      *)
+        dispatch_cmd_args+=("$1")
+        ;;
+    esac
+    shift
+  done
+
+  # declare -p dispatch_cmd_opts
+}
+
+#######################################################################
+#                           private methods                           #
+#######################################################################
+
+exec_module() {
+  # shellcheck source=../src/load_internals.bash
+  source "$SCRIPT_DIR/../src/load_internals.bash"
+  local module=$1
+  _lobash.imports "$module"
+  shift
+  "l.$module" "$@"
+}
+
+#######################################################################
+#                           public methods                            #
+#######################################################################
+
+main() {
+  opt_parse "$@"
+  local arg0=${dispatch_cmd_args[0]:-}
+
+  if [[ ${dispatch_cmd_opts[help]:-} == true ]] || [[ -z "$arg0" ]]; then
+    usage
+    exit 0
+  fi
+
+  if [[ $arg0 == mod ]]; then
+    exec_module "${dispatch_cmd_args[@]:1}"
+  fi
+}
+
+main "$@"

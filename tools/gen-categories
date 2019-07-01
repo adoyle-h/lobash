@@ -1,0 +1,80 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1090
+
+set -o errexit
+set -o nounset
+set -o pipefail
+shopt -s inherit_errexit
+[[ -n "${VERBOSE:+x}" ]] && set -o verbose
+[[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
+
+readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+
+source "$SCRIPT_DIR"/../src/load_internals.bash
+_lobash.import_internals module_meta
+_lobash.imports array_include
+
+safe_rm() {
+  local path=$1
+  if [[ $path == / ]]; then
+    echo "Dangerous! Do not rm $path"
+    return 3
+  fi
+
+  if [[ $(dirname "$path") == / ]]; then
+    echo "Dangerous! Do not rm $path"
+    return 3
+  fi
+
+  rm -rf -- "$path"
+}
+
+lower_case() {
+  read -r str
+  printf '%s\n' "${str,,}"
+}
+
+get_metas() {
+  local name=$1
+  local i
+  while read -r i; do
+    if [[ -n "$i" ]]; then
+      printf '%s\n' "$i"
+    fi
+  done < <(echo "$metadatas" | grep -Eo "^${name}: .+$" | sed "s/${name}: //" || echo "${2:-}")
+}
+
+main() {
+  local CATE_DIR=$SCRIPT_DIR/../src/internals/categories
+  safe_rm "$CATE_DIR"
+  mkdir -p "$CATE_DIR/bash"
+
+  local filepath module_name category metadatas bash_support
+  for filepath in $SCRIPT_DIR/../src/modules/*.bash; do
+    module_name=$(basename "$filepath" .bash)
+
+    if [[ $(l.array_include _LOBASH_IMPORT_ENTRIES "$module_name") == true ]] ; then
+      continue
+    fi
+
+    metadatas=$(_lobash.get_module_metadata_str "$filepath")
+    category=$(get_metas Category)
+    bash_support=$(get_metas Bash true)
+
+    if [[ -n $category ]]; then
+      category=${category,,}
+      echo "Added to category: $category/$module_name [Bash=$bash_support]"
+
+      if [[ $bash_support == true ]]; then
+        printf '%s ' "$module_name" >> "$CATE_DIR/bash/$category"
+      fi
+    fi
+  done
+
+  local file
+  for file in "$CATE_DIR"/bash/* ; do
+    printf '\n' >> "$file"
+  done
+}
+
+main "$@"

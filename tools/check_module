@@ -1,0 +1,156 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1090
+
+set -o errexit
+set -o nounset
+set -o pipefail
+shopt -s inherit_errexit
+[[ -n "${VERBOSE:+x}" ]] && set -o verbose
+[[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
+
+readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+
+source "$SCRIPT_DIR"/../src/load_internals.bash
+
+_lobash.imports upper_case normalize
+
+warn() {
+  printf '[%s] %s\n' "$(l.upper_case "${FUNCNAME[1]}")" "$*" >&2
+}
+
+error() { warn "$@"; }
+
+rule_file() {
+  if [[ ! -f $1 ]]; then
+    error not found module file: "$1"
+    return 3
+  fi
+
+  local filename extension
+  filename=$(basename "$1")
+  extension="${filename##*.}"
+
+  if [[ $filename == bash ]] || [[ $extension != bash ]]; then
+    error Module file extension must be .bash
+    return 3
+  fi
+
+  if [[ $filename =~ - ]]; then
+    error Module file name cannot contain \"-\"
+    return 3
+  fi
+
+  if [[ $filename =~ [-_.]$ ]]; then
+    error Module file name cannot ends with \"-\" or \"_\" or \".\"
+    return 3
+  fi
+}
+
+rule_no_export() {
+  local filepath=$1
+  local found
+  found=$(grep 'export ' "$filepath" || true)
+  if [[ -n $found ]]; then
+    error "'export' variable and function is forbidden."
+    error "Matched text: $found"
+    return 3
+  fi
+}
+
+rule_lodash_typos() {
+  local filepath=$1
+  local found
+  found=$(grep '[lL][oO][dD][aA][sS][hH]' "$filepath" || true)
+  if [[ -n $found ]]; then
+    warn Found word \"lodash\". Is it a typo? Please check your code.
+    warn Matched text: "$found"
+    return 3
+  fi
+}
+
+rule_alias() {
+  local found
+  found="$(grep '^alias ' "$1" || true)"
+
+  if [[ -n "$found" ]]; then
+    error alias is forbidden
+    return 3
+  fi
+}
+
+rule_pubilc_function() {
+  local count found
+  found="$(grep -E '^([A-Za-z0-9]\w*)\(\) ?\{$' "$1")"
+  count=$(wc -l <<< "$found")
+  count=${count// /}
+
+  if [[ $count -ne 1 ]]; then
+    error Each module must define one public function.
+    error Found "'${count}'" public functions:
+    error "${found// \{/}"
+    return 3
+  fi
+}
+
+rule_metadata() {
+  local lines found
+  found=$(sed -n '/^# ---$/,/^# ---$/p' "$1")
+  lines=$( wc -l <<< "$found" )
+  lines=${lines// /}
+
+  if [[ $lines -lt 3 ]]; then
+    error Module metadata is empty.
+    return 3
+  fi
+}
+
+rule_no_echo() {
+  local filepath=$1
+
+  if grep -o ' echo ' "$filepath" >/dev/null; then
+    echo 'Use printf instead of echo.'
+    return 3
+  fi
+}
+
+rule_duplicated_function() {
+  local filepath=$1
+}
+
+rule_module() {
+  local filepath=$1
+  filepath=$(l.normalize "$filepath")
+
+  rules=(
+    rule_file
+    rule_alias
+    rule_pubilc_function
+    rule_metadata
+    rule_lodash_typos
+    rule_no_export
+    # rule_no_echo
+    rule_duplicated_function
+    rule_never_use_path_var
+  )
+
+  for i in "${!rules[@]}"; do
+    local rule_name=${rules[$i]}
+    $rule_name "$filepath" || error "[$filepath][Rule: $rule_name]"
+  done
+}
+
+rule_all_module() {
+  for filepath in $SCRIPT_DIR/../src/modules/*.bash; do
+    rule_module "$filepath"
+  done
+}
+
+main() {
+  if [[ $1 == all ]]; then
+    rule_all_module
+  else
+    rule_module "$1"
+  fi
+}
+
+main "$@"

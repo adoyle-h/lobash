@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1090
+
+set -o errexit
+set -o nounset
+set -o pipefail
+shopt -s inherit_errexit
+[[ -n "${VERBOSE:+x}" ]] && set -o verbose
+[[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
+
+readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+
+source "$SCRIPT_DIR"/../dist/lobash.bash
+
+arr1=(a 'b c')
+arr2=(d e)
+echo "# arr1=(a 'b c')"
+echo "# arr2=(d e)"
+
+arr=( $(l.union_array arr1 arr2) )
+echo "# l.union_array arr1 arr2" "=> ${arr[*]}"
+
+str=$(l.join arr ',')
+echo "# l.join ',' a 'b c' d e" "=> $str"
+
+declare -a list
+l.split "$str" list ','
+echo "# l.split '$str' ','" "=> ${list[*]}"
+echo "# list size" "=> ${#list[@]}"
+
+first_item=$(l.first list)
+echo "# l.first list" "=> ${first_item}"
+
+last_item=$(l.last list)
+echo "# l.last list" "=> ${last_item}"

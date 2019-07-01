@@ -1,0 +1,94 @@
+# Module Metadata
+
+Each module must have these comments which called Metadata at top.
+
+Like this:
+
+```sh
+# ---
+# Category: XXX
+# Deprecated: false
+# Since: <version>
+# Dependent: a,b,c
+# Usage: l.public_function arguments [options]
+# Description: function description
+# Bash: true
+# Status: tested
+# ---
+```
+
+**Attention**: Exactly `# ---`. No more or less spaces and `-`.
+
+## Category
+
+It is required.
+
+The value of `Category` must be upper camel case.
+
+Available values:
+
+- Arithmetic
+- Array
+- Condition
+- Console
+- Debug
+- File
+- Path
+- Prompt
+- String
+- System
+- Terminal
+- Time
+- Util
+- Lobash
+
+## Deprecated
+
+It is optional. Default to `false`.
+
+Available values:
+
+- `false`
+- `true`
+
+If true, shell will print a warning log to stderr when load this module.
+
+## Dependent
+
+It is optional.
+
+An array of module names which current module dependents on.
+Dependencies must be separated with `,`.
+
+## Since
+
+It is required.
+
+It indicates this module added since what version.
+
+Available values: The Lobash release version.
+
+## Usage
+
+Follow the http://docopt.org/
+
+## Description
+
+It is optional.
+
+Any descriptions of module.
+It can be multiple.
+
+## Bash
+
+It is optional. Default to `true`.
+
+Whether support Bash or not.
+
+# Status
+
+It is optional. Default to `tested`.
+
+Available values:
+
+- `tested`
