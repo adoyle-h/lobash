@@ -9,6 +9,10 @@ branches:
     - master
     - test
 
+if: |
+  tag =~ ^v OR \
+  branch = "test"
+
 services:
   - docker
 
