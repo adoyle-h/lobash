@@ -89,6 +89,7 @@ print_category() {
     fi
 
     printf -- '- More Examples: [../tests/modules/%s.bats](../tests/modules/%s.bats)\n' "$module_name" "$module_name" >> "$TARGET"
+    printf -- '- Source Code: [../src/modules/%s.bash](../src/modules/%s.bash)\n' "$module_name" "$module_name" >> "$TARGET"
   done
 }
 
@@ -100,7 +101,7 @@ print_toc() {
     printf -- '- [%s](#%s)\n' "${category^}" "$category" >> "$TARGET"
     local -n c=category_$category
     for module_name in "${c[@]}"; do
-      printf -- '  - [%s](#%s)\n' "${module_name}"  "${module_name}" >> "$TARGET"
+      printf -- '  - [%s](#%s)\n' "${module_name}"  "${module_name//\./}" >> "$TARGET"
     done
   done
 }

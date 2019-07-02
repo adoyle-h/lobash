@@ -35,7 +35,7 @@
   - [is_writeable](#is_writeable)
   - [is_zsh](#is_zsh)
   - [not](#not)
-  - [not.p](#not.p)
+  - [not.p](#notp)
   - [strict_has](#strict_has)
   - [strict_has_not](#strict_has_not)
 - [Console](#console)
@@ -51,26 +51,26 @@
   - [count_file_lines](#count_file_lines)
   - [count_files](#count_files)
   - [extname](#extname)
-  - [extname.p](#extname.p)
+  - [extname.p](#extnamep)
 - [Path](#path)
   - [basename](#basename)
-  - [basename.p](#basename.p)
+  - [basename.p](#basenamep)
   - [dirname](#dirname)
-  - [dirname.p](#dirname.p)
+  - [dirname.p](#dirnamep)
   - [normalize](#normalize)
-  - [normalize.p](#normalize.p)
+  - [normalize.p](#normalizep)
   - [pwd](#pwd)
 - [Prompt](#prompt)
   - [ask](#ask)
   - [choose](#choose)
 - [String](#string)
-  - [count_lines.p](#count_lines.p)
+  - [count_lines.p](#count_linesp)
   - [end_with](#end_with)
   - [join](#join)
   - [lower_case](#lower_case)
-  - [lower_case.p](#lower_case.p)
+  - [lower_case.p](#lower_casep)
   - [lower_first](#lower_first)
-  - [lower_first.p](#lower_first.p)
+  - [lower_first.p](#lower_firstp)
   - [match](#match)
   - [split](#split)
   - [start_with](#start_with)
@@ -78,17 +78,17 @@
   - [str_len](#str_len)
   - [str_size](#str_size)
   - [trim](#trim)
-  - [trim.p](#trim.p)
+  - [trim.p](#trimp)
   - [trim_color](#trim_color)
-  - [trim_color.p](#trim_color.p)
+  - [trim_color.p](#trim_colorp)
   - [trim_end](#trim_end)
-  - [trim_end.p](#trim_end.p)
+  - [trim_end.p](#trim_endp)
   - [trim_start](#trim_start)
-  - [trim_start.p](#trim_start.p)
+  - [trim_start.p](#trim_startp)
   - [upper_case](#upper_case)
-  - [upper_case.p](#upper_case.p)
+  - [upper_case.p](#upper_casep)
   - [upper_first](#upper_first)
-  - [upper_first.p](#upper_first.p)
+  - [upper_first.p](#upper_firstp)
 - [System](#system)
   - [detect_os](#detect_os)
   - [hostname](#hostname)
@@ -118,6 +118,7 @@
 - Description: Increase number with addend.
 - Since: 0.1.0
 - More Examples: [../tests/modules/inc.bats](../tests/modules/inc.bats)
+- Source Code: [../src/modules/inc.bash](../src/modules/inc.bash)
 
 ### sub
 
@@ -125,6 +126,7 @@
 - Description: Subtract number with subtrahend.
 - Since: 0.1.0
 - More Examples: [../tests/modules/sub.bats](../tests/modules/sub.bats)
+- Source Code: [../src/modules/sub.bash](../src/modules/sub.bash)
 
 ## Array
 
@@ -133,6 +135,7 @@
 - Usage: `l.array_include <array_name> <match>`
 - Since: 0.1.0
 - More Examples: [../tests/modules/array_include.bats](../tests/modules/array_include.bats)
+- Source Code: [../src/modules/array_include.bash](../src/modules/array_include.bash)
 
 ### first
 
@@ -140,6 +143,7 @@
 - Description: Return the first value of array.
 - Since: 0.1.0
 - More Examples: [../tests/modules/first.bats](../tests/modules/first.bats)
+- Source Code: [../src/modules/first.bash](../src/modules/first.bash)
 
 ### last
 
@@ -147,6 +151,7 @@
 - Description: Return the last value of array.
 - Since: 0.1.0
 - More Examples: [../tests/modules/last.bats](../tests/modules/last.bats)
+- Source Code: [../src/modules/last.bash](../src/modules/last.bash)
 
 ### sort
 
@@ -154,6 +159,7 @@
 - Description: Sort an array. The `<sort-opts>` are options of sort command.
 - Since: 0.1.0
 - More Examples: [../tests/modules/sort.bats](../tests/modules/sort.bats)
+- Source Code: [../src/modules/sort.bash](../src/modules/sort.bash)
 
 ### union_array
 
@@ -162,6 +168,7 @@
 - Dependent: [`echo_array`](#echo_array)
 - Since: 0.1.0
 - More Examples: [../tests/modules/union_array.bats](../tests/modules/union_array.bats)
+- Source Code: [../src/modules/union_array.bash](../src/modules/union_array.bash)
 
 ## Color
 
@@ -171,6 +178,7 @@
 - Description: Return a list contains `<R> <G> <B>`.
 - Since: 0.1.0
 - More Examples: [../tests/modules/hex_to_rgb.bats](../tests/modules/hex_to_rgb.bats)
+- Source Code: [../src/modules/hex_to_rgb.bash](../src/modules/hex_to_rgb.bash)
 
 ### rgb_to_hex
 
@@ -179,6 +187,7 @@
 - Dependent: [`is_number`](#is_number)
 - Since: 0.1.0
 - More Examples: [../tests/modules/rgb_to_hex.bats](../tests/modules/rgb_to_hex.bats)
+- Source Code: [../src/modules/rgb_to_hex.bash](../src/modules/rgb_to_hex.bash)
 
 ## Condition
 
@@ -193,6 +202,7 @@
   - This method is not recommended. Use strict_has instead.
 - Since: 0.1.0
 - More Examples: [../tests/modules/has.bats](../tests/modules/has.bats)
+- Source Code: [../src/modules/has.bash](../src/modules/has.bash)
 
 ### if
 
@@ -204,6 +214,7 @@
   - When `<condition>` is true, `<then>` function will be invoked. Otherwise `<else>` will be invoked if it passed.
 - Since: 0.1.0
 - More Examples: [../tests/modules/if.bats](../tests/modules/if.bats)
+- Source Code: [../src/modules/if.bash](../src/modules/if.bash)
 
 ### is_array
 
@@ -211,6 +222,7 @@
 - Description: Return `true` or `false`.
 - Since: 0.1.0
 - More Examples: [../tests/modules/is_array.bats](../tests/modules/is_array.bats)
+- Source Code: [../src/modules/is_array.bash](../src/modules/is_array.bash)
 
 ### is_bash
 
@@ -218,6 +230,7 @@
 - Description: Return `true` or `false`.
 - Since: 0.1.0
 - More Examples: [../tests/modules/is_bash.bats](../tests/modules/is_bash.bats)
+- Source Code: [../src/modules/is_bash.bash](../src/modules/is_bash.bash)
 
 ### is_dir
 
@@ -225,6 +238,7 @@
 - Description: Return `true` or `false`.
 - Since: 0.1.0
 - More Examples: [../tests/modules/is_dir.bats](../tests/modules/is_dir.bats)
+- Source Code: [../src/modules/is_dir.bash](../src/modules/is_dir.bash)
 
 ### is_executable
 
@@ -232,6 +246,7 @@
 - Description: Similar to `[[ -x ]]`. Return `true` or `false`.
 - Since: 0.1.0
 - More Examples: [../tests/modules/is_executable.bats](../tests/modules/is_executable.bats)
+- Source Code: [../src/modules/is_executable.bash](../src/modules/is_executable.bash)
 
 ### is_executable_file
 
@@ -240,6 +255,7 @@
 - Dependent: [`is_dir`](#is_dir)
 - Since: 0.1.0
 - More Examples: [../tests/modules/is_executable_file.bats](../tests/modules/is_executable_file.bats)
+- Source Code: [../src/modules/is_executable_file.bash](../src/modules/is_executable_file.bash)
 
 ### is_false
 
@@ -248,6 +264,7 @@
 - Dependent: [`is_integer`](#is_integer)
 - Since: 0.1.0
 - More Examples: [../tests/modules/is_false.bats](../tests/modules/is_false.bats)
+- Source Code: [../src/modules/is_false.bash](../src/modules/is_false.bash)
 
 ### is_file
 
@@ -255,6 +272,7 @@
 - Description: Return `true` or `false`.
 - Since: 0.1.0
 - More Examples: [../tests/modules/is_file.bats](../tests/modules/is_file.bats)
+- Source Code: [../src/modules/is_file.bash](../src/modules/is_file.bash)
 
 ### is_float
 
@@ -262,6 +280,7 @@
 - Description: Return `true` or `false`.
 - Since: 0.1.0
 - More Examples: [../tests/modules/is_float.bats](../tests/modules/is_float.bats)
+- Source Code: [../src/modules/is_float.bash](../src/modules/is_float.bash)
 
 ### is_integer
 
@@ -269,6 +288,7 @@
 - Description: Return `true` or `false`.
 - Since: 0.1.0
 - More Examples: [../tests/modules/is_integer.bats](../tests/modules/is_integer.bats)
+- Source Code: [../src/modules/is_integer.bash](../src/modules/is_integer.bash)
 
 ### is_link
 
@@ -276,6 +296,7 @@
 - Description: Return `true` or `false`.
 - Since: 0.1.0
 - More Examples: [../tests/modules/is_link.bats](../tests/modules/is_link.bats)
+- Source Code: [../src/modules/is_link.bash](../src/modules/is_link.bash)
 
 ### is_number
 
@@ -283,6 +304,7 @@
 - Description: Return `true` or `false`.
 - Since: 0.1.0
 - More Examples: [../tests/modules/is_number.bats](../tests/modules/is_number.bats)
+- Source Code: [../src/modules/is_number.bash](../src/modules/is_number.bash)
 
 ### is_readable
 
@@ -290,6 +312,7 @@
 - Description: Return `true` or `false`.
 - Since: 0.1.0
 - More Examples: [../tests/modules/is_readable.bats](../tests/modules/is_readable.bats)
+- Source Code: [../src/modules/is_readable.bash](../src/modules/is_readable.bash)
 
 ### is_true
 
@@ -297,6 +320,7 @@
 - Description: Return `true` or `false`.
 - Since: 0.1.0
 - More Examples: [../tests/modules/is_true.bats](../tests/modules/is_true.bats)
+- Source Code: [../src/modules/is_true.bash](../src/modules/is_true.bash)
 
 ### is_writeable
 
@@ -304,6 +328,7 @@
 - Description: Return `true` or `false`.
 - Since: 0.1.0
 - More Examples: [../tests/modules/is_writeable.bats](../tests/modules/is_writeable.bats)
+- Source Code: [../src/modules/is_writeable.bash](../src/modules/is_writeable.bash)
 
 ### is_zsh
 
@@ -311,6 +336,7 @@
 - Description: Return `true` or `false`.
 - Since: 0.1.0
 - More Examples: [../tests/modules/is_zsh.bats](../tests/modules/is_zsh.bats)
+- Source Code: [../src/modules/is_zsh.bash](../src/modules/is_zsh.bash)
 
 ### not
 
@@ -318,6 +344,7 @@
 - Description: `<condition>` must be `true` or `false`. This function returns the opposite value.
 - Since: 0.1.0
 - More Examples: [../tests/modules/not.bats](../tests/modules/not.bats)
+- Source Code: [../src/modules/not.bash](../src/modules/not.bash)
 
 ### not.p
 
@@ -326,6 +353,7 @@
 - Dependent: [`not`](#not)
 - Since: 0.1.0
 - More Examples: [../tests/modules/not.p.bats](../tests/modules/not.p.bats)
+- Source Code: [../src/modules/not.p.bash](../src/modules/not.p.bash)
 
 ### strict_has
 
@@ -335,6 +363,7 @@
   - `<condition>` Valid value: `command`, `function`, `alias`, `keyword`, `builtin`, `the`
 - Since: 0.1.0
 - More Examples: [../tests/modules/strict_has.bats](../tests/modules/strict_has.bats)
+- Source Code: [../src/modules/strict_has.bash](../src/modules/strict_has.bash)
 
 ### strict_has_not
 
@@ -343,6 +372,7 @@
 - Dependent: [`strict_has`](#strict_has) [`not`](#not)
 - Since: 0.1.0
 - More Examples: [../tests/modules/strict_has_not.bats](../tests/modules/strict_has_not.bats)
+- Source Code: [../src/modules/strict_has_not.bash](../src/modules/strict_has_not.bash)
 
 ## Console
 
@@ -355,6 +385,7 @@
   - See https://github.com/anordal/shellharden/blob/master/how_to_do_things_safely_in_bash.md#echo--printf
 - Since: 0.1.0
 - More Examples: [../tests/modules/echo.bats](../tests/modules/echo.bats)
+- Source Code: [../src/modules/echo.bash](../src/modules/echo.bash)
 
 ### echo_array
 
@@ -362,6 +393,7 @@
 - Description: Print each values of array with newline.
 - Since: 0.1.0
 - More Examples: [../tests/modules/echo_array.bats](../tests/modules/echo_array.bats)
+- Source Code: [../src/modules/echo_array.bash](../src/modules/echo_array.bash)
 
 ## Debug
 
@@ -373,6 +405,7 @@
   - Attention: l.trace_count should run in same process. It will not work in subprocess such as $(l.trace_count)
 - Since: 0.1.0
 - More Examples: [../tests/modules/trace_count.bats](../tests/modules/trace_count.bats)
+- Source Code: [../src/modules/trace_count.bash](../src/modules/trace_count.bash)
 
 ### trace_end
 
@@ -380,6 +413,7 @@
 - Description: Close xtrace mode and reset PS4. Cooperated with trace_start.
 - Since: 0.1.0
 - More Examples: [../tests/modules/trace_end.bats](../tests/modules/trace_end.bats)
+- Source Code: [../src/modules/trace_end.bash](../src/modules/trace_end.bash)
 
 ### trace_stack
 
@@ -388,6 +422,7 @@
 - Since: 0.1.0
 - Executable Example: [../example/modules/trace_stack](../example/modules/trace_stack)
 - More Examples: [../tests/modules/trace_stack.bats](../tests/modules/trace_stack.bats)
+- Source Code: [../src/modules/trace_stack.bash](../src/modules/trace_stack.bash)
 
 ### trace_start
 
@@ -397,6 +432,7 @@
   - Open xtrace mode and set PS4. It will print each script line with nice prompt for debug.
 - Since: 0.1.0
 - More Examples: [../tests/modules/trace_start.bats](../tests/modules/trace_start.bats)
+- Source Code: [../src/modules/trace_start.bash](../src/modules/trace_start.bash)
 
 ### trace_time
 
@@ -405,6 +441,7 @@
 - Dependent: [`now`](#now)
 - Since: 0.1.0
 - More Examples: [../tests/modules/trace_time.bats](../tests/modules/trace_time.bats)
+- Source Code: [../src/modules/trace_time.bash](../src/modules/trace_time.bash)
 
 ## File
 
@@ -414,6 +451,7 @@
 - Description: Count lines of file. Similar to `wc -l`.
 - Since: 0.1.0
 - More Examples: [../tests/modules/count_file_lines.bats](../tests/modules/count_file_lines.bats)
+- Source Code: [../src/modules/count_file_lines.bash](../src/modules/count_file_lines.bash)
 
 ### count_files
 
@@ -421,6 +459,7 @@
 - Description: Count the sum of files under `<directory_path>`.
 - Since: 0.1.0
 - More Examples: [../tests/modules/count_files.bats](../tests/modules/count_files.bats)
+- Source Code: [../src/modules/count_files.bash](../src/modules/count_files.bash)
 
 ### extname
 
@@ -428,6 +467,7 @@
 - Description: Returns the extension of the path, from the last occurrence of the . (period) character to end of string in the last portion of the path. If there is no . in the last portion of the path, or if the first character of the basename of path (see path.basename()) is ., then an empty string is returned.
 - Since: 0.1.0
 - More Examples: [../tests/modules/extname.bats](../tests/modules/extname.bats)
+- Source Code: [../src/modules/extname.bash](../src/modules/extname.bash)
 
 ### extname.p
 
@@ -436,6 +476,7 @@
 - Dependent: [`extname`](#extname)
 - Since: 0.1.0
 - More Examples: [../tests/modules/extname.p.bats](../tests/modules/extname.p.bats)
+- Source Code: [../src/modules/extname.p.bash](../src/modules/extname.p.bash)
 
 ## Path
 
@@ -445,6 +486,7 @@
 - Description: Alternative to basename command. It much faster because using shell parameter expansion.
 - Since: 0.1.0
 - More Examples: [../tests/modules/basename.bats](../tests/modules/basename.bats)
+- Source Code: [../src/modules/basename.bash](../src/modules/basename.bash)
 
 ### basename.p
 
@@ -453,6 +495,7 @@
 - Dependent: [`basename`](#basename)
 - Since: 0.1.0
 - More Examples: [../tests/modules/basename.p.bats](../tests/modules/basename.p.bats)
+- Source Code: [../src/modules/basename.p.bash](../src/modules/basename.p.bash)
 
 ### dirname
 
@@ -460,6 +503,7 @@
 - Description: Alternative to dirname command. It much faster because using shell parameter expansion.
 - Since: 0.1.0
 - More Examples: [../tests/modules/dirname.bats](../tests/modules/dirname.bats)
+- Source Code: [../src/modules/dirname.bash](../src/modules/dirname.bash)
 
 ### dirname.p
 
@@ -467,6 +511,7 @@
 - Description: The pipeline version of l.dirname
 - Since: 0.1.0
 - More Examples: [../tests/modules/dirname.p.bats](../tests/modules/dirname.p.bats)
+- Source Code: [../src/modules/dirname.p.bash](../src/modules/dirname.p.bash)
 
 ### normalize
 
@@ -477,6 +522,7 @@
 - Dependent: [`split`](#split) [`join`](#join)
 - Since: 0.1.0
 - More Examples: [../tests/modules/normalize.bats](../tests/modules/normalize.bats)
+- Source Code: [../src/modules/normalize.bash](../src/modules/normalize.bash)
 
 ### normalize.p
 
@@ -485,6 +531,7 @@
 - Dependent: [`normalize`](#normalize)
 - Since: 0.1.0
 - More Examples: [../tests/modules/normalize.p.bats](../tests/modules/normalize.p.bats)
+- Source Code: [../src/modules/normalize.p.bash](../src/modules/normalize.p.bash)
 
 ### pwd
 
@@ -492,6 +539,7 @@
 - Description: Return the current working directory as set by the `cd` builtin command.
 - Since: 0.1.0
 - More Examples: [../tests/modules/pwd.bats](../tests/modules/pwd.bats)
+- Source Code: [../src/modules/pwd.bash](../src/modules/pwd.bash)
 
 ## Prompt
 
@@ -506,6 +554,7 @@
 - Since: 0.1.0
 - Executable Example: [../example/modules/ask](../example/modules/ask)
 - More Examples: [../tests/modules/ask.bats](../tests/modules/ask.bats)
+- Source Code: [../src/modules/ask.bash](../src/modules/ask.bash)
 
 ### choose
 
@@ -515,6 +564,7 @@
 - Since: 0.1.0
 - Executable Example: [../example/modules/choose](../example/modules/choose)
 - More Examples: [../tests/modules/choose.bats](../tests/modules/choose.bats)
+- Source Code: [../src/modules/choose.bash](../src/modules/choose.bash)
 
 ## String
 
@@ -528,6 +578,7 @@
 - Since: 0.1.0
 - Executable Example: [../example/modules/count_lines](../example/modules/count_lines)
 - More Examples: [../tests/modules/count_lines.p.bats](../tests/modules/count_lines.p.bats)
+- Source Code: [../src/modules/count_lines.p.bash](../src/modules/count_lines.p.bash)
 
 ### end_with
 
@@ -535,6 +586,7 @@
 - Description: Return `true` or `false`.
 - Since: 0.1.0
 - More Examples: [../tests/modules/end_with.bats](../tests/modules/end_with.bats)
+- Source Code: [../src/modules/end_with.bash](../src/modules/end_with.bash)
 
 ### join
 
@@ -542,6 +594,7 @@
 - Description: Convert all elements in array into a string separated by delimiter.
 - Since: 0.1.0
 - More Examples: [../tests/modules/join.bats](../tests/modules/join.bats)
+- Source Code: [../src/modules/join.bash](../src/modules/join.bash)
 
 ### lower_case
 
@@ -549,6 +602,7 @@
 - Description: Convert all characters of string to lower case.
 - Since: 0.1.0
 - More Examples: [../tests/modules/lower_case.bats](../tests/modules/lower_case.bats)
+- Source Code: [../src/modules/lower_case.bash](../src/modules/lower_case.bash)
 
 ### lower_case.p
 
@@ -557,6 +611,7 @@
 - Dependent: [`lower_case`](#lower_case)
 - Since: 0.1.0
 - More Examples: [../tests/modules/lower_case.p.bats](../tests/modules/lower_case.p.bats)
+- Source Code: [../src/modules/lower_case.p.bash](../src/modules/lower_case.p.bash)
 
 ### lower_first
 
@@ -566,6 +621,7 @@
 - Description: Convert the first character of string to lower case.
 - Since: 0.1.0
 - More Examples: [../tests/modules/lower_first.bats](../tests/modules/lower_first.bats)
+- Source Code: [../src/modules/lower_first.bash](../src/modules/lower_first.bash)
 
 ### lower_first.p
 
@@ -574,6 +630,7 @@
 - Dependent: [`lower_first`](#lower_first)
 - Since: 0.1.0
 - More Examples: [../tests/modules/lower_first.p.bats](../tests/modules/lower_first.p.bats)
+- Source Code: [../src/modules/lower_first.p.bash](../src/modules/lower_first.p.bash)
 
 ### match
 
@@ -581,6 +638,7 @@
 - Description: Return matched part of string. Return empty string if no matched. Support capturing groups.
 - Since: 0.1.0
 - More Examples: [../tests/modules/match.bats](../tests/modules/match.bats)
+- Source Code: [../src/modules/match.bash](../src/modules/match.bash)
 
 ### split
 
@@ -588,6 +646,7 @@
 - Description: Splits string by delimiter. The result will be assigned to `<output_array_name>`.
 - Since: 0.1.0
 - More Examples: [../tests/modules/split.bats](../tests/modules/split.bats)
+- Source Code: [../src/modules/split.bash](../src/modules/split.bash)
 
 ### start_with
 
@@ -595,6 +654,7 @@
 - Description: Return `true` or `false`. Check if a string starts with given match string.
 - Since: 0.1.0
 - More Examples: [../tests/modules/start_with.bats](../tests/modules/start_with.bats)
+- Source Code: [../src/modules/start_with.bash](../src/modules/start_with.bash)
 
 ### str_include
 
@@ -602,6 +662,7 @@
 - Description: Return `true` or `false`. Check if a string includes given match string.
 - Since: 0.1.0
 - More Examples: [../tests/modules/str_include.bats](../tests/modules/str_include.bats)
+- Source Code: [../src/modules/str_include.bash](../src/modules/str_include.bash)
 
 ### str_len
 
@@ -609,6 +670,7 @@
 - Description: Return the byte length of string.
 - Since: 0.1.0
 - More Examples: [../tests/modules/str_len.bats](../tests/modules/str_len.bats)
+- Source Code: [../src/modules/str_len.bash](../src/modules/str_len.bash)
 
 ### str_size
 
@@ -616,6 +678,7 @@
 - Description: Return the sum of string letters.
 - Since: 0.1.0
 - More Examples: [../tests/modules/str_size.bats](../tests/modules/str_size.bats)
+- Source Code: [../src/modules/str_size.bash](../src/modules/str_size.bash)
 
 ### trim
 
@@ -625,6 +688,7 @@
 - Since: 0.1.0
 - Executable Example: [../example/modules/trim](../example/modules/trim)
 - More Examples: [../tests/modules/trim.bats](../tests/modules/trim.bats)
+- Source Code: [../src/modules/trim.bash](../src/modules/trim.bash)
 
 ### trim.p
 
@@ -634,6 +698,7 @@
 - Since: 0.1.0
 - Executable Example: [../example/modules/trim](../example/modules/trim)
 - More Examples: [../tests/modules/trim.p.bats](../tests/modules/trim.p.bats)
+- Source Code: [../src/modules/trim.p.bash](../src/modules/trim.p.bash)
 
 ### trim_color
 
@@ -641,6 +706,7 @@
 - Description: Remove color escape code in string
 - Since: 0.1.0
 - More Examples: [../tests/modules/trim_color.bats](../tests/modules/trim_color.bats)
+- Source Code: [../src/modules/trim_color.bash](../src/modules/trim_color.bash)
 
 ### trim_color.p
 
@@ -649,6 +715,7 @@
 - Dependent: [`trim_color`](#trim_color)
 - Since: 0.1.0
 - More Examples: [../tests/modules/trim_color.p.bats](../tests/modules/trim_color.p.bats)
+- Source Code: [../src/modules/trim_color.p.bash](../src/modules/trim_color.p.bash)
 
 ### trim_end
 
@@ -656,6 +723,7 @@
 - Description: Remove trailing whitespace or specified characters from string.
 - Since: 0.1.0
 - More Examples: [../tests/modules/trim_end.bats](../tests/modules/trim_end.bats)
+- Source Code: [../src/modules/trim_end.bash](../src/modules/trim_end.bash)
 
 ### trim_end.p
 
@@ -664,6 +732,7 @@
 - Dependent: [`trim_end`](#trim_end)
 - Since: 0.1.0
 - More Examples: [../tests/modules/trim_end.p.bats](../tests/modules/trim_end.p.bats)
+- Source Code: [../src/modules/trim_end.p.bash](../src/modules/trim_end.p.bash)
 
 ### trim_start
 
@@ -671,6 +740,7 @@
 - Description: Remove leading whitespace or specified characters from string.
 - Since: 0.1.0
 - More Examples: [../tests/modules/trim_start.bats](../tests/modules/trim_start.bats)
+- Source Code: [../src/modules/trim_start.bash](../src/modules/trim_start.bash)
 
 ### trim_start.p
 
@@ -679,6 +749,7 @@
 - Dependent: [`trim_start`](#trim_start)
 - Since: 0.1.0
 - More Examples: [../tests/modules/trim_start.p.bats](../tests/modules/trim_start.p.bats)
+- Source Code: [../src/modules/trim_start.p.bash](../src/modules/trim_start.p.bash)
 
 ### upper_case
 
@@ -686,6 +757,7 @@
 - Description: Convert all characters of string to upper case.
 - Since: 0.1.0
 - More Examples: [../tests/modules/upper_case.bats](../tests/modules/upper_case.bats)
+- Source Code: [../src/modules/upper_case.bash](../src/modules/upper_case.bash)
 
 ### upper_case.p
 
@@ -694,6 +766,7 @@
 - Dependent: [`upper_case`](#upper_case)
 - Since: 0.1.0
 - More Examples: [../tests/modules/upper_case.p.bats](../tests/modules/upper_case.p.bats)
+- Source Code: [../src/modules/upper_case.p.bash](../src/modules/upper_case.p.bash)
 
 ### upper_first
 
@@ -701,6 +774,7 @@
 - Description: Convert the first character of string to upper case.
 - Since: 0.1.0
 - More Examples: [../tests/modules/upper_first.bats](../tests/modules/upper_first.bats)
+- Source Code: [../src/modules/upper_first.bash](../src/modules/upper_first.bash)
 
 ### upper_first.p
 
@@ -709,6 +783,7 @@
 - Dependent: [`upper_first`](#upper_first)
 - Since: 0.1.0
 - More Examples: [../tests/modules/upper_first.p.bats](../tests/modules/upper_first.p.bats)
+- Source Code: [../src/modules/upper_first.p.bash](../src/modules/upper_first.p.bash)
 
 ## System
 
@@ -718,6 +793,7 @@
 - Description: Return the name of current operator system.
 - Since: 0.1.0
 - More Examples: [../tests/modules/detect_os.bats](../tests/modules/detect_os.bats)
+- Source Code: [../src/modules/detect_os.bash](../src/modules/detect_os.bash)
 
 ### hostname
 
@@ -725,6 +801,7 @@
 - Description: Return current hostname.
 - Since: 0.1.0
 - More Examples: [../tests/modules/hostname.bats](../tests/modules/hostname.bats)
+- Source Code: [../src/modules/hostname.bash](../src/modules/hostname.bash)
 
 ### sleep
 
@@ -735,6 +812,7 @@
   - When run it in MacOS, the precision of sleep time is 100ms. The deviation of sleep time is 30~40ms by actual measurement.
 - Since: 0.1.0
 - More Examples: [../tests/modules/sleep.bats](../tests/modules/sleep.bats)
+- Source Code: [../src/modules/sleep.bash](../src/modules/sleep.bash)
 
 ## Terminal
 
@@ -744,6 +822,7 @@
 - Description: Get column number of current cursor position.
 - Since: 0.1.0
 - More Examples: [../tests/modules/cursor_col.bats](../tests/modules/cursor_col.bats)
+- Source Code: [../src/modules/cursor_col.bash](../src/modules/cursor_col.bash)
 
 ### cursor_pos
 
@@ -753,6 +832,7 @@
 - Description: Get current cursor position. It will print "row;column" with default IFS.
 - Since: 0.1.0
 - More Examples: [../tests/modules/cursor_pos.bats](../tests/modules/cursor_pos.bats)
+- Source Code: [../src/modules/cursor_pos.bash](../src/modules/cursor_pos.bash)
 
 ### cursor_row
 
@@ -760,6 +840,7 @@
 - Description: Get row number of current cursor position.
 - Since: 0.1.0
 - More Examples: [../tests/modules/cursor_row.bats](../tests/modules/cursor_row.bats)
+- Source Code: [../src/modules/cursor_row.bash](../src/modules/cursor_row.bash)
 
 ## Time
 
@@ -769,6 +850,7 @@
 - Description: Refer to 'man strftime' for `<format>`.
 - Since: 0.1.0
 - More Examples: [../tests/modules/date.bats](../tests/modules/date.bats)
+- Source Code: [../src/modules/date.bash](../src/modules/date.bash)
 
 ### now
 
@@ -778,6 +860,7 @@
   - Require Perl 5.8.8 and higher install if run in Alpine/Busybox systems. And most Unix/Linux operating systems have included Perl 5. See the [Perl Binaries](https://www.cpan.org/ports/binaries.html).
 - Since: 0.1.0
 - More Examples: [../tests/modules/now.bats](../tests/modules/now.bats)
+- Source Code: [../src/modules/now.bash](../src/modules/now.bash)
 
 ### now_s
 
@@ -786,6 +869,7 @@
 - Dependent: [`date`](#date)
 - Since: 0.1.0
 - More Examples: [../tests/modules/now_s.bats](../tests/modules/now_s.bats)
+- Source Code: [../src/modules/now_s.bash](../src/modules/now_s.bash)
 
 ## Util
 
@@ -795,6 +879,7 @@
 - Description: Run command in repeats to get benchmarks.
 - Since: 0.1.0
 - More Examples: [../tests/modules/benchmark.bats](../tests/modules/benchmark.bats)
+- Source Code: [../src/modules/benchmark.bash](../src/modules/benchmark.bash)
 
 ### compose
 
@@ -802,6 +887,7 @@
 - Description: Function composition
 - Since: 0.1.0
 - More Examples: [../tests/modules/compose.bats](../tests/modules/compose.bats)
+- Source Code: [../src/modules/compose.bash](../src/modules/compose.bash)
 
 ### repeat
 
@@ -809,6 +895,7 @@
 - Description: Execute command in N times.
 - Since: 0.1.0
 - More Examples: [../tests/modules/repeat.bats](../tests/modules/repeat.bats)
+- Source Code: [../src/modules/repeat.bash](../src/modules/repeat.bash)
 
 ## Variable
 
@@ -818,6 +905,7 @@
 - Description: Return the name of current function where the l.cur_function_name called in.
 - Since: 0.1.0
 - More Examples: [../tests/modules/cur_function_name.bats](../tests/modules/cur_function_name.bats)
+- Source Code: [../src/modules/cur_function_name.bash](../src/modules/cur_function_name.bash)
 
 ### random
 
@@ -827,6 +915,7 @@
   - The `<pattern>` is allowed characters in range.
 - Since: 0.1.0
 - More Examples: [../tests/modules/random.bats](../tests/modules/random.bats)
+- Source Code: [../src/modules/random.bash](../src/modules/random.bash)
 
 ### xdg_config_home
 
@@ -834,3 +923,4 @@
 - Description: Return XDG_CONFIG_HOME. Return `${HOME}/.config` if XDG_CONFIG_HOME not set.
 - Since: 0.1.0
 - More Examples: [../tests/modules/xdg_config_home.bats](../tests/modules/xdg_config_home.bats)
+- Source Code: [../src/modules/xdg_config_home.bash](../src/modules/xdg_config_home.bash)

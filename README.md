@@ -62,6 +62,7 @@ and make it compatible with Bash 4.4+ and MacOS/Linux/Alpine/Busybox systems.
 VERSION=v0.1.0
 # Download source codes
 git clone --depth 1 --branch $VERSION https://github.com/adoyle-h/lobash.git
+cd lobash
 # This step is optional. Clone submodules only if you want to run test cases.
 git submodule update --init --recursive
 ```
