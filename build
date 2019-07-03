@@ -75,7 +75,7 @@ clean() {
       YES )
         ;;
       * )
-        echo "Not overwrite it. No color file will be generated."
+        echo "Not overwrite it. No new Lobash file generated."
         exit 0
         ;;
     esac
