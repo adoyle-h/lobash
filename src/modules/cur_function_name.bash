@@ -6,5 +6,6 @@
 # ---
 
 l.cur_function_name() {
-  printf '%s\n' "${FUNCNAME[1]}"
+  # _LOBASH_PUBLIC_DEPTH=2 in built lobash.bash, and _LOBASH_PUBLIC_DEPTH=1 in test.
+  printf '%s\n' "${FUNCNAME[$_LOBASH_PUBLIC_DEPTH]}"
 }

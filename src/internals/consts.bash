@@ -15,5 +15,6 @@ readonly _LOBASH_PUBLIC_FUNC_PREFIX=l.
 readonly _LOBASH_PUBLIC_CONST_PREFIX=L_
 # _LOBASH_PREFIX will be reassigned when ./build
 _LOBASH_PREFIX=l.
+_LOBASH_PUBLIC_DEPTH=1
 
 readonly _LOBASH_OS=$(_lobash.detect_os)

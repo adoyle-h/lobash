@@ -131,6 +131,7 @@ generate() {
     fwrite "$SCRIPT_DIR/src/internals/$name.bash"
   done
   write "_LOBASH_${UNIQ_KEY}_PREFIX=$PREFIX"
+  write "_LOBASH_${UNIQ_KEY}_PUBLIC_DEPTH=2"
 
   write ''
   write '######################## Private Methods ########################'
