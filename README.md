@@ -21,7 +21,7 @@
     - [Build your lobash.bash](#build-your-lobashbash)
     - [Edit your scripts and set shell options](#edit-your-scripts-and-set-shell-options)
     - [Load lobash.bash in your scripts](#load-lobashbash-in-your-scripts)
-- [Module Usages](#module-usages)
+    - [Module Usages](#module-usages)
 - [Command](#command)
 - [FAQ](#faq)
 - [Who use Lobash](#who-use-lobash)
@@ -183,9 +183,9 @@ user    0m0.022s
 sys     0m0.036s
 ```
 
-## Module Usages
+### Module Usages
 
-See [./doc/module-usages.md](./doc/module-usages.md).
+See all module usages in [./doc/module-usages/](./doc/module-usages/README.md)
 
 ## Command
 

@@ -32,12 +32,13 @@ Read below links before making any contributions.
 
 All PRs should follow below conditions.
 
--[ ] One module one public function.
--[ ] Code style lint pass.
--[ ] Test cases without errors and skips.
--[ ] Squash one Git commit per PR.
--[ ] Git message is [valid](./git-message.md).
--[ ] Run `./bin/check_module <path-to-your-module>` without error.
+- [ ] One module one public function.
+- [ ] Code style lint pass.
+- [ ] Test cases without errors and skips.
+- [ ] Run `./tool/gen` to generate documents.
+- [ ] Squash one Git commit per PR.
+- [ ] Git message is [valid](./git-message.md).
+- [ ] Run `./bin/check_module <path-to-your-module>` without error.
 
 
 <!-- Links -->

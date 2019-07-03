@@ -29,15 +29,34 @@ safe_rm() {
   rm -rf -- "$path"
 }
 
+print_category_header() {
+  local -n mods=$1
+  local TARGET=$2
+
+  {
+    printf '%s\n' "# Category: ${category^}"
+    printf '\n%s\n' '[⬅️ Back to previous page](./README.md)'
+
+    printf '\n%s\n\n' "## TOC"
+
+    for module_name in "${mods[@]}"; do
+      printf -- '- [%s](%s)\n' "${module_name}" "#$module_name"
+    done
+  } >> "$TARGET"
+}
+
 print_category() {
   local category=$1
+  local TARGET=$2
   local -n c=category_$1
 
   echo "Print Category: ${category^}"
-  printf '\n%s\n' "## ${category^}" >> "$TARGET"
+
+  print_category_header c "$TARGET"
+
+  printf '\n%s\n' "## Modules" >> "$TARGET"
 
   for module_name in "${c[@]}"; do
-
     printf '\n%s\n\n' "### ${module_name}" >> "$TARGET"
 
     local length
@@ -69,7 +88,8 @@ print_category() {
       printf -- '- %s' "Dependent:" >> "$TARGET"
       local deps=( ${map[${module_name}_dependent_0]//,/ } )
       for dep in "${deps[@]}"; do
-        printf -- ' [`%s`](#%s)' "${dep}" "${dep}" >> "$TARGET"
+        local dep_path="./${mod2cate_map[$dep]}.md#$dep"
+        printf -- ' [`%s`](%s)' "${dep}" "${dep_path}" >> "$TARGET"
       done
 
       printf '%s\n' '' >> "$TARGET"
@@ -83,25 +103,31 @@ print_category() {
       printf -- '- %s\n' 'Deprecated: true' >> "$TARGET"
     fi
 
-    local example_path="../example/modules/${module_name%%.p}"
-    if [[ -f ${SCRIPT_DIR}/$example_path ]]; then
-      printf -- '- %s\n' "Executable Example: [$example_path]($example_path)" >> "$TARGET"
+    {
+      printf -- '- Test Cases: [tests/modules/%s.bats](../../tests/modules/%s.bats)\n' "$module_name" "$module_name"
+      printf -- '- Source Code: [src/modules/%s.bash](../../src/modules/%s.bash)\n' "$module_name" "$module_name"
+    } >> "$TARGET"
+
+    local example_path="example/modules/${module_name%%.p}"
+    if [[ -f ${SCRIPT_DIR}/../$example_path ]]; then
+      printf -- '- %s\n' "Executable Example: [$example_path](../../$example_path)" >> "$TARGET"
     fi
 
-    printf -- '- More Examples: [../tests/modules/%s.bats](../tests/modules/%s.bats)\n' "$module_name" "$module_name" >> "$TARGET"
-    printf -- '- Source Code: [../src/modules/%s.bash](../src/modules/%s.bash)\n' "$module_name" "$module_name" >> "$TARGET"
   done
+
+  printf '\n%s\n' '[⬆️ Back up to TOC](#toc)' >> "$TARGET"
 }
 
 print_toc() {
+  local TARGET=$1
   echo "Print TOC"
   printf '\n%s\n\n' "## TOC" >> "$TARGET"
 
   for category in "${categories[@]}"; do
-    printf -- '- [%s](#%s)\n' "${category^}" "$category" >> "$TARGET"
+    printf -- '- [%s](%s)\n' "${category^}" "./$category.md" >> "$TARGET"
     local -n c=category_$category
     for module_name in "${c[@]}"; do
-      printf -- '  - [%s](#%s)\n' "${module_name}"  "${module_name//\./}" >> "$TARGET"
+      printf -- '  - [%s](%s)\n' "${module_name}"  "./$category.md#${module_name//\./}" >> "$TARGET"
     done
   done
 }
@@ -120,10 +146,27 @@ add_to_map() {
   done
 }
 
+print_header() {
+  local TARGET=$1
+  cat <<EOF > "$TARGET"
+# Module Usages
+
+${#categories[*]} Categories, ${module_count} Modules, ${test_cases_count} Test Cases.
+
+Each module provides only one function which naming prefixed with \`l.\`.
+
+The function which naming suffixed with \`.p\` should be used in pipeline. Like \`echo ' string ' | l.trim.p\`.
+EOF
+}
+
 main() {
-  local TARGET=$SCRIPT_DIR/../doc/module-usages.md
+  local BASE_DIR="$SCRIPT_DIR/../doc/module-usages"
+  safe_rm "$BASE_DIR"
+  mkdir -p "$BASE_DIR"
+
   local -A map
   local -a categories
+  local -A mod2cate_map
 
   local -i module_count=0
   local filepath module_name category metadatas
@@ -148,6 +191,7 @@ main() {
 
     declare -n cate=$cate_name
     cate+=("$module_name")
+    mod2cate_map[$module_name]=$category
 
     add_to_map usage
     add_to_map description
@@ -163,20 +207,15 @@ main() {
   for i in $(grep -hrc '@test' "$SCRIPT_DIR/../tests/modules/"); do
     (( test_cases_count+=i ))
   done
-  for i in $(grep -hc '@test' "$SCRIPT_DIR/../tests/import.bats"); do
+  for i in $(grep -hrc '@test' "$SCRIPT_DIR/../tests/internals/"); do
     (( test_cases_count+=i ))
   done
 
-  cat <<EOF > "$TARGET"
-# Module Usages
-
-${#categories[*]} Categories, ${module_count} Modules, ${test_cases_count} Test Cases.
-EOF
-
-  print_toc
+  print_header "$BASE_DIR/README.md"
+  print_toc "$BASE_DIR/README.md"
 
   for category in "${categories[@]}"; do
-    print_category "$category"
+    print_category "$category" "$BASE_DIR/$category.md"
   done
 }
 
