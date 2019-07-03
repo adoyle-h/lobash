@@ -14,8 +14,12 @@
 - Usage: `l.ask <message> [<default>=Y]`
 - Description:
   - Print a message and read Yes/No answer from stdin.
-  - when default=Y, if will return YES by default.
-  - when default=N, if will return NO by default.
+  - It prints 'YES' when get answer y/Y/ye/Ye/yE/YE/yes/yES/yeS/YeS/Yes/YEs/YES.
+  - It prints 'NO' when get answer n/N/no/No/nO/NO.
+  - It prints default value when get empty answer.
+  - It prints 'Invalid Answer' when get other answers.
+  - When default=Y, if will return YES by default.
+  - When default=N, if will return NO by default.
 - Dependent: [`lower_case`](./string.md#lower_case)
 - Since: 0.1.0
 - Test Cases: [tests/modules/ask.bats](../../tests/modules/ask.bats)
