@@ -20,7 +20,7 @@ Read below links before making any contributions.
 
 - [Developer Certificate of Origin](./dco.md)
 - [Code Styles](./code-styles.md)
-- [Git Message](./git-message.md)
+- [Git Message Style](./git-message.md)
 - [How to write functions](./how-to-write-functions.md)
 - [How to write modules](./how-to-write-modules.md)
 - [Module Metadata](./module-metadata.md)
