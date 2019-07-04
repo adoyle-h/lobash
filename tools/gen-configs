@@ -18,11 +18,11 @@ generate() {
   local category=${1,,}
   local -n c=category_$category
 
-  printf -- '-[ ]   %s\n' "${category^}" >> "$TARGET_BASH"
+  printf -- '- [ ]   %s\n' "${category^}" >> "$TARGET_BASH"
 
   for module_name in "${c[@]}"; do
     if [[ ${map[${module_name}_bash_0]} == true ]]; then
-      printf -- '  -[ ] %s\n' "$module_name" >> "$TARGET_BASH"
+      printf -- '  - [ ] %s\n' "$module_name" >> "$TARGET_BASH"
     fi
   done
 
@@ -78,9 +78,13 @@ main() {
   categories=( $(l.sort categories) )
 
   cat <<EOF > "$TARGET_BASH"
+# Choose the minimum version of Bash in which Lobash will run.
+# Available values: 4.0, 4.1, 4.2, 4.3, 4.4
+BASH_MIN_VERSION: 4.4
+
 # Select modules or categories to export
-# -[ ]  Unselected
-# -[x]  Selected
+# - [ ]  Unselected
+# - [x]  Selected
 
 EOF
 

@@ -25,6 +25,7 @@
 - [Command](#command)
 - [FAQ](#faq)
 - [Who use Lobash](#who-use-lobash)
+- [Related Projects](#related-projects)
 - [References](#references)
 - [Test](#test)
 - [Contributions](#contributions)
@@ -82,18 +83,22 @@ git submodule update --init --recursive
 
 ### Supported Shells
 
-| Supported | Shell    | Version          | Main Reasons                                          |
-|:---------:|:---------|:-----------------|:------------------------------------------------------|
-|     ✅    | Bash     | v5 and higher    | -                                                     |
-|     ✅    | Bash     | v4.4             | -                                                     |
-|     🚫    | Zsh      | v5.3 and higher  | Plan to implement it in another project               |
-|     🚫    | Bash     | v4.3             | `shopt -s inherit_errexit` is not supported util v4.4 |
-|     🚫    | Bash     | v4.0, v4.1, v4.2 | Nameref is not supported util v4.3                    |
-|     🚫    | Bash     | v3               | Associative array is not supported until v4.0         |
-|     🚫    | POSIX sh | *                | `local` keyword not supported                         |
-|     ❔    | Ksh      | *                | No tested                                             |
+| Supported | Shell    | Version         | Main Reasons                                               |
+|:---------:|:---------|:----------------|:-----------------------------------------------------------|
+|     ✅    | Bash     | v5 and higher   | -                                                          |
+|     ✅    | Bash     | v4.4            | -                                                          |
+|     🚫    | Zsh      | v5.3 and higher | Plan to implement it in another project                    |
+|     🚫    | Bash     | v4.3            | `shopt -s inherit_errexit` is not supported util v4.4      |
+|     🚫    | Bash     | v4.2            | `Nameref` is not supported util v4.3                       |
+|     🚫    | Bash     | v4.1            | `declare -g` not support util v4.2                         |
+|     🚫    | Bash     | v4.0            | `exec {_sleep_fd}<> <(true)` is not supported util v4.1    |
+|     🚫    | Bash     | v3              | Associative array is not supported until v4.0              |
+|     🚫    | POSIX sh | *               | `local` keyword not supported                              |
+|     ❔    | Ksh      | *               | No tested                                                  |
 
 There is [a list](http://mywiki.wooledge.org/BashFAQ/061) of which features were added to specific releases (versions) of Bash.
+
+There are [more differences in Bash from 4.0 to 4.4](./doc/how-to-write-functions.md#compatible-with-different-bash).
 
 Although most Linux distributions use Bash v4.3, you can upgrade Bash easily and it is backward compatible.
 
@@ -118,7 +123,7 @@ First, build your own `lobash.bash` file by `./build`.
 # Or build Lobash to specific path
 ./build <target-path>
 
-# Or build Lobash to specific path and change Lobash function prefix
+# Or build Lobash to specific path and change Lobash function prefix which defaults to "l."
 PREFIX=lobash_ ./build <target-path>
 ```
 
@@ -201,6 +206,12 @@ Many modules not work as command.
 ## Who use Lobash
 
 - [adoyle-h/dotfiles](https://github.com/adoyle-h/dotfiles)
+
+## Related Projects
+
+- [shell-general-colors](https://github.com/adoyle-h/shell-general-colors): shell colors
+- [bats-core](https://github.com/bats-core/bats-core): test framework
+- [semver-tool](https://github.com/fsaintjacques/semver-tool): semver bash implementation
 
 ## References
 

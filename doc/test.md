@@ -19,3 +19,27 @@ l.last a b c
 ## Debug
 
 Set environment variable `LOBASH_DEBUG=true` to print verbose logs.
+
+## Build different Bash versions
+
+```sh
+BASHVER=4.0 ./tools/build-test-image
+```
+
+## Test with different Bash versions
+
+```sh
+BASHVER=4.0 ./tools/test-in-docker
+# or
+BASHVER=4.0 ./tools/test-in-docker ./tests/modules/${module_name}.bats
+# or
+BASHVER=4.0 ./tools/test-in-docker -d
+# or
+BASHVER=4.0 ./tools/test-in-docker -d ./tests/modules/${module_name}.bats
+```
+
+## Run in different Bash versions
+
+```sh
+BASHVER=4.0 ./tools/run-in-docker
+```
