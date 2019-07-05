@@ -45,3 +45,10 @@ load_module join
 	assert_success
 	assert_output ','
 }
+
+@test "l.join () ," {
+  local arr=()
+  run l.join arr ,
+	assert_success
+	assert_output ''
+}

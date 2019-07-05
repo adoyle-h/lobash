@@ -14,6 +14,6 @@ l.join() {
   else
     IFS=${2}
   fi
-  printf '%s\n' "${l_join_arg1[*]}"
+  printf '%s\n' "${l_join_arg1[*]:-}"
   IFS=$_IFS
 }

@@ -9,5 +9,5 @@
 l.sort() {
   local -n l_sort_arg1=$1
   shift
-  printf '%s\n' "${l_sort_arg1[@]}" | sort "$@"
+  printf '%s\n' "${l_sort_arg1[@]:-}" | sort "$@"
 }

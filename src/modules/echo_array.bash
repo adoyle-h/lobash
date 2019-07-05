@@ -8,5 +8,5 @@
 
 l.echo_array() {
   local -n l_echo_array_arg1=$1
-  printf '%s\n' "${l_echo_array_arg1[@]}"
+  printf '%s\n' "${l_echo_array_arg1[@]:-}"
 }

@@ -7,6 +7,8 @@
 
 l.array_include() {
   local -n l_array_include_arg_array=$1
+  (( ${#l_array_include_arg_array[@]} == 0 )) && echo false && return
+
   local match="$2"
   local e
   shift
