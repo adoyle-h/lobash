@@ -7,10 +7,13 @@ set -o pipefail
 [[ -n "${VERBOSE:+x}" ]] && set -o verbose
 [[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
 
+readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+
 # GNU Mirror List: https://www.gnu.org/prep/ftp.html
 MIRROR=https://gnu.freemirror.org
 VERSION=$1
-BUILD_DIR=$TRAVIS_BUILD_DIR/build-bash/$VERSION
+TRAVIS_BUILD_DIR=${TRAVIS_BUILD_DIR:-$SCRIPT_DIR}
+BUILD_DIR=${TRAVIS_BUILD_DIR}/build-bash/$VERSION
 
 mkdir -p "$BUILD_DIR"
 cd "$TRAVIS_BUILD_DIR"

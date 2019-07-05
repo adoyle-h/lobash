@@ -300,9 +300,9 @@ generate() {
 }
 
 main() {
-  init "$@"
+  init "${@:-}"
   clean
-  generate "$@"
+  generate "${@:-}"
 }
 
-main "$@"
+main "${@:-}"

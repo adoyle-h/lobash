@@ -22,6 +22,10 @@ else
   cmd='/lobash/test'
 fi
 
+if (( $# > 0 )); then
+  cmd="$cmd $*"
+fi
+
 docker run \
   --rm \
   -e DOCKER=true \
@@ -33,4 +37,4 @@ docker run \
   -v "$SCRIPT_DIR"/../src:/lobash/src \
   -v "$SCRIPT_DIR"/../tests:/lobash/tests \
   -v "$SCRIPT_DIR"/../tools:/lobash/tools \
-  lobash/test-bash:"${BASHVER}" bash -c "$cmd $*"
+  lobash/test-bash:"${BASHVER}" bash -c "$cmd"
