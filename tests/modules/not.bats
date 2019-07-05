@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 
 setup_fixture
+test_prepare not
 load_module not
 
 @test "l.not true" {

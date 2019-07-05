@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
-# shellcheck disable=SC1090
 
 set -o errexit
 set -o nounset
 set -o pipefail
-shopt -s inherit_errexit
+(shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
 [[ -n "${VERBOSE:+x}" ]] && set -o verbose
 [[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
 
@@ -17,13 +16,21 @@ if [[ -z $(docker images -q lobash/test-bash:"${BASHVER}") ]]; then
   BASHVER=$BASHVER "$SCRIPT_DIR/build-image"
 fi
 
+if [[ -n ${BUILD_DIST:-} ]]; then
+  cmd='/lobash/build && /lobash/test -d'
+else
+  cmd='/lobash/test'
+fi
+
 docker run \
   --rm \
   -e DOCKER=true \
   -e CI="${CI:-}" \
+  -e BASHVER=$BASHVER \
   -v "$SCRIPT_DIR"/../test:/lobash/test \
   -v "$SCRIPT_DIR"/../build:/lobash/build \
   -v "$SCRIPT_DIR"/../version:/lobash/version \
   -v "$SCRIPT_DIR"/../src:/lobash/src \
   -v "$SCRIPT_DIR"/../tests:/lobash/tests \
-  lobash/test-bash:"${BASHVER}" bash -c "/lobash/build && /lobash/test -d $*"
+  -v "$SCRIPT_DIR"/../tools:/lobash/tools \
+  lobash/test-bash:"${BASHVER}" bash -c "$cmd $*"

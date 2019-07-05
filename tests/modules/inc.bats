@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 
 setup_fixture
+test_prepare inc
 load_module inc
 
 @test "l.inc 1 without any print" {

@@ -9,7 +9,7 @@
 set -o errexit
 set -o nounset
 set -o pipefail
-shopt -s inherit_errexit
+(shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
 [[ -n "${VERBOSE:+x}" ]] && set -o verbose
 [[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
 
@@ -20,23 +20,28 @@ readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 #######################################################################
 
 source "$SCRIPT_DIR/../tools/colors.bash"
+# shellcheck source=../src/load_internals.bash
+source "$SCRIPT_DIR/../src/load_internals.bash"
 
 usage() {
   local str
   # read return error with here-doc, so close errexit
   set +o errexit
   read -r -d '' str <<EOF
-${GREEN}Usage:
+${GREEN}Usage:${RESET_ALL}
   lobash [help|-h|--help]
   lobash mod <module_name> [<sub_command_args>]...
   lobash meta
 
-${PURPLE}Sub-Command${RESET_ALL}
+${PURPLE}Sub-Command:${RESET_ALL}
   help       Show help
   mod        Invoke a Lobash module
   mods       Show available module names
   meta       Query metadatas of Lobash module
   github     Open Lobash github page in your browser
+
+${CYAN}Description:${RESET_ALL}
+The "lobash mod" command is only used for certain scenarios. Many modules not work as command.
 EOF
   set -o errexit
 
@@ -81,12 +86,21 @@ query_meta() {
   _lobash.import_internals module_meta
 
   local module=$1
-  local -A metas
-  _lobash.get_module_metadata_by_name "$module" metas
+  local meta_types=(
+    Module
+    Category
+    Since
+    Usage
+    Description
+    Dependent
+    Deprecated
+    Bash
+    Status
+  )
+  _lobash.scan_module_metadata "$module"
 
-  printf '%b: %b\n' "${GREEN}Module${RESET_ALL}" "${module}"
-  for mtype in "${!metas[@]}"; do
-    printf '%b: %b\n' "${GREEN}$mtype${RESET_ALL}" "${metas[$mtype]}"
+  for mtype in "${meta_types[@]}"; do
+    printf '%b: %b\n' "${GREEN}$mtype${RESET_ALL}" "$(_lobash.get_module_metadata "$module" "$mtype")"
   done
 }
 
@@ -96,6 +110,10 @@ open_github() {
 
 show_mods() {
   find "$SCRIPT_DIR/../src/modules/" -type f -exec basename {} .bash \; | sort
+}
+
+init() {
+  _lobash.imports trace_start trace_end
 }
 
 #######################################################################
@@ -111,8 +129,7 @@ main() {
     exit 0
   fi
 
-  # shellcheck source=../src/load_internals.bash
-  source "$SCRIPT_DIR/../src/load_internals.bash"
+  init
 
   case $arg0 in
     mod ) exec_module "${dispatch_cmd_args[@]:1}" ;;

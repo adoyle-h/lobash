@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 
 setup_fixture
+test_prepare extname
 load_module extname
 
 @test "l.extname file.name" {

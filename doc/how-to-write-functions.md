@@ -9,12 +9,6 @@
 - [Use external command](#use-external-command)
     - [Notice the differences between BSD sed and GNU sed.](#notice-the-differences-between-bsd-sed-and-gnu-sed)
 - [Prefer printf than echo](#prefer-printf-than-echo)
-- [Compatible with different Bash](#compatible-with-different-bash)
-    - [4.4](#44)
-    - [4.3](#43)
-    - [4.2](#42)
-    - [4.1](#41)
-    - [4.0](#40)
 
 <!-- /MarkdownTOC -->
 
@@ -53,31 +47,3 @@ References:
 ## Prefer printf than echo
 
 Use `printf '%s\n' 'hello world'` not `echo 'hello world'`
-
-## Compatible with different Bash
-
-### 4.4
-
-Completely supported.
-
-### 4.3
-
-`shopt -s inherit_errexit` is not supported util v4.4.
-
-### 4.2
-
-`Nameref` is not supported util v4.3.
-
-### 4.1
-
-`declare -g var=str` not supported in Bash 4.1, use `read -r var <<< "str"` instead.
-
-`$(( "$i" + 1 ))` not work in Bash 4.1, use `$(( i + 1))` instead.
-
-`[[ $'\e' == $'\u001b' ]]` is `false` in Bash less than v4.2. No workaround.
-
-`printf "%($1)T\\n" "-1"` not work in v4.1. No workaround.
-
-### 4.0
-
-`exec {_sleep_fd}<> <(true)` is not supported util v4.1. No workaround.

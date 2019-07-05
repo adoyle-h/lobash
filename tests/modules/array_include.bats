@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 
 setup_fixture
+test_prepare array_include
 load_module array_include
 
 @test "l.array_include (he ll o world) hello" {

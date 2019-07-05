@@ -10,7 +10,7 @@ _l.choose_prompt() {
   printf '  %s\n' 'No. Item'
   local i
   for i in "${!items[@]}"; do
-    printf -- '- %-2d  %s\n' $(("$i" + 1)) "${items[$i]}"
+    printf -- '- %-2d  %s\n' $((i + 1)) "${items[$i]}"
   done
 
   printf 'Please enter the number to choose: \n'

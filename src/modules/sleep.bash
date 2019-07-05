@@ -5,6 +5,7 @@
 # Description: Same to sleep command but support float.
 # Description: When run it in Linux/Unix System, the precision of sleep time is 1ms. The deviation of sleep time is 1~2ms by actual measurement.
 # Description: When run it in MacOS, the precision of sleep time is 100ms. The deviation of sleep time is 30~40ms by actual measurement.
+# Bash: 4.1
 # ---
 
 # This way is accurate but has bug. Sleep can be cancelled when stdin get 99999 characters in time.

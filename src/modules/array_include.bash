@@ -2,6 +2,7 @@
 # Category: Array
 # Since: 0.1.0
 # Usage: l.array_include <array_name> <match>
+# Bash: 4.3
 # ---
 
 l.array_include() {

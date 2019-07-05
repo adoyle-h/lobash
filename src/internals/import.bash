@@ -21,7 +21,7 @@ _lobash.import_deps() {
   local deps
 
   # Get list of dependent modules names
-  read -ra deps <<< "$( sed -n '/^# ---$/,/^# ---$/p' < "$module_path" \
+  IFS=' ' read -ra deps <<< "$( sed -n '/^# ---$/,/^# ---$/p' < "$module_path" \
     | grep '^# Dependent:' \
     | sed -E 's/^# Dependent: ?(.*)/\1/;s/,/ /g' \
     || true )"

@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 
 setup_fixture
+test_prepare str_len
 load_module str_len
 
 @test "l.str_len ''" {

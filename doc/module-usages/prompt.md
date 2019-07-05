@@ -5,6 +5,7 @@
 ## TOC
 
 - [ask](#ask)
+- [ask_input](#ask_input)
 - [choose](#choose)
 
 ## Modules
@@ -25,6 +26,16 @@
 - Test Cases: [tests/modules/ask.bats](../../tests/modules/ask.bats)
 - Source Code: [src/modules/ask.bash](../../src/modules/ask.bash)
 - Executable Example: [example/modules/ask](../../example/modules/ask)
+
+### ask_input
+
+- Usage: `l.ask_input [<message>='Ask Input:'] [<default>]`
+- Description:
+  - Print a message and read user input from stdin.
+  - If `<default>` provided, return it when user type empty.
+- Since: 0.1.0
+- Test Cases: [tests/modules/ask_input.bats](../../tests/modules/ask_input.bats)
+- Source Code: [src/modules/ask_input.bash](../../src/modules/ask_input.bash)
 
 ### choose
 

@@ -7,7 +7,6 @@
 # ---
 
 l.echo_screen() {
-  if [[ -c /dev/tty ]]; then
-    printf -- '%b\n' "$*" >/dev/tty
-  fi
+  # /dev/tty may not exist when run in interactive shell
+  (printf -- '%b\n' "$*" >/dev/tty || true) 2>/dev/null
 }

@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 
 setup_fixture
+test_prepare strict_has_not
 load_module strict_has_not
 
 @test "l.strict_has_not the gti, which is an alias" {

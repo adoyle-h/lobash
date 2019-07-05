@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 
 setup_fixture
+test_prepare cur_function_name
 load_module cur_function_name
 
 @test "l.cur_function_name" {

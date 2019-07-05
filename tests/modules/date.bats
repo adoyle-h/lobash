@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 
 setup_fixture
+test_prepare date
 load_module date
 
 @test "l.date '%s'" {

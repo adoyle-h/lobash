@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 
 setup_fixture
+test_prepare choose
 load_module choose
 
 @test "l.choose a b. Enter 2" {

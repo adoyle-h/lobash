@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 
 setup_fixture
+test_prepare lower_first
 load_module lower_first
 
 @test "l.lower_first 'abc'" {

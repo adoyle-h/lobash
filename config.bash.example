@@ -9,7 +9,6 @@ BASH_MIN_VERSION: 4.4
 - [ ]   Arithmetic
 
 - [ ]   Array
-  - [ ] sort
   - [ ] union_array
 
 - [ ]   Color

@@ -6,6 +6,7 @@
 
 - [echo](#echo)
 - [echo_array](#echo_array)
+- [echo_screen](#echo_screen)
 
 ## Modules
 
@@ -27,5 +28,15 @@
 - Since: 0.1.0
 - Test Cases: [tests/modules/echo_array.bats](../../tests/modules/echo_array.bats)
 - Source Code: [src/modules/echo_array.bash](../../src/modules/echo_array.bash)
+
+### echo_screen
+
+- Usage: `l.echo_screen <string>...`
+- Description:
+  - Similar to l.echo, but always print text to screen no matter redirection.
+  - If no screen, it will print nothing.
+- Since: 0.1.0
+- Test Cases: [tests/modules/echo_screen.bats](../../tests/modules/echo_screen.bats)
+- Source Code: [src/modules/echo_screen.bash](../../src/modules/echo_screen.bash)
 
 [⬆️ Back up to TOC](#toc)

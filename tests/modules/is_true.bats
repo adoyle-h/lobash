@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 
 setup_fixture
+test_prepare is_true
 load_module is_true
 
 @test "l.is_true true" {

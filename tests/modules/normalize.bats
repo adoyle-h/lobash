@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 
 setup_fixture
+test_prepare normalize
 load_module normalize
 
 @test "l.normalize and l.normalize ''" {

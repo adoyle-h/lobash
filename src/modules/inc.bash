@@ -3,6 +3,7 @@
 # Since: 0.1.0
 # Usage: l.inc <var_name> [<addend>=1]
 # Description: Increase number with addend.
+# Bash: 4.3
 # ---
 
 l.inc() {

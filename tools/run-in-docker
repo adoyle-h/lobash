@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
-# shellcheck disable=SC1090
 
 set -o errexit
 set -o nounset
 set -o pipefail
-shopt -s inherit_errexit
+(shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
 [[ -n "${VERBOSE:+x}" ]] && set -o verbose
 [[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
 
@@ -16,10 +15,13 @@ docker run \
   --rm -it \
   -e DOCKER=true \
   -e CI="${CI:-}" \
+  -v "$SCRIPT_DIR"/../bin:/lobash/bin \
+  -v "$SCRIPT_DIR"/../example:/lobash/example \
   -v "$SCRIPT_DIR"/../test:/lobash/test \
   -v "$SCRIPT_DIR"/../build:/lobash/build \
   -v "$SCRIPT_DIR"/../version:/lobash/version \
   -v "$SCRIPT_DIR"/../src:/lobash/src \
   -v "$SCRIPT_DIR"/../tests:/lobash/tests \
+  -v "$SCRIPT_DIR"/../tools:/lobash/tools \
   -v "$SCRIPT_DIR"/../dist:/lobash/dist \
   lobash/test-bash:"${BASHVER}"

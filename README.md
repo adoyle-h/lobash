@@ -23,6 +23,8 @@
     - [Load lobash.bash in your scripts](#load-lobashbash-in-your-scripts)
     - [Module Usages](#module-usages)
 - [Command](#command)
+    - [lobash meta](#lobash-meta)
+    - [lobash mod](#lobash-mod)
 - [FAQ](#faq)
 - [Who use Lobash](#who-use-lobash)
 - [Related Projects](#related-projects)
@@ -54,8 +56,8 @@ and make it compatible with Bash 4.4+ and MacOS/Linux/Alpine/Busybox systems.
 
 ## Build Status
 
-- [Master Branch][]: [![Build Status/master](https://travis-ci.com/adoyle-h/lobash.svg?branch=master)](https://travis-ci.com/adoyle-h/lobash)
-- [Develop Branch][]: [![Build Status/test](https://travis-ci.com/adoyle-h/lobash.svg?branch=test)](https://travis-ci.com/adoyle-h/lobash)
+- [Test Branch][]: [![Build Status](https://travis-ci.com/adoyle-h/lobash.svg?branch=test)][travis repo]
+- [v0.1.0](https://github.com/adoyle-h/lobash/tree/v0.1.0): [![Build Status](https://travis-ci.com/adoyle-h/lobash.svg?tag=v0.1.0)][travis repo]
 
 ## Installation
 
@@ -83,24 +85,27 @@ git submodule update --init --recursive
 
 ### Supported Shells
 
-| Supported | Shell    | Version         | Main Reasons                                               |
-|:---------:|:---------|:----------------|:-----------------------------------------------------------|
-|     ✅    | Bash     | v5 and higher   | -                                                          |
-|     ✅    | Bash     | v4.4            | -                                                          |
-|     🚫    | Zsh      | v5.3 and higher | Plan to implement it in another project                    |
-|     🚫    | Bash     | v4.3            | `shopt -s inherit_errexit` is not supported util v4.4      |
-|     🚫    | Bash     | v4.2            | `Nameref` is not supported util v4.3                       |
-|     🚫    | Bash     | v4.1            | `declare -g` not support util v4.2                         |
-|     🚫    | Bash     | v4.0            | `exec {_sleep_fd}<> <(true)` is not supported util v4.1    |
-|     🚫    | Bash     | v3              | Associative array is not supported until v4.0              |
-|     🚫    | POSIX sh | *               | `local` keyword not supported                              |
-|     ❔    | Ksh      | *               | No tested                                                  |
+| Supported | Shell    | Version       | Main Reasons                                            |
+|:---------:|:---------|:--------------|:--------------------------------------------------------|
+|     ✅    | Bash     | v5 and higher | Completely Supported                                    |
+|     ✅    | Bash     | v4.4          | Completely Supported                                    |
+|    ✅💬   | Bash     | v4.3          | `shopt -s inherit_errexit` is not supported util v4.4   |
+|    ✅💬   | Bash     | v4.2          | `Nameref` is not supported util v4.3                    |
+|    ✅💬   | Bash     | v4.1          | `declare -g` not support util v4.2                      |
+|    ✅💬   | Bash     | v4.0          | `exec {_sleep_fd}<> <(true)` is not supported util v4.1 |
+|     🚫    | Bash     | v3            | Associative array is not supported until v4.0           |
+|     🚫    | POSIX sh | *             | `local` keyword not supported                           |
+|     🚫    | Zsh      | *             | Plan to implement it in another project                 |
+|     ❔    | Ksh      | *             | No tested                                               |
+
+✅💬 means Lobash can be used but not all features supported in shell.
+**If you want use Lobash with Bash 4.3 and lower versions.**
+**Please read [./doc/with-lower-version-bash.md](./doc/with-lower-version-bash.md) for details.**
 
 There is [a list](http://mywiki.wooledge.org/BashFAQ/061) of which features were added to specific releases (versions) of Bash.
 
-There are [more differences in Bash from 4.0 to 4.4](./doc/how-to-write-functions.md#compatible-with-different-bash).
-
-Although most Linux distributions use Bash v4.3, you can upgrade Bash easily and it is backward compatible.
+Although most Linux distributions use Bash v4.3, and MacOS not installed Bash v4 by default,
+it is easily to upgrade Bash 4.4+ which is backward compatible.
 
 ### Dependencies
 
@@ -117,20 +122,15 @@ Make sure below dependencies have been installed.
 First, build your own `lobash.bash` file by `./build`.
 
 ```sh
+# Interactive build process
 ./build
-# Generated Lobash file: /Users/adoyle/Workspace/Shell/lobash/dist/lobash.bash
+# Generated Lobash file: <lobash-dir>/dist/lobash.bash
 
 # Or build Lobash to specific path
 ./build <target-path>
-
-# Or build Lobash to specific path and change Lobash function prefix which defaults to "l."
-PREFIX=lobash_ ./build <target-path>
 ```
 
-When you use Lobash to build a library or framework, it is necessary to set `PREFIX` with unique namespace for avoiding naming collisions.
-When you build a command, `PREFIX` is unnecessary.
-
-The `PREFIX` only effect Lobash public functions and variables names.
+See [./doc/build.md](./doc/build.md) for more details.
 
 ### Edit your scripts and set shell options
 
@@ -154,7 +154,7 @@ If your develop a Bash script, put below codes in head.
 set -o errexit
 set -o nounset
 set -o pipefail
-shopt -s inherit_errexit
+(shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
 ```
 
 ### Load lobash.bash in your scripts
@@ -167,7 +167,7 @@ Second, load your own `lobash.bash` file in your scripts and all Lobash function
 set -o errexit
 set -o nounset
 set -o pipefail
-shopt -s inherit_errexit
+(shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
 
 # It will load all Lobash modules
 source <path-to-lobash.bash>
@@ -194,24 +194,76 @@ See all module usages in [./doc/module-usages/](./doc/module-usages/README.md)
 
 ## Command
 
+While Lobash is a library for development, it also provides a command `./bin/lobash`.
+
+Enter `./bin/lobash` show help.
+
 ```sh
-./bin/lobash mod <module_name> [<module_args>]...
+> ./bin/lobash
+
+Usage:
+  lobash [help|-h|--help]
+  lobash mod <module_name> [<sub_command_args>]...
+  lobash meta
+
+Sub-Command:
+  help       Show help
+  mod        Invoke a Lobash module
+  mods       Show available module names
+  meta       Query metadatas of Lobash module
+  github     Open Lobash github page in your browser
+
+Description:
+The "lobash mod" command is only used for certain scenarios. Many modules not work as command.
 ```
 
-The `./bin/lobash` command is only used for certain scenarios.
-Many modules not work as command.
+### lobash meta
+
+```sh
+> ./bin/lobash meta ask
+Module: ask
+Category: Prompt
+Since: 0.1.0
+Usage: l.ask <message> [<default>=Y]
+Description: When default=N, if will return NO by default.
+Dependent: lower_case
+Deprecated: false
+Bash: 4.0
+Status: tested
+
+> ./bin/lobash meta normalize
+Module: normalize
+Category: Path
+Since: 0.1.0
+Usage: l.normalize <path>
+Description: Trailing `/` always be removed.
+Dependent: split, join
+Deprecated: false
+Bash: 4.3
+Status: tested
+```
+
+### lobash mod
+
+Note: The "lobash mod" command is only used for certain scenarios. Many modules not work as command.
+
+```sh
+> ./bin/lobash mod ask 'Is it OK?'
+Is it OK? ([Y]es/No)
+YES
+```
 
 ## [FAQ](./doc/faq.md)
 
 ## Who use Lobash
 
 - [adoyle-h/dotfiles](https://github.com/adoyle-h/dotfiles)
+- Contact me to add your project to list.
 
 ## Related Projects
 
 - [shell-general-colors](https://github.com/adoyle-h/shell-general-colors): shell colors
 - [bats-core](https://github.com/bats-core/bats-core): test framework
-- [semver-tool](https://github.com/fsaintjacques/semver-tool): semver bash implementation
 
 ## References
 
@@ -220,8 +272,6 @@ Many modules not work as command.
 - http://mywiki.wooledge.org/BashFAQ
 
 ## Test
-
-Run `./test -d`.
 
 See [./doc/test.md](./doc/test.md) more details.
 
@@ -255,3 +305,4 @@ See the [NOTICE][] file distributed with this work for additional information re
 [issue]: https://github.com/adoyle-h/dotfiles/issues
 [Master Branch]: https://github.com/adoyle-h/lobash/tree/master
 [Develop Branch]: https://github.com/adoyle-h/lobash/tree/develop
+[travis repo]: https://travis-ci.com/adoyle-h/lobash

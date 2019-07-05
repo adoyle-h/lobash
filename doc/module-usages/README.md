@@ -1,6 +1,6 @@
 # Module Usages
 
-15 Categories, 90 Modules, 488 Test Cases.
+15 Categories, 92 Modules, 491 Test Cases.
 
 Each module provides only one function which naming prefixed with `l.`.
 
@@ -45,6 +45,7 @@ The function which naming suffixed with `.p` should be used in pipeline. Like `e
 - [Console](./console.md)
   - [echo](./console.md#echo)
   - [echo_array](./console.md#echo_array)
+  - [echo_screen](./console.md#echo_screen)
 - [Debug](./debug.md)
   - [trace_count](./debug.md#trace_count)
   - [trace_end](./debug.md#trace_end)
@@ -66,6 +67,7 @@ The function which naming suffixed with `.p` should be used in pipeline. Like `e
   - [pwd](./path.md#pwd)
 - [Prompt](./prompt.md)
   - [ask](./prompt.md#ask)
+  - [ask_input](./prompt.md#ask_input)
   - [choose](./prompt.md#choose)
 - [String](./string.md)
   - [count_lines.p](./string.md#count_linesp)

@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 
 setup_fixture
+test_prepare strict_has
 load_module strict_has
 
 @test 'if [[ l.strict_has == true ]]' {

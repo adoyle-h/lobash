@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 
 setup_fixture
+test_prepare join
 load_module join
 
 @test "l.join (a b c d) " {

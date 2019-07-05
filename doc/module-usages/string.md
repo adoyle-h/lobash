@@ -167,7 +167,9 @@
 ### trim_color
 
 - Usage: `l.trim_color <string>`
-- Description: Remove color escape code in string
+- Description:
+  - Remove color escape code in string
+  - \u001b not work in Bash <4.2. [[ $'\e' == $'\u001b' ]] is false in Bash <4.2
 - Since: 0.1.0
 - Test Cases: [tests/modules/trim_color.bats](../../tests/modules/trim_color.bats)
 - Source Code: [src/modules/trim_color.bash](../../src/modules/trim_color.bash)

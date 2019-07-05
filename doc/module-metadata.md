@@ -6,11 +6,11 @@ Each module must have Metadata at top.
 ```sh
 # ---
 # Category: XXX
-# Deprecated: false
 # Since: <version>
-# Dependent: a,b,c
 # Usage: l.public_function arguments [options]
 # Description: function description
+# Dependent: a,b,c
+# Deprecated: false
 # Bash: 4.0
 # Status: tested
 # ---

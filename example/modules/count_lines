@@ -1,14 +1,20 @@
 #!/usr/bin/env bash
-# shellcheck disable=SC1090
+# shellcheck disable=SC2119
 
 set -o errexit
 set -o nounset
 set -o pipefail
-shopt -s inherit_errexit
+(shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
 [[ -n "${VERBOSE:+x}" ]] && set -o verbose
 [[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
 
 readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+# shellcheck source=./init.bash
 source "$SCRIPT_DIR"/init.bash
 
-l.count_lines.p < <(printf 'a\nb\n')
+# It is same to wc -l
+printf 'a' | l.count_lines.p
+printf 'a\n' | l.count_lines.p
+printf 'a\nb' | l.count_lines.p
+printf 'a\nb\n' | l.count_lines.p
+printf 'a\nb\n\n' | l.count_lines.p

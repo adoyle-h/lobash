@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 
 setup_fixture
+test_prepare ask
 load_module ask
 
 # It uses echo pipe just for test.

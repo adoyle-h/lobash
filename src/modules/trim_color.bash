@@ -3,6 +3,8 @@
 # Since: 0.1.0
 # Usage: l.trim_color <string>
 # Description: Remove color escape code in string
+# Description: \u001b not work in Bash <4.2. [[ $'\e' == $'\u001b' ]] is false in Bash <4.2
+# Bash: 4.2
 # ---
 
 l.trim_color() {

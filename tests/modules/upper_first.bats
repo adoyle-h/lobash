@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 
 setup_fixture
+test_prepare upper_first
 load_module upper_first
 
 @test "l.upper_first 'abc'" {

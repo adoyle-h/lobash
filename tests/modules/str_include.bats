@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 
 setup_fixture
+test_prepare str_include
 load_module str_include
 
 @test "l.str_include hello he" {

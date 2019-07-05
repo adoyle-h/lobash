@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 
 setup_fixture
+test_prepare split
 load_module split
 
 @test "l.split 'a,asd,bcd,d' ','" {

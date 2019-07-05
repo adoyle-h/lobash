@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 
 setup_fixture
+test_prepare match
 load_module match
 
 @test "l.match 'hello world' 'hello'" {

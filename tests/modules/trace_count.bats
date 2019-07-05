@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 
 setup_fixture
+test_prepare trace_count
 load_module trace_count
 
 @test "l.trace_count without label" {
