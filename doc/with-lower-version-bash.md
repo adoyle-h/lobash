@@ -2,7 +2,7 @@
 
 If you want use Lobash with Bash 4.3 and lower versions, there are some knowledges you should know.
 
-## Compatible with different Bash
+## Compatible with different versions
 
 ### 4.4
 
@@ -33,7 +33,7 @@ Completely supported.
 
 ## What you should do with different versions
 
-### 4.4
+## Target: Bash 4.4
 
 Nothing else.
 

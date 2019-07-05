@@ -54,10 +54,10 @@ script:
   - |
     if [[ "$TRAVIS_OS_NAME" == 'linux' ]]; then
       echo "Start to test in Bash docker"
-      time bash BUILD_DIST=true ./tools/test-in-docker
+      BUILD_DIST=true time bash ./tools/test-in-docker
     else
       echo "To build ./dist/lobash.bash"
-      BASHVER=$BASHVER ./build
+      bash ./build
       echo "Start to test in MacOS Bash"
       time bash ./test -d
     fi

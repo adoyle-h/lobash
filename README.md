@@ -12,6 +12,7 @@
 - [What is Lobash?](#what-is-lobash)
 - [Lobash Features](#lobash-features)
 - [Build Status](#build-status)
+- [ChangeLog](#changelog)
 - [Installation](#installation)
 - [Prerequisites](#prerequisites)
     - [Supported Platform](#supported-platform)
@@ -38,26 +39,31 @@
 
 ## What is Lobash?
 
-Script script development is complex and fallible. Because the shell script may be interpreted differently with different shells.
-And external commands such like BSD and GNU utilities have different options and behaviors although in same command name.
+Due to its complex syntaxes with symbols, and Unix commands are different in platforms such like BSD and GNU utilities
+have different options and behaviors with same command name,
+Bash script development is complex and fallible.
 
 Javascript has a powerful library [Lodash](https://github.com/lodash/lodash) for simplifying development.
 So I build Lobash to do similar works for shell development.
 
 Lobash is a library not a command. It provides collections of functions to improve efficiency of shell development,
-and make it compatible with Bash 4.4+ and MacOS/Linux/Alpine/Busybox systems.
+and make it compatible with Bash 4.0+ and MacOS/Linux/Alpine/Busybox systems.
 
 ## Lobash Features
 
 - Modular and easy to use. One module one Function.
 - Rich Functions. Over 90+ modules provided.
-- Robust and Safe. Over 500+ test cases which tested under MacOS/Linux/Alpine/Busybox systems with Bash.
+- Robust and Safe. Over 500+ test cases tested.
 - Fast. 0.058s to load Lobash completely.
+- Compatible with MacOS/Linux/Alpine/Busybox systems.
+- Compatible with Bash 4.0 and higher versions.
 
 ## Build Status
 
-- [Test Branch][]: [![Build Status](https://travis-ci.com/adoyle-h/lobash.svg?branch=test)][travis repo]
+- [Test Branch](https://github.com/adoyle-h/lobash/tree/test): [![Build Status](https://travis-ci.com/adoyle-h/lobash.svg?branch=test)][travis repo]
 - [v0.1.0](https://github.com/adoyle-h/lobash/tree/v0.1.0): [![Build Status](https://travis-ci.com/adoyle-h/lobash.svg?tag=v0.1.0)][travis repo]
+
+## [ChangeLog](./CHANGELOG.md)
 
 ## Installation
 
@@ -105,7 +111,7 @@ git submodule update --init --recursive
 There is [a list](http://mywiki.wooledge.org/BashFAQ/061) of which features were added to specific releases (versions) of Bash.
 
 Although most Linux distributions use Bash v4.3, and MacOS not installed Bash v4 by default,
-it is easily to upgrade Bash 4.4+ which is backward compatible.
+it is easily to upgrade Bash 4.4+ in most systems.
 
 ### Dependencies
 
@@ -145,17 +151,6 @@ If you do not understand the meanings of these shell options,
 please read [this article](https://dougrichardson.org/2018/08/03/fail-fast-bash-scripting.html).
 
 **Lobash not enable these options by default. Make sure the same shell options enabled before call Lobash functions in your scripts. Otherwise there may be unexpected behaviors with it.**
-
-If your develop a Bash script, put below codes in head.
-
-```sh
-#!/usr/bin/env bash
-
-set -o errexit
-set -o nounset
-set -o pipefail
-(shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
-```
 
 ### Load lobash.bash in your scripts
 

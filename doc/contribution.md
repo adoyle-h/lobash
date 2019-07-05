@@ -38,7 +38,7 @@ All PRs should follow below conditions.
 - [ ] Run `./tool/gen` to generate documents.
 - [ ] Squash one Git commit per PR.
 - [ ] Git message is [valid](./git-message.md).
-- [ ] Run `./bin/check_module <path-to-your-module>` without error.
+- [ ] Run `./tools/check_module <path-to-your-module>` without error. (Currently this script not work)
 
 
 <!-- Links -->
