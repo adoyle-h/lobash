@@ -14,7 +14,7 @@ BUILD_DIR=$TRAVIS_BUILD_DIR/build-bash/$VERSION
 
 mkdir -p "$BUILD_DIR"
 cd "$TRAVIS_BUILD_DIR"
-curl -O $MIRROR/gnu/bash/bash-"$VERSION".tar.gz
+curl -k -O $MIRROR/gnu/bash/bash-"$VERSION".tar.gz
 tar xzf bash-"$VERSION".tar.gz
 cd "bash-$VERSION"
 ./configure --prefix="$BUILD_DIR"
