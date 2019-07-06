@@ -12,7 +12,7 @@ readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 
 # shellcheck source=../src/load_internals.bash
 source "$SCRIPT_DIR"/../src/load_internals.bash
-_lobash.import_internals module_meta
+_lobash.import_internals basic_meta_types module_meta
 _lobash.imports sort lower_case.p
 
 generate() {

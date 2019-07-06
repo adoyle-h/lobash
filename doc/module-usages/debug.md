@@ -19,6 +19,8 @@
   - It prints a count which increased after each called.
   - Attention: l.trace_count should run in same process. It will not work in subprocess such as $(l.trace_count)
 - Since: 0.1.0
+- Bash: 4.0+
+- Status: tested
 - Test Cases: [tests/modules/trace_count.bats](../../tests/modules/trace_count.bats)
 - Source Code: [src/modules/trace_count.bash](../../src/modules/trace_count.bash)
 
@@ -27,6 +29,8 @@
 - Usage: `l.trace_end`
 - Description: Close xtrace mode and reset PS4. Cooperated with trace_start.
 - Since: 0.1.0
+- Bash: 4.0+
+- Status: tested
 - Test Cases: [tests/modules/trace_end.bats](../../tests/modules/trace_end.bats)
 - Source Code: [src/modules/trace_end.bash](../../src/modules/trace_end.bash)
 
@@ -35,6 +39,8 @@
 - Usage: `l.trace_stack [label]`
 - Description: Print current function stack for debug.
 - Since: 0.1.0
+- Bash: 4.0+
+- Status: tested
 - Test Cases: [tests/modules/trace_stack.bats](../../tests/modules/trace_stack.bats)
 - Source Code: [src/modules/trace_stack.bash](../../src/modules/trace_stack.bash)
 - Executable Example: [example/modules/trace_stack](../../example/modules/trace_stack)
@@ -46,6 +52,8 @@
   - PS4_level  Valid Values: `1`, `2`, `3`. Different level changes different prompt message format.
   - Open xtrace mode and set PS4. It will print each script line with nice prompt for debug.
 - Since: 0.1.0
+- Bash: 4.0+
+- Status: tested
 - Test Cases: [tests/modules/trace_start.bats](../../tests/modules/trace_start.bats)
 - Source Code: [src/modules/trace_start.bash](../../src/modules/trace_start.bash)
 
@@ -55,6 +63,8 @@
 - Description: Print current timestamp, last timestamp and the elapsed time in millisecond.
 - Dependent: [`now`](./time.md#now)
 - Since: 0.1.0
+- Bash: 4.0+
+- Status: tested
 - Test Cases: [tests/modules/trace_time.bats](../../tests/modules/trace_time.bats)
 - Source Code: [src/modules/trace_time.bash](../../src/modules/trace_time.bash)
 

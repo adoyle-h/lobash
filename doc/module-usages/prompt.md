@@ -23,6 +23,8 @@
   - When default=N, if will return NO by default.
 - Dependent: [`lower_case`](./string.md#lower_case)
 - Since: 0.1.0
+- Bash: 4.0+
+- Status: tested
 - Test Cases: [tests/modules/ask.bats](../../tests/modules/ask.bats)
 - Source Code: [src/modules/ask.bash](../../src/modules/ask.bash)
 - Executable Example: [example/modules/ask](../../example/modules/ask)
@@ -34,6 +36,8 @@
   - Print a message and read user input from stdin.
   - If `<default>` provided, return it when user type empty.
 - Since: 0.1.0
+- Bash: 4.0+
+- Status: tested
 - Test Cases: [tests/modules/ask_input.bats](../../tests/modules/ask_input.bats)
 - Source Code: [src/modules/ask_input.bash](../../src/modules/ask_input.bash)
 
@@ -43,6 +47,8 @@
 - Description: Prompt user to choose one item from options. The function will return the value of chosen item.
 - Dependent: [`is_integer`](./condition.md#is_integer)
 - Since: 0.1.0
+- Bash: 4.0+
+- Status: tested
 - Test Cases: [tests/modules/choose.bats](../../tests/modules/choose.bats)
 - Source Code: [src/modules/choose.bash](../../src/modules/choose.bash)
 - Executable Example: [example/modules/choose](../../example/modules/choose)

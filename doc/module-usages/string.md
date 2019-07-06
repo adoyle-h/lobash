@@ -40,6 +40,8 @@
   - The Bash command substitution always trim blank line. So pass argument in pipeline.
   - Refer to https://stackoverflow.com/a/37706905
 - Since: 0.1.0
+- Bash: 4.0+
+- Status: tested
 - Test Cases: [tests/modules/count_lines.p.bats](../../tests/modules/count_lines.p.bats)
 - Source Code: [src/modules/count_lines.p.bash](../../src/modules/count_lines.p.bash)
 - Executable Example: [example/modules/count_lines](../../example/modules/count_lines)
@@ -49,6 +51,8 @@
 - Usage: `l.end_with <string> <match>`
 - Description: Return `true` or `false`.
 - Since: 0.1.0
+- Bash: 4.0+
+- Status: tested
 - Test Cases: [tests/modules/end_with.bats](../../tests/modules/end_with.bats)
 - Source Code: [src/modules/end_with.bash](../../src/modules/end_with.bash)
 
@@ -57,6 +61,8 @@
 - Usage: `l.join <array_name> [<delimiter>=,]`
 - Description: Convert all elements in array into a string separated by delimiter.
 - Since: 0.1.0
+- Bash: 4.3+
+- Status: tested
 - Test Cases: [tests/modules/join.bats](../../tests/modules/join.bats)
 - Source Code: [src/modules/join.bash](../../src/modules/join.bash)
 
@@ -65,6 +71,8 @@
 - Usage: `l.lower_case <string>`
 - Description: Convert all characters of string to lower case.
 - Since: 0.1.0
+- Bash: 4.0+
+- Status: tested
 - Test Cases: [tests/modules/lower_case.bats](../../tests/modules/lower_case.bats)
 - Source Code: [src/modules/lower_case.bash](../../src/modules/lower_case.bash)
 
@@ -74,6 +82,8 @@
 - Description: The pipeline version of l.lower_case
 - Dependent: [`lower_case`](./string.md#lower_case)
 - Since: 0.1.0
+- Bash: 4.0+
+- Status: tested
 - Test Cases: [tests/modules/lower_case.p.bats](../../tests/modules/lower_case.p.bats)
 - Source Code: [src/modules/lower_case.p.bash](../../src/modules/lower_case.p.bash)
 
@@ -84,6 +94,8 @@
   - `echo <string> | l.lower_first`
 - Description: Convert the first character of string to lower case.
 - Since: 0.1.0
+- Bash: 4.0+
+- Status: tested
 - Test Cases: [tests/modules/lower_first.bats](../../tests/modules/lower_first.bats)
 - Source Code: [src/modules/lower_first.bash](../../src/modules/lower_first.bash)
 
@@ -93,6 +105,8 @@
 - Description: The pipeline version of l.lower_first
 - Dependent: [`lower_first`](./string.md#lower_first)
 - Since: 0.1.0
+- Bash: 4.0+
+- Status: tested
 - Test Cases: [tests/modules/lower_first.p.bats](../../tests/modules/lower_first.p.bats)
 - Source Code: [src/modules/lower_first.p.bash](../../src/modules/lower_first.p.bash)
 
@@ -101,6 +115,8 @@
 - Usage: `l.match "string" "regex" [index=1]`
 - Description: Return matched part of string. Return empty string if no matched. Support capturing groups.
 - Since: 0.1.0
+- Bash: 4.0+
+- Status: tested
 - Test Cases: [tests/modules/match.bats](../../tests/modules/match.bats)
 - Source Code: [src/modules/match.bash](../../src/modules/match.bash)
 
@@ -109,6 +125,8 @@
 - Usage: `l.split <string> <output_array_name> [<delimiter>=' ']`
 - Description: Splits string by delimiter. The result will be assigned to `<output_array_name>`.
 - Since: 0.1.0
+- Bash: 4.0+
+- Status: tested
 - Test Cases: [tests/modules/split.bats](../../tests/modules/split.bats)
 - Source Code: [src/modules/split.bash](../../src/modules/split.bash)
 
@@ -117,6 +135,8 @@
 - Usage: `l.start_with <string> <match>`
 - Description: Return `true` or `false`. Check if a string starts with given match string.
 - Since: 0.1.0
+- Bash: 4.0+
+- Status: tested
 - Test Cases: [tests/modules/start_with.bats](../../tests/modules/start_with.bats)
 - Source Code: [src/modules/start_with.bash](../../src/modules/start_with.bash)
 
@@ -125,6 +145,8 @@
 - Usage: `str_include <string> <sub-string>`
 - Description: Return `true` or `false`. Check if a string includes given match string.
 - Since: 0.1.0
+- Bash: 4.0+
+- Status: tested
 - Test Cases: [tests/modules/str_include.bats](../../tests/modules/str_include.bats)
 - Source Code: [src/modules/str_include.bash](../../src/modules/str_include.bash)
 
@@ -133,6 +155,8 @@
 - Usage: `l.str_len <string>`
 - Description: Return the byte length of string.
 - Since: 0.1.0
+- Bash: 4.0+
+- Status: tested
 - Test Cases: [tests/modules/str_len.bats](../../tests/modules/str_len.bats)
 - Source Code: [src/modules/str_len.bash](../../src/modules/str_len.bash)
 
@@ -141,6 +165,8 @@
 - Usage: `l.str_size <string>`
 - Description: Return the sum of string letters.
 - Since: 0.1.0
+- Bash: 4.0+
+- Status: tested
 - Test Cases: [tests/modules/str_size.bats](../../tests/modules/str_size.bats)
 - Source Code: [src/modules/str_size.bash](../../src/modules/str_size.bash)
 
@@ -150,6 +176,8 @@
 - Description: Remove leading and trailing whitespace from string.
 - Dependent: [`trim_start`](./string.md#trim_start) [`trim_end`](./string.md#trim_end)
 - Since: 0.1.0
+- Bash: 4.0+
+- Status: tested
 - Test Cases: [tests/modules/trim.bats](../../tests/modules/trim.bats)
 - Source Code: [src/modules/trim.bash](../../src/modules/trim.bash)
 - Executable Example: [example/modules/trim](../../example/modules/trim)
@@ -160,6 +188,8 @@
 - Description: The pipeline version of l.trim
 - Dependent: [`trim`](./string.md#trim)
 - Since: 0.1.0
+- Bash: 4.0+
+- Status: tested
 - Test Cases: [tests/modules/trim.p.bats](../../tests/modules/trim.p.bats)
 - Source Code: [src/modules/trim.p.bash](../../src/modules/trim.p.bash)
 - Executable Example: [example/modules/trim](../../example/modules/trim)
@@ -171,6 +201,8 @@
   - Remove color escape code in string
   - \u001b not work in Bash <4.2. [[ $'\e' == $'\u001b' ]] is false in Bash <4.2
 - Since: 0.1.0
+- Bash: 4.2+
+- Status: tested
 - Test Cases: [tests/modules/trim_color.bats](../../tests/modules/trim_color.bats)
 - Source Code: [src/modules/trim_color.bash](../../src/modules/trim_color.bash)
 
@@ -180,6 +212,8 @@
 - Description: The pipeline version of l.trim_color
 - Dependent: [`trim_color`](./string.md#trim_color)
 - Since: 0.1.0
+- Bash: 4.2+
+- Status: tested
 - Test Cases: [tests/modules/trim_color.p.bats](../../tests/modules/trim_color.p.bats)
 - Source Code: [src/modules/trim_color.p.bash](../../src/modules/trim_color.p.bash)
 
@@ -188,6 +222,8 @@
 - Usage: `l.trim_end <string> [chars=[[:space:]]]`
 - Description: Remove trailing whitespace or specified characters from string.
 - Since: 0.1.0
+- Bash: 4.0+
+- Status: tested
 - Test Cases: [tests/modules/trim_end.bats](../../tests/modules/trim_end.bats)
 - Source Code: [src/modules/trim_end.bash](../../src/modules/trim_end.bash)
 
@@ -197,6 +233,8 @@
 - Description: The pipeline version l.trim_end
 - Dependent: [`trim_end`](./string.md#trim_end)
 - Since: 0.1.0
+- Bash: 4.0+
+- Status: tested
 - Test Cases: [tests/modules/trim_end.p.bats](../../tests/modules/trim_end.p.bats)
 - Source Code: [src/modules/trim_end.p.bash](../../src/modules/trim_end.p.bash)
 
@@ -205,6 +243,8 @@
 - Usage: `l.trim_start <string> [<chars>=[[:space:]]]`
 - Description: Remove leading whitespace or specified characters from string.
 - Since: 0.1.0
+- Bash: 4.0+
+- Status: tested
 - Test Cases: [tests/modules/trim_start.bats](../../tests/modules/trim_start.bats)
 - Source Code: [src/modules/trim_start.bash](../../src/modules/trim_start.bash)
 
@@ -214,6 +254,8 @@
 - Description: The pipeline version of l.trim_start
 - Dependent: [`trim_start`](./string.md#trim_start)
 - Since: 0.1.0
+- Bash: 4.0+
+- Status: tested
 - Test Cases: [tests/modules/trim_start.p.bats](../../tests/modules/trim_start.p.bats)
 - Source Code: [src/modules/trim_start.p.bash](../../src/modules/trim_start.p.bash)
 
@@ -222,6 +264,8 @@
 - Usage: `l.upper_case <string>`
 - Description: Convert all characters of string to upper case.
 - Since: 0.1.0
+- Bash: 4.0+
+- Status: tested
 - Test Cases: [tests/modules/upper_case.bats](../../tests/modules/upper_case.bats)
 - Source Code: [src/modules/upper_case.bash](../../src/modules/upper_case.bash)
 
@@ -231,6 +275,8 @@
 - Description: The pipeline version of l.upper_case
 - Dependent: [`upper_case`](./string.md#upper_case)
 - Since: 0.1.0
+- Bash: 4.0+
+- Status: tested
 - Test Cases: [tests/modules/upper_case.p.bats](../../tests/modules/upper_case.p.bats)
 - Source Code: [src/modules/upper_case.p.bash](../../src/modules/upper_case.p.bash)
 
@@ -239,6 +285,8 @@
 - Usage: `l.upper_first <string>`
 - Description: Convert the first character of string to upper case.
 - Since: 0.1.0
+- Bash: 4.0+
+- Status: tested
 - Test Cases: [tests/modules/upper_first.bats](../../tests/modules/upper_first.bats)
 - Source Code: [src/modules/upper_first.bash](../../src/modules/upper_first.bash)
 
@@ -248,6 +296,8 @@
 - Description: The pipeline version of l.upper_first
 - Dependent: [`upper_first`](./string.md#upper_first)
 - Since: 0.1.0
+- Bash: 4.0+
+- Status: tested
 - Test Cases: [tests/modules/upper_first.p.bats](../../tests/modules/upper_first.p.bats)
 - Source Code: [src/modules/upper_first.p.bash](../../src/modules/upper_first.p.bash)
 

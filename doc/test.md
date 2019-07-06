@@ -68,7 +68,7 @@ BASHVER=4.0 ./tools/run-in-docker
 
 ```sh
 source ./src/load_internals.bash
-_lobash.import_internals module_meta
+_lobash.import_internals basic_meta_types module_meta
 _lobash.imports ask first last
 
 l.ask hello world

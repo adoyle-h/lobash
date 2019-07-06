@@ -10,10 +10,12 @@ set -o pipefail
 
 readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 
+# shellcheck source=./colors.bash
+source "$SCRIPT_DIR/colors.bash"
 # shellcheck source=../src/load_internals.bash
 source "$SCRIPT_DIR"/../src/load_internals.bash
-_lobash.import_internals module_meta
-_lobash.imports sort lower_case.p
+_lobash.import_internals basic_meta_types module_meta
+_lobash.imports sort has
 
 safe_rm() {
   local path=$1
@@ -35,7 +37,7 @@ print_category_header() {
   local TARGET=$2
 
   {
-    printf '%s\n' "# Category: ${category^}"
+    printf '%s\n' "# Category: ${category}"
     printf '\n%s\n' '[⬅️ Back to previous page](./README.md)'
 
     printf '\n%s\n\n' "## TOC"
@@ -46,67 +48,110 @@ print_category_header() {
   } >> "$TARGET"
 }
 
+print_meta_type() {
+  printf -- '\n- %s:' "$meta_key" >> "$TARGET"
+}
+
+print_meta() {
+  printf ' %s' "${1}" >> "$TARGET"
+}
+
+print_plural_meta() {
+  printf '\n  - %s'  "${1}" >> "$TARGET"
+}
+
+print_meta_Usage() {
+  printf ' `%s`' "${1}" >> "$TARGET"
+}
+
+print_plural_meta_Usage() {
+  printf '\n  - `%s`' "${1}" >> "$TARGET"
+}
+
+print_meta_Dependent() {
+  local deps=( ${1//,/ } )
+  local dep_cate dep_path
+  for dep in "${deps[@]}"; do
+    dep_cate=$(_lobash.get_module_metadata "$dep" Category)
+    dep_path="./${dep_cate,,}.md#$dep"
+    printf ' [`%s`](%s)' "${dep}" "${dep_path}" >> "$TARGET"
+  done
+}
+
+print_meta_skip_Deprecated() {
+  [[ $1 != true ]]
+}
+
+print_meta_Deprecated() {
+  if [[ -n ${1:-} ]]; then
+    printf ' true' >> "$TARGET"
+  fi
+}
+
+print_meta_Bash() {
+  printf ' %s+' "$1" >> "$TARGET"
+}
+
+print_module_metas() {
+  local module_name=$1
+
+  printf '\n%s\n' "### ${module_name}" >> "$TARGET"
+
+  local meta_val meta_key count i
+  for meta_key in "${_LOBASH_BASIC_META_TYPES[@]}"; do
+    count=$(_lobash.get_module_metadata "$module_name" "${meta_key}_count")
+    if [[ -z ${count:-} ]] || (( count == 0 )) ; then
+      continue
+    fi
+
+    meta_val=$(_lobash.get_module_metadata "$module_name" "${meta_key}")
+
+    if l.has function "print_meta_skip_${meta_key}" && \
+      "print_meta_skip_${meta_key}" "${meta_val}"
+    then
+      continue
+    fi
+
+    print_meta_type "$meta_val"
+
+    if (( count == 1 )); then
+      if l.has function "print_meta_${meta_key}"; then
+        "print_meta_${meta_key}" "${meta_val}" "${meta_key}"
+      else
+        print_meta "${meta_val}" "${meta_key}"
+      fi
+    else
+      for (( i = 0; i < count; i++ )); do
+        meta_val=$(_lobash.get_module_metadata "$module_name" "${meta_key}" "$i")
+
+        if l.has function "print_plural_meta_${meta_key}"; then
+          "print_plural_meta_${meta_key}" "${meta_val}" "$i" "${meta_key}"
+        else
+          print_plural_meta "${meta_val}" "$i" "${meta_key}"
+        fi
+      done
+    fi
+  done
+}
+
 print_category() {
   local category=$1
   local TARGET=$2
   local -n c=category_$1
 
-  echo "Print Category: ${category^}"
+  echo "To print category: ${category}"
 
   print_category_header c "$TARGET"
 
   printf '\n%s\n' "## Modules" >> "$TARGET"
 
   for module_name in "${c[@]}"; do
-    printf '\n%s\n\n' "### ${module_name}" >> "$TARGET"
-
-    local length
-    if [[ ${map[${module_name}_usage_sum]} -gt 0 ]]; then
-      length=${map[${module_name}_usage_sum]}
-      if [[ $length == 1 ]]; then
-        printf -- '- Usage: `%s`\n' "${map[${module_name}_usage_0]}" >> "$TARGET"
-      else
-        printf -- '- Usage:\n' >> "$TARGET"
-        for (( i = 0; i < "$length"; i++ )); do
-          printf -- '  - `%s`\n' "${map[${module_name}_usage_$i]}" >> "$TARGET"
-        done
-      fi
-    fi
-
-    if [[ ${map[${module_name}_description_sum]} -gt 0 ]]; then
-      length=${map[${module_name}_description_sum]}
-      if [[ $length == 1 ]]; then
-        printf -- '- Description: %s\n' "${map[${module_name}_description_0]}" >> "$TARGET"
-      else
-        printf -- '- Description:\n' >> "$TARGET"
-        for (( i = 0; i < "$length"; i++ )); do
-          printf -- '  - %s\n' "${map[${module_name}_description_$i]}" >> "$TARGET"
-        done
-      fi
-    fi
-
-    if [[ -n ${map[${module_name}_dependent_0]:-} ]]; then
-      printf -- '- %s' "Dependent:" >> "$TARGET"
-      local deps=( ${map[${module_name}_dependent_0]//,/ } )
-      for dep in "${deps[@]}"; do
-        local dep_path="./${mod2cate_map[$dep]}.md#$dep"
-        printf -- ' [`%s`](%s)' "${dep}" "${dep_path}" >> "$TARGET"
-      done
-
-      printf '%s\n' '' >> "$TARGET"
-    fi
-
-    if [[ -n ${map[${module_name}_since_0]:-} ]]; then
-      printf -- '- %s\n' "Since: ${map[${module_name}_since_0]}" >> "$TARGET"
-    fi
-
-    if [[ ${map[${module_name}_deprecated_0]:-} == true ]]; then
-      printf -- '- %s\n' 'Deprecated: true' >> "$TARGET"
-    fi
+    print_module_metas $module_name
 
     {
-      printf -- '- Test Cases: [tests/modules/%s.bats](../../tests/modules/%s.bats)\n' "$module_name" "$module_name"
-      printf -- '- Source Code: [src/modules/%s.bash](../../src/modules/%s.bash)\n' "$module_name" "$module_name"
+      printf -- '\n- Test Cases: [tests/modules/%s.bats](../../tests/modules/%s.bats)' "$module_name" "$module_name"
+      printf -- '\n- Source Code: [src/modules/%s.bash](../../src/modules/%s.bash)' "$module_name" "$module_name"
+      printf '\n'
     } >> "$TARGET"
 
     local example_path="example/modules/${module_name%%.p}"
@@ -120,15 +165,16 @@ print_category() {
 }
 
 print_toc() {
+  echo "To print TOC"
+
   local TARGET=$1
-  echo "Print TOC"
   printf '\n%s\n\n' "## TOC" >> "$TARGET"
 
   for category in "${categories[@]}"; do
-    printf -- '- [%s](%s)\n' "${category^}" "./$category.md" >> "$TARGET"
+    printf -- '- [%s](%s)\n' "${category}" "./${category,,}.md" >> "$TARGET"
     local -n c=category_$category
     for module_name in "${c[@]}"; do
-      printf -- '  - [%s](%s)\n' "${module_name}"  "./$category.md#${module_name//\./}" >> "$TARGET"
+      printf -- '  - [%s](%s)\n' "${module_name}"  "./${category,,}.md#${module_name//\./}" >> "$TARGET"
     done
   done
 }
@@ -148,7 +194,19 @@ add_to_map() {
 }
 
 print_header() {
+  echo "To print header"
+
   local TARGET=$1
+
+  local -i test_cases_count=0
+  while read -r i; do
+    (( test_cases_count+=i ))
+  done < <(grep -hrc '@test' "$SCRIPT_DIR/../tests/modules/")
+
+  while read -r i; do
+    (( test_cases_count+=i ))
+  done < <(grep -hrc '@test' "$SCRIPT_DIR/../tests/internals/")
+
   cat <<EOF > "$TARGET"
 # Module Usages
 
@@ -165,25 +223,22 @@ main() {
   safe_rm "$BASE_DIR"
   mkdir -p "$BASE_DIR"
 
-  local -A map
   local -a categories
-  local -A mod2cate_map
-
   local -i module_count=0
   local filepath module_name category metadatas
+
   for filepath in $SCRIPT_DIR/../src/modules/*.bash; do
     ((module_count+=1))
     module_name=$(basename "$filepath" .bash)
     metadatas=$(_lobash.get_module_metadata_str "$filepath")
 
-    category=$(echo "$metadatas" | grep -Eo '^Category: .+$' | sed 's/Category: //' | l.lower_case.p || echo '')
+    echo "To scan module: $module_name"
+    _lobash.scan_module_metadata "$module_name"
 
-    if [[ -z $category ]]; then
-      category='Unknown'
-    fi
+    category=$(_lobash.get_module_metadata "$module_name" Category)
+    # echo "Scanned module: $category/$module_name"
 
     local cate_name=category_${category}
-    echo "Scan file: $category/$module_name"
 
     if [[ -z ${!cate_name:-} ]]; then
       eval "declare -g -a ${cate_name}"
@@ -192,32 +247,20 @@ main() {
 
     declare -n cate=$cate_name
     cate+=("$module_name")
-    mod2cate_map[$module_name]=$category
-
-    add_to_map usage
-    add_to_map description
-    add_to_map since
-    add_to_map dependent
   done
 
-  categories=( $(l.sort categories) )
+  readarray -t categories < <(l.sort categories)
 
-  echo "Categories=${categories[*]}"
-
-  local -i test_cases_count=0
-  for i in $(grep -hrc '@test' "$SCRIPT_DIR/../tests/modules/"); do
-    (( test_cases_count+=i ))
-  done
-  for i in $(grep -hrc '@test' "$SCRIPT_DIR/../tests/internals/"); do
-    (( test_cases_count+=i ))
-  done
+  echo "Scanned ${#categories[@]} Categories: ${categories[*]}"
 
   print_header "$BASE_DIR/README.md"
   print_toc "$BASE_DIR/README.md"
 
   for category in "${categories[@]}"; do
-    print_category "$category" "$BASE_DIR/$category.md"
+    print_category "$category" "$BASE_DIR/${category,,}.md"
   done
+
+  echo -e "${GREEN}Updated module usages documents.${RESET_ALL}"
 }
 
-main "$@"
+main "${@:-}"

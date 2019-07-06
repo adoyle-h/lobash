@@ -14,6 +14,8 @@
 - Usage: `l.hex_to_rgb <HEX>`
 - Description: Return a list contains `<R> <G> <B>`.
 - Since: 0.1.0
+- Bash: 4.0+
+- Status: tested
 - Test Cases: [tests/modules/hex_to_rgb.bats](../../tests/modules/hex_to_rgb.bats)
 - Source Code: [src/modules/hex_to_rgb.bash](../../src/modules/hex_to_rgb.bash)
 
@@ -23,6 +25,8 @@
 - Description: Return hex string. Like '#ffffff'
 - Dependent: [`is_number`](./condition.md#is_number)
 - Since: 0.1.0
+- Bash: 4.0+
+- Status: tested
 - Test Cases: [tests/modules/rgb_to_hex.bats](../../tests/modules/rgb_to_hex.bats)
 - Source Code: [src/modules/rgb_to_hex.bash](../../src/modules/rgb_to_hex.bash)
 

@@ -83,24 +83,32 @@ exec_module() {
 }
 
 query_meta() {
-  _lobash.import_internals module_meta
+  _lobash.import_internals basic_meta_types module_meta
 
   local module=$1
   local meta_types=(
     Module
     Category
-    Since
-    Usage
-    Description
-    Dependent
-    Deprecated
-    Bash
-    Status
   )
+  for meta_type in "${_LOBASH_BASIC_META_TYPES[@]}"; do
+    meta_types+=("$meta_type")
+  done
+
   _lobash.scan_module_metadata "$module"
 
+  local count
   for mtype in "${meta_types[@]}"; do
-    printf '%b: %b\n' "${GREEN}$mtype${RESET_ALL}" "$(_lobash.get_module_metadata "$module" "$mtype")"
+    count=$(_lobash.get_module_metadata "$module" "${mtype}_count")
+    if [[ -z $count ]] || (( count == 0 )); then
+      continue
+    elif (( count == 1 )); then
+      printf '%b: %b\n' "${GREEN}$mtype${RESET_ALL}" "$(_lobash.get_module_metadata "$module" "${mtype}")"
+    else
+      printf '%b:\n' "${GREEN}$mtype${RESET_ALL}"
+      for (( i = 0; i < count; i++ )); do
+        printf -- '  - %b\n' "$(_lobash.get_module_metadata "$module" "${mtype}" "$i")"
+      done
+    fi
   done
 }
 

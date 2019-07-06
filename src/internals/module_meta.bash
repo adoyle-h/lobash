@@ -14,8 +14,9 @@ _lobash.get_module_path() {
 # <ver_a> > <ver_b> => 1
 _lobash.semver_compare() {
   local info_a info_b
-  IFS='.' info_a=( $1 )
-  IFS='.' info_b=( $2 )
+  local IFS='.'
+  info_a=( $1 )
+  info_b=( $2 )
 
   # result=$(( info_a[0] - info_b[0] ))
   if (( info_a[0] < info_b[0] )); then
@@ -37,13 +38,30 @@ _lobash.semver_compare() {
 _lobash.get_module_metadata() {
   local module_name=$1
   local type_name=$2
+  local index=${3:-0}
 
   if [[ -z ${_LOBASH_MOD_META_CACHE[$module_name]:-} ]]; then
     echo "Not found module '$module_name' from cache." >&2
     return 3
   fi
 
-  printf '%s\n' "${_LOBASH_MOD_META_CACHE[${module_name}_${type_name}]:-}"
+  printf '%s\n' "${_LOBASH_MOD_META_CACHE[${module_name}_${type_name}_${index}]:-}"
+}
+
+# Usage: _lobash.with_IFS <IFS> <command_string>
+# Description: run `<command_string>` with `<IFS>` effects
+_lobash.with_IFS() {
+  local IFS=$1
+  shift
+  eval "$@"
+}
+
+_lobash.meta_set_default() {
+  local key=$1
+  if [[ -z ${metadatas[${key}_0]:-} ]]; then
+    metadatas[${key}_0]=$2
+    metadatas[${key}_count_0]=1
+  fi
 }
 
 # _lobash.scan_module_metadata <module_name>
@@ -62,40 +80,48 @@ _lobash.scan_module_metadata() {
   local line meta_type meta_values
 
   local -A metadatas=(
-    [Module]=$module_name
+    [Module_0]=$module_name
+    [Module_count_0]=1
   )
 
+  local -A counts c
   while read -r line; do
     meta_type=$(<<< "$line" sed -E "s/^# ([-_a-zA-Z0-9]+): ?(.+)$/\\1/" || true)
     [[ -z $meta_type ]] && continue
+
+    if [[ -z ${counts[$meta_type]:-} ]]; then
+      counts[$meta_type]=1
+    else
+      counts[$meta_type]=$(( ${counts[$meta_type]}+1 ))
+    fi
+
     meta_values=$(<<< "$line" sed -E "s/^# ([-_a-zA-Z0-9]+): ?(.+)$/\\2/" || true)
-    metadatas[$meta_type]="$meta_values"
+    c=$(( counts["$meta_type"] - 1 ))
+    metadatas[${meta_type}_${c}]="$meta_values"
   done < <(< "$module_path" sed -n '/^# ---$/,/^# ---$/p' | sed '1d;$d;' || true)
 
-  if [[ -z ${metadatas[Deprecated]:-} ]]; then
-    metadatas[Deprecated]=false
-  fi
+  for meta_type in "${_LOBASH_BASIC_META_TYPES[@]}"; do
+    metadatas[${meta_type}_count_0]=${counts[$meta_type]:-0}
+  done
 
-  if [[ -z ${metadatas[Status]:-} ]]; then
-    metadatas[Status]=tested
-  fi
+  _lobash.meta_set_default Usage Unknown
+  _lobash.meta_set_default Category Unknown
+  _lobash.meta_set_default Deprecated false
+  _lobash.meta_set_default Status tested
+  _lobash.meta_set_default Bash 4.0
 
-  if [[ -z ${metadatas[Bash]:-} ]]; then
-    metadatas[Bash]=4.0
-  fi
+  if [[ -n ${metadatas[Dependent_0]:-} ]]; then
+    _lobash.with_IFS ',' 'deps=( ${metadatas[Dependent_0]} )'
 
-  if [[ -n ${metadatas[Dependent]:-} ]]; then
-    IFS=',' deps=( ${metadatas[Dependent]} )
-
-    local dep compare
+    local dep compare dep_bashver
     for dep in "${deps[@]}"; do
       dep=${dep// /}
       _lobash.scan_module_metadata "$dep"
 
-      local dep_bashver="${_LOBASH_MOD_META_CACHE[${dep}_Bash]}"
-      compare=$(_lobash.semver_compare "$dep_bashver" "${metadatas[Bash]}")
+      dep_bashver="$(_lobash.get_module_metadata "$dep" Bash)"
+      compare=$(_lobash.semver_compare "$dep_bashver" "${metadatas[Bash_0]}")
       if (( compare > 0 )); then
-        metadatas[Bash]=$dep_bashver
+        metadatas[Bash_0]=$dep_bashver
       fi
     done
   fi
