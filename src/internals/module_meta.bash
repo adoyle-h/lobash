@@ -48,14 +48,6 @@ _lobash.get_module_metadata() {
   printf '%s\n' "${_LOBASH_MOD_META_CACHE[${module_name}_${type_name}_${index}]:-}"
 }
 
-# Usage: _lobash.with_IFS <IFS> <command_string>
-# Description: run `<command_string>` with `<IFS>` effects
-_lobash.with_IFS() {
-  local IFS=$1
-  shift
-  eval "$@"
-}
-
 _lobash.meta_set_default() {
   local key=$1
   if [[ -z ${metadatas[${key}_0]:-} ]]; then

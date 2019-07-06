@@ -17,4 +17,5 @@ _LOBASH_BASIC_INTERNALS=(
   warn
   error
   import
+  with_ifs
 )
