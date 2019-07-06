@@ -35,7 +35,7 @@
 - Description:
   - Print a message and read user input from stdin.
   - If `<default>` provided, return it when user type empty.
-- Since: 0.1.0
+- Since: 0.2.0
 - Bash: 4.0+
 - Status: tested
 - Test Cases: [tests/modules/ask_input.bats](../../tests/modules/ask_input.bats)

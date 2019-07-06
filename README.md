@@ -13,6 +13,7 @@
 - [Lobash Features](#lobash-features)
 - [Build Status](#build-status)
 - [ChangeLog](#changelog)
+- [FAQ](#faq)
 - [Installation](#installation)
 - [Prerequisites](#prerequisites)
     - [Supported Platform](#supported-platform)
@@ -26,7 +27,6 @@
 - [Command](#command)
     - [lobash meta](#lobash-meta)
     - [lobash mod](#lobash-mod)
-- [FAQ](#faq)
 - [Who use Lobash](#who-use-lobash)
 - [Related Projects](#related-projects)
 - [References](#references)
@@ -61,14 +61,17 @@ and make it compatible with Bash 4.0+ and MacOS/Linux/Alpine/Busybox systems.
 ## Build Status
 
 - [Test Branch](https://github.com/adoyle-h/lobash/tree/test): [![Build Status](https://travis-ci.com/adoyle-h/lobash.svg?branch=test)][travis repo]
-- [v0.1.0](https://github.com/adoyle-h/lobash/tree/v0.1.0): [![Build Status](https://travis-ci.com/adoyle-h/lobash.svg?tag=v0.1.0)][travis repo]
 
 ## [ChangeLog](./CHANGELOG.md)
 
+## [FAQ](./doc/faq.md)
+
 ## Installation
 
+Available Lobash versions refer to [Git Tags](https://github.com/adoyle-h/lobash/tags) which named like "vX.Y.Z".
+
 ```sh
-VERSION=v0.1.0
+VERSION=v0.2.0
 # Download source codes
 git clone --depth 1 --branch $VERSION https://github.com/adoyle-h/lobash.git
 cd lobash
@@ -105,6 +108,8 @@ git submodule update --init --recursive
 |     ❔    | Ksh      | *             | No tested                                               |
 
 ✅💬 means Lobash can be used but not all features supported in shell.
+It prints notes to show what modules will be ignored when building Lobash file.
+
 **If you want use Lobash with Bash 4.3 and lower versions.**
 **Please read [./doc/with-lower-version-bash.md](./doc/with-lower-version-bash.md) for details.**
 
@@ -166,10 +171,10 @@ set -o pipefail
 
 # It will load all Lobash modules
 source <path-to-lobash.bash>
-# Call l.<module_name> when PREFIX not set when building.
+# Call l.<module_name> when build lobash.bash with default PREFIX
 l.ask 'Hello Lobash?'
 
-# Call <PREFIX>.<module_name> when PREFIX=lobash_ set
+# Call lobash.<module_name> when build lobash.bash with PREFIX=lobash_
 # lobash_ask 'Hello Lobash?'
 ```
 
@@ -217,23 +222,30 @@ The "lobash mod" command is only used for certain scenarios. Many modules not wo
 ```sh
 > ./bin/lobash meta ask
 Module: ask
-Category: Prompt
-Since: 0.1.0
 Usage: l.ask <message> [<default>=Y]
-Description: When default=N, if will return NO by default.
+Description:
+  - Print a message and read Yes/No answer from stdin.
+  - It prints 'YES' when get answer y/Y/ye/Ye/yE/YE/yes/yES/yeS/YeS/Yes/YEs/YES.
+  - It prints 'NO' when get answer n/N/no/No/nO/NO.
+  - It prints default value when get empty answer.
+  - It prints 'Invalid Answer' when get other answers.
+  - When default=Y, if will return YES by default.
+  - When default=N, if will return NO by default.
 Dependent: lower_case
 Deprecated: false
+Since: 0.1.0
 Bash: 4.0
 Status: tested
 
 > ./bin/lobash meta normalize
 Module: normalize
-Category: Path
-Since: 0.1.0
 Usage: l.normalize <path>
-Description: Trailing `/` always be removed.
+Description:
+  - Normalize the given path which can be an unexisted path.
+  - Trailing `/` always be removed.
 Dependent: split, join
 Deprecated: false
+Since: 0.1.0
 Bash: 4.3
 Status: tested
 ```
@@ -247,8 +259,6 @@ Note: The "lobash mod" command is only used for certain scenarios. Many modules 
 Is it OK? ([Y]es/No)
 YES
 ```
-
-## [FAQ](./doc/faq.md)
 
 ## Who use Lobash
 

@@ -7,6 +7,7 @@
 - [benchmark](#benchmark)
 - [compose](#compose)
 - [repeat](#repeat)
+- [with_ifs](#with_ifs)
 
 ## Modules
 
@@ -39,5 +40,15 @@
 - Status: tested
 - Test Cases: [tests/modules/repeat.bats](../../tests/modules/repeat.bats)
 - Source Code: [src/modules/repeat.bash](../../src/modules/repeat.bash)
+
+### with_ifs
+
+- Usage: `l.with_IFS <IFS> <command_string>`
+- Description: run `<command_string>` with `<IFS>` effects
+- Since: 0.2.0
+- Bash: 4.0+
+- Status: tested
+- Test Cases: [tests/modules/with_ifs.bats](../../tests/modules/with_ifs.bats)
+- Source Code: [src/modules/with_ifs.bash](../../src/modules/with_ifs.bash)
 
 [⬆️ Back up to TOC](#toc)

@@ -111,6 +111,7 @@ BASH_MIN_VERSION: 4.4
   - [ ] benchmark
   - [ ] compose
   - [ ] repeat
+  - [ ] with_ifs
 
 - [ ]   Variable
   - [ ] cur_function_name

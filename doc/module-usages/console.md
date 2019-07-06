@@ -39,7 +39,7 @@
 - Description:
   - Similar to l.echo, but always print text to screen no matter redirection.
   - If no screen, it will print nothing.
-- Since: 0.1.0
+- Since: 0.2.0
 - Bash: 4.0+
 - Status: tested
 - Test Cases: [tests/modules/echo_screen.bats](../../tests/modules/echo_screen.bats)

@@ -1,6 +1,6 @@
 # Module Usages
 
-15 Categories, 92 Modules, 497 Test Cases.
+15 Categories, 93 Modules, 498 Test Cases.
 
 Each module provides only one function which naming prefixed with `l.`.
 
@@ -111,6 +111,7 @@ The function which naming suffixed with `.p` should be used in pipeline. Like `e
   - [benchmark](./util.md#benchmark)
   - [compose](./util.md#compose)
   - [repeat](./util.md#repeat)
+  - [with_ifs](./util.md#with_ifs)
 - [Variable](./variable.md)
   - [cur_function_name](./variable.md#cur_function_name)
   - [random](./variable.md#random)
