@@ -113,7 +113,11 @@ query_meta() {
 }
 
 open_github() {
-  open https://github.com/adoyle-h/lobash
+  local url=https://github.com/adoyle-h/lobash
+  if l.has command open; then
+    open $url
+  fi
+  echo Open $url in browser.
 }
 
 show_mods() {
@@ -121,7 +125,7 @@ show_mods() {
 }
 
 init() {
-  _lobash.imports trace_start trace_end
+  _lobash.imports trace_start trace_end has
 }
 
 #######################################################################
