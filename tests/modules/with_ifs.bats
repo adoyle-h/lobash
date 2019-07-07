@@ -5,8 +5,6 @@ test_prepare with_ifs
 load_module with_ifs
 
 @test "echo y | l.ask_input hello" {
-  skip 'How to assert default value of $IFS?'
-  ifs=$IFS
   t() {
     declare -a k
     echo "IFS=$IFS"
@@ -23,10 +21,15 @@ load_module with_ifs
   }
   run t
   assert_success
-  local t=$' \t\n'
-  assert_line -n 0 "IFS=$ifs"
-  assert_line -n 1 '3'
-  assert_line -n 2 "IFS=$ifs"
-  assert_line -n 3 '3'
-  assert_line -n 4 'IFS=,'
+
+  local ifs=$' \t\n'
+  local nl=$'\n'
+  assert_output "IFS=${ifs}${nl}3${nl}IFS=$ifs${nl}3${nl}IFS=,"
+  # Do not use assert_line because lines has trimmed default IFS $' \t\n' with $'\n'.
+  # It will failed ifs=$' \t\n', but success when ifs=$' \t'
+  # assert_line -n 0 "IFS=$ifs"
+  # assert_line -n 1 '3'
+  # assert_line -n 2 "IFS=$ifs"
+  # assert_line -n 3 '3'
+  # assert_line -n 4 'IFS=,'
 }
