@@ -4,6 +4,16 @@ setup_fixture
 test_prepare trim_color
 load_module trim_color
 
+@test "l.trim_color empty" {
+  run l.trim_color ''
+  assert_success
+  assert_output ''
+
+  run l.trim_color
+  assert_success
+  assert_output ''
+}
+
 @test "l.trim_color 'string'" {
   run l.trim_color 'string'
   assert_success
