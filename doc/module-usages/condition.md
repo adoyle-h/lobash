@@ -4,6 +4,8 @@
 
 ## TOC
 
+- [end_with](#end_with)
+- [end_with.s](#end_with.s)
 - [has](#has)
 - [has.s](#has.s)
 - [has_not](#has_not)
@@ -39,8 +41,33 @@
 - [is_writable.s](#is_writable.s)
 - [not.s](#not.s)
 - [not.s.p](#not.s.p)
+- [start_with](#start_with)
+- [start_with.s](#start_with.s)
+- [str_include](#str_include)
+- [str_include.s](#str_include.s)
 
 ## Modules
+
+### end_with
+
+- Usage: `l.end_with <string> <match>`
+- Description: Return 0 (true) or 1 (false). This function should never throw exception error.
+- Since: 0.1.0
+- Bash: 4.0+
+- Status: tested
+- Test Cases: [tests/modules/end_with.bats](../../tests/modules/end_with.bats)
+- Source Code: [src/modules/end_with.bash](../../src/modules/end_with.bash)
+
+### end_with.s
+
+- Usage: `l.end_with.s <string> <match>`
+- Description: This function always echo `true` or `false` and exit code always be 0.
+- Dependent: [`end_with`](./condition.md#end_with)
+- Since: 0.1.0
+- Bash: 4.0+
+- Status: tested
+- Test Cases: [tests/modules/end_with.s.bats](../../tests/modules/end_with.s.bats)
+- Source Code: [src/modules/end_with.s.bash](../../src/modules/end_with.s.bash)
 
 ### has
 
@@ -430,5 +457,51 @@
 - Status: tested
 - Test Cases: [tests/modules/not.s.p.bats](../../tests/modules/not.s.p.bats)
 - Source Code: [src/modules/not.s.p.bash](../../src/modules/not.s.p.bash)
+
+### start_with
+
+- Usage: `l.start_with <string> <match>`
+- Description:
+  - Check if a string starts with given match string.
+  - Return 0 (true) or 1 (false). This function should never throw exception error.
+- Since: 0.1.0
+- Bash: 4.0+
+- Status: tested
+- Test Cases: [tests/modules/start_with.bats](../../tests/modules/start_with.bats)
+- Source Code: [src/modules/start_with.bash](../../src/modules/start_with.bash)
+
+### start_with.s
+
+- Usage: `l.start_with.s <string> <match>`
+- Description:
+  - Check if a string starts with given match string.
+  - This function always echo `true` or `false` and exit code always be 0.
+- Dependent: [`start_with`](./condition.md#start_with)
+- Since: 0.1.0
+- Bash: 4.0+
+- Status: tested
+- Test Cases: [tests/modules/start_with.s.bats](../../tests/modules/start_with.s.bats)
+- Source Code: [src/modules/start_with.s.bash](../../src/modules/start_with.s.bash)
+
+### str_include
+
+- Usage: `l.str_include <string> <sub-string>`
+- Description: Return `true` or `false`. Check if a string includes given match string.
+- Since: 0.1.0
+- Bash: 4.0+
+- Status: tested
+- Test Cases: [tests/modules/str_include.bats](../../tests/modules/str_include.bats)
+- Source Code: [src/modules/str_include.bash](../../src/modules/str_include.bash)
+
+### str_include.s
+
+- Usage: `l.str_include.s <string> <sub-string>`
+- Description: Return `true` or `false`. Check if a string includes given match string.
+- Dependent: [`str_include`](./condition.md#str_include)
+- Since: 0.1.0
+- Bash: 4.0+
+- Status: tested
+- Test Cases: [tests/modules/str_include.s.bats](../../tests/modules/str_include.s.bats)
+- Source Code: [src/modules/str_include.s.bash](../../src/modules/str_include.s.bash)
 
 [⬆️ Back up to TOC](#toc)

@@ -5,7 +5,6 @@
 ## TOC
 
 - [count_lines.p](#count_lines.p)
-- [end_with](#end_with)
 - [join](#join)
 - [lower_case](#lower_case)
 - [lower_case.p](#lower_case.p)
@@ -13,8 +12,6 @@
 - [lower_first.p](#lower_first.p)
 - [match](#match)
 - [split](#split)
-- [start_with](#start_with)
-- [str_include](#str_include)
 - [str_len](#str_len)
 - [str_size](#str_size)
 - [trim](#trim)
@@ -45,16 +42,6 @@
 - Test Cases: [tests/modules/count_lines.p.bats](../../tests/modules/count_lines.p.bats)
 - Source Code: [src/modules/count_lines.p.bash](../../src/modules/count_lines.p.bash)
 - Executable Example: [example/modules/count_lines](../../example/modules/count_lines)
-
-### end_with
-
-- Usage: `l.end_with <string> <match>`
-- Description: Return `true` or `false`.
-- Since: 0.1.0
-- Bash: 4.0+
-- Status: tested
-- Test Cases: [tests/modules/end_with.bats](../../tests/modules/end_with.bats)
-- Source Code: [src/modules/end_with.bash](../../src/modules/end_with.bash)
 
 ### join
 
@@ -127,26 +114,6 @@
 - Status: tested
 - Test Cases: [tests/modules/split.bats](../../tests/modules/split.bats)
 - Source Code: [src/modules/split.bash](../../src/modules/split.bash)
-
-### start_with
-
-- Usage: `l.start_with <string> <match>`
-- Description: Return `true` or `false`. Check if a string starts with given match string.
-- Since: 0.1.0
-- Bash: 4.0+
-- Status: tested
-- Test Cases: [tests/modules/start_with.bats](../../tests/modules/start_with.bats)
-- Source Code: [src/modules/start_with.bash](../../src/modules/start_with.bash)
-
-### str_include
-
-- Usage: `str_include <string> <sub-string>`
-- Description: Return `true` or `false`. Check if a string includes given match string.
-- Since: 0.1.0
-- Bash: 4.0+
-- Status: tested
-- Test Cases: [tests/modules/str_include.bats](../../tests/modules/str_include.bats)
-- Source Code: [src/modules/str_include.bash](../../src/modules/str_include.bash)
 
 ### str_len
 

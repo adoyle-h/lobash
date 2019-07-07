@@ -12,6 +12,7 @@ BASH_MIN_VERSION: 4.4
 
 - [ ]   Array
   - [ ] array_include
+  - [ ] array_include.s
   - [ ] first
   - [ ] last
   - [ ] sort
@@ -22,6 +23,8 @@ BASH_MIN_VERSION: 4.4
   - [ ] rgb_to_hex
 
 - [ ]   Condition
+  - [ ] end_with
+  - [ ] end_with.s
   - [ ] has
   - [ ] has.s
   - [ ] has_not
@@ -57,6 +60,10 @@ BASH_MIN_VERSION: 4.4
   - [ ] is_writable.s
   - [ ] not.s
   - [ ] not.s.p
+  - [ ] start_with
+  - [ ] start_with.s
+  - [ ] str_include
+  - [ ] str_include.s
 
 - [ ]   Console
   - [ ] echo
@@ -92,7 +99,6 @@ BASH_MIN_VERSION: 4.4
 
 - [ ]   String
   - [ ] count_lines.p
-  - [ ] end_with
   - [ ] join
   - [ ] lower_case
   - [ ] lower_case.p
@@ -100,8 +106,6 @@ BASH_MIN_VERSION: 4.4
   - [ ] lower_first.p
   - [ ] match
   - [ ] split
-  - [ ] start_with
-  - [ ] str_include
   - [ ] str_len
   - [ ] str_size
   - [ ] trim
