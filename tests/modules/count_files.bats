@@ -100,3 +100,17 @@ load_module count_files
   assert_success
   assert_output 3
 }
+
+@test "l.count_files '$temp_dir/a b'" {
+  local temp_dir
+  temp_dir=$(mktemp -d)
+  touch "$temp_dir/a b"
+
+  run l.count_files "$temp_dir"
+  assert_success
+  assert_output 1
+
+  run l.count_files "$temp_dir/"
+  assert_success
+  assert_output 1
+}

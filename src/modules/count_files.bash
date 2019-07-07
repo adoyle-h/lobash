@@ -8,6 +8,7 @@
 l.count_files() {
   local files
   # compgen will return 1 when no matched files
-  files=( $(compgen -f "$1"/ || [[ $? == 1 ]]) )
+  readarray -t files < <(compgen -f "$1"/ || [[ $? == 1 ]])
+
   printf '%s\n' "${#files[@]}"
 }
