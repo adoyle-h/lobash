@@ -56,6 +56,11 @@ script:
       echo "Start to test in Bash docker"
       BUILD_DIST=true time bash ./tools/test-in-docker
     else
+      if [[ $BASHVER == 4.0 ]]; then
+        echo "Skip to test Bash 4.0 in MacOS."
+        return
+      fi
+
       echo "To build ./dist/lobash.bash"
       bash ./build
       echo "Start to test in MacOS Bash"

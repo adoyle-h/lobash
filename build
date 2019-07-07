@@ -228,10 +228,10 @@ generate() {
   echo -e "Generated Lobash file: ${GREEN}$TARGET${RESET_ALL}"
 }
 
-main() {
-  init "${@:-}"
-  clean
-  generate "${@:-}"
-}
-
-main "${@:-}"
+if (( $# == 0 )); then
+  init
+else
+  init "$@"
+fi
+clean
+generate

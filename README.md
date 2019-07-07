@@ -113,6 +113,8 @@ It prints notes to show what modules will be ignored when building Lobash file.
 **If you want use Lobash with Bash 4.3 and lower versions.**
 **Please read [./doc/with-lower-version-bash.md](./doc/with-lower-version-bash.md) for details.**
 
+**Lobash not test with Bash 4.0 in MacOS. It seems a bug of Bash 4.0 in MacOS. Please contact me if you solved this problem.** See [this document](./doc/with-lower-version-bash.md#not-test-with-bash-40-in-macos).
+
 There is [a list](http://mywiki.wooledge.org/BashFAQ/061) of which features were added to specific releases (versions) of Bash.
 
 Although most Linux distributions use Bash v4.3, and MacOS not installed Bash v4 by default,
