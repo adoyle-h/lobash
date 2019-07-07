@@ -20,6 +20,22 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 [Full Changes](https://github.com/adoyle-h/lobash/compare/master...develop)
 
+## [v0.3.1] - 2019-07-08 02:22:00 +0800
+
+### Add
+
+- add l.array_include.s, l.str_include.s, l.end_with.s, l.start_with.s
+
+### Breaking Change
+
+- l.str_include return 0/1 instead of echo true/false
+- l.end_with return 0/1 instead of echo true/false
+- l.start_with return 0/1 instead of echo true/false
+- l.array_include return 0/1 instead of echo true/false
+- str_include, end_with, start_with move to Condition Category
+
+[Full Changes](https://github.com/adoyle-h/lobash/compare/v0.3.0...v0.3.1)
+
 ## [v0.3.0] - 2019-07-08 01:16:00 +0800
 
 ### Breaking Change
@@ -75,6 +91,7 @@ First release! It works in Bash 4.4+.
 
 <!-- links -->
 
+[v0.3.1]: https://github.com/adoyle-h/lobash/tree/v0.3.1
 [v0.3.0]: https://github.com/adoyle-h/lobash/tree/v0.3.0
 [v0.2.0]: https://github.com/adoyle-h/lobash/tree/v0.2.0
 [v0.1.0]: https://github.com/adoyle-h/lobash/tree/v0.1.0
