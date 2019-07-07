@@ -20,7 +20,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 [Full Changes](https://github.com/adoyle-h/lobash/compare/master...develop)
 
-## [v0.2.0] -
+## [v0.2.0] - 2019-07-07 15:26:01 +0800
 
 ### Fix
 
