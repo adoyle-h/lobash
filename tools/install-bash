@@ -12,14 +12,18 @@ readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 # GNU Mirror List: https://www.gnu.org/prep/ftp.html
 MIRROR=https://gnu.freemirror.org
 VERSION=$1
-TRAVIS_BUILD_DIR=${TRAVIS_BUILD_DIR:-$SCRIPT_DIR}
+TRAVIS_BUILD_DIR=${TRAVIS_BUILD_DIR:-"$SCRIPT_DIR/../dist"}
 BUILD_DIR=${TRAVIS_BUILD_DIR}/build-bash/$VERSION
 
 mkdir -p "$BUILD_DIR"
 cd "$TRAVIS_BUILD_DIR"
-curl -k -O $MIRROR/gnu/bash/bash-"$VERSION".tar.gz
+
+if [[ ! -f bash-"$VERSION".tar.gz ]]; then
+  curl -k -O $MIRROR/gnu/bash/bash-"$VERSION".tar.gz
+fi
+
 tar xzf bash-"$VERSION".tar.gz
 cd "bash-$VERSION"
 ./configure --prefix="$BUILD_DIR"
 make
-sudo make install
+make install

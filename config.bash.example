@@ -7,8 +7,14 @@ BASH_MIN_VERSION: 4.4
 # - [x]  Selected
 
 - [ ]   Arithmetic
+  - [ ] inc
+  - [ ] sub
 
 - [ ]   Array
+  - [ ] array_include
+  - [ ] first
+  - [ ] last
+  - [ ] sort
   - [ ] union_array
 
 - [ ]   Color
@@ -40,6 +46,7 @@ BASH_MIN_VERSION: 4.4
 
 - [ ]   Console
   - [ ] echo
+  - [ ] echo_array
   - [ ] echo_screen
 
 - [ ]   Debug
@@ -72,6 +79,7 @@ BASH_MIN_VERSION: 4.4
 - [ ]   String
   - [ ] count_lines.p
   - [ ] end_with
+  - [ ] join
   - [ ] lower_case
   - [ ] lower_case.p
   - [ ] lower_first
@@ -84,6 +92,7 @@ BASH_MIN_VERSION: 4.4
   - [ ] str_size
   - [ ] trim
   - [ ] trim.p
+  - [ ] trim_color
   - [ ] trim_color.p
   - [ ] trim_end
   - [ ] trim_end.p
@@ -97,6 +106,7 @@ BASH_MIN_VERSION: 4.4
 - [ ]   System
   - [ ] detect_os
   - [ ] hostname
+  - [ ] sleep
 
 - [ ]   Terminal
   - [ ] cursor_col
@@ -104,6 +114,7 @@ BASH_MIN_VERSION: 4.4
   - [ ] cursor_row
 
 - [ ]   Time
+  - [ ] date
   - [ ] now
   - [ ] now_s
 

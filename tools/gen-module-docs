@@ -17,6 +17,10 @@ source "$SCRIPT_DIR"/../src/load_internals.bash
 _lobash.import_internals basic_meta_types module_meta
 _lobash.imports sort has
 
+erase_line() {
+  printf '%b' $'\e[1K\r'
+}
+
 safe_rm() {
   local path=$1
   if [[ $path == / ]]; then
@@ -139,14 +143,15 @@ print_category() {
   local TARGET=$2
   local -n c=category_$1
 
-  echo "To print category: ${category}"
+  erase_line
+  printf '%s' "To print category: ${category}"
 
   print_category_header c "$TARGET"
 
   printf '\n%s\n' "## Modules" >> "$TARGET"
 
   for module_name in "${c[@]}"; do
-    print_module_metas $module_name
+    print_module_metas "$module_name"
 
     {
       printf -- '\n- Test Cases: [tests/modules/%s.bats](../../tests/modules/%s.bats)' "$module_name" "$module_name"
@@ -223,6 +228,8 @@ main() {
   safe_rm "$BASE_DIR"
   mkdir -p "$BASE_DIR"
 
+  echo "To update module usages documents"
+
   local -a categories
   local -i module_count=0
   local filepath module_name category metadatas
@@ -232,7 +239,8 @@ main() {
     module_name=$(basename "$filepath" .bash)
     metadatas=$(_lobash.get_module_metadata_str "$filepath")
 
-    echo "To scan module: $module_name"
+    erase_line
+    printf '%s' "To scan module: $module_name"
     _lobash.scan_module_metadata "$module_name"
 
     category=$(_lobash.get_module_metadata "$module_name" Category)
@@ -251,7 +259,7 @@ main() {
 
   readarray -t categories < <(l.sort categories)
 
-  echo "Scanned ${#categories[@]} Categories: ${categories[*]}"
+  printf '\n%s\n' "Scanned ${#categories[@]} Categories: ${categories[*]}"
 
   print_header "$BASE_DIR/README.md"
   print_toc "$BASE_DIR/README.md"
@@ -260,7 +268,11 @@ main() {
     print_category "$category" "$BASE_DIR/${category,,}.md"
   done
 
-  echo -e "${GREEN}Updated module usages documents.${RESET_ALL}"
+  printf '\n%b%s\n%s%b\n' \
+    "${GREEN}" \
+    "Updated module usages documents." \
+    "See $(dirname "$SCRIPT_DIR")/doc/module-usages/README.md" \
+    "${RESET_ALL}"
 }
 
 main "${@:-}"

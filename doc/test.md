@@ -4,16 +4,17 @@
 
 <!-- MarkdownTOC GFM -->
 
-- [Run test cases in local](#run-test-cases-in-local)
+- [Test with your default Bash in local](#test-with-your-default-bash-in-local)
+- [Test with different Bash versions in local](#test-with-different-bash-versions-in-local)
 - [Test with different Bash versions in Docker](#test-with-different-bash-versions-in-docker)
 - [Build Docker images for testing](#build-docker-images-for-testing)
-- [Run in different Bash versions in Docker](#run-in-different-bash-versions-in-docker)
+- [Test with different Bash versions in Docker](#test-with-different-bash-versions-in-docker-1)
 - [Import specific modules for testing](#import-specific-modules-for-testing)
 - [Debug](#debug)
 
 <!-- /MarkdownTOC -->
 
-## Run test cases in local
+## Test with your default Bash in local
 
 ```sh
 # Run all test cases with Lobash source codes in local
@@ -27,6 +28,14 @@
 
 # Build Lobash and run specific test cases with Lobash dist in local
 ./build && ./test ./tests/modules/${module_name}.bats
+```
+
+## Test with different Bash versions in local
+
+```sh
+BASHVER=4.0 ./tools/test-in-docker
+# or
+BASHVER=4.0 ./tools/test-in-docker ./tests/modules/${module_name}.bats
 ```
 
 ## Test with different Bash versions in Docker
@@ -57,7 +66,7 @@ BASHVER=4.0 BUILD_DIST=true ./tools/test-in-docker ./tests/modules/${module_name
 BASHVER=4.0 ./tools/build-test-image
 ```
 
-## Run in different Bash versions in Docker
+## Test with different Bash versions in Docker
 
 ```sh
 BASHVER=4.0 ./tools/run-in-docker

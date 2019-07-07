@@ -1,6 +1,6 @@
 # Module Usages
 
-15 Categories, 93 Modules, 498 Test Cases.
+15 Categories, 93 Modules, 500 Test Cases.
 
 Each module provides only one function which naming prefixed with `l.`.
 
