@@ -5,7 +5,8 @@
 Each module provides only one function which naming prefixed with `l.`.
 
 The function which naming suffixed with `.p` should be used in pipeline. Like `echo ' string ' | l.trim.p`.
-The function which naming suffixed with `.s` means in strict mode. It uses `echo true/false` instead of `return 0/1`.
+
+The function which naming suffixed with `.s` means in strict mode. It uses `echo true/false` instead of `return 0/1` to return values "true" and "false".
 
 ## TOC
 

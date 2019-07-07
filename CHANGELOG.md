@@ -20,6 +20,26 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 [Full Changes](https://github.com/adoyle-h/lobash/compare/master...develop)
 
+## [v0.3.0] - 2019-07-08 01:16:00 +0800
+
+### Breaking Change
+
+All Condition modules should provide two implements. Like `is_file` and `is_file.s`,
+'.s' suffix means "strict mode".
+
+- All Condition functions renamed from l.xxx to l.xxx.s.
+- Current Condition functions l.xxx return 0/1 instead of echo true/false
+- rename l.is_writeable => l.is_writable.s
+- rename l.true => l.truthy.s
+- rename l.false => l.falsy.s
+- l.has not support l.has not <command>, use l.has_not instead
+- rename l.strict_has => l.has.s
+- rename l.strict_has_not => l.has_not.s
+- rename l.not => l.not.s
+- rename l.not.p => l.not.s.p
+
+[Full Changes](https://github.com/adoyle-h/lobash/compare/v0.2.0...v0.3.0)
+
 ## [v0.2.0] - 2019-07-07 15:26:01 +0800
 
 ### Fix
@@ -53,9 +73,8 @@ First release! It works in Bash 4.4+.
 
 [Full Changes](https://github.com/adoyle-h/lobash/compare/c8826ac...v0.1.0)
 
-### Add
-
 <!-- links -->
 
+[v0.3.0]: https://github.com/adoyle-h/lobash/tree/v0.3.0
 [v0.2.0]: https://github.com/adoyle-h/lobash/tree/v0.2.0
 [v0.1.0]: https://github.com/adoyle-h/lobash/tree/v0.1.0
