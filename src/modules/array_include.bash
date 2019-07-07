@@ -2,10 +2,13 @@
 # Category: Array
 # Since: 0.1.0
 # Usage: l.array_include <array_name> <match>
+# Bash: 4.3
 # ---
 
 l.array_include() {
   local -n l_array_include_arg_array=$1
+  (( ${#l_array_include_arg_array[@]} == 0 )) && echo false && return
+
   local match="$2"
   local e
   shift

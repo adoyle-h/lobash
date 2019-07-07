@@ -5,16 +5,24 @@
 # Description: Remove color escape code in string
 # ---
 
-l.trim_color() {
-  local ecs=$'\e'
-  local str="$1"
-
+# [[ $'\e' == $'\u001b' ]] is false in Bash less than 4.2.
+_L_TRIM_COLOR_ECS=$'\e'
+_L_TRIM_COLOR_ECS2=$'\u001b'
+if [[ "$_L_TRIM_COLOR_ECS" == "$_L_TRIM_COLOR_ECS2" ]]; then
   if [[ $_LOBASH_OS == Linux ]]; then
-    sed -E "s,${ecs}[[0-9]*(;[0-9]+)*m,,g" <<< "$str"
+    _L_TRIM_COLOR_REGEX=$_L_TRIM_COLOR_ECS
   elif [[ $_LOBASH_OS == MacOS ]] || [[ $_LOBASH_OS == BSD ]]; then
-    sed -E "s,\\${ecs}[[0-9]*(;[0-9]+)*m,,g" <<< "$str"
-  else
-    echo "Unexpected _LOBASH_OS=$_LOBASH_OS" >&2
-    return 5
+    _L_TRIM_COLOR_REGEX="\\$_L_TRIM_COLOR_ECS"
   fi
+else
+  if [[ $_LOBASH_OS == Linux ]]; then
+    _L_TRIM_COLOR_REGEX="($_L_TRIM_COLOR_ECS|\\$_L_TRIM_COLOR_ECS2)"
+  elif [[ $_LOBASH_OS == MacOS ]] || [[ $_LOBASH_OS == BSD ]]; then
+    _L_TRIM_COLOR_REGEX="(\\$_L_TRIM_COLOR_ECS|\\$_L_TRIM_COLOR_ECS2)"
+  fi
+fi
+
+l.trim_color() {
+  ( (( $# == 0 )) || [[ -z ${1:-} ]]) && echo '' && return
+  sed -E "s,${_L_TRIM_COLOR_REGEX}[[0-9]*(;[0-9]+)*m,,g" <<< "$1"
 }

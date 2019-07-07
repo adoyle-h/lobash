@@ -4,11 +4,6 @@ git:
   depth: 1
   submodules: false
 
-branches:
-  only:
-    - master
-    - test
-
 if: |
   tag =~ ^v OR \
   branch = "test"
@@ -21,6 +16,10 @@ os:
   - osx
 
 env:
+  - BASHVER=4.0
+  - BASHVER=4.1
+  - BASHVER=4.2
+  - BASHVER=4.3
   - BASHVER=4.4
   - BASHVER=5.0
 
@@ -55,10 +54,17 @@ script:
   - |
     if [[ "$TRAVIS_OS_NAME" == 'linux' ]]; then
       echo "Start to test in Bash docker"
-      time bash ./tools/test-in-docker
+      BUILD_DIST=true time bash ./tools/test-in-docker
     else
+      if [[ $BASHVER == 4.0 ]]; then
+        echo "Skip to test Bash 4.0 in MacOS."
+        return
+      fi
+
+      echo "To build ./dist/lobash.bash"
+      bash ./build
       echo "Start to test in MacOS Bash"
-      time bash ./test
+      time bash ./test -d
     fi
 
 notifications:

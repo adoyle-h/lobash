@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 
 setup_fixture
+test_prepare dirname
 load_module dirname
 
 @test "l.dirname /" {

@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 
 setup_fixture
+test_prepare upper_first.p
 load_module upper_first.p
 
 @test "echo 'abc' | l.upper_first.p" {

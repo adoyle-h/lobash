@@ -16,9 +16,9 @@ l.trace_time() {
   printf '[%s] Current Timestamp: %s\n' "$label" "$current"
 
   if [[ -n $last_time ]]; then
-    printf '[%s] Last Timestamp: %s\n[%s] Elapsed: %s\n' "$label" "$last_time" "$label" $(( "$(l.now)" - "$last_time" ))
+    printf '[%s] Last Timestamp: %s\n[%s] Elapsed: %s\n' "$label" "$last_time" "$label" $(( $(l.now) - last_time ))
     read -r "$key" <<< "$current"
   else
-    declare -g "$key"="$current"
+    read -r "$key" <<< "$current"
   fi
 }

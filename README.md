@@ -12,6 +12,8 @@
 - [What is Lobash?](#what-is-lobash)
 - [Lobash Features](#lobash-features)
 - [Build Status](#build-status)
+- [ChangeLog](#changelog)
+- [FAQ](#faq)
 - [Installation](#installation)
 - [Prerequisites](#prerequisites)
     - [Supported Platform](#supported-platform)
@@ -21,10 +23,12 @@
     - [Build your lobash.bash](#build-your-lobashbash)
     - [Edit your scripts and set shell options](#edit-your-scripts-and-set-shell-options)
     - [Load lobash.bash in your scripts](#load-lobashbash-in-your-scripts)
-- [Module Usages](#module-usages)
+    - [Module Usages](#module-usages)
 - [Command](#command)
-- [FAQ](#faq)
+    - [lobash meta](#lobash-meta)
+    - [lobash mod](#lobash-mod)
 - [Who use Lobash](#who-use-lobash)
+- [Related Projects](#related-projects)
 - [References](#references)
 - [Test](#test)
 - [Contributions](#contributions)
@@ -35,33 +39,42 @@
 
 ## What is Lobash?
 
-Script script development is complex and fallible. Because the shell script may be interpreted differently with different shells.
-And external commands such like BSD and GNU utilities have different options and behaviors although in same command name.
+Due to its complex syntaxes with symbols, and Unix commands are different in platforms such like BSD and GNU utilities
+have different options and behaviors with same command name,
+Bash script development is complex and fallible.
 
 Javascript has a powerful library [Lodash](https://github.com/lodash/lodash) for simplifying development.
 So I build Lobash to do similar works for shell development.
 
 Lobash is a library not a command. It provides collections of functions to improve efficiency of shell development,
-and make it compatible with Bash 4.4+ and MacOS/Linux/Alpine/Busybox systems.
+and make it compatible with Bash 4.0+ and MacOS/Linux/Alpine/Busybox systems.
 
 ## Lobash Features
 
 - Modular and easy to use. One module one Function.
 - Rich Functions. Over 90+ modules provided.
-- Robust and Safe. Over 500+ test cases which tested under MacOS/Linux/Alpine/Busybox systems with Bash.
+- Robust and Safe. Over 500+ test cases tested.
 - Fast. 0.058s to load Lobash completely.
+- Compatible with MacOS/Linux/Alpine/Busybox systems.
+- Compatible with Bash 4.0 and higher versions.
 
 ## Build Status
 
-- [Master Branch][]: [![Build Status/master](https://travis-ci.com/adoyle-h/lobash.svg?branch=master)](https://travis-ci.com/adoyle-h/lobash)
-- [Develop Branch][]: [![Build Status/test](https://travis-ci.com/adoyle-h/lobash.svg?branch=test)](https://travis-ci.com/adoyle-h/lobash)
+- [Test Branch](https://github.com/adoyle-h/lobash/tree/test): [![Build Status](https://travis-ci.com/adoyle-h/lobash.svg?branch=test)][travis repo]
+
+## [ChangeLog](./CHANGELOG.md)
+
+## [FAQ](./doc/faq.md)
 
 ## Installation
 
+Available Lobash versions refer to [Git Tags](https://github.com/adoyle-h/lobash/tags) which named like "vX.Y.Z".
+
 ```sh
-VERSION=v0.1.0
+VERSION=v0.2.0
 # Download source codes
 git clone --depth 1 --branch $VERSION https://github.com/adoyle-h/lobash.git
+cd lobash
 # This step is optional. Clone submodules only if you want to run test cases.
 git submodule update --init --recursive
 ```
@@ -81,20 +94,31 @@ git submodule update --init --recursive
 
 ### Supported Shells
 
-| Supported | Shell    | Version          | Main Reasons                                          |
-|:---------:|:---------|:-----------------|:------------------------------------------------------|
-|     ✅    | Bash     | v5 and higher    | -                                                     |
-|     ✅    | Bash     | v4.4             | -                                                     |
-|     🚫    | Zsh      | v5.3 and higher  | Plan to implement it in another project               |
-|     🚫    | Bash     | v4.3             | `shopt -s inherit_errexit` is not supported util v4.4 |
-|     🚫    | Bash     | v4.0, v4.1, v4.2 | Nameref is not supported util v4.3                    |
-|     🚫    | Bash     | v3               | Associative array is not supported until v4.0         |
-|     🚫    | POSIX sh | *                | `local` keyword not supported                         |
-|     ❔    | Ksh      | *                | No tested                                             |
+| Supported | Shell    | Version       | Main Reasons                                            |
+|:---------:|:---------|:--------------|:--------------------------------------------------------|
+|     ✅    | Bash     | v5 and higher | Completely Supported                                    |
+|     ✅    | Bash     | v4.4          | Completely Supported                                    |
+|    ✅💬   | Bash     | v4.3          | `shopt -s inherit_errexit` is not supported util v4.4   |
+|    ✅💬   | Bash     | v4.2          | `Nameref` is not supported util v4.3                    |
+|    ✅💬   | Bash     | v4.1          | `declare -g` not support util v4.2                      |
+|    ✅💬   | Bash     | v4.0          | `exec {fd}<> <(true)` is not supported util v4.1        |
+|     🚫    | Bash     | v3            | Associative array is not supported until v4.0           |
+|     🚫    | POSIX sh | *             | `local` keyword not supported                           |
+|     🚫    | Zsh      | *             | Plan to implement it in another project                 |
+|     ❔    | Ksh      | *             | No tested                                               |
+
+✅💬 means Lobash can be used but not all features supported in shell.
+It prints notes to show what modules will be ignored when building Lobash file.
+
+**If you want use Lobash with Bash 4.3 and lower versions.**
+**Please read [./doc/with-lower-version-bash.md](./doc/with-lower-version-bash.md) for details.**
+
+**Lobash not test with Bash 4.0 in MacOS. It seems a bug of Bash 4.0 in MacOS. Please contact me if you solved this problem.** See [this document](./doc/with-lower-version-bash.md#not-test-with-bash-40-in-macos).
 
 There is [a list](http://mywiki.wooledge.org/BashFAQ/061) of which features were added to specific releases (versions) of Bash.
 
-Although most Linux distributions use Bash v4.3, you can upgrade Bash easily and it is backward compatible.
+Although most Linux distributions use Bash v4.3, and MacOS not installed Bash v4 by default,
+it is easily to upgrade Bash 4.4+ in most systems.
 
 ### Dependencies
 
@@ -111,20 +135,15 @@ Make sure below dependencies have been installed.
 First, build your own `lobash.bash` file by `./build`.
 
 ```sh
+# Interactive build process
 ./build
-# Generated Lobash file: /Users/adoyle/Workspace/Shell/lobash/dist/lobash.bash
+# Generated Lobash file: <lobash-dir>/dist/lobash.bash
 
 # Or build Lobash to specific path
 ./build <target-path>
-
-# Or build Lobash to specific path and change Lobash function prefix
-PREFIX=lobash_ ./build <target-path>
 ```
 
-When you use Lobash to build a library or framework, it is necessary to set `PREFIX` with unique namespace for avoiding naming collisions.
-When you build a command, `PREFIX` is unnecessary.
-
-The `PREFIX` only effect Lobash public functions and variables names.
+See [./doc/build.md](./doc/build.md) for more details.
 
 ### Edit your scripts and set shell options
 
@@ -140,17 +159,6 @@ please read [this article](https://dougrichardson.org/2018/08/03/fail-fast-bash-
 
 **Lobash not enable these options by default. Make sure the same shell options enabled before call Lobash functions in your scripts. Otherwise there may be unexpected behaviors with it.**
 
-If your develop a Bash script, put below codes in head.
-
-```sh
-#!/usr/bin/env bash
-
-set -o errexit
-set -o nounset
-set -o pipefail
-shopt -s inherit_errexit
-```
-
 ### Load lobash.bash in your scripts
 
 Second, load your own `lobash.bash` file in your scripts and all Lobash functions will be imported to current shell environment.
@@ -161,14 +169,14 @@ Second, load your own `lobash.bash` file in your scripts and all Lobash function
 set -o errexit
 set -o nounset
 set -o pipefail
-shopt -s inherit_errexit
+(shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
 
 # It will load all Lobash modules
 source <path-to-lobash.bash>
-# Call l.<module_name> when PREFIX not set when building.
+# Call l.<module_name> when build lobash.bash with default PREFIX
 l.ask 'Hello Lobash?'
 
-# Call <PREFIX>.<module_name> when PREFIX=lobash_ set
+# Call lobash.<module_name> when build lobash.bash with PREFIX=lobash_
 # lobash_ask 'Hello Lobash?'
 ```
 
@@ -182,24 +190,70 @@ user    0m0.022s
 sys     0m0.036s
 ```
 
-## Module Usages
+### Module Usages
 
-See [./doc/module-usages.md](./doc/module-usages.md).
+See all module usages in [./doc/module-usages/](./doc/module-usages/README.md)
 
 ## Command
 
+While Lobash is a library for development, it also provides a command `./bin/lobash`.
+
+Enter `./bin/lobash` show help.
+
 ```sh
-./bin/lobash mod <module_name> [<module_args>]...
+> ./bin/lobash
+
+Usage:
+  lobash [help|-h|--help]
+  lobash mod <module_name> [<sub_command_args>]...
+  lobash meta
+
+Sub-Command:
+  help       Show help
+  mod        Invoke a Lobash module
+  mods       Show available module names
+  meta       Query metadatas of Lobash module
+  github     Open Lobash github page in your browser
+
+Description:
+The "lobash mod" command is only used for certain scenarios. Many modules not work as command.
 ```
 
-The `./bin/lobash` command is only used for certain scenarios.
-Many modules not work as command.
+### lobash meta
 
-## [FAQ](./doc/faq.md)
+```sh
+> ./bin/lobash meta normalize
+Module: normalize
+Usage: l.normalize <path>
+Description:
+  - Normalize the given path which can be an unexisted path.
+  - Trailing `/` always be removed.
+Dependent: split, join
+Deprecated: false
+Since: 0.1.0
+Bash: 4.3
+Status: tested
+```
+
+### lobash mod
+
+Note: The "lobash mod" command is only used for certain scenarios. Many modules not work as command.
+
+```sh
+> ./bin/lobash mod ask 'Is it OK?'
+Is it OK? ([Y]es/No)
+YES
+```
 
 ## Who use Lobash
 
 - [adoyle-h/dotfiles](https://github.com/adoyle-h/dotfiles)
+- Contact me to add your project to list.
+
+## Related Projects
+
+- [shell-general-colors](https://github.com/adoyle-h/shell-general-colors): shell colors
+- [bats-core](https://github.com/bats-core/bats-core): test framework
 
 ## References
 
@@ -209,9 +263,7 @@ Many modules not work as command.
 
 ## Test
 
-Run `./test -d`.
-
-See [./doc/test.md](./doc/test.md) more details.
+See [./doc/test.md](./doc/test.md) for more details.
 
 ## Contributions
 
@@ -243,3 +295,4 @@ See the [NOTICE][] file distributed with this work for additional information re
 [issue]: https://github.com/adoyle-h/dotfiles/issues
 [Master Branch]: https://github.com/adoyle-h/lobash/tree/master
 [Develop Branch]: https://github.com/adoyle-h/lobash/tree/develop
+[travis repo]: https://travis-ci.com/adoyle-h/lobash

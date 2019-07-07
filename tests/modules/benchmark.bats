@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 
 setup_fixture
+test_prepare benchmark
 load_module benchmark
 
 @test "l.benchmark" {

@@ -1,28 +1,31 @@
 #!/usr/bin/env bash
-# shellcheck disable=SC1090,SC2016
+# shellcheck disable=SC2016
 
 set -o errexit
 set -o nounset
 set -o pipefail
-shopt -s inherit_errexit
-[[ -n "${VERBOSE:+x}" ]] && set -o verbose
+(shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
+[[ -n "${VERBOSE:-}" ]] && set -o verbose
 [[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
 
 readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 
+# shellcheck source=./colors.bash
+source "$SCRIPT_DIR/colors.bash"
+# shellcheck source=../src/load_internals.bash
 source "$SCRIPT_DIR"/../src/load_internals.bash
-_lobash.import_internals module_meta
+_lobash.import_internals basic_meta_types module_meta
 _lobash.imports sort lower_case.p
 
 generate() {
   local category=${1,,}
   local -n c=category_$category
 
-  printf -- '-[ ]   %s\n' "${category^}" >> "$TARGET_BASH"
+  printf -- '- [ ]   %s\n' "${category^}" >> "$TARGET_BASH"
 
   for module_name in "${c[@]}"; do
-    if [[ ${map[${module_name}_bash_0]} == true ]]; then
-      printf -- '  -[ ] %s\n' "$module_name" >> "$TARGET_BASH"
+    if [[ ${map[${module_name}_status_0]} == tested ]]; then
+      printf -- '  - [ ] %s\n' "$module_name" >> "$TARGET_BASH"
     fi
   done
 
@@ -43,10 +46,17 @@ add_to_map() {
   done
 }
 
+erase_line() {
+  printf '%b' $'\e[1K\r'
+}
+
 main() {
-  local TARGET_BASH="$SCRIPT_DIR/../config.bash.example"
+  local TARGET_BASH
+  TARGET_BASH="$(dirname "$SCRIPT_DIR")/config.bash.example"
   local -A map
   local -a categories
+
+  echo "To generate config.bash.example"
 
   local -i module_count=0
   local filepath module_name category metadatas
@@ -62,7 +72,8 @@ main() {
     fi
 
     local cate_name=category_${category}
-    echo "Scan file: $category/$module_name"
+    erase_line
+    printf '%s' "Scan file: $category/$module_name"
 
     if [[ -z ${!cate_name:-} ]]; then
       eval "declare -g -a ${cate_name}"
@@ -72,15 +83,19 @@ main() {
     declare -n cate=$cate_name
     cate+=("$module_name")
 
-    add_to_map bash true
+    add_to_map status tested
   done
 
   categories=( $(l.sort categories) )
 
   cat <<EOF > "$TARGET_BASH"
+# Choose the minimum version of Bash in which Lobash will run.
+# Available values: 4.0, 4.1, 4.2, 4.3, 4.4
+BASH_MIN_VERSION: 4.4
+
 # Select modules or categories to export
-# -[ ]  Unselected
-# -[x]  Selected
+# - [ ]  Unselected
+# - [x]  Selected
 
 EOF
 
@@ -89,7 +104,7 @@ EOF
     generate "$category"
   done
 
-  echo "Generate: $TARGET_BASH"
+  printf '\n%b\n' "${GREEN}Generate: $TARGET_BASH${RESET_ALL}"
 }
 
 main "$@"

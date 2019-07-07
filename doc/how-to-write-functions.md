@@ -1,5 +1,17 @@
 # How to write functions
 
+## TOC
+
+<!-- MarkdownTOC GFM -->
+
+- [Function Name](#function-name)
+- [How to return a Boolean value](#how-to-return-a-boolean-value)
+- [Use external command](#use-external-command)
+    - [Notice the differences between BSD sed and GNU sed.](#notice-the-differences-between-bsd-sed-and-gnu-sed)
+- [Prefer printf than echo](#prefer-printf-than-echo)
+
+<!-- /MarkdownTOC -->
+
 ## Function Name
 
 Must match the regexp `[_a-zA-Z0-9]+\.bash`

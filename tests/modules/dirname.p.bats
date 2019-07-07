@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 
 setup_fixture
+test_prepare dirname.p
 load_module dirname.p
 
 @test "echo '/' | l.dirname.p" {

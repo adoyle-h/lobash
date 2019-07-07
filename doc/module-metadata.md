@@ -1,29 +1,46 @@
 # Module Metadata
 
-Each module must have these comments which called Metadata at top.
-
-Like this:
+These comments wrapped between `# ---` are called Metadata.
+Each module must have Metadata at top.
 
 ```sh
 # ---
 # Category: XXX
-# Deprecated: false
-# Since: <version>
-# Dependent: a,b,c
 # Usage: l.public_function arguments [options]
 # Description: function description
-# Bash: true
+# Dependent: a,b,c
+# Deprecated: false
+# Since: <version>
+# Bash: 4.0
 # Status: tested
 # ---
 ```
 
+The Metadata is order insensitive.
+
 **Attention**: Exactly `# ---`. No more or less spaces and `-`.
+
+## TOC
+
+
+<!-- MarkdownTOC GFM -->
+
+- [Category](#category)
+- [Deprecated](#deprecated)
+- [Dependent](#dependent)
+- [Since](#since)
+- [Usage](#usage)
+- [Description](#description)
+- [Bash](#bash)
+- [Status](#status)
+- [Module](#module)
+
+<!-- /MarkdownTOC -->
+
 
 ## Category
 
 It is required.
-
-The value of `Category` must be upper camel case.
 
 Available values:
 
@@ -41,6 +58,8 @@ Available values:
 - Time
 - Util
 - Lobash
+
+These values must be upper camel case.
 
 ## Deprecated
 
@@ -70,7 +89,9 @@ Available values: The Lobash release version.
 
 ## Usage
 
-Follow the http://docopt.org/
+The usage format must follow the http://docopt.org/ .
+
+And public_function must start with `l.`.
 
 ## Description
 
@@ -81,14 +102,22 @@ It can be multiple.
 
 ## Bash
 
-It is optional. Default to `true`.
+It is optional. Default to `4.0`.
 
-Whether support Bash or not.
+The minimum version of Bash which Lobash supports.
 
-# Status
+## Status
 
 It is optional. Default to `tested`.
 
 Available values:
 
 - `tested`
+
+## Module
+
+It is hidden.
+
+The module name, based on module filename.
+
+Currently, only be shown in `./bin/lobash meta`.

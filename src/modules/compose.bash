@@ -9,10 +9,14 @@ l.compose() {
   local -a last=()
   for f in "$@"; do
     if [[ $(type -t "$f") == function ]]; then
-      last=( "$($f "${last[@]}")" )
+      if (( ${#last[@]} > 0 )); then
+        last=( "$($f "${last[@]}")" )
+      else
+        last=( "$($f)" )
+      fi
     else
       last=( "$f" )
     fi
   done
-  printf '%s\n' "${last[@]}"
+  printf '%s\n' "${last[@]:-}"
 }

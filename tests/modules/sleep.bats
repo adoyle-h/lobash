@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 
 setup_fixture
+test_prepare sleep
 load_module sleep
 load_module now
 
@@ -15,8 +16,8 @@ load_module now
 
   local flag=false
   if [[ -n ${CI:-} ]]; then
-    # CI is in low performance, so +60ms
-    if [[ $elapsed -gt 50 ]] && [[ $elapsed -lt 210 ]]; then
+    # Travis CI has low performance, so +100ms
+    if [[ $elapsed -gt 50 ]] && [[ $elapsed -lt 250 ]]; then
       flag=true
     fi
   else
@@ -44,8 +45,8 @@ load_module now
 
   local flag=false
   if [[ -n ${CI:-} ]]; then
-    # CI is in low performance, so +60ms
-    if [[ $elapsed -gt 950 ]] && [[ $elapsed -lt 1110 ]]; then
+    # Travis CI has low performance, so +100ms
+    if [[ $elapsed -gt 950 ]] && [[ $elapsed -lt 1150 ]]; then
       flag=true
     fi
   else
@@ -73,8 +74,8 @@ load_module now
 
   local flag=false
   if [[ -n ${CI:-} ]]; then
-    # CI is in low performance, so +60ms
-    if [[ $elapsed -gt 1950 ]] && [[ $elapsed -lt 2110 ]]; then
+    # Travis CI has low performance, so +100ms
+    if [[ $elapsed -gt 1950 ]] && [[ $elapsed -lt 2150 ]]; then
       flag=true
     fi
   else

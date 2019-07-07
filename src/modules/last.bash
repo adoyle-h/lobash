@@ -3,6 +3,7 @@
 # Since: 0.1.0
 # Usage: l.last <array_name>
 # Description: Return the last value of array.
+# Bash: 4.3
 # ---
 
 l.last() {

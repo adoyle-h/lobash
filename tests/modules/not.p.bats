@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 
 setup_fixture
+test_prepare not.p
 load_module not.p
 
 @test "echo true | l.not.p" {

@@ -9,7 +9,7 @@
 set -o errexit
 set -o nounset
 set -o pipefail
-shopt -s inherit_errexit
+(shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
 [[ -n "${VERBOSE:+x}" ]] && set -o verbose
 [[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
 
@@ -19,11 +19,33 @@ readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 #                           initialization                            #
 #######################################################################
 
+source "$SCRIPT_DIR/../tools/colors.bash"
+# shellcheck source=../src/load_internals.bash
+source "$SCRIPT_DIR/../src/load_internals.bash"
+
 usage() {
-cat <<EOF
-Usage: lobash [-h|--help]
-Usage: lobash mod <module_name> [<module_args>]...
+  local str
+  # read return error with here-doc, so close errexit
+  set +o errexit
+  read -r -d '' str <<EOF
+${GREEN}Usage:${RESET_ALL}
+  lobash [help|-h|--help]
+  lobash mod <module_name> [<sub_command_args>]...
+  lobash meta
+
+${PURPLE}Sub-Command:${RESET_ALL}
+  help       Show help
+  mod        Invoke a Lobash module
+  mods       Show available module names
+  meta       Query metadatas of Lobash module
+  github     Open Lobash github page in your browser
+
+${CYAN}Description:${RESET_ALL}
+The "lobash mod" command is only used for certain scenarios. Many modules not work as command.
 EOF
+  set -o errexit
+
+  printf '%b\n' "$str"
 }
 
 
@@ -54,12 +76,56 @@ opt_parse() {
 #######################################################################
 
 exec_module() {
-  # shellcheck source=../src/load_internals.bash
-  source "$SCRIPT_DIR/../src/load_internals.bash"
   local module=$1
   _lobash.imports "$module"
   shift
   "l.$module" "$@"
+}
+
+query_meta() {
+  _lobash.import_internals basic_meta_types module_meta
+
+  local module=$1
+  local meta_types=(
+    Module
+    Category
+  )
+  for meta_type in "${_LOBASH_BASIC_META_TYPES[@]}"; do
+    meta_types+=("$meta_type")
+  done
+
+  _lobash.scan_module_metadata "$module"
+
+  local count
+  for mtype in "${meta_types[@]}"; do
+    count=$(_lobash.get_module_metadata "$module" "${mtype}_count")
+    if [[ -z $count ]] || (( count == 0 )); then
+      continue
+    elif (( count == 1 )); then
+      printf '%b: %b\n' "${GREEN}$mtype${RESET_ALL}" "$(_lobash.get_module_metadata "$module" "${mtype}")"
+    else
+      printf '%b:\n' "${GREEN}$mtype${RESET_ALL}"
+      for (( i = 0; i < count; i++ )); do
+        printf -- '  - %b\n' "$(_lobash.get_module_metadata "$module" "${mtype}" "$i")"
+      done
+    fi
+  done
+}
+
+open_github() {
+  local url=https://github.com/adoyle-h/lobash
+  if l.has command open; then
+    open $url
+  fi
+  echo Open $url in browser.
+}
+
+show_mods() {
+  find "$SCRIPT_DIR/../src/modules/" -type f -exec basename {} .bash \; | sort
+}
+
+init() {
+  _lobash.imports trace_start trace_end has
 }
 
 #######################################################################
@@ -75,9 +141,15 @@ main() {
     exit 0
   fi
 
-  if [[ $arg0 == mod ]]; then
-    exec_module "${dispatch_cmd_args[@]:1}"
-  fi
+  init
+
+  case $arg0 in
+    mod ) exec_module "${dispatch_cmd_args[@]:1}" ;;
+    mods ) show_mods ;;
+    meta ) query_meta "${dispatch_cmd_args[@]:1}" ;;
+    help ) usage ;;
+    github ) open_github ;;
+  esac
 }
 
 main "$@"

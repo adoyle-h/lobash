@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 
 setup_fixture
+test_prepare trim
 load_module trim
 
 @test "l.trim" {

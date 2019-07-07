@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 
 setup_fixture
+test_prepare if
 load_module if
 
 @test "l.if foo foo.then foo.else when failed" {

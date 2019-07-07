@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 
 setup_fixture
+test_prepare last
 load_module last
 
 @test "l.last a asd bcd d" {

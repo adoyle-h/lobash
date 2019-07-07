@@ -10,5 +10,9 @@ l.trim_end.p() {
   local str
   IFS='' read -r str
 
-  l.trim_end "$str" "$@"
+  if (( $# == 0 )); then
+    l.trim_end "$str"
+  else
+    l.trim_end "$str" "${@}"
+  fi
 }

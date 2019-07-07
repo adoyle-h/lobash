@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 
 setup_fixture
+test_prepare is_executable
 load_module is_executable
 
 @test "l.is_executable a normal file" {

@@ -1,16 +1,23 @@
 #!/usr/bin/env bash
-# shellcheck disable=SC1090
 
 set -o errexit
 set -o nounset
 set -o pipefail
-shopt -s inherit_errexit
+(shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
 [[ -n "${VERBOSE:+x}" ]] && set -o verbose
 [[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
 
 readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+# shellcheck source=./init.bash
+source "$SCRIPT_DIR"/init.bash
 
-source "$SCRIPT_DIR"/../src/load_internals.bash
-_lobash.import_internals module_meta
+foo() {
+  l.cur_function_name
+}
 
-_lobash.get_module_metadata_str_by_name "$1"
+bar() {
+  foo
+}
+
+foo
+bar

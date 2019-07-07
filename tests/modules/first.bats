@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 
 setup_fixture
+test_prepare first
 load_module first
 
 @test "l.first (a asd bcd d)" {

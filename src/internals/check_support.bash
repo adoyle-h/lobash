@@ -13,9 +13,11 @@ _lobash.check_shell() {
 }
 
 _lobash.check_supported_bash_version() {
-  if [[ ${BASH_VERSINFO[0]} -lt 4 ]] \
-    || ([[ ${BASH_VERSINFO[0]} == 4 ]] && [[ ${BASH_VERSINFO[1]} -lt 4 ]]); then
-    echo "Bash $BASH_VERSION is not supported. Upgrade your Bash to 4.4 or higher version." >&2
+  local info
+  read -r -d '.' -a info <<< "$_LOBASH_MIN_BASHVER"
+  if (( BASH_VERSINFO[0] < info[0] )) \
+    || ( (( BASH_VERSINFO[0] == info[0] )) && (( BASH_VERSINFO[1] < info[1] )) ); then
+    echo "Bash $BASH_VERSION is not supported. Upgrade your Bash to $_LOBASH_MIN_BASHVER or higher version." >&2
     return 7
   fi
 }
@@ -23,7 +25,7 @@ _lobash.check_supported_bash_version() {
 _lobash.check_support() {
   _lobash.check_os
   _lobash.check_shell
-  _lobash.check_supported_bash_version
+  # _lobash.check_supported_bash_version
 }
 
 _lobash.check_support

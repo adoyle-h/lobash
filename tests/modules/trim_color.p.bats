@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 
 setup_fixture
+test_prepare trim_color.p
 load_module trim_color.p
 
 @test "echo 'string' | l.trim_color.p" {

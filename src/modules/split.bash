@@ -36,15 +36,17 @@ _l.split() {
   done
 
   a=0
-  for i in "${indexes[@]}"; do
-    printf '%s\n' "${string:$a:$(( i - a ))}"
-    a=$((i + dLen));
-  done
+  if (( ${#indexes[@]} > 0 )); then
+    for i in "${indexes[@]}"; do
+      printf '%s\n' "${string:$a:$(( i - a ))}"
+      a=$((i + dLen));
+    done
+  fi
 
-  if (( a + dLen - 1 == sLen )); then
-    printf '\n'
-  elif (( a < sLen )); then
+  if (( a < sLen )); then
     printf '%s\n' "${string:$a}"
+  elif (( a == sLen )); then
+    printf '\n'
   fi
 }
 

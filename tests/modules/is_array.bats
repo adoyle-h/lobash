@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 
 setup_fixture
+test_prepare is_array
 load_module is_array
 
 @test "l.is_array array" {

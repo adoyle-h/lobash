@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 
 setup_fixture
+test_prepare join
 load_module join
 
 @test "l.join (a b c d) " {
@@ -43,4 +44,11 @@ load_module join
   run l.join arr ,
 	assert_success
 	assert_output ','
+}
+
+@test "l.join () ," {
+  local arr=()
+  run l.join arr ,
+	assert_success
+	assert_output ''
 }

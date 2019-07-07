@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 
 setup_fixture
+test_prepare echo_array
 load_module echo_array
 
 @test "l.echo_array (a b c)" {

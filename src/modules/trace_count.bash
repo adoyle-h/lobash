@@ -11,7 +11,7 @@ l.trace_count() {
   local key=_LOBASH_trace_count_$label
 
   if [[ -z ${!key:-} ]]; then
-    declare -g "$key"=0
+    read -r "$key" <<< 0
   fi
 
   read -r "$key" <<< $(( ${!key} + 1 ))
