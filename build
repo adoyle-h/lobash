@@ -5,7 +5,7 @@ set -o errexit
 set -o nounset
 set -o pipefail
 (shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
-[[ -n "${VERBOSE:+x}" ]] && set -o verbose
+[[ -n "${VERBOSE:-}" ]] && set -o verbose
 [[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
 
 readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
@@ -16,6 +16,10 @@ source "$SCRIPT_DIR/tools/colors.bash"
 source "$SCRIPT_DIR/src/load_internals.bash"
 _lobash.import_internals basic_meta_types module_meta
 _lobash.imports ask choose
+
+erase_line() {
+  printf '%b' $'\e[1K\r'
+}
 
 is_valid_lobash_prefix() {
   local prefix=$1
@@ -191,6 +195,9 @@ generate() {
   for path in "$SCRIPT_DIR"/src/modules/*.bash; do
     module_name=$(basename "$path" .bash)
     module_names+=("$module_name")
+
+    erase_line
+    printf '%s' "To scan module: $module_name"
     _lobash.scan_module_metadata "$module_name"
     bashver=$(_lobash.get_module_metadata "$module_name" "Bash")
     compare=$(_lobash.semver_compare "$BASH_MIN_VERSION" "$bashver")
@@ -199,7 +206,7 @@ generate() {
     fi
   done
 
-  echo "Writing Module Contents..."
+  printf '\n%s\n' "Writing Module Contents..."
   for module_name in "${module_names[@]}"; do
     if [[ -z ${skips[$module_name]:-} ]]; then
       fwrite "$SCRIPT_DIR/src/modules/$module_name.bash"

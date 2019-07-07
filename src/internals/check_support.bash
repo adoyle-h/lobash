@@ -6,7 +6,7 @@ _lobash.check_os() {
 }
 
 _lobash.check_shell() {
-  if [[ $(_lobash.is_bash) == false ]]; then
+  if ! _lobash.is_bash; then
     echo 'Lobash only work in Bash.' >&2
     return 6
   fi

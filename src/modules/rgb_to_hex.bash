@@ -13,17 +13,17 @@ l.rgb_to_hex() {
     return 3
   fi
 
-  if [[ $(l.is_number "$1") == false ]]; then
+  if ! l.is_number "$1"; then
     echo 'The first argument is not a number' >&2
     return 4
   fi
 
-  if [[ $(l.is_number "$2") == false ]]; then
+  if ! l.is_number "$2"; then
     echo 'The second argument is not a number' >&2
     return 5
   fi
 
-  if [[ $(l.is_number "$3") == false ]]; then
+  if ! l.is_number "$3"; then
     echo 'The third argument is not a number' >&2
     return 6
   fi

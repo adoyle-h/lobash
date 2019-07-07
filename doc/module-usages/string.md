@@ -89,9 +89,7 @@
 
 ### lower_first
 
-- Usage:
-  - `l.lower_first <string>`
-  - `echo <string> | l.lower_first`
+- Usage: `l.lower_first <string>`
 - Description: Convert the first character of string to lower case.
 - Since: 0.1.0
 - Bash: 4.0+

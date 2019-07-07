@@ -7,8 +7,8 @@ load_module is_executable
 @test "l.is_executable a normal file" {
   local temp=$(mktemp)
   run l.is_executable "$temp"
-	assert_success
-	assert_output false
+	assert_failure
+	assert_output ''
 }
 
 @test "l.is_executable a executable file" {
@@ -16,7 +16,7 @@ load_module is_executable
   chmod +x "$temp"
   run l.is_executable "$temp"
 	assert_success
-	assert_output true
+	assert_output ''
 }
 
 @test "l.is_executable a directory" {
@@ -24,11 +24,11 @@ load_module is_executable
   run l.is_executable "$temp"
 	assert_success
   # interesting https://superuser.com/a/168583
-	assert_output true
+	assert_output ''
 }
 
 @test "l.is_executable unexist path" {
   run l.is_executable /not-exist
-	assert_success
-	assert_output false
+	assert_failure
+	assert_output ''
 }

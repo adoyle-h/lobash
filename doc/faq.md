@@ -10,6 +10,7 @@
 - [Why ./bin/lobash mod not always work?](#why-binlobash-mod-not-always-work)
 - [Why source script, not execute command?](#why-source-script-not-execute-command)
 - [Bash is outdated!](#bash-is-outdated)
+- [What is the different between echo true/false and return 0/1?](#what-is-the-different-between-echo-truefalse-and-return-01)
 
 <!-- /MarkdownTOC -->
 
@@ -70,3 +71,58 @@ No. I have found that most Linux distributions still use Bash as default/login s
 - Opensuse 13 uses **Bash 4**.
 
 Although most Linux distributions use Bash v4.3, you can upgrade Bash easily and it is backward compatible.
+
+## What is the different between echo true/false and return 0/1?
+
+Read this document: [How to return a Boolean value](https://github.com/adoyle-h/lobash/blob/develop/doc/how-to-write-functions.md#how-to-return-a-boolean-value).
+
+Because we set the `set -o errexit` and `shopt -s inherit_errexit`, `l.is_*` will lead to process exit. For example,
+
+```sh
+#!/usr/bin/env bash
+
+set -o errexit
+set -o nounset
+set -o pipefail
+shopt -s inherit_errexit
+
+local r
+# l.is_file will return 1 and lead to process exit
+r=$(l.is_file wow)
+echo "r=$r"
+```
+
+All Lobash Condition modules are robust enough. It provides two implements for different usages.
+
+So use l.is_file.s instead.
+
+```sh
+#!/usr/bin/env bash
+
+set -o errexit
+set -o nounset
+set -o pipefail
+shopt -s inherit_errexit
+
+local r
+r=$(l.is_file.s wow)
+# process will go on
+echo "r=$r"
+```
+
+The right way to use `l.is_*` is in if condition.
+
+```sh
+#!/usr/bin/env bash
+
+set -o errexit
+set -o nounset
+set -o pipefail
+shopt -s inherit_errexit
+
+if l.is_file wow; then
+  echo "Is file"
+else
+  echo "Not file"
+fi
+```

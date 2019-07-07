@@ -1,7 +1,6 @@
 # ---
 # Category: Prompt
 # Since: 0.1.0
-# Dependent: is_integer
 # Usage: l.choose <item>...
 # Description: Prompt user to choose one item from options. The function will return the value of chosen item.
 # ---
@@ -23,9 +22,10 @@ l.choose() {
   prompt=$(_l.choose_prompt)
   read -r -p "$prompt" num
 
-  local r
-  r=$(l.is_integer "$num")
-  [[ $r == false ]] && echo "Must enter an integer. Current: $num">&2 && return 3
+  if ! [[ ${num} =~ ^[0-9]+$ ]]; then
+    echo "Must enter an integer. Current: $num">&2
+    return 3
+  fi
 
   if [[ $num -gt ${#items[@]} ]] || [[ $num -lt 1 ]]; then
    printf '%s\n' "Invalid choose number: $num" >&2

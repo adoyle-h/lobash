@@ -1,11 +1,11 @@
 # ---
 # Category: Condition
 # Since: 0.1.0
-# Usage: l.not <condition>
+# Usage: l.not.s <condition>
 # Description: `<condition>` must be `true` or `false`. This function returns the opposite value.
 # ---
 
-l.not() {
+l.not.s() {
   local condition="${1:-}"
 
   if [[ $condition == true ]]; then

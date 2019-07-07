@@ -1,12 +1,12 @@
 # ---
 # Category: Condition
 # Since: 0.1.0
-# Usage: l.strict_has <condition> <what>
-# Description: Return `true` or `false`. Check if command/function/alias/keyword/builtin or anything existed.
+# Usage: l.has.s <condition> <what>
+# Description: Echo `true` or `false` to indicate that command/function/alias/keyword/builtin or anything existed.
 # Description: `<condition>` Valid value: `command`, `function`, `alias`, `keyword`, `builtin`, `the`
 # ---
 
-l.strict_has() {
+l.has.s() {
   local condition="$1"
   local value="$2"
 

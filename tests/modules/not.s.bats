@@ -1,35 +1,35 @@
 #!/usr/bin/env bats
 
 setup_fixture
-test_prepare not
-load_module not
+test_prepare not.s
+load_module not.s
 
-@test "l.not true" {
-  run l.not true
+@test "l.not.s true" {
+  run l.not.s true
   assert_success
   assert_output false
 }
 
-@test "l.not false" {
-  run l.not false
+@test "l.not.s false" {
+  run l.not.s false
   assert_success
   assert_output true
 }
 
-@test "l.not ''" {
-  run l.not
+@test "l.not.s ''" {
+  run l.not.s
   assert_failure 3
   assert_output "Invalid condition! It must be one of 'true' and 'false'. Current value="
 }
 
-@test "l.not" {
-  run l.not
+@test "l.not.s" {
+  run l.not.s
   assert_failure 3
   assert_output "Invalid condition! It must be one of 'true' and 'false'. Current value="
 }
 
-@test "l.not xxx" {
-  run l.not xxx
+@test "l.not.s xxx" {
+  run l.not.s xxx
   assert_failure 3
   assert_output "Invalid condition! It must be one of 'true' and 'false'. Current value=xxx"
 }

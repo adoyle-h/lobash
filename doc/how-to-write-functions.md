@@ -31,6 +31,8 @@ The meaning of return code from shell function or command is defined in [Bash Ma
 
 The way 2 cannot distinguish the `false` and the exception occurs in function (it will return other codes if your shell has `set -o errexit` and `set -o pipefail`).
 So the choice 1 is better.
+Although it is strict and complex, it won't cause unexpected problems.
+Maybe Lobash will support return 0/1 in future. For now, just follow the strict mode.
 
 References:
 
