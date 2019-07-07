@@ -101,7 +101,7 @@ git submodule update --init --recursive
 |    ✅💬   | Bash     | v4.3          | `shopt -s inherit_errexit` is not supported util v4.4   |
 |    ✅💬   | Bash     | v4.2          | `Nameref` is not supported util v4.3                    |
 |    ✅💬   | Bash     | v4.1          | `declare -g` not support util v4.2                      |
-|    ✅💬   | Bash     | v4.0          | `exec {_sleep_fd}<> <(true)` is not supported util v4.1 |
+|    ✅💬   | Bash     | v4.0          | `exec {fd}<> <(true)` is not supported util v4.1        |
 |     🚫    | Bash     | v3            | Associative array is not supported until v4.0           |
 |     🚫    | POSIX sh | *             | `local` keyword not supported                           |
 |     🚫    | Zsh      | *             | Plan to implement it in another project                 |
@@ -220,23 +220,6 @@ The "lobash mod" command is only used for certain scenarios. Many modules not wo
 ### lobash meta
 
 ```sh
-> ./bin/lobash meta ask
-Module: ask
-Usage: l.ask <message> [<default>=Y]
-Description:
-  - Print a message and read Yes/No answer from stdin.
-  - It prints 'YES' when get answer y/Y/ye/Ye/yE/YE/yes/yES/yeS/YeS/Yes/YEs/YES.
-  - It prints 'NO' when get answer n/N/no/No/nO/NO.
-  - It prints default value when get empty answer.
-  - It prints 'Invalid Answer' when get other answers.
-  - When default=Y, if will return YES by default.
-  - When default=N, if will return NO by default.
-Dependent: lower_case
-Deprecated: false
-Since: 0.1.0
-Bash: 4.0
-Status: tested
-
 > ./bin/lobash meta normalize
 Module: normalize
 Usage: l.normalize <path>
@@ -278,7 +261,7 @@ YES
 
 ## Test
 
-See [./doc/test.md](./doc/test.md) more details.
+See [./doc/test.md](./doc/test.md) for more details.
 
 ## Contributions
 
