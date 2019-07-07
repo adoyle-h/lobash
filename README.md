@@ -71,7 +71,7 @@ and make it compatible with Bash 4.0+ and MacOS/Linux/Alpine/Busybox systems.
 Available Lobash versions refer to [Git Tags](https://github.com/adoyle-h/lobash/tags) which named like "vX.Y.Z".
 
 ```sh
-VERSION=v0.3.0
+VERSION=v0.3.1
 # Download source codes
 git clone --depth 1 --branch $VERSION https://github.com/adoyle-h/lobash.git
 cd lobash

@@ -7,32 +7,32 @@ load_module str_include
 @test "l.str_include hello he" {
   run l.str_include hello he
 	assert_success
-	assert_output true
+	assert_output ''
 }
 
 
 @test "l.str_include hello ' he'" {
   run l.str_include hello ' he'
-	assert_success
-	assert_output false
+	assert_failure
+	assert_output ''
 }
 
 @test "l.str_include hello 'o '" {
   run l.str_include hello 'o '
-	assert_success
-	assert_output false
+	assert_failure
+	assert_output ''
 }
 
 @test "l.str_include 'hello world' ' '" {
   run l.str_include 'hello world' ' '
 	assert_success
-	assert_output true
+	assert_output ''
 }
 
 @test "l.str_include 'hello world' 'lo w'" {
   run l.str_include 'hello world' 'lo w'
 	assert_success
-	assert_output true
+	assert_output ''
 }
 
 # Maybe bats-core bug
@@ -43,11 +43,11 @@ load_module str_include
 #   }
 #   run t
 #   assert_success
-#   assert_output true
+#   assert_output ''
 # }
 
 @test "l.str_include '[hello world' '['" {
   run l.str_include '[hello world' '['
 	assert_success
-	assert_output true
+	assert_output ''
 }

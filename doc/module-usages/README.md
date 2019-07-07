@@ -1,6 +1,6 @@
 # Module Usages
 
-15 Categories, 107 Modules, 582 Test Cases.
+15 Categories, 111 Modules, 618 Test Cases.
 
 Each module provides only one function which naming prefixed with `l.`.
 
@@ -15,6 +15,7 @@ The function which naming suffixed with `.s` means in strict mode. It uses `echo
   - [sub](./arithmetic.md#sub)
 - [Array](./array.md)
   - [array_include](./array.md#array_include)
+  - [array_include.s](./array.md#array_includes)
   - [first](./array.md#first)
   - [last](./array.md#last)
   - [sort](./array.md#sort)
@@ -23,6 +24,8 @@ The function which naming suffixed with `.s` means in strict mode. It uses `echo
   - [hex_to_rgb](./color.md#hex_to_rgb)
   - [rgb_to_hex](./color.md#rgb_to_hex)
 - [Condition](./condition.md)
+  - [end_with](./condition.md#end_with)
+  - [end_with.s](./condition.md#end_withs)
   - [has](./condition.md#has)
   - [has.s](./condition.md#hass)
   - [has_not](./condition.md#has_not)
@@ -58,6 +61,10 @@ The function which naming suffixed with `.s` means in strict mode. It uses `echo
   - [is_writable.s](./condition.md#is_writables)
   - [not.s](./condition.md#nots)
   - [not.s.p](./condition.md#notsp)
+  - [start_with](./condition.md#start_with)
+  - [start_with.s](./condition.md#start_withs)
+  - [str_include](./condition.md#str_include)
+  - [str_include.s](./condition.md#str_includes)
 - [Console](./console.md)
   - [echo](./console.md#echo)
   - [echo_array](./console.md#echo_array)
@@ -87,7 +94,6 @@ The function which naming suffixed with `.s` means in strict mode. It uses `echo
   - [choose](./prompt.md#choose)
 - [String](./string.md)
   - [count_lines.p](./string.md#count_linesp)
-  - [end_with](./string.md#end_with)
   - [join](./string.md#join)
   - [lower_case](./string.md#lower_case)
   - [lower_case.p](./string.md#lower_casep)
@@ -95,8 +101,6 @@ The function which naming suffixed with `.s` means in strict mode. It uses `echo
   - [lower_first.p](./string.md#lower_firstp)
   - [match](./string.md#match)
   - [split](./string.md#split)
-  - [start_with](./string.md#start_with)
-  - [str_include](./string.md#str_include)
   - [str_len](./string.md#str_len)
   - [str_size](./string.md#str_size)
   - [trim](./string.md#trim)
