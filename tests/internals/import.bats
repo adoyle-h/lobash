@@ -27,9 +27,9 @@ setup_fixture
 }
 
 @test "_lobash.imports a module which has two Dependents" {
-  _lobash.imports strict_has_not
-  assert_equal "$(type -t l.strict_has_not)" "function"
-  assert_equal "$(type -t l.strict_has)" "function"
+  _lobash.imports has_not.s
+  assert_equal "$(type -t l.echo)" "function"
+  assert_equal "$(type -t l.dirname)" "function"
   assert_equal "$(type -t l.not)" "function"
 }
 

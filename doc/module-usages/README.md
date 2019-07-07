@@ -1,10 +1,11 @@
 # Module Usages
 
-15 Categories, 93 Modules, 500 Test Cases.
+15 Categories, 107 Modules, 582 Test Cases.
 
 Each module provides only one function which naming prefixed with `l.`.
 
 The function which naming suffixed with `.p` should be used in pipeline. Like `echo ' string ' | l.trim.p`.
+The function which naming suffixed with `.s` means in strict mode. It uses `echo true/false` instead of `return 0/1`.
 
 ## TOC
 
@@ -22,26 +23,40 @@ The function which naming suffixed with `.p` should be used in pipeline. Like `e
   - [rgb_to_hex](./color.md#rgb_to_hex)
 - [Condition](./condition.md)
   - [has](./condition.md#has)
+  - [has.s](./condition.md#hass)
+  - [has_not](./condition.md#has_not)
+  - [has_not.s](./condition.md#has_nots)
   - [if](./condition.md#if)
   - [is_array](./condition.md#is_array)
+  - [is_array.s](./condition.md#is_arrays)
   - [is_bash](./condition.md#is_bash)
+  - [is_bash.s](./condition.md#is_bashs)
   - [is_dir](./condition.md#is_dir)
+  - [is_dir.s](./condition.md#is_dirs)
   - [is_executable](./condition.md#is_executable)
+  - [is_executable.s](./condition.md#is_executables)
   - [is_executable_file](./condition.md#is_executable_file)
-  - [is_false](./condition.md#is_false)
+  - [is_executable_file.s](./condition.md#is_executable_files)
+  - [is_falsy](./condition.md#is_falsy)
+  - [is_falsy.s](./condition.md#is_falsys)
   - [is_file](./condition.md#is_file)
+  - [is_file.s](./condition.md#is_files)
   - [is_float](./condition.md#is_float)
+  - [is_float.s](./condition.md#is_floats)
   - [is_integer](./condition.md#is_integer)
+  - [is_integer.s](./condition.md#is_integers)
   - [is_link](./condition.md#is_link)
+  - [is_link.s](./condition.md#is_links)
   - [is_number](./condition.md#is_number)
+  - [is_number.s](./condition.md#is_numbers)
   - [is_readable](./condition.md#is_readable)
-  - [is_true](./condition.md#is_true)
-  - [is_writeable](./condition.md#is_writeable)
-  - [is_zsh](./condition.md#is_zsh)
-  - [not](./condition.md#not)
-  - [not.p](./condition.md#notp)
-  - [strict_has](./condition.md#strict_has)
-  - [strict_has_not](./condition.md#strict_has_not)
+  - [is_readable.s](./condition.md#is_readables)
+  - [is_truthy](./condition.md#is_truthy)
+  - [is_truthy.s](./condition.md#is_truthys)
+  - [is_writable](./condition.md#is_writable)
+  - [is_writable.s](./condition.md#is_writables)
+  - [not.s](./condition.md#nots)
+  - [not.s.p](./condition.md#notsp)
 - [Console](./console.md)
   - [echo](./console.md#echo)
   - [echo_array](./console.md#echo_array)

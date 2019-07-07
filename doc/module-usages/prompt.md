@@ -45,7 +45,6 @@
 
 - Usage: `l.choose <item>...`
 - Description: Prompt user to choose one item from options. The function will return the value of chosen item.
-- Dependent: [`is_integer`](./condition.md#is_integer)
 - Since: 0.1.0
 - Bash: 4.0+
 - Status: tested
