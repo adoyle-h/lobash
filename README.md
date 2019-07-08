@@ -52,8 +52,8 @@ and make it compatible with Bash 4.0+ and MacOS/Linux/Alpine/Busybox systems.
 ## Lobash Features
 
 - Modular and easy to use. One module one Function.
-- Rich Functions. Over 90+ modules provided.
-- Robust and Safe. Over 500+ test cases tested.
+- Rich Functions. Over [90+ modules][module-usages] provided.
+- Robust and Safe. Over [500+ test cases](./tests/modules/) tested.
 - Fast. 0.058s to load Lobash completely.
 - Compatible with MacOS/Linux/Alpine/Busybox systems.
 - Compatible with Bash 4.0 and higher versions.
@@ -192,7 +192,7 @@ sys     0m0.036s
 
 ### Module Usages
 
-See all module usages in [./doc/module-usages/](./doc/module-usages/README.md)
+See all module usages in [./doc/module-usages/][module-usages]
 
 ## Command
 
@@ -296,3 +296,4 @@ See the [NOTICE][] file distributed with this work for additional information re
 [Master Branch]: https://github.com/adoyle-h/lobash/tree/master
 [Develop Branch]: https://github.com/adoyle-h/lobash/tree/develop
 [travis repo]: https://travis-ci.com/adoyle-h/lobash
+[module-usages]: ./doc/module-usages/README.md
