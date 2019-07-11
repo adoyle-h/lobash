@@ -24,6 +24,8 @@
     - [Edit your scripts and set shell options](#edit-your-scripts-and-set-shell-options)
     - [Load lobash.bash in your scripts](#load-lobashbash-in-your-scripts)
     - [Module Usages](#module-usages)
+- [Advanced Usages](#advanced-usages)
+    - [Build with config](#build-with-config)
 - [Command](#command)
     - [lobash meta](#lobash-meta)
     - [lobash mod](#lobash-mod)
@@ -135,7 +137,7 @@ Make sure below dependencies have been installed.
 First, build your own `lobash.bash` file by `./build`.
 
 ```sh
-# Interactive build process
+# Interactive build process, import all Lobash modules
 ./build
 # Generated Lobash file: <lobash-dir>/dist/lobash.bash
 
@@ -194,6 +196,19 @@ sys     0m0.036s
 
 See all module usages in [./doc/module-usages/][module-usages]
 
+## Advanced Usages
+
+### Build with config
+
+`./build` will export all modules by default. You can export specific modules with `-c <config>` option.
+
+```sh
+cp config.example config
+# Edit config, select BASH_MIN_VERSION and modules
+
+./build -c ./config
+```
+
 ## Command
 
 While Lobash is a library for development, it also provides a command `./bin/lobash`.
@@ -206,7 +221,7 @@ Enter `./bin/lobash` show help.
 Usage:
   lobash [help|-h|--help]
   lobash mod <module_name> [<sub_command_args>]...
-  lobash meta
+  lobash meta <module_name>
 
 Sub-Command:
   help       Show help

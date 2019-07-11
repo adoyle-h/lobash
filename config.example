@@ -15,6 +15,7 @@ BASH_MIN_VERSION: 4.4
   - [ ] array_include.s
   - [ ] first
   - [ ] last
+  - [ ] parse_params
   - [ ] sort
   - [ ] union_array
 
@@ -105,6 +106,7 @@ BASH_MIN_VERSION: 4.4
   - [ ] lower_first
   - [ ] lower_first.p
   - [ ] match
+  - [ ] match_list
   - [ ] split
   - [ ] str_len
   - [ ] str_size
@@ -146,4 +148,3 @@ BASH_MIN_VERSION: 4.4
   - [ ] cur_function_name
   - [ ] random
   - [ ] xdg_config_home
-

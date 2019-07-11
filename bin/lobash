@@ -31,7 +31,7 @@ usage() {
 ${GREEN}Usage:${RESET_ALL}
   lobash [help|-h|--help]
   lobash mod <module_name> [<sub_command_args>]...
-  lobash meta
+  lobash meta <module_name>
 
 ${PURPLE}Sub-Command:${RESET_ALL}
   help       Show help
@@ -125,7 +125,7 @@ show_mods() {
 }
 
 init() {
-  _lobash.imports trace_start trace_end has
+  _lobash.imports trace_start trace_end has parse_params
 }
 
 #######################################################################
@@ -133,20 +133,21 @@ init() {
 #######################################################################
 
 main() {
-  opt_parse "$@"
-  local arg0=${dispatch_cmd_args[0]:-}
+  init
 
-  if [[ ${dispatch_cmd_opts[help]:-} == true ]] || [[ -z "$arg0" ]]; then
+  local -A opts=()
+  local -a args=()
+  l.parse_params opts args "$@"
+
+  if (( "${#args[@]}" == 0 )) || [[ ${opts[help]:-} == true ]]; then
     usage
     exit 0
   fi
 
-  init
-
-  case $arg0 in
-    mod ) exec_module "${dispatch_cmd_args[@]:1}" ;;
+  case ${args[0]} in
+    mod ) exec_module "${args[@]:1}" ;;
     mods ) show_mods ;;
-    meta ) query_meta "${dispatch_cmd_args[@]:1}" ;;
+    meta ) query_meta "${args[@]:1}" ;;
     help ) usage ;;
     github ) open_github ;;
   esac

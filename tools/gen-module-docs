@@ -14,27 +14,8 @@ readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 source "$SCRIPT_DIR/colors.bash"
 # shellcheck source=../src/load_internals.bash
 source "$SCRIPT_DIR"/../src/load_internals.bash
-_lobash.import_internals basic_meta_types module_meta
+_lobash.import_internals basic_meta_types module_meta erase_line rm
 _lobash.imports sort has
-
-erase_line() {
-  printf '%b' $'\e[1K\r'
-}
-
-safe_rm() {
-  local path=$1
-  if [[ $path == / ]]; then
-    echo "Dangerous! Do not rm $path"
-    return 3
-  fi
-
-  if [[ $(dirname "$path") == / ]]; then
-    echo "Dangerous! Do not rm $path"
-    return 3
-  fi
-
-  rm -rf -- "$path"
-}
 
 print_category_header() {
   local -n mods=$1
@@ -143,7 +124,7 @@ print_category() {
   local TARGET=$2
   local -n c=category_$1
 
-  erase_line
+  _lobash.erase_line
   printf '%s' "To print category: ${category}"
 
   print_category_header c "$TARGET"
@@ -227,7 +208,7 @@ EOF
 
 main() {
   local BASE_DIR="$SCRIPT_DIR/../doc/module-usages"
-  safe_rm "$BASE_DIR"
+  _lobash.rm "$BASE_DIR"
   mkdir -p "$BASE_DIR"
 
   echo "To update module usages documents"
@@ -241,7 +222,7 @@ main() {
     module_name=$(basename "$filepath" .bash)
     metadatas=$(_lobash.get_module_metadata_str "$filepath")
 
-    erase_line
+    _lobash.erase_line
     printf '%s' "To scan module: $module_name"
     _lobash.scan_module_metadata "$module_name"
 

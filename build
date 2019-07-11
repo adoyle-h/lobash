@@ -14,12 +14,10 @@ readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 source "$SCRIPT_DIR/tools/colors.bash"
 # shellcheck source=./src/load_internals.bash
 source "$SCRIPT_DIR/src/load_internals.bash"
-_lobash.import_internals basic_meta_types module_meta
-_lobash.imports ask choose
+_lobash.import_internals basic_meta_types module_meta rm erase_line
+_lobash.imports ask choose parse_params array_include union_array
 
-erase_line() {
-  printf '%b' $'\e[1K\r'
-}
+SUPPORTED_BASH_VERISONS=( 4.0 4.1 4.2 4.3 4.4 )
 
 is_valid_lobash_prefix() {
   local prefix=$1
@@ -54,8 +52,7 @@ EOF
   elif [[ $use_defualt == NO ]]; then
     echo -e "${GREY}NO.${RESET_ALL}"
     echo "Choose the minimum version of Bash in which Lobash will run:"
-    local supported_bash_verisons=( 4.0 4.1 4.2 4.3 4.4 )
-    BASH_MIN_VERSION=$(l.choose "${supported_bash_verisons[@]}")
+    BASH_MIN_VERSION=$(l.choose "${SUPPORTED_BASH_VERISONS[@]}")
     echo -e "${GREY}Build Lobash for Bash ${BASH_MIN_VERSION}+${RESET_ALL}"
   else
     echo "Process terminated. Please enter YES or NO." >&2
@@ -63,20 +60,89 @@ EOF
   fi
 }
 
+check_bash_version() {
+  if ! l.array_include SUPPORTED_BASH_VERISONS "$BASH_MIN_VERSION"; then
+    echo "Invalid BASH_MIN_VERSION: $BASH_MIN_VERSION" >&2
+    return 3
+  fi
+}
+
+declare -A inited_module
+init_module() {
+  local module_name=$1
+  [[ -n ${inited_module[$module_name]:-} ]] && return
+  inited_module[$module_name]=true
+
+  module_names+=("$module_name")
+  _lobash.scan_module_metadata "$module_name"
+
+  local deps dep
+  deps=$(_lobash.get_module_metadata "$module_name" "Dependent")
+  if [[ -n "$deps" ]]; then
+    deps=( ${deps//,/ } )
+    for dep in "${deps[@]}"; do
+      init_module "$dep"
+    done
+  fi
+}
+
+init_with_config_file() {
+  read -r BASH_MIN_VERSION < <(grep -E '^BASH_MIN_VERSION:' "$config_path" | sed -E 's/^BASH_MIN_VERSION: ?(.+)/\1/')
+  check_bash_version
+  echo -e "${GREY}Build Lobash for Bash ${BASH_MIN_VERSION}+${RESET_ALL}"
+
+  module_names=()
+
+  local category_names module_name
+  readarray -t category_names < <(grep -E '^- \[x\]' "$config_path" | sed -E 's/^- \[x\] +(.+)/\1/')
+
+  for category_name in "${category_names[@]}"; do
+    echo -e "${GREY}To import category ${category_name}${RESET_ALL}"
+    while read -r module_name; do
+      init_module "$module_name"
+    done < "$SCRIPT_DIR/src/internals/categories/${category_name,,}"
+  done
+
+  while read -r module_name; do
+    init_module "$module_name"
+  done < <(grep -E '^  - \[x\]' "$config_path" | sed -E 's/^  - \[x\] +(.+)/\1/')
+
+  module_names=( $(l.union_array module_names) )
+}
+
 init() {
-  if [[ -z ${1:-} ]]; then
+  if (( ${#args[@]} == 0 )); then
     TARGET=$SCRIPT_DIR/dist/lobash.bash
   else
-    if [[ -d $1 ]]; then
-      TARGET=${1}/lobash.bash
+    if [[ -d ${args[0]} ]]; then
+      TARGET=${args[0]}/lobash.bash
     else
-      TARGET=${1}
+      TARGET=${args[0]}
     fi
   fi
 
-  init_bash_min_version
+  if [[ -n ${opts[c]:-} ]]; then
+    config_path=${opts[c]}
+  elif [[ -n ${opts[config]:-} ]]; then
+    config_path=${opts[config]}
+  fi
 
-  mkdir -p "$(dirname "$TARGET")"
+  if [[ -z ${config_path:-} ]]; then
+    init_bash_min_version
+    module_names=()
+    for path in "$SCRIPT_DIR"/src/modules/*.bash; do
+      module_name=$(basename "$path" .bash)
+      module_names+=("$module_name")
+    done
+  else
+    if [[ ! -f ${config_path} ]]; then
+      echo "Not found config file in path: $config_path" >&2
+      return 3
+    fi
+    echo "Found config: $config_path"
+    init_with_config_file
+  fi
+  # echo -e "${GREY}To import modules: ${module_names[*]}${RESET_ALL}"
 
   PREFIX=${PREFIX:-l.}
   OVERWRITE=${OVERWRITE:-no}
@@ -91,21 +157,6 @@ init() {
   LOBASH_POUCH_TIME=1561389473
 
   UNIQ_KEY=${VERSION//[^[:alnum:]]/_}_$(( $(date '+%s') - LOBASH_POUCH_TIME ))_$RANDOM
-}
-
-safe_rm() {
-  local path=$1
-  if [[ $path == / ]]; then
-    echo "Dangerous! Do not rm $path"
-    return 3
-  fi
-
-  if [[ $(dirname "$path") == / ]]; then
-    echo "Dangerous! Do not rm $path"
-    return 3
-  fi
-
-  rm -rf "$path"
 }
 
 clean() {
@@ -123,7 +174,8 @@ clean() {
     esac
   fi
 
-  safe_rm "$TARGET"
+  _lobash.rm "$TARGET"
+  mkdir -p "$(dirname "$TARGET")"
 }
 
 write() {
@@ -161,6 +213,7 @@ generate() {
   write "# Version: $VERSION"
   write "# Prefix: $PREFIX"
   write "# Bash Minimum Version: ${BASH_MIN_VERSION}"
+  write "# Included Modules: ${module_names[*]}"
 
   local text
 
@@ -188,15 +241,11 @@ generate() {
   write '######################## Private Methods ########################'
 
   local compare module_name bashver
-  local -a module_names
   local -A skips
 
   echo "Scanning Module Metadatas..."
-  for path in "$SCRIPT_DIR"/src/modules/*.bash; do
-    module_name=$(basename "$path" .bash)
-    module_names+=("$module_name")
-
-    erase_line
+  for module_name in "${module_names[@]}"; do
+    _lobash.erase_line
     printf '%s' "To scan module: $module_name"
     _lobash.scan_module_metadata "$module_name"
     bashver=$(_lobash.get_module_metadata "$module_name" "Bash")
@@ -235,10 +284,9 @@ generate() {
   echo -e "Generated Lobash file: ${GREEN}$TARGET${RESET_ALL}"
 }
 
-if (( $# == 0 )); then
-  init
-else
-  init "$@"
-fi
+declare -A opts=()
+declare -a args=()
+l.parse_params opts args "$@"
+init
 clean
 generate
