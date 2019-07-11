@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o nounset
+set -o pipefail
+(shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
+[[ -n "${VERBOSE:+x}" ]] && set -o verbose
+[[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
+
+readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+# shellcheck source=./init.bash
+source "$SCRIPT_DIR"/init.bash
+
+declare -A opts=()
+declare -a args=()
+
+foo() {
+  l.parse_params opts args "$@"
+}
+
+foo -a 3 -b12 -c=5 foo -d= bar -e -3 -4 a -F=abc -gh w -ij=5 -km= -5n -xzy --beep=boop baz --no-wow
+
+echo "[${#opts[@]} Options]"
+for key in "${!opts[@]}"; do
+  echo "$key: ${opts[$key]}"
+done
+
+echo
+echo "[${#args[@]} Arguments]"
+declare i=0
+for key in "${args[@]}"; do
+  echo "$i: $key"
+  (( i+=1 ))
+done
+
+echo "------Use Options------"
+
+if [[ -n ${opts[c]:-} ]]; then
+  echo "c=${opts[c]}"
+fi
+
+echo "------Use Arguments------"
+echo "${args[0]} ${args[1]} ${args[2]}"
