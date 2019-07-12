@@ -201,7 +201,7 @@ fwrite() {
   public_const_prefix=${public_const_prefix^^}
 
   <"$1" \
-    sed -E "s/${word_boundary}($prefixes)([_a-zA-Z0-9]+)/\\1${UNIQ_KEY}_\\2/g" \
+    sed -E "/^# /d;s/${word_boundary}($prefixes)([_a-zA-Z0-9]+)/\\1${UNIQ_KEY}_\\2/g" \
     | sed -E "s/${word_boundary}${_LOBASH_PUBLIC_CONST_PREFIX}([_a-zA-Z0-9]+)/${public_const_prefix}\\1/g" \
     >> "$TARGET"
 }
