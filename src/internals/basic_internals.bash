@@ -19,3 +19,13 @@ _LOBASH_BASIC_INTERNALS=(
   import
   with_ifs
 )
+
+# for build Lobash
+_LOBASH_DIST_INTERNALS=(
+  detect_os
+  is_bash
+  consts
+  check_support
+  dirname
+  with_ifs
+)

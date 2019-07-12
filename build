@@ -230,7 +230,7 @@ generate() {
   # shellcheck source=./src/internals/basic_internals.bash
   source "$SCRIPT_DIR"/src/internals/basic_internals.bash
 
-  for name in "${_LOBASH_BASIC_INTERNALS[@]}"; do
+  for name in "${_LOBASH_DIST_INTERNALS[@]}"; do
     fwrite "$SCRIPT_DIR/src/internals/$name.bash"
   done
   write "_LOBASH_${UNIQ_KEY}_PREFIX=$PREFIX"
