@@ -18,16 +18,12 @@ l.union_array() {
   local l_union_array_item
   local -a l_union_array_arr
 
-  local -n l_union_array_arr1=$1
-  for l_union_array_item in "${l_union_array_arr1[@]}"; do
-    _l.union_array
-  done
+  local array_arr1=$1
+  eval "for l_union_array_item in \"\${${array_arr1}[@]}\"; do _l.union_array; done || true"
 
   if (( $# > 1 )); then
-    local -n l_union_array_arr2=$2
-    for l_union_array_item in "${l_union_array_arr2[@]}"; do
-      _l.union_array
-    done
+    local array_arr2=$2
+    eval "for l_union_array_item in \"\${${array_arr2}[@]}\"; do _l.union_array; done || true"
   fi
 
   l.echo_array l_union_array_arr

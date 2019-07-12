@@ -9,7 +9,6 @@
 # Description: `args_name` must be an array or "_". If "_", no arguments will be parsed.
 # Description: See test cases for details.
 # Dependent: start_with, match, match_list
-# Bash: 4.3
 # ---
 
 _l.parse_single_hyphen_options() {
@@ -28,29 +27,29 @@ _l.parse_single_hyphen_options() {
     # -a=3 or -abc=3
     # -a= or -abc=
     letters=${matches[0]}
-    parse_params_opts[${letters: -1:1}]=${matches[1]}
+    $add_opt "${letters: -1:1}" "${matches[1]}"
 
-    letters=${letters:0:-1}
+    letters=${letters:0:$(( ${#letters} - 1 ))}
     for (( k = 0; k < ${#letters} ; k++ )); do
-      parse_params_opts[${letters:$k:1}]=true
+      $add_opt "${letters:$k:1}" true
     done
     return
   fi
 
   if (( $# == 2 )); then
     # -a 3 or -abc 3
-    parse_params_opts[${param: -1:1}]=$2
+    $add_opt "${param: -1:1}" "$2"
     (( i+=1 ))
 
-    letters=${param:0:-1}
+    letters=${param:0:$(( ${#param} - 1 ))}
     for (( k = 0; k < ${#letters}; k++ )); do
-      parse_params_opts[${letters:$k:1}]=true
+      $add_opt "${letters:$k:1}" true
     done
     return
   else
     # -a or -a3 or -abc3
     for (( k = 0; k < ${#param}; k++ )); do
-      parse_params_opts[${param:$k:1}]=true
+      $add_opt "${param:$k:1}" true
     done
     return
   fi
@@ -66,21 +65,33 @@ _l.parse_double_hyphen_options() {
   l.match_list "$param" '^(.+)=(.*)' matches
 
   if (( ${#matches[@]} == 2 )); then
-    parse_params_opts[${matches[0]}]=${matches[1]}
+    $add_opt "${matches[0]}" "${matches[1]}"
   else
     local key
     key=$(l.match "$param" '^no-(.+)')
     if [[ -n $key ]]; then
-      parse_params_opts[$key]=false
+      $add_opt "${key}" false
     else
       key=$param
       if (( $# == 2 )); then
-        parse_params_opts[$key]="$2"
+        $add_opt "${key}" "$2"
       else
-        parse_params_opts[$key]=true
+        $add_opt "${key}" true
       fi
     fi
   fi
+}
+
+_l.parse_params_add_none() {
+  return 0
+}
+
+_l.parse_params_add_opt() {
+  eval "$opts_name[\$1]=\"\$2\""
+}
+
+_l.parse_params_add_arg() {
+  eval "$args_name+=(\"\$1\")"
 }
 
 l.parse_params() {
@@ -89,16 +100,19 @@ l.parse_params() {
     return 3
   fi
 
+  local add_opt add_arg
   if [[ $1 != _ ]]; then
-    local -n parse_params_opts=$1
+    local opts_name=$1
+    add_opt=_l.parse_params_add_opt
   else
-    local -A parse_params_opts
+    add_opt=_l.parse_params_add_none
   fi
 
   if [[ $2 != _ ]]; then
-    local -n parse_params_args=$2
+    local args_name=$2
+    add_arg=_l.parse_params_add_arg
   else
-    local -a parse_params_args
+    add_arg=_l.parse_params_add_none
   fi
 
   local param_size=$#
@@ -134,14 +148,13 @@ l.parse_params() {
         fi
       fi
     else
-      parse_params_args+=("$param")
+      $add_arg "$param"
     fi
   done
 
   if [[ $rest_is_args == true ]]; then
     for (( ; i <= param_size; i++ )); do
-      param=${!i}
-      parse_params_args+=("$param")
+      $add_arg "${!i}"
     done
   fi
 }

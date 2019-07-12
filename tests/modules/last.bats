@@ -17,3 +17,10 @@ load_module last
   assert_success
   assert_output "bcd d"
 }
+
+@test "l.last empty array" {
+  local a=()
+  run l.last a
+  assert_success
+  assert_output ""
+}
