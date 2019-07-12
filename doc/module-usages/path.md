@@ -63,7 +63,7 @@
   - Trailing `/` always be removed.
 - Dependent: [`split`](./string.md#split) [`join`](./string.md#join)
 - Since: 0.1.0
-- Bash: 4.3+
+- Bash: 4.0+
 - Status: tested
 - Test Cases: [tests/modules/normalize.bats](../../tests/modules/normalize.bats)
 - Source Code: [src/modules/normalize.bash](../../src/modules/normalize.bash)
@@ -74,7 +74,7 @@
 - Description: The pipeline version of l.normalize
 - Dependent: [`normalize`](./path.md#normalize)
 - Since: 0.1.0
-- Bash: 4.3+
+- Bash: 4.0+
 - Status: tested
 - Test Cases: [tests/modules/normalize.p.bats](../../tests/modules/normalize.p.bats)
 - Source Code: [src/modules/normalize.p.bash](../../src/modules/normalize.p.bash)

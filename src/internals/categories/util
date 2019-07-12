@@ -1,4 +1,5 @@
 benchmark
 compose
+parse_params
 repeat
 with_ifs

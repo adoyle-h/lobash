@@ -6,6 +6,7 @@
 
 - [benchmark](#benchmark)
 - [compose](#compose)
+- [parse_params](#parse_params)
 - [repeat](#repeat)
 - [with_ifs](#with_ifs)
 
@@ -30,6 +31,25 @@
 - Status: tested
 - Test Cases: [tests/modules/compose.bats](../../tests/modules/compose.bats)
 - Source Code: [src/modules/compose.bash](../../src/modules/compose.bash)
+
+### parse_params
+
+- Usage:
+  - `l.parse_params <opts_name> <args_name> "$@"`
+  - `l.parse_params _ <args_name> "$@"`
+  - `l.parse_params <opts_name> _ "$@"`
+- Description:
+  - It parses all parameters "$@" and put arguments to `args_name` and
+  - `opts_name` must be an associative array or "_". If "_", no options will be parsed.
+  - `args_name` must be an array or "_". If "_", no arguments will be parsed.
+  - See test cases for details.
+- Dependent: [`start_with`](./condition.md#start_with) [`match`](./string.md#match) [`match_list`](./string.md#match_list)
+- Since: 0.1.0
+- Bash: 4.0+
+- Status: tested
+- Test Cases: [tests/modules/parse_params.bats](../../tests/modules/parse_params.bats)
+- Source Code: [src/modules/parse_params.bash](../../src/modules/parse_params.bash)
+- Executable Example: [example/modules/parse_params](../../example/modules/parse_params)
 
 ### repeat
 

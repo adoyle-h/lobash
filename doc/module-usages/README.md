@@ -1,6 +1,6 @@
 # Module Usages
 
-15 Categories, 111 Modules, 618 Test Cases.
+15 Categories, 113 Modules, 634 Test Cases.
 
 Each module provides only one function which naming prefixed with `l.`.
 
@@ -8,7 +8,16 @@ The function which naming suffixed with `.p` should be used in pipeline. Like `e
 
 The function which naming suffixed with `.s` means in strict mode. It uses `echo true/false` instead of `return 0/1` to return values "true" and "false".
 
-## TOC
+<a id="not-compatible"></a>
+## Modules not compatible with Bash 4.0
+
+Most Lobash modules support Bash 4.0+ except below modules.
+
+- [date](./time.md#date): 4.2+
+- [sleep](./system.md#sleep): 4.1+
+- [now_s](./time.md#now_s): 4.2+
+
+## Modules TOC
 
 - [Arithmetic](./arithmetic.md)
   - [inc](./arithmetic.md#inc)
@@ -100,6 +109,7 @@ The function which naming suffixed with `.s` means in strict mode. It uses `echo
   - [lower_first](./string.md#lower_first)
   - [lower_first.p](./string.md#lower_firstp)
   - [match](./string.md#match)
+  - [match_list](./string.md#match_list)
   - [split](./string.md#split)
   - [str_len](./string.md#str_len)
   - [str_size](./string.md#str_size)
@@ -130,6 +140,7 @@ The function which naming suffixed with `.s` means in strict mode. It uses `echo
 - [Util](./util.md)
   - [benchmark](./util.md#benchmark)
   - [compose](./util.md#compose)
+  - [parse_params](./util.md#parse_params)
   - [repeat](./util.md#repeat)
   - [with_ifs](./util.md#with_ifs)
 - [Variable](./variable.md)

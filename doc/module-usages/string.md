@@ -11,6 +11,7 @@
 - [lower_first](#lower_first)
 - [lower_first.p](#lower_first.p)
 - [match](#match)
+- [match_list](#match_list)
 - [split](#split)
 - [str_len](#str_len)
 - [str_size](#str_size)
@@ -48,7 +49,7 @@
 - Usage: `l.join <array_name> [<delimiter>=,]`
 - Description: Convert all elements in array into a string separated by delimiter.
 - Since: 0.1.0
-- Bash: 4.3+
+- Bash: 4.0+
 - Status: tested
 - Test Cases: [tests/modules/join.bats](../../tests/modules/join.bats)
 - Source Code: [src/modules/join.bash](../../src/modules/join.bash)
@@ -104,6 +105,16 @@
 - Status: tested
 - Test Cases: [tests/modules/match.bats](../../tests/modules/match.bats)
 - Source Code: [src/modules/match.bash](../../src/modules/match.bash)
+
+### match_list
+
+- Usage: `l.match_list <string> <regex> <output_array_name>`
+- Description: Match multi strings with Regex Capturing Groups. The matched parts will be put in `<output_array_name>`.
+- Since: 0.1.0
+- Bash: 4.0+
+- Status: tested
+- Test Cases: [tests/modules/match_list.bats](../../tests/modules/match_list.bats)
+- Source Code: [src/modules/match_list.bash](../../src/modules/match_list.bash)
 
 ### split
 

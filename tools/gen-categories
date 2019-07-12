@@ -9,6 +9,8 @@ set -o pipefail
 
 readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 
+# shellcheck source=./colors.bash
+source "$SCRIPT_DIR/colors.bash"
 # shellcheck source=../src/load_internals.bash
 source "$SCRIPT_DIR"/../src/load_internals.bash
 _lobash.import_internals basic_meta_types module_meta rm erase_line
@@ -46,7 +48,7 @@ main() {
     fi
   done
 
-  printf '\n%s\n' "Generated categories in directory: $CATE_DIR"
+  printf '\n%b\n' "${GREEN}Generated categories in directory: $CATE_DIR${RESET_ALL}"
 }
 
 main

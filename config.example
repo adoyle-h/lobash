@@ -15,7 +15,6 @@ BASH_MIN_VERSION: 4.4
   - [ ] array_include.s
   - [ ] first
   - [ ] last
-  - [ ] parse_params
   - [ ] sort
   - [ ] union_array
 
@@ -141,6 +140,7 @@ BASH_MIN_VERSION: 4.4
 - [ ]   Util
   - [ ] benchmark
   - [ ] compose
+  - [ ] parse_params
   - [ ] repeat
   - [ ] with_ifs
 
