@@ -17,3 +17,10 @@ load_module first
   assert_success
   assert_output 'a asd'
 }
+
+@test "l.first ()" {
+  local arr=()
+  run l.first arr
+  assert_success
+  assert_output ''
+}

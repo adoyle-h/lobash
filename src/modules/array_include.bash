@@ -3,19 +3,18 @@
 # Since: 0.1.0
 # Usage: l.array_include <array_name> <match>
 # Description: Return 0 (true) or 1 (false). This function should never throw exception error.
-# Bash: 4.3
 # ---
 
 l.array_include() {
-  local -n l_array_include_arg_array=$1
-  (( ${#l_array_include_arg_array[@]} == 0 )) && return 1
+  local array_name=$1
+  local exit_code
+  eval "(( \${#${array_name}[@]} == 0 )) && exit_code=1 || true"
+  [[ -n ${exit_code:-} ]] && return "$exit_code"
 
   local match="$2"
   local e
   shift
-  for e in "${l_array_include_arg_array[@]}"; do
-    [[ "$e" == "$match" ]] && return 0;
-  done
 
-  return 1
+  eval "for e in \"\${${array_name}[@]}\"; do [[ \"\$e\" == \"\$match\" ]] && exit_code=0 && return 0; done"
+  [[ -n ${exit_code:-} ]] && return "$exit_code" || return 1
 }

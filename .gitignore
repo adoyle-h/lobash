@@ -1,5 +1,6 @@
 dist/*
 !dist/.gitkeep
+config
 
 
 # Created by https://www.gitignore.io/api/vim,osx

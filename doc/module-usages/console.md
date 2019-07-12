@@ -28,7 +28,7 @@
 - Usage: `l.echo_array <array_name>`
 - Description: Print each values of array with newline.
 - Since: 0.1.0
-- Bash: 4.3+
+- Bash: 4.0+
 - Status: tested
 - Test Cases: [tests/modules/echo_array.bats](../../tests/modules/echo_array.bats)
 - Source Code: [src/modules/echo_array.bash](../../src/modules/echo_array.bash)

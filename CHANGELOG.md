@@ -20,6 +20,41 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 [Full Changes](https://github.com/adoyle-h/lobash/compare/master...develop)
 
+## [v0.4.0] - 2019-07-12 21:36:00 +0800
+
+### Add
+
+- add [l.match_list](./doc/module-usages/string.md#match_list)
+- add [l.parse_params](./doc/module-usages/util.md#parse_params)
+- support export user specific modules/categories with config by `./build -c <config>`
+
+### Fix
+
+- union_array: each value of return array should be unique && union_array only accept one or two parameters
+- Use eval instead of nameref. All commands using nameref feature now support 4.0+. Effect commands:
+  - array_include
+  - array_include.s
+  - echo_array
+  - first
+  - inc
+  - join
+  - last
+  - match_list
+  - parse_params
+  - sort
+  - sub
+  - union_array
+
+### Change
+
+- Now most modules support bash 4.0+!
+- refactor: reduce exported internal codes in built file.
+- refactor: remove comments in built file
+
+### Doc
+
+- Modules usages document shows what modules not compatible with Bash 4.0.
+
 ## [v0.3.1] - 2019-07-08 02:22:00 +0800
 
 ### Add
@@ -91,6 +126,7 @@ First release! It works in Bash 4.4+.
 
 <!-- links -->
 
+[v0.4.0]: https://github.com/adoyle-h/lobash/tree/v0.4.0
 [v0.3.1]: https://github.com/adoyle-h/lobash/tree/v0.3.1
 [v0.3.0]: https://github.com/adoyle-h/lobash/tree/v0.3.0
 [v0.2.0]: https://github.com/adoyle-h/lobash/tree/v0.2.0

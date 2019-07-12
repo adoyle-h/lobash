@@ -9,30 +9,12 @@ set -o pipefail
 
 readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 
+# shellcheck source=./colors.bash
+source "$SCRIPT_DIR/colors.bash"
 # shellcheck source=../src/load_internals.bash
 source "$SCRIPT_DIR"/../src/load_internals.bash
-_lobash.import_internals basic_meta_types module_meta
+_lobash.import_internals basic_meta_types module_meta rm erase_line
 _lobash.imports array_include
-
-safe_rm() {
-  local path=$1
-  if [[ $path == / ]]; then
-    echo "Dangerous! Do not rm $path"
-    return 3
-  fi
-
-  if [[ $(dirname "$path") == / ]]; then
-    echo "Dangerous! Do not rm $path"
-    return 3
-  fi
-
-  rm -rf -- "$path"
-}
-
-lower_case() {
-  read -r str
-  printf '%s\n' "${str,,}"
-}
 
 get_metas() {
   local name=$1
@@ -45,36 +27,28 @@ get_metas() {
 }
 
 main() {
-  local CATE_DIR=$SCRIPT_DIR/../src/internals/categories
-  safe_rm "$CATE_DIR"
-  mkdir -p "$CATE_DIR/bash"
+  echo "[Todo] generate categories"
 
-  local filepath module_name category metadatas bash_support
+  local CATE_DIR=$SCRIPT_DIR/../src/internals/categories
+  _lobash.rm "$CATE_DIR"
+  mkdir -p "$CATE_DIR"
+
+  local filepath module_name category metadatas
   for filepath in $SCRIPT_DIR/../src/modules/*.bash; do
     module_name=$(basename "$filepath" .bash)
 
-    if [[ $(l.array_include _LOBASH_IMPORT_ENTRIES "$module_name") == true ]] ; then
-      continue
-    fi
-
     metadatas=$(_lobash.get_module_metadata_str "$filepath")
     category=$(get_metas Category)
-    bash_support=$(get_metas Bash true)
 
     if [[ -n $category ]]; then
       category=${category,,}
-      echo "Added to category: $category/$module_name [Bash=$bash_support]"
-
-      if [[ $bash_support == true ]]; then
-        printf '%s ' "$module_name" >> "$CATE_DIR/bash/$category"
-      fi
+      _lobash.erase_line
+      printf '%s' "Added to category: $category/$module_name"
+      printf '%s\n' "$module_name" >> "$CATE_DIR/$category"
     fi
   done
 
-  local file
-  for file in "$CATE_DIR"/bash/* ; do
-    printf '\n' >> "$file"
-  done
+  printf '\n%b\n' "${GREEN}Generated categories in directory: $CATE_DIR${RESET_ALL}"
 }
 
-main "${@:-}"
+main

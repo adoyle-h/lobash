@@ -14,22 +14,20 @@ readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 source "$SCRIPT_DIR/colors.bash"
 # shellcheck source=../src/load_internals.bash
 source "$SCRIPT_DIR"/../src/load_internals.bash
-_lobash.import_internals basic_meta_types module_meta
+_lobash.import_internals basic_meta_types module_meta erase_line
 _lobash.imports sort lower_case.p
 
 generate() {
   local category=${1,,}
   local -n c=category_$category
 
-  printf -- '- [ ]   %s\n' "${category^}" >> "$TARGET_BASH"
+  printf -- '\n- [ ]   %s\n' "${category^}" >> "$TARGET_BASH"
 
   for module_name in "${c[@]}"; do
     if [[ ${map[${module_name}_status_0]} == tested ]]; then
       printf -- '  - [ ] %s\n' "$module_name" >> "$TARGET_BASH"
     fi
   done
-
-  echo >> "$TARGET_BASH"
 }
 
 add_to_map() {
@@ -46,17 +44,13 @@ add_to_map() {
   done
 }
 
-erase_line() {
-  printf '%b' $'\e[1K\r'
-}
-
 main() {
   local TARGET_BASH
-  TARGET_BASH="$(dirname "$SCRIPT_DIR")/config.bash.example"
+  TARGET_BASH="$(dirname "$SCRIPT_DIR")/config.example"
   local -A map
   local -a categories
 
-  echo "To generate config.bash.example"
+  echo "To generate config: $TARGET_BASH"
 
   local -i module_count=0
   local filepath module_name category metadatas
@@ -72,7 +66,7 @@ main() {
     fi
 
     local cate_name=category_${category}
-    erase_line
+    _lobash.erase_line
     printf '%s' "Scan file: $category/$module_name"
 
     if [[ -z ${!cate_name:-} ]]; then
@@ -96,7 +90,6 @@ BASH_MIN_VERSION: 4.4
 # Select modules or categories to export
 # - [ ]  Unselected
 # - [x]  Selected
-
 EOF
 
   for category in "${categories[@]}"; do

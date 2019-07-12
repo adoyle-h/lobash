@@ -14,27 +14,8 @@ readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 source "$SCRIPT_DIR/colors.bash"
 # shellcheck source=../src/load_internals.bash
 source "$SCRIPT_DIR"/../src/load_internals.bash
-_lobash.import_internals basic_meta_types module_meta
+_lobash.import_internals basic_meta_types module_meta erase_line rm
 _lobash.imports sort has
-
-erase_line() {
-  printf '%b' $'\e[1K\r'
-}
-
-safe_rm() {
-  local path=$1
-  if [[ $path == / ]]; then
-    echo "Dangerous! Do not rm $path"
-    return 3
-  fi
-
-  if [[ $(dirname "$path") == / ]]; then
-    echo "Dangerous! Do not rm $path"
-    return 3
-  fi
-
-  rm -rf -- "$path"
-}
 
 print_category_header() {
   local -n mods=$1
@@ -45,7 +26,6 @@ print_category_header() {
     printf '\n%s\n' '[⬅️ Back to previous page](./README.md)'
 
     printf '\n%s\n\n' "## TOC"
-
     for module_name in "${mods[@]}"; do
       printf -- '- [%s](%s)\n' "${module_name}" "#$module_name"
     done
@@ -143,7 +123,7 @@ print_category() {
   local TARGET=$2
   local -n c=category_$1
 
-  erase_line
+  _lobash.erase_line
   printf '%s' "To print category: ${category}"
 
   print_category_header c "$TARGET"
@@ -173,7 +153,7 @@ print_toc() {
   echo "To print TOC"
 
   local TARGET=$1
-  printf '\n%s\n\n' "## TOC" >> "$TARGET"
+  printf '\n%s\n\n' "## Modules TOC" >> "$TARGET"
 
   for category in "${categories[@]}"; do
     printf -- '- [%s](%s)\n' "${category}" "./${category,,}.md" >> "$TARGET"
@@ -222,31 +202,59 @@ Each module provides only one function which naming prefixed with \`l.\`.
 The function which naming suffixed with \`.p\` should be used in pipeline. Like \`echo ' string ' | l.trim.p\`.
 
 The function which naming suffixed with \`.s\` means in strict mode. It uses \`echo true/false\` instead of \`return 0/1\` to return values "true" and "false".
+
 EOF
+}
+
+print_unsupported() {
+  echo "To print unsupported mods"
+
+  local TARGET=$1
+  local module_name category
+
+  {
+    cat <<EOF
+<a id="not-compatible"></a>
+## Modules not compatible with Bash 4.0
+
+Most Lobash modules support Bash 4.0+ except below modules.
+
+EOF
+
+    for module_name in "${!unsupported_mods[@]}"; do
+      category=$(_lobash.get_module_metadata "$module_name" Category)
+      printf -- '- [%s](%s): %s\n' "$module_name" "./${category,,}.md#${module_name//\./}" "${unsupported_mods[$module_name]}+"
+    done
+  } >> "$TARGET"
 }
 
 main() {
   local BASE_DIR="$SCRIPT_DIR/../doc/module-usages"
-  safe_rm "$BASE_DIR"
+  _lobash.rm "$BASE_DIR"
   mkdir -p "$BASE_DIR"
 
   echo "To update module usages documents"
 
   local -a categories
+  local -A unsupported_mods
   local -i module_count=0
-  local filepath module_name category metadatas
+  local filepath module_name category metadatas bash
 
   for filepath in $SCRIPT_DIR/../src/modules/*.bash; do
     ((module_count+=1))
     module_name=$(basename "$filepath" .bash)
     metadatas=$(_lobash.get_module_metadata_str "$filepath")
 
-    erase_line
+    _lobash.erase_line
     printf '%s' "To scan module: $module_name"
     _lobash.scan_module_metadata "$module_name"
 
     category=$(_lobash.get_module_metadata "$module_name" Category)
-    # echo "Scanned module: $category/$module_name"
+    bash=$(_lobash.get_module_metadata "$module_name" Bash)
+
+    if [[ $bash != 4.0 ]]; then
+      unsupported_mods["$module_name"]=$bash
+    fi
 
     local cate_name=category_${category}
 
@@ -264,6 +272,7 @@ main() {
   printf '\n%s\n' "Scanned ${#categories[@]} Categories: ${categories[*]}"
 
   print_header "$BASE_DIR/README.md"
+  print_unsupported "$BASE_DIR/README.md"
   print_toc "$BASE_DIR/README.md"
 
   for category in "${categories[@]}"; do

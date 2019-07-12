@@ -7,4 +7,4 @@ set -o pipefail
 [[ -n "${VERBOSE:-}" ]] && set -o verbose
 [[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
 
-BUILD_DIST=true BASHVER=${1:-4.4} ./tools/test-in-docker
+BUILD_DIST=true BASHVER=${BASHVER:=4.4} ./tools/test-in-docker "${@:-}"

@@ -24,6 +24,8 @@
     - [Edit your scripts and set shell options](#edit-your-scripts-and-set-shell-options)
     - [Load lobash.bash in your scripts](#load-lobashbash-in-your-scripts)
     - [Module Usages](#module-usages)
+- [Advanced Usages](#advanced-usages)
+    - [Export specific modules with config](#export-specific-modules-with-config)
 - [Command](#command)
     - [lobash meta](#lobash-meta)
     - [lobash mod](#lobash-mod)
@@ -52,8 +54,8 @@ and make it compatible with Bash 4.0+ and MacOS/Linux/Alpine/Busybox systems.
 ## Lobash Features
 
 - Modular and easy to use. One module one Function.
-- Rich Functions. Over 90+ modules provided.
-- Robust and Safe. Over 500+ test cases tested.
+- Rich Functions. Over [110+ modules][module-usages] provided.
+- Robust and Safe. Over [600+ test cases](./tests/modules/) tested.
 - Fast. 0.058s to load Lobash completely.
 - Compatible with MacOS/Linux/Alpine/Busybox systems.
 - Compatible with Bash 4.0 and higher versions.
@@ -94,28 +96,28 @@ git submodule update --init --recursive
 
 ### Supported Shells
 
-| Supported | Shell    | Version       | Main Reasons                                            |
-|:---------:|:---------|:--------------|:--------------------------------------------------------|
-|     ✅    | Bash     | v5 and higher | Completely Supported                                    |
-|     ✅    | Bash     | v4.4          | Completely Supported                                    |
-|    ✅💬   | Bash     | v4.3          | `shopt -s inherit_errexit` is not supported util v4.4   |
-|    ✅💬   | Bash     | v4.2          | `Nameref` is not supported util v4.3                    |
-|    ✅💬   | Bash     | v4.1          | `declare -g` not support util v4.2                      |
-|    ✅💬   | Bash     | v4.0          | `exec {fd}<> <(true)` is not supported util v4.1        |
-|     🚫    | Bash     | v3            | Associative array is not supported until v4.0           |
-|     🚫    | POSIX sh | *             | `local` keyword not supported                           |
-|     🚫    | Zsh      | *             | Plan to implement it in another project                 |
-|     ❔    | Ksh      | *             | No tested                                               |
+| Supported | Shell    | Version       | Descriptions                                  |
+|:---------:|:---------|:--------------|:----------------------------------------------|
+|     ✅    | Bash     | v5 and higher | Completely supported                          |
+|     ✅    | Bash     | v4.4          | Completely supported                          |
+|    ✅💬   | Bash     | v4.3          | -                                             |
+|    ✅💬   | Bash     | v4.2          | -                                             |
+|    ✅💬   | Bash     | v4.1          | -                                             |
+|    ✅💬   | Bash     | v4.0          | -                                             |
+|     🚫    | Bash     | v3            | Associative array is not supported until v4.0 |
+|     🚫    | POSIX sh | *             | `local` keyword not supported                 |
+|     🚫    | Zsh      | *             | Plan to implement it in another project       |
+|     ❔    | Ksh      | *             | No tested                                     |
+
+Most Lobash modules support Bash 4.0+. See [module usages](./doc/module-usages/README.md#not-compatible) to find what modules not compatible with Bash 4.0.
 
 ✅💬 means Lobash can be used but not all features supported in shell.
-It prints notes to show what modules will be ignored when building Lobash file.
+It will print notes to show what modules is not supported and it will be ignored when building Lobash file.
 
 **If you want use Lobash with Bash 4.3 and lower versions.**
-**Please read [./doc/with-lower-version-bash.md](./doc/with-lower-version-bash.md) for details.**
+**Please read [./doc/with-lower-version-bash.md](./doc/with-lower-version-bash.md) first.**
 
 **Lobash not test with Bash 4.0 in MacOS. It seems a bug of Bash 4.0 in MacOS. Please contact me if you solved this problem.** See [this document](./doc/with-lower-version-bash.md#not-test-with-bash-40-in-macos).
-
-There is [a list](http://mywiki.wooledge.org/BashFAQ/061) of which features were added to specific releases (versions) of Bash.
 
 Although most Linux distributions use Bash v4.3, and MacOS not installed Bash v4 by default,
 it is easily to upgrade Bash 4.4+ in most systems.
@@ -135,7 +137,7 @@ Make sure below dependencies have been installed.
 First, build your own `lobash.bash` file by `./build`.
 
 ```sh
-# Interactive build process
+# Interactive build process, import all Lobash modules
 ./build
 # Generated Lobash file: <lobash-dir>/dist/lobash.bash
 
@@ -192,7 +194,21 @@ sys     0m0.036s
 
 ### Module Usages
 
-See all module usages in [./doc/module-usages/](./doc/module-usages/README.md)
+See all module usages in [./doc/module-usages/][module-usages]
+
+## Advanced Usages
+
+### Export specific modules with config
+
+`./build` will export all modules by default. You can export specific modules with `-c <config>` option.
+
+```sh
+cp config.example config
+# The "config" file is ignored by git
+# Edit config, select BASH_MIN_VERSION and modules to export
+
+./build -c ./config
+```
 
 ## Command
 
@@ -206,7 +222,7 @@ Enter `./bin/lobash` show help.
 Usage:
   lobash [help|-h|--help]
   lobash mod <module_name> [<sub_command_args>]...
-  lobash meta
+  lobash meta <module_name>
 
 Sub-Command:
   help       Show help
@@ -231,7 +247,7 @@ Description:
 Dependent: split, join
 Deprecated: false
 Since: 0.1.0
-Bash: 4.3
+Bash: 4.0
 Status: tested
 ```
 
@@ -296,3 +312,4 @@ See the [NOTICE][] file distributed with this work for additional information re
 [Master Branch]: https://github.com/adoyle-h/lobash/tree/master
 [Develop Branch]: https://github.com/adoyle-h/lobash/tree/develop
 [travis repo]: https://travis-ci.com/adoyle-h/lobash
+[module-usages]: ./doc/module-usages/README.md
