@@ -1,6 +1,6 @@
 # ---
 # Category: Condition
-# Since: 0.1.0
+# Since: 0.3.0
 # Usage: l.not.s <condition>
 # Description: `<condition>` must be `true` or `false`. This function returns the opposite value.
 # ---

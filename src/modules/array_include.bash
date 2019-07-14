@@ -1,6 +1,6 @@
 # ---
 # Category: Array
-# Since: 0.1.0
+# Since: 0.3.1
 # Usage: l.array_include <array_name> <match>
 # Description: Return 0 (true) or 1 (false). This function should never throw exception error.
 # ---

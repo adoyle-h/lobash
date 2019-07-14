@@ -52,7 +52,7 @@
 
 - Usage: `l.end_with <string> <match>`
 - Description: Return 0 (true) or 1 (false). This function should never throw exception error.
-- Since: 0.1.0
+- Since: 0.3.1
 - Bash: 4.0+
 - Status: tested
 - Test Cases: [tests/modules/end_with.bats](../../tests/modules/end_with.bats)
@@ -63,7 +63,7 @@
 - Usage: `l.end_with.s <string> <match>`
 - Description: This function always echo `true` or `false` and exit code always be 0.
 - Dependent: [`end_with`](./condition.md#end_with)
-- Since: 0.1.0
+- Since: 0.3.1
 - Bash: 4.0+
 - Status: tested
 - Test Cases: [tests/modules/end_with.s.bats](../../tests/modules/end_with.s.bats)
@@ -75,7 +75,7 @@
 - Description:
   - Exit with 0 or 1. Check if command/function/alias/keyword/builtin or anything existed.
   - `<condition>` Valid value: `command`, `function`, `alias`, `keyword`, `builtin`, `the`
-- Since: 0.1.0
+- Since: 0.3.0
 - Bash: 4.0+
 - Status: tested
 - Test Cases: [tests/modules/has.bats](../../tests/modules/has.bats)
@@ -87,7 +87,7 @@
 - Description:
   - Echo `true` or `false` to indicate that command/function/alias/keyword/builtin or anything existed.
   - `<condition>` Valid value: `command`, `function`, `alias`, `keyword`, `builtin`, `the`
-- Since: 0.1.0
+- Since: 0.3.0
 - Bash: 4.0+
 - Status: tested
 - Test Cases: [tests/modules/has.s.bats](../../tests/modules/has.s.bats)
@@ -98,7 +98,7 @@
 - Usage: `l.has_not <condition> <what>`
 - Description: Opposite to l.has
 - Dependent: [`has`](./condition.md#has)
-- Since: 0.1.0
+- Since: 0.3.0
 - Bash: 4.0+
 - Status: tested
 - Test Cases: [tests/modules/has_not.bats](../../tests/modules/has_not.bats)
@@ -109,7 +109,7 @@
 - Usage: `l.has_not.s <condition> <what>`
 - Description: Opposite to l.has.s
 - Dependent: [`has.s`](./condition.md#has.s) [`not.s`](./condition.md#not.s)
-- Since: 0.1.0
+- Since: 0.3.0
 - Bash: 4.0+
 - Status: tested
 - Test Cases: [tests/modules/has_not.s.bats](../../tests/modules/has_not.s.bats)
@@ -133,7 +133,7 @@
 
 - Usage: `l.is_array <var_name>`
 - Description: Return 0 (true) or 1 (false). This function should never throw exception error.
-- Since: 0.1.0
+- Since: 0.3.0
 - Bash: 4.0+
 - Status: tested
 - Test Cases: [tests/modules/is_array.bats](../../tests/modules/is_array.bats)
@@ -143,7 +143,7 @@
 
 - Usage: `l.is_array.s <var_name>`
 - Description: This function always echo `true` or `false` and exit code always be 0.
-- Since: 0.1.0
+- Since: 0.3.0
 - Bash: 4.0+
 - Status: tested
 - Test Cases: [tests/modules/is_array.s.bats](../../tests/modules/is_array.s.bats)
@@ -153,7 +153,7 @@
 
 - Usage: `l.is_bash`
 - Description: Return 0 (true) or 1 (false). This function should never throw exception error.
-- Since: 0.1.0
+- Since: 0.3.0
 - Bash: 4.0+
 - Status: tested
 - Test Cases: [tests/modules/is_bash.bats](../../tests/modules/is_bash.bats)
@@ -163,7 +163,7 @@
 
 - Usage: `l.is_bash.s`
 - Description: This function always echo `true` or `false` and exit code always be 0.
-- Since: 0.1.0
+- Since: 0.3.0
 - Bash: 4.0+
 - Status: tested
 - Test Cases: [tests/modules/is_bash.s.bats](../../tests/modules/is_bash.s.bats)
@@ -175,7 +175,7 @@
 - Description:
   - Detect `<path>` is whether a directory or not.
   - Return 0 (true) or 1 (false). This function should never throw exception error.
-- Since: 0.1.0
+- Since: 0.3.0
 - Bash: 4.0+
 - Status: tested
 - Test Cases: [tests/modules/is_dir.bats](../../tests/modules/is_dir.bats)
@@ -187,7 +187,7 @@
 - Description:
   - Detect `<path>` is whether a directory or not.
   - This function always echo `true` or `false` and exit code always be 0.
-- Since: 0.1.0
+- Since: 0.3.0
 - Bash: 4.0+
 - Status: tested
 - Test Cases: [tests/modules/is_dir.s.bats](../../tests/modules/is_dir.s.bats)
@@ -199,7 +199,7 @@
 - Description:
   - Similar to `[[ -x ]]`.
   - Return 0 (true) or 1 (false). This function should never throw exception error.
-- Since: 0.1.0
+- Since: 0.3.0
 - Bash: 4.0+
 - Status: tested
 - Test Cases: [tests/modules/is_executable.bats](../../tests/modules/is_executable.bats)
@@ -211,7 +211,7 @@
 - Description:
   - Similar to `[[ -x ]]`
   - This function always echo `true` or `false` and exit code always be 0.
-- Since: 0.1.0
+- Since: 0.3.0
 - Bash: 4.0+
 - Status: tested
 - Test Cases: [tests/modules/is_executable.s.bats](../../tests/modules/is_executable.s.bats)
@@ -224,7 +224,7 @@
   - Similar to `l.is_executable`. But if `<path>` is directory it will return false.
   - Return 0 (true) or 1 (false). This function should never throw exception error.
 - Dependent: [`is_dir`](./condition.md#is_dir)
-- Since: 0.1.0
+- Since: 0.3.0
 - Bash: 4.0+
 - Status: tested
 - Test Cases: [tests/modules/is_executable_file.bats](../../tests/modules/is_executable_file.bats)
@@ -237,7 +237,7 @@
   - Similar to `l.is_executable`. But if `<path>` is directory it will return false.
   - This function always echo `true` or `false` and exit code always be 0.
 - Dependent: [`is_executable_file`](./condition.md#is_executable_file)
-- Since: 0.1.0
+- Since: 0.3.0
 - Bash: 4.0+
 - Status: tested
 - Test Cases: [tests/modules/is_executable_file.s.bats](../../tests/modules/is_executable_file.s.bats)
@@ -250,7 +250,7 @@
   - nonzero number and string "false" should be falsy.
   - Return 0 (true) or 1 (false). This function should never throw exception error.
 - Dependent: [`is_integer`](./condition.md#is_integer)
-- Since: 0.1.0
+- Since: 0.3.0
 - Bash: 4.0+
 - Status: tested
 - Test Cases: [tests/modules/is_falsy.bats](../../tests/modules/is_falsy.bats)
@@ -263,7 +263,7 @@
   - nonzero number and string "false" should be falsy.
   - This function always echo `true` or `false` and exit code always be 0.
 - Dependent: [`is_falsy`](./condition.md#is_falsy)
-- Since: 0.1.0
+- Since: 0.3.0
 - Bash: 4.0+
 - Status: tested
 - Test Cases: [tests/modules/is_falsy.s.bats](../../tests/modules/is_falsy.s.bats)
@@ -273,7 +273,7 @@
 
 - Usage: `l.is_file <path>`
 - Description: Return 0 (true) or 1 (false). This function should never throw exception error.
-- Since: 0.1.0
+- Since: 0.3.0
 - Bash: 4.0+
 - Status: tested
 - Test Cases: [tests/modules/is_file.bats](../../tests/modules/is_file.bats)
@@ -283,7 +283,7 @@
 
 - Usage: `l.is_file.s <path>`
 - Description: This function always echo `true` or `false` and exit code always be 0.
-- Since: 0.1.0
+- Since: 0.3.0
 - Bash: 4.0+
 - Status: tested
 - Test Cases: [tests/modules/is_file.s.bats](../../tests/modules/is_file.s.bats)
@@ -293,7 +293,7 @@
 
 - Usage: `l.is_float <str>`
 - Description: Return 0 (true) or 1 (false). This function should never throw exception error.
-- Since: 0.1.0
+- Since: 0.3.0
 - Bash: 4.0+
 - Status: tested
 - Test Cases: [tests/modules/is_float.bats](../../tests/modules/is_float.bats)
@@ -304,7 +304,7 @@
 - Usage: `l.is_float.s <str>`
 - Description: This function always echo `true` or `false` and exit code always be 0.
 - Dependent: [`is_float`](./condition.md#is_float)
-- Since: 0.1.0
+- Since: 0.3.0
 - Bash: 4.0+
 - Status: tested
 - Test Cases: [tests/modules/is_float.s.bats](../../tests/modules/is_float.s.bats)
@@ -314,7 +314,7 @@
 
 - Usage: `l.is_integer <str>`
 - Description: Return 0 (true) or 1 (false). This function should never throw exception error.
-- Since: 0.1.0
+- Since: 0.3.0
 - Bash: 4.0+
 - Status: tested
 - Test Cases: [tests/modules/is_integer.bats](../../tests/modules/is_integer.bats)
@@ -325,7 +325,7 @@
 - Usage: `l.is_integer.s <str>`
 - Description: This function always echo `true` or `false` and exit code always be 0.
 - Dependent: [`is_integer`](./condition.md#is_integer)
-- Since: 0.1.0
+- Since: 0.3.0
 - Bash: 4.0+
 - Status: tested
 - Test Cases: [tests/modules/is_integer.s.bats](../../tests/modules/is_integer.s.bats)
@@ -335,7 +335,7 @@
 
 - Usage: `l.is_link <path>`
 - Description: Return 0 (true) or 1 (false). This function should never throw exception error.
-- Since: 0.1.0
+- Since: 0.3.0
 - Bash: 4.0+
 - Status: tested
 - Test Cases: [tests/modules/is_link.bats](../../tests/modules/is_link.bats)
@@ -345,7 +345,7 @@
 
 - Usage: `l.is_link.s <path>`
 - Description: This function always echo `true` or `false` and exit code always be 0.
-- Since: 0.1.0
+- Since: 0.3.0
 - Bash: 4.0+
 - Status: tested
 - Test Cases: [tests/modules/is_link.s.bats](../../tests/modules/is_link.s.bats)
@@ -355,7 +355,7 @@
 
 - Usage: `l.is_number <str>`
 - Description: Return 0 (true) or 1 (false). This function should never throw exception error.
-- Since: 0.1.0
+- Since: 0.3.0
 - Bash: 4.0+
 - Status: tested
 - Test Cases: [tests/modules/is_number.bats](../../tests/modules/is_number.bats)
@@ -366,7 +366,7 @@
 - Usage: `l.is_number.s <str>`
 - Description: This function always echo `true` or `false` and exit code always be 0.
 - Dependent: [`is_number`](./condition.md#is_number)
-- Since: 0.1.0
+- Since: 0.3.0
 - Bash: 4.0+
 - Status: tested
 - Test Cases: [tests/modules/is_number.s.bats](../../tests/modules/is_number.s.bats)
@@ -376,7 +376,7 @@
 
 - Usage: `l.is_readable <path>`
 - Description: Return 0 (true) or 1 (false). This function should never throw exception error.
-- Since: 0.1.0
+- Since: 0.3.0
 - Bash: 4.0+
 - Status: tested
 - Test Cases: [tests/modules/is_readable.bats](../../tests/modules/is_readable.bats)
@@ -386,7 +386,7 @@
 
 - Usage: `l.is_readable.s <path>`
 - Description: This function always echo `true` or `false` and exit code always be 0.
-- Since: 0.1.0
+- Since: 0.3.0
 - Bash: 4.0+
 - Status: tested
 - Test Cases: [tests/modules/is_readable.s.bats](../../tests/modules/is_readable.s.bats)
@@ -398,7 +398,7 @@
 - Description:
   - zero number and string "true" should be truthy.
   - Return 0 (true) or 1 (false). This function should never throw exception error.
-- Since: 0.1.0
+- Since: 0.3.0
 - Bash: 4.0+
 - Status: tested
 - Test Cases: [tests/modules/is_truthy.bats](../../tests/modules/is_truthy.bats)
@@ -411,7 +411,7 @@
   - zero number and string "true" should be truthy.
   - This function always echo `true` or `false` and exit code always be 0.
 - Dependent: [`is_truthy`](./condition.md#is_truthy)
-- Since: 0.1.0
+- Since: 0.3.0
 - Bash: 4.0+
 - Status: tested
 - Test Cases: [tests/modules/is_truthy.s.bats](../../tests/modules/is_truthy.s.bats)
@@ -421,7 +421,7 @@
 
 - Usage: `l.is_writable <path>`
 - Description: Return 0 (true) or 1 (false). This function should never throw exception error.
-- Since: 0.1.0
+- Since: 0.3.0
 - Bash: 4.0+
 - Status: tested
 - Test Cases: [tests/modules/is_writable.bats](../../tests/modules/is_writable.bats)
@@ -431,7 +431,7 @@
 
 - Usage: `l.is_writable.s <path>`
 - Description: This function always echo `true` or `false` and exit code always be 0.
-- Since: 0.1.0
+- Since: 0.3.0
 - Bash: 4.0+
 - Status: tested
 - Test Cases: [tests/modules/is_writable.s.bats](../../tests/modules/is_writable.s.bats)
@@ -441,7 +441,7 @@
 
 - Usage: `l.not.s <condition>`
 - Description: `<condition>` must be `true` or `false`. This function returns the opposite value.
-- Since: 0.1.0
+- Since: 0.3.0
 - Bash: 4.0+
 - Status: tested
 - Test Cases: [tests/modules/not.s.bats](../../tests/modules/not.s.bats)
@@ -452,7 +452,7 @@
 - Usage: `echo <condition> | l.not.s.p`
 - Description: The pipeline version of l.not
 - Dependent: [`not.s`](./condition.md#not.s)
-- Since: 0.1.0
+- Since: 0.3.0
 - Bash: 4.0+
 - Status: tested
 - Test Cases: [tests/modules/not.s.p.bats](../../tests/modules/not.s.p.bats)
@@ -464,7 +464,7 @@
 - Description:
   - Check if a string starts with given match string.
   - Return 0 (true) or 1 (false). This function should never throw exception error.
-- Since: 0.1.0
+- Since: 0.3.1
 - Bash: 4.0+
 - Status: tested
 - Test Cases: [tests/modules/start_with.bats](../../tests/modules/start_with.bats)
@@ -477,7 +477,7 @@
   - Check if a string starts with given match string.
   - This function always echo `true` or `false` and exit code always be 0.
 - Dependent: [`start_with`](./condition.md#start_with)
-- Since: 0.1.0
+- Since: 0.3.1
 - Bash: 4.0+
 - Status: tested
 - Test Cases: [tests/modules/start_with.s.bats](../../tests/modules/start_with.s.bats)
@@ -487,7 +487,7 @@
 
 - Usage: `l.str_include <string> <sub-string>`
 - Description: Return `true` or `false`. Check if a string includes given match string.
-- Since: 0.1.0
+- Since: 0.3.1
 - Bash: 4.0+
 - Status: tested
 - Test Cases: [tests/modules/str_include.bats](../../tests/modules/str_include.bats)
@@ -498,7 +498,7 @@
 - Usage: `l.str_include.s <string> <sub-string>`
 - Description: Return `true` or `false`. Check if a string includes given match string.
 - Dependent: [`str_include`](./condition.md#str_include)
-- Since: 0.1.0
+- Since: 0.3.1
 - Bash: 4.0+
 - Status: tested
 - Test Cases: [tests/modules/str_include.s.bats](../../tests/modules/str_include.s.bats)

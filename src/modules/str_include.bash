@@ -1,6 +1,6 @@
 # ---
 # Category: Condition
-# Since: 0.1.0
+# Since: 0.3.1
 # Usage: l.str_include <string> <sub-string>
 # Description: Return `true` or `false`. Check if a string includes given match string.
 # ---

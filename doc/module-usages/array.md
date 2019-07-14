@@ -17,7 +17,7 @@
 
 - Usage: `l.array_include <array_name> <match>`
 - Description: Return 0 (true) or 1 (false). This function should never throw exception error.
-- Since: 0.1.0
+- Since: 0.3.1
 - Bash: 4.0+
 - Status: tested
 - Test Cases: [tests/modules/array_include.bats](../../tests/modules/array_include.bats)
@@ -27,7 +27,7 @@
 
 - Usage: `l.array_include.s <array_name> <match>`
 - Description: This function always echo `true` or `false` and exit code always be 0.
-- Since: 0.1.0
+- Since: 0.3.1
 - Bash: 4.0+
 - Status: tested
 - Test Cases: [tests/modules/array_include.s.bats](../../tests/modules/array_include.s.bats)

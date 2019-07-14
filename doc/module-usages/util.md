@@ -44,7 +44,7 @@
   - `args_name` must be an array or "_". If "_", no arguments will be parsed.
   - See test cases for details.
 - Dependent: [`start_with`](./condition.md#start_with) [`match`](./string.md#match) [`match_list`](./string.md#match_list)
-- Since: 0.1.0
+- Since: 0.4.0
 - Bash: 4.0+
 - Status: tested
 - Test Cases: [tests/modules/parse_params.bats](../../tests/modules/parse_params.bats)

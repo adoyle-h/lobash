@@ -1,6 +1,6 @@
 # ---
 # Category: Array
-# Since: 0.1.0
+# Since: 0.3.1
 # Usage: l.array_include.s <array_name> <match>
 # Description: This function always echo `true` or `false` and exit code always be 0.
 # ---

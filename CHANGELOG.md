@@ -22,6 +22,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [v0.4.0] - 2019-07-12 21:36:00 +0800
 
+Now most modules support bash 4.0+!
+
 ### Add
 
 - add [l.match_list](./doc/module-usages/string.md#match_list)
@@ -47,7 +49,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Change
 
-- Now most modules support bash 4.0+!
 - refactor: reduce exported internal codes in built file.
 - refactor: remove comments in built file
 
@@ -81,8 +82,8 @@ All Condition modules should provide two implements. Like `is_file` and `is_file
 - All Condition functions renamed from l.xxx to l.xxx.s.
 - Current Condition functions l.xxx return 0/1 instead of echo true/false
 - rename l.is_writeable => l.is_writable.s
-- rename l.true => l.truthy.s
-- rename l.false => l.falsy.s
+- rename l.true => l.is_truthy.s
+- rename l.false => l.is_falsy.s
 - l.has not support l.has not <command>, use l.has_not instead
 - rename l.strict_has => l.has.s
 - rename l.strict_has_not => l.has_not.s

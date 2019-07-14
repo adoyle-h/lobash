@@ -110,7 +110,7 @@
 
 - Usage: `l.match_list <string> <regex> <output_array_name>`
 - Description: Match multi strings with Regex Capturing Groups. The matched parts will be put in `<output_array_name>`.
-- Since: 0.1.0
+- Since: 0.4.0
 - Bash: 4.0+
 - Status: tested
 - Test Cases: [tests/modules/match_list.bats](../../tests/modules/match_list.bats)

@@ -1,6 +1,6 @@
 # ---
 # Category: Condition
-# Since: 0.1.0
+# Since: 0.3.0
 # Dependent: is_dir
 # Usage: l.is_executable_file <path>
 # Description: Similar to `l.is_executable`. But if `<path>` is directory it will return false.
