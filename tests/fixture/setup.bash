@@ -12,6 +12,10 @@ else
   load "$LOBASH_TEST_DIR"/fixture/assert/load.bash
 fi
 
+get_module_path() {
+  echo "$LOBASH_ROOT_DIR/src/modules/$1.bash"
+}
+
 load_src() {
   local path=$1;
   shift
@@ -64,6 +68,24 @@ test_prepare() {
   _lobash.import_internals module_meta
 
   check_bash "$module_name"
+
+
+  local kernel_name
+  kernel_name="$(uname -s)"
+
+  case "$kernel_name" in
+    "Darwin")                         TEST_OS=MacOS ;;
+    "SunOS")                          TEST_OS=Solaris ;;
+    "Haiku")                          TEST_OS=Haiku ;;
+    "MINIX")                          TEST_OS=MINIX ;;
+    "AIX")                            TEST_OS=AIX ;;
+    "IRIX"*)                          TEST_OS=IRIX ;;
+    "FreeMiNT")                       TEST_OS=FreeMiNT ;;
+    "Linux" | "GNU"*)                 TEST_OS=Linux ;;
+    *"BSD" | "DragonFly" | "Bitrig")  TEST_OS=BSD ;;
+    "CYGWIN"* | "MSYS"* | "MINGW"*)   TEST_OS=Windows ;;
+    *)                                TEST_OS="Unknown_OS $kernel_name" ;;
+  esac
 }
 
 # If import has bug, all test cases will failed

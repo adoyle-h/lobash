@@ -56,6 +56,8 @@ Now most modules support bash 4.0+!
 
 - Modules usages document shows what modules not compatible with Bash 4.0.
 
+[Full Changes](https://github.com/adoyle-h/lobash/compare/v0.3.1...v0.4.0)
+
 ## [v0.3.1] - 2019-07-08 02:22:00 +0800
 
 ### Add
