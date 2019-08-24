@@ -8,6 +8,8 @@ match
 match_list
 split
 str_len
+str_replace
+str_replace_all
 str_size
 trim
 trim.p
