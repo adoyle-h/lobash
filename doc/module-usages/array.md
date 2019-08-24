@@ -56,12 +56,15 @@
 ### sort
 
 - Usage: `l.sort <array_name> [<sort-opts>]...`
-- Description: Sort an array. The `<sort-opts>` are options of sort command.
+- Description:
+  - Print a new sorted array with linux "sort" command.
+  - The `<sort-opts>` are options of "sort" command.
 - Since: 0.1.0
 - Bash: 4.0+
 - Status: tested
 - Test Cases: [tests/modules/sort.bats](../../tests/modules/sort.bats)
 - Source Code: [src/modules/sort.bash](../../src/modules/sort.bash)
+- Executable Example: [example/modules/sort](../../example/modules/sort)
 
 ### union_array
 

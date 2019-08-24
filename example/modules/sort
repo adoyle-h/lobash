@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o nounset
+set -o pipefail
+(shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
+[[ -n "${VERBOSE:-}" ]] && set -o verbose
+[[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
+
+readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+# shellcheck source=./init.bash
+source "$SCRIPT_DIR"/init.bash
+
+before=(B a C d E b 8 1 2 4)
+readarray -t after < <(l.sort before)
+echo "Before size: ${#before[@]}"
+echo "Before: ${before[*]}"
+echo "After size: ${#after[@]}"
+echo "After: ${after[*]}"
