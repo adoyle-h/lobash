@@ -7,6 +7,7 @@
 - [array_include](#array_include)
 - [array_include.s](#array_include.s)
 - [first](#first)
+- [keys](#keys)
 - [last](#last)
 - [sort](#sort)
 - [union_array](#union_array)
@@ -42,6 +43,16 @@
 - Status: tested
 - Test Cases: [tests/modules/first.bats](../../tests/modules/first.bats)
 - Source Code: [src/modules/first.bash](../../src/modules/first.bash)
+
+### keys
+
+- Usage: `l.keys <array_name>`
+- Description: List all keys of array or associative array
+- Since: 0.5.0
+- Bash: 4.0+
+- Status: tested
+- Test Cases: [tests/modules/keys.bats](../../tests/modules/keys.bats)
+- Source Code: [src/modules/keys.bash](../../src/modules/keys.bash)
 
 ### last
 

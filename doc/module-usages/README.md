@@ -1,6 +1,6 @@
 # Module Usages
 
-15 Categories, 113 Modules, 635 Test Cases.
+15 Categories, 114 Modules, 637 Test Cases.
 
 Each module provides only one function which naming prefixed with `l.`.
 
@@ -26,6 +26,7 @@ Most Lobash modules support Bash 4.0+ except below modules.
   - [array_include](./array.md#array_include)
   - [array_include.s](./array.md#array_includes)
   - [first](./array.md#first)
+  - [keys](./array.md#keys)
   - [last](./array.md#last)
   - [sort](./array.md#sort)
   - [union_array](./array.md#union_array)
