@@ -12,9 +12,51 @@
 # Dependent: lower_case
 # ---
 
-l.ask() {
+_l.ask() {
   local msg=$1
   local default=${2:-Y}
+  local check_answer=$3
+}
+
+_l.ask_with_cancel_checker() {
+  local answer=$1
+  if [[ $answer =~ ^ye?s?$ ]]; then
+    echo YES
+  elif [[ $answer =~ ^no?$ ]]; then
+    echo NO
+  elif [[ $answer =~ ^cancel?$ ]]; then
+    echo CANCEL
+  elif [[ $answer == '' ]]; then
+    echo "$default"
+  else
+    [[ -c /dev/tty ]] && echo "Invalid Answer '$answer'. Try to type 'yes', 'no' or 'cancel'." > /dev/tty
+    l.ask "$msg" "${default:0:1}"
+  fi
+}
+
+_l.ask_checker() {
+  local answer=$1
+  if [[ $answer =~ ^ye?s?$ ]]; then
+    echo YES
+  elif [[ $answer =~ ^no?$ ]]; then
+    echo NO
+  elif [[ $answer == '' ]]; then
+    echo "$default"
+  else
+    [[ -c /dev/tty ]] && echo "Invalid Answer '$answer'. Try to type 'yes', 'no'." > /dev/tty
+    l.ask "$msg" "${default:0:1}"
+  fi
+}
+
+l.ask_with_cancel() {
+  _l.ask "$1" "$2" _l.ask_with_cancel_checker
+}
+
+_l.ask() {
+  local msg=$1
+  local default=${2:-Y}
+  local check_answer=$3
+
   local prompt
   if [[ $default == Y ]]; then
     default=YES
@@ -31,6 +73,8 @@ l.ask() {
   read -rp "$msg $prompt " answer
 
   answer=$(l.lower_case "$answer")
+  check_answer "$answer"
+
   if [[ $answer =~ ^ye?s?$ ]]; then
     echo YES
   elif [[ $answer =~ ^no?$ ]]; then
@@ -38,7 +82,8 @@ l.ask() {
   elif [[ $answer == '' ]]; then
     echo "$default"
   else
-    echo 'Invalid Answer'
+    [[ -c /dev/tty ]] && echo "Invalid Answer '$answer'. Try to type 'yes', 'no' or 'cancel'." > /dev/tty
+    l.ask "$msg" "${default:0:1}"
   fi
 
   return 0
