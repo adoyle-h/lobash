@@ -11,6 +11,7 @@
 - [Why source script, not execute command?](#why-source-script-not-execute-command)
 - [Bash is outdated!](#bash-is-outdated)
 - [What is the different between echo true/false and return 0/1?](#what-is-the-different-between-echo-truefalse-and-return-01)
+- [sed: -e expression: Invalid character class name](#sed--e-expression-invalid-character-class-name)
 
 <!-- /MarkdownTOC -->
 
@@ -126,3 +127,10 @@ else
   echo "Not file"
 fi
 ```
+
+## sed: -e expression: Invalid character class name
+
+If you see `sed: -e expression #1, char 33: Invalid character class name` when building,
+it means you are using GNU-sed on MacOS.
+Invoke `which sed` to see the path of `sed`.
+To solve the problem, you should use BSD-sed on MacOS, or GNU-sed on Linux.

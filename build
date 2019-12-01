@@ -5,8 +5,6 @@ set -o errexit
 set -o nounset
 set -o pipefail
 (shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
-[[ -n "${VERBOSE:-}" ]] && set -o verbose
-[[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
 
 readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 
@@ -87,14 +85,14 @@ init_module() {
 }
 
 init_with_config_file() {
-  read -r BASH_MIN_VERSION < <(grep -E '^BASH_MIN_VERSION:' "$config_path" | sed -E 's/^BASH_MIN_VERSION: ?(.+)/\1/')
+  read -r BASH_MIN_VERSION < <(grep -E '^BASH_MIN_VERSION:' "$CONFIG_PATH" | sed -E 's/^BASH_MIN_VERSION: ?(.+)/\1/')
   check_bash_version
   echo -e "${GREY}Build Lobash for Bash ${BASH_MIN_VERSION}+${RESET_ALL}"
 
   module_names=()
 
   local category_names module_name
-  readarray -t category_names < <(grep -E '^- \[x\]' "$config_path" | sed -E 's/^- \[x\] +(.+)/\1/')
+  readarray -t category_names < <(grep -E '^- \[x\]' "$CONFIG_PATH" | sed -E 's/^- \[x\] +(.+)/\1/')
 
   for category_name in "${category_names[@]}"; do
     echo -e "${GREY}To import category ${category_name}${RESET_ALL}"
@@ -105,9 +103,35 @@ init_with_config_file() {
 
   while read -r module_name; do
     init_module "$module_name"
-  done < <(grep -E '^  - \[x\]' "$config_path" | sed -E 's/^  - \[x\] +(.+)/\1/')
+  done < <(grep -E '^  - \[x\]' "$CONFIG_PATH" | sed -E 's/^  - \[x\] +(.+)/\1/')
 
   module_names=( $(l.union_array module_names) )
+}
+
+# Supported functions: VERBOSE_1, VERBOSE_2, VERBOSE_3, VERBOSE_4
+# Usage: VERBOSE_i <message>
+# ./build -v=3
+# ./build -v
+init_verbose() {
+  if [[ -n ${opts[v]:-} ]]; then
+    if [[ ${opts[v]} == true ]]; then
+      VERBOSE=1
+    else
+      VERBOSE=${opts[v]}
+    fi
+  else
+    VERBOSE=0
+  fi
+
+  local i=1
+  while (( i <= 4 )); do
+    if (( i <= VERBOSE )); then
+      eval "VERBOSE_$i() { printf '%b[v=$i][%s:%s] %s%b\n' \"\$GREY\" \"\${BASH_LINENO}\" \"\${FUNCNAME[1]}\" \"\$1\" \"\$RESET_ALL\"; }"
+    else
+      eval "VERBOSE_$i() { true; }"
+    fi
+    i=$(( i + 1 ))
+  done
 }
 
 init() {
@@ -122,12 +146,14 @@ init() {
   fi
 
   if [[ -n ${opts[c]:-} ]]; then
-    config_path=${opts[c]}
+    CONFIG_PATH=${opts[c]}
   elif [[ -n ${opts[config]:-} ]]; then
-    config_path=${opts[config]}
+    CONFIG_PATH=${opts[config]}
   fi
 
-  if [[ -z ${config_path:-} ]]; then
+  init_verbose
+
+  if [[ -z ${CONFIG_PATH:-} ]]; then
     init_bash_min_version
     module_names=()
     for path in "$SCRIPT_DIR"/src/modules/*.bash; do
@@ -135,16 +161,17 @@ init() {
       module_names+=("$module_name")
     done
   else
-    if [[ ! -f ${config_path} ]]; then
-      echo "Not found config file in path: $config_path" >&2
+    if [[ ! -f ${CONFIG_PATH} ]]; then
+      echo "Not found config file in path: $CONFIG_PATH" >&2
       return 3
     fi
-    echo "Found config: $config_path"
+    echo "Found config: $CONFIG_PATH"
     init_with_config_file
   fi
-  # echo -e "${GREY}To import modules: ${module_names[*]}${RESET_ALL}"
+  VERBOSE_1 "To import modules: ${module_names[*]}"
 
   PREFIX=${PREFIX:-l.}
+  VERBOSE_1 "PREFIX=$PREFIX"
   OVERWRITE=${OVERWRITE:-no}
 
   if ! is_valid_lobash_prefix "$PREFIX"; then
@@ -152,14 +179,30 @@ init() {
     return 4
   fi
 
+  VERBOSE_1 "_LOBASH_OS=$_LOBASH_OS"
+
   VERSION=$(cat "$SCRIPT_DIR/version")
+  VERBOSE_1 "VERSION=$VERSION"
   # LOBASH_POUCH_TIME must never change
   LOBASH_POUCH_TIME=1561389473
 
   UNIQ_KEY=${VERSION//[^[:alnum:]]/_}_$(( $(date '+%s') - LOBASH_POUCH_TIME ))_$RANDOM
+  VERBOSE_1 "UNIQ_KEY=$UNIQ_KEY"
+
+  if [[ $_LOBASH_OS == 'Linux' ]]; then
+    WORD_BOUNDARY='\b'
+  elif [[ $_LOBASH_OS == 'MacOS' ]]; then
+    WORD_BOUNDARY='[[:<:]]'
+  else
+    echo "Unexpected _LOBASH_OS=$_LOBASH_OS" >&2
+    exit 3
+  fi
+  VERBOSE_1 "WORD_BOUNDARY=$WORD_BOUNDARY"
+  VERBOSE_1 "_LOBASH_PUBLIC_CONST_PREFIX=$_LOBASH_PUBLIC_CONST_PREFIX"
 }
 
 clean() {
+  VERBOSE_1 "To clean"
   if [[ $OVERWRITE != yes ]] && [[ -f $TARGET ]]; then
     local answer
     answer=$(l.ask "Existed file: ${TARGET}. Overwrite it?" N)
@@ -174,7 +217,9 @@ clean() {
     esac
   fi
 
+  VERBOSE_1 "To rm $TARGET"
   _lobash.rm "$TARGET"
+  VERBOSE_1 "Removed $TARGET"
   mkdir -p "$(dirname "$TARGET")"
 }
 
@@ -188,25 +233,22 @@ fwrite() {
   local prefixes="${_LOBASH_INTERNAL_FUNC_PREFIX}|${_LOBASH_INTERNAL_CONST_PREFIX}|${_LOBASH_PRIVATE_FUNC_PREFIX}|${_LOBASH_PRIVATE_CONST_PREFIX}|${_LOBASH_PUBLIC_FUNC_PREFIX}"
   prefixes=${prefixes//\./\\.}
 
-  local word_boundary
-  if [[ $_LOBASH_OS == 'Linux' ]]; then
-    word_boundary='\b'
-  elif [[ $_LOBASH_OS == 'MacOS' ]]; then
-    word_boundary='[[:<:]]'
-  else
-    echo "Unexpected _LOBASH_OS=$_LOBASH_OS" >&2
-  fi
-
   local public_const_prefix=${PREFIX//[^[:alnum:]]/_}
   public_const_prefix=${public_const_prefix^^}
 
+  VERBOSE_2 "To read content from $1"
+  VERBOSE_3 "sed -E \"/^# /d;s/${WORD_BOUNDARY}($prefixes)([_a-zA-Z0-9]+)/\\1${UNIQ_KEY}_\\2/g\""
+  VERBOSE_3 "sed -E \"s/${WORD_BOUNDARY}${_LOBASH_PUBLIC_CONST_PREFIX}([_a-zA-Z0-9]+)/${public_const_prefix}\\1/g\""
+
   <"$1" \
-    sed -E "/^# /d;s/${word_boundary}($prefixes)([_a-zA-Z0-9]+)/\\1${UNIQ_KEY}_\\2/g" \
-    | sed -E "s/${word_boundary}${_LOBASH_PUBLIC_CONST_PREFIX}([_a-zA-Z0-9]+)/${public_const_prefix}\\1/g" \
+    sed -E "/^# /d;s/${WORD_BOUNDARY}($prefixes)([_a-zA-Z0-9]+)/\\1${UNIQ_KEY}_\\2/g" \
+    | sed -E "s/${WORD_BOUNDARY}${_LOBASH_PUBLIC_CONST_PREFIX}([_a-zA-Z0-9]+)/${public_const_prefix}\\1/g" \
     >> "$TARGET"
 }
 
 generate() {
+  VERBOSE_1 "To generate lobash file"
+  VERBOSE_1 "To write header"
   write '# This file is generated by https://github.com/adoyle-h/lobash'
   write '# Author: ADoyle <adoyle.h@gmail.com>'
   write '# License: Apache License Version 2.0'
@@ -227,9 +269,11 @@ generate() {
   write ''
   write '######################## Lobash Internals ########################'
 
+  VERBOSE_1 "To load src/internals/basic_internals.bash"
   # shellcheck source=./src/internals/basic_internals.bash
   source "$SCRIPT_DIR"/src/internals/basic_internals.bash
 
+  printf '%s\n' "Writing Lobash Internals..."
   for name in "${_LOBASH_DIST_INTERNALS[@]}"; do
     fwrite "$SCRIPT_DIR/src/internals/$name.bash"
   done

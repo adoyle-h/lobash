@@ -78,7 +78,7 @@ VERSION=v0.3.1
 git clone --depth 1 --branch $VERSION https://github.com/adoyle-h/lobash.git
 cd lobash
 # This step is optional. Clone submodules only if you want to run test cases.
-git submodule update --init --recursive
+git submodule update --init --recursive --progress
 ```
 
 ## Prerequisites
