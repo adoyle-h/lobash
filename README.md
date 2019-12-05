@@ -63,6 +63,7 @@ and make it compatible with Bash 4.0+ and MacOS/Linux/Alpine/Busybox systems.
 ## Build Status
 
 - [Test Branch](https://github.com/adoyle-h/lobash/tree/test): [![Build Status](https://travis-ci.com/adoyle-h/lobash.svg?branch=test)][travis repo]
+- [v0.4.0](https://github.com/adoyle-h/lobash/tree/v0.4.0): [![Build Status](https://travis-ci.com/adoyle-h/lobash.svg?branch=v0.4.0)][travis repo]
 
 ## [ChangeLog](./CHANGELOG.md)
 
