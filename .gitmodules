@@ -7,3 +7,6 @@
 [submodule "tests/fixture/bats"]
 	path = tests/fixture/bats
 	url = https://github.com/bats-core/bats-core.git
+[submodule "deps/semver"]
+	path = deps/semver
+	url = https://github.com/fsaintjacques/semver-tool.git

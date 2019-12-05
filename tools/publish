@@ -1,0 +1,105 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o nounset
+set -o pipefail
+(shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
+
+readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+
+# shellcheck source=./colors.bash
+source "$SCRIPT_DIR/colors.bash"
+# shellcheck source=../src/load_internals.bash
+source "$SCRIPT_DIR/../src/load_internals.bash"
+_lobash.imports ask choose parse_params array_include union_array
+
+usage() {
+  cat <<EOF
+Usage: $0 [-h] <type>
+
+Description: A tool for releasing Lobash to github
+
+Arguments:
+type        Valid values: "major", "minor", "patch"
+
+Options:
+-h          Show usage
+EOF
+}
+
+bump() {
+  "$SCRIPT_DIR"/../deps/semver/src/semver bump "$1" "$2"
+}
+
+publish() {
+  echo "To prepare for publish"
+  git checkout master
+  git rebase origin/master
+  git merge develop
+  git tag -s -m 'See [changelog](https://github.com/adoyle-h/lobash/blob/master/CHANGELOG.md)' "$version"
+
+
+  local answer
+  answer=$(l.ask "Publish to remote?" Y)
+  echo -e "${GREY}$answer${RESET_ALL}"
+  if [[ $answer == NO ]]; then
+    echo "Check your workspace changed files and git commits/tags"
+    exit 0
+  fi
+
+  git push origin develop
+  git push origin master
+  git push origin "$version"
+}
+
+refresh_documents() {
+  echo "To refresh documents"
+  "$SCRIPT_DIR"/gen
+  local changed
+  changed=$(git diff --name-only)
+  if [[ -n $changed ]]; then
+    git add .
+    git commit -m 'docs: update modules docs'
+  fi
+}
+
+_update_module_version() {
+  local filepath=$1
+  sed -i'' "s/^# Since:/# Since: $version" "$filepath"
+}
+
+update_module_version() {
+  find "$SCRIPT_DIR"/../src/modules -type f -name '*.bash' -exec _update_module_version {} \;
+}
+
+main() {
+  if (( $# == 0 ))|| [[ $1 == -h ]]; then
+    usage
+    exit 0
+  fi
+
+  cd "$SCRIPT_DIR"/..
+
+  local ver_type=${1}
+  local previous_version
+  previous_version=$(git tag --sort=-version:refname | grep '^v\d' | head -n1)
+  echo "previous_version=$previous_version"
+
+  local version
+  version=$(bump "$ver_type" "$previous_version")
+  echo "next version=$version"
+
+  local answer
+  answer=$(l.ask "Continue to publish?" Y)
+  echo -e "${GREY}$answer${RESET_ALL}"
+
+  if [[ $answer == NO ]]; then
+    exit 0
+  fi
+
+  update_module_version
+  refresh_documents
+  publish
+}
+
+main "$@"
