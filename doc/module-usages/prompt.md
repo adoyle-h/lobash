@@ -6,22 +6,25 @@
 
 - [ask](#ask)
 - [ask_input](#ask_input)
+- [ask_with_cancel](#ask_with_cancel)
 - [choose](#choose)
 
 ## Modules
 
 ### ask
 
-- Usage: `l.ask <message> [<default>=Y]`
+- Usage: `l.ask <message> [<default>='']`
 - Description:
-  - Print a message and read Yes/No answer from stdin.
-  - It prints 'YES' when get answer y/Y/ye/Ye/yE/YE/yes/yES/yeS/YeS/Yes/YEs/YES.
-  - It prints 'NO' when get answer n/N/no/No/nO/NO.
-  - It prints default value when get empty answer.
-  - It prints 'Invalid Answer' when get other answers.
-  - When default=Y, if will return YES by default.
-  - When default=N, if will return NO by default.
-- Dependent: [`lower_case`](./string.md#lower_case)
+  - Print the message to tty and wait for user typing from stdin.
+  - It will print 'YES' when user types y/Y/ye/Ye/yE/YE/yes/yES/yeS/YeS/Yes/YEs/YES.
+  - It will print 'NO' when user types n/N/no/No/nO/NO.
+  - It will print the default value when get empty answer if default is not empty.
+  - When default=Y, it prints 'YES' by default.
+  - When default=N, it prints 'NO' by default.
+  - When default='', there is no default value. It will keep asking until user typed right answer.
+  - **Attention: "echo invalid_string | l.ask message" will fall into a infinite loop.**
+  - "echo y | l.ask message" and "echo n | l.ask message" are valid.
+- Dependent: [`start_with`](./condition.md#start_with) [`join`](./string.md#join)
 - Since: 0.1.0
 - Bash: 4.0+
 - Status: tested
@@ -40,6 +43,28 @@
 - Status: tested
 - Test Cases: [tests/modules/ask_input.bats](../../tests/modules/ask_input.bats)
 - Source Code: [src/modules/ask_input.bash](../../src/modules/ask_input.bash)
+
+### ask_with_cancel
+
+- Usage: `l.ask_with_cancel <message> [<default>='']`
+- Description:
+  - Print the message to tty and wait for user typing from stdin.
+  - It will print 'YES' when user types y/Y/ye/Ye/yE/YE/yes/yES/yeS/YeS/Yes/YEs/YES.
+  - It will print 'NO' when user types n/N/no/No/nO/NO.
+  - It will print 'CANCEL' when user types c/C/cancel/CANCEL.
+  - It prints default value when get empty answer.
+  - When default=Y, it prints 'YES' by default.
+  - When default=N, it prints 'NO' by default.
+  - When default='', there is no default value. It will keep asking until user typed right answer.
+  - **Attention: "echo invalid_string | l.ask message" will fall into a infinite loop.**
+  - "echo y | l.ask message" and "echo n | l.ask message" are valid.
+- Dependent: [`ask`](./prompt.md#ask)
+- Since: next-minor
+- Bash: 4.0+
+- Status: tested
+- Test Cases: [tests/modules/ask_with_cancel.bats](../../tests/modules/ask_with_cancel.bats)
+- Source Code: [src/modules/ask_with_cancel.bash](../../src/modules/ask_with_cancel.bash)
+- Executable Example: [example/modules/ask_with_cancel](../../example/modules/ask_with_cancel)
 
 ### choose
 

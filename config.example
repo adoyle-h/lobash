@@ -96,6 +96,7 @@ BASH_MIN_VERSION: 4.4
 - [ ]   Prompt
   - [ ] ask
   - [ ] ask_input
+  - [ ] ask_with_cancel
   - [ ] choose
 
 - [ ]   String

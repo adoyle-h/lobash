@@ -1,6 +1,6 @@
 # Module Usages
 
-15 Categories, 114 Modules, 637 Test Cases.
+15 Categories, 115 Modules, 642 Test Cases.
 
 Each module provides only one function which naming prefixed with `l.`.
 
@@ -101,6 +101,7 @@ Most Lobash modules support Bash 4.0+ except below modules.
 - [Prompt](./prompt.md)
   - [ask](./prompt.md#ask)
   - [ask_input](./prompt.md#ask_input)
+  - [ask_with_cancel](./prompt.md#ask_with_cancel)
   - [choose](./prompt.md#choose)
 - [String](./string.md)
   - [count_lines.p](./string.md#count_linesp)

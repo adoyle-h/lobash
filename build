@@ -38,11 +38,11 @@ init_bash_min_version() {
   set +e
   read -r -d '' text <<EOF
 Default to generate Lobash for Bash 4.4+.
-If you want to run Lobash with lower-version Bash, enter "NO".
+If you want to run Lobash with lower-version Bash, enter "N".
 Use Lobash for Bash 4.4+?
 EOF
   set -e
-  use_defualt=$(l.ask "$text")
+  use_defualt=$(l.ask "$text" Y)
 
   if [[ $use_defualt == YES ]]; then
     BASH_MIN_VERSION=4.4
