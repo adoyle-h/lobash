@@ -18,6 +18,12 @@ BASHVER=4.0 ./build
 ```sh
 ./build /usr/local/lobash.bash
 # Generated Lobash file: /usr/local/lobash.bash
+
+./build /usr/local/
+# Generated Lobash file: /usr/local/lobash.bash
+
+./build /usr/local/l.bash
+# Generated Lobash file: /usr/local/l.bash
 ```
 
 ## Build Lobash with different PREFIX

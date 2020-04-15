@@ -8,6 +8,7 @@
 - [compose](#compose)
 - [parse_params](#parse_params)
 - [repeat](#repeat)
+- [trap_error](#trap_error)
 - [with_ifs](#with_ifs)
 
 ## Modules
@@ -60,6 +61,20 @@
 - Status: tested
 - Test Cases: [tests/modules/repeat.bats](../../tests/modules/repeat.bats)
 - Source Code: [src/modules/repeat.bash](../../src/modules/repeat.bash)
+
+### trap_error
+
+- Usage: `l.trap_error [trap_handler=_l.trap_error]`
+- Description:
+  - Show error line number of file when program exited by error.
+  - Make sure `set -o errtrace` and `set -o errexit` before using l.trap_error.
+  - You can change trap handler to your own function.
+- Since: next-minor
+- Bash: 4.0+
+- Status: tested
+- Test Cases: [tests/modules/trap_error.bats](../../tests/modules/trap_error.bats)
+- Source Code: [src/modules/trap_error.bash](../../src/modules/trap_error.bash)
+- Executable Example: [example/modules/trap_error](../../example/modules/trap_error)
 
 ### with_ifs
 

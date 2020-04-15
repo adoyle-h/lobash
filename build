@@ -145,15 +145,11 @@ init() {
     fi
   fi
 
-  if [[ -n ${opts[c]:-} ]]; then
-    CONFIG_PATH=${opts[c]}
-  elif [[ -n ${opts[config]:-} ]]; then
-    CONFIG_PATH=${opts[config]}
-  fi
+  CONFIG_PATH=${opts[c]:-${opts[config]:-}}
 
   init_verbose
 
-  if [[ -z ${CONFIG_PATH:-} ]]; then
+  if [[ -z ${CONFIG_PATH} ]]; then
     init_bash_min_version
     module_names=()
     for path in "$SCRIPT_DIR"/src/modules/*.bash; do

@@ -14,11 +14,11 @@
 - [Build Status](#build-status)
 - [ChangeLog](#changelog)
 - [FAQ](#faq)
-- [Installation](#installation)
 - [Prerequisites](#prerequisites)
     - [Supported Platform](#supported-platform)
     - [Supported Shells](#supported-shells)
     - [Dependencies](#dependencies)
+- [Installation](#installation)
 - [Usage](#usage)
     - [Build your lobash.bash](#build-your-lobashbash)
     - [Edit your scripts and set shell options](#edit-your-scripts-and-set-shell-options)
@@ -69,19 +69,6 @@ and make it compatible with Bash 4.0+ and MacOS/Linux/Alpine/Busybox systems.
 
 ## [FAQ](./doc/faq.md)
 
-## Installation
-
-Available Lobash versions refer to [Git Tags](https://github.com/adoyle-h/lobash/tags) which named like "vX.Y.Z".
-
-```sh
-VERSION=v0.3.1
-# Download source codes
-git clone --depth 1 --branch $VERSION https://github.com/adoyle-h/lobash.git
-cd lobash
-# This step is optional. Clone submodules only if you want to run test cases.
-git submodule update --init --recursive --progress
-```
-
 ## Prerequisites
 
 ### Supported Platform
@@ -131,6 +118,19 @@ Make sure below dependencies have been installed.
   - sed/grep/mktemp/dirname/basename/cd/printf/echo/wc
   - sed: BSD and GNU are both supported
 
+## Installation
+
+Available Lobash versions refer to [Git Tags](https://github.com/adoyle-h/lobash/tags) which named like "vX.Y.Z".
+
+```sh
+VERSION=v0.4.1
+# Download source codes
+git clone --depth 1 --branch $VERSION https://github.com/adoyle-h/lobash.git
+cd lobash
+# This step is optional. Clone submodules only if you want to run test cases.
+git submodule update --init --recursive --progress
+```
+
 ## Usage
 
 ### Build your lobash.bash
@@ -146,7 +146,7 @@ First, build your own `lobash.bash` file by `./build`.
 ./build <target-path>
 ```
 
-See [./doc/build.md](./doc/build.md) for more details.
+**See [./doc/build.md](./doc/build.md) for more details.**
 
 ### Edit your scripts and set shell options
 
@@ -172,6 +172,7 @@ Second, load your own `lobash.bash` file in your scripts and all Lobash function
 set -o errexit
 set -o nounset
 set -o pipefail
+set -o errtrace  # You can remove this line if you do not use l.trap_error.
 (shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
 
 # It will load all Lobash modules
@@ -195,7 +196,11 @@ sys     0m0.036s
 
 ### Module Usages
 
-See all module usages in [./doc/module-usages/][module-usages]
+See available modules and categories in [config.example](./config.example).
+
+See all module usages in [./doc/module-usages/][module-usages].
+
+See all module examples in [./example/modules](./example/modules).
 
 ## Advanced Usages
 

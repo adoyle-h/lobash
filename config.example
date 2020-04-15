@@ -144,6 +144,7 @@ BASH_MIN_VERSION: 4.4
   - [ ] compose
   - [ ] parse_params
   - [ ] repeat
+  - [ ] trap_error
   - [ ] with_ifs
 
 - [ ]   Variable
