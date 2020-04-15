@@ -2,4 +2,5 @@ benchmark
 compose
 parse_params
 repeat
+trap_error
 with_ifs

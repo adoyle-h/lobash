@@ -1,6 +1,6 @@
 # Module Usages
 
-15 Categories, 115 Modules, 642 Test Cases.
+15 Categories, 116 Modules, 643 Test Cases.
 
 Each module provides only one function which naming prefixed with `l.`.
 
@@ -144,6 +144,7 @@ Most Lobash modules support Bash 4.0+ except below modules.
   - [compose](./util.md#compose)
   - [parse_params](./util.md#parse_params)
   - [repeat](./util.md#repeat)
+  - [trap_error](./util.md#trap_error)
   - [with_ifs](./util.md#with_ifs)
 - [Variable](./variable.md)
   - [cur_function_name](./variable.md#cur_function_name)
