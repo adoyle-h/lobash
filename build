@@ -275,9 +275,10 @@ generate() {
   for name in "${_LOBASH_DIST_INTERNALS[@]}"; do
     fwrite "$SCRIPT_DIR/src/internals/$name.bash"
   done
-  write "_LOBASH_${UNIQ_KEY}_PREFIX=$PREFIX"
-  write "_LOBASH_${UNIQ_KEY}_PUBLIC_DEPTH=2"
-  write "_LOBASH_${UNIQ_KEY}_MIN_BASHVER=$BASH_MIN_VERSION"
+
+  sed -i '' -E "s/^readonly _LOBASH_${UNIQ_KEY}_PREFIX=.+/readonly _LOBASH_${UNIQ_KEY}_PREFIX=$PREFIX/" "$TARGET"
+  sed -i '' -E "s/^readonly _LOBASH_${UNIQ_KEY}_PUBLIC_DEPTH=.+/readonly _LOBASH_${UNIQ_KEY}_PUBLIC_DEPTH=2/" "$TARGET"
+  sed -i '' -E "s/^readonly _LOBASH_${UNIQ_KEY}_MIN_BASHVER=.+/readonly _LOBASH_${UNIQ_KEY}_MIN_BASHVER=$BASH_MIN_VERSION/" "$TARGET"
 
   write ''
   write '######################## Private Methods ########################'
