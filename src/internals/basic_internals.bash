@@ -9,8 +9,8 @@
 # shellcheck source=./import.bash
 _LOBASH_BASIC_INTERNALS=(
   detect_os
-  is_bash
   consts
+  is_bash
   check_support
   dirname
   debug
@@ -22,9 +22,11 @@ _LOBASH_BASIC_INTERNALS=(
 
 # for build Lobash
 _LOBASH_DIST_INTERNALS=(
+  # detect_os must be put before consts
   detect_os
-  is_bash
+  # consts must be second
   consts
+  is_bash
   check_support
   dirname
   with_ifs
