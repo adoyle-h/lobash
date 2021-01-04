@@ -85,6 +85,8 @@ init_module() {
 }
 
 init_with_config_file() {
+  read -r PREFIX < <(grep -E '^PREFIX:' "$CONFIG_PATH" | sed -E 's/^PREFIX: ?(.+)/\1/')
+
   read -r BASH_MIN_VERSION < <(grep -E '^BASH_MIN_VERSION:' "$CONFIG_PATH" | sed -E 's/^BASH_MIN_VERSION: ?(.+)/\1/')
   check_bash_version
   echo -e "${GREY}Build Lobash for Bash ${BASH_MIN_VERSION}+${RESET_ALL}"
