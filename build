@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
-# Supported Bash: 4.0+
+# This script should support Bash: 4.0+
 
 set -o errexit
 set -o nounset
 set -o pipefail
+set -o errtrace
 (shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
 
 readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
@@ -329,7 +330,12 @@ generate() {
 
 declare -A opts=()
 declare -a args=()
-l.parse_params opts args "$@"
-init
-clean
-generate
+
+main() {
+  l.parse_params opts args "$@"
+  init
+  clean
+  generate
+}
+
+main "$@"

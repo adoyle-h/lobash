@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Supported Bash: 4.0+
+# This script should support Bash: 4.0+
 
 set -o errexit
 set -o nounset
