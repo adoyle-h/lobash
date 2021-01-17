@@ -211,7 +211,8 @@ See all module examples in [./example/modules](./example/modules).
 ```sh
 cp config.example config
 # The "config" file is ignored by git
-# Edit config, select BASH_MIN_VERSION and modules to export
+
+# Edit config, set PREFIX, BASH_MIN_VERSION and modules for building
 
 ./build -c ./config
 ```

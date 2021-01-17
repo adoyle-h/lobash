@@ -7,7 +7,11 @@ set -o pipefail
 set -o errtrace
 (shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
 
-readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+if [[ -L $0 ]]; then
+  readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$(readlink "$0")")" && pwd -P)"
+else
+  readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+fi
 
 # shellcheck source=./tools/colors.bash
 source "$SCRIPT_DIR/tools/colors.bash"

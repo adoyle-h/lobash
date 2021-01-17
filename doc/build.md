@@ -37,3 +37,15 @@ When you use Lobash to build a library or framework, it is necessary to set `PRE
 When you build a command, `PREFIX` is unnecessary.
 
 The `PREFIX` only effect Lobash public functions and variables names.
+
+## Build Lobash with config file
+
+`./build` will export all modules by default. You can export specific modules with `-c <config>` option.
+
+```sh
+cp config.example config
+
+# Edit config, set PREFIX, BASH_MIN_VERSION and modules for building
+
+./build -c ./config
+```
