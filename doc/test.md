@@ -24,10 +24,10 @@
 ./test ./tests/modules/${module_name}.bats
 
 # Build Lobash and run all test cases with Lobash dist in local
-./build && ./test -d
+./build ./dist && ./test -d
 
 # Build Lobash and run specific test cases with Lobash dist in local
-./build && ./test ./tests/modules/${module_name}.bats
+./build ./dist && ./test ./tests/modules/${module_name}.bats
 ```
 
 ## Test with different Bash versions in local
@@ -50,6 +50,9 @@ BASHVER=4.0 ./tools/test-in-docker
 # Build Lobash for Bash 4.0+, test with Lobash source codes in docker with Bash 4.0
 BASHVER=4.0 ./tools/test-in-docker ./tests/modules/${module_name}.bats
 
+# Add IN_CHINA=true if you are in China
+IN_CHINA=true BASHVER=4.0 ./tools/test-in-docker
+
 # Build Lobash for Bash 4.0+, test Lobash dist in docker with Bash 4.0
 BASHVER=4.0 BUILD_DIST=true ./tools/test-in-docker
 
@@ -63,7 +66,11 @@ BASHVER=4.0 BUILD_DIST=true ./tools/test-in-docker ./tests/modules/${module_name
 # Default to BASHVER=4.4
 ./tools/build-test-image
 
+# Build image with bash 4.0
 BASHVER=4.0 ./tools/build-test-image
+
+# Build image via proxy if you are in China
+IN_CHINA=true ./tools/build-test-image
 ```
 
 ## Test with different Bash versions in Docker

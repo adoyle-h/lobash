@@ -3,16 +3,27 @@
 set -o errexit
 set -o nounset
 set -o pipefail
+set -o errtrace
 (shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
-[[ -n "${VERBOSE:+x}" ]] && set -o verbose
-[[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
 
 readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 
 main() {
   local version="${BASHVER:-4.4}"
   export VERSION="$version"
-  envsubst < "$SCRIPT_DIR"/test.dockerfile | docker build "$@" -t lobash/test-bash:"$version" -
+
+  local docker_args=(
+    -t "lobash/test-bash:$version"
+  )
+
+  if [[ -n ${IN_CHINA:-} ]]; then
+    docker_args+=(
+      --build-arg APK_PROXY=true
+      --build-arg GH_PROXY=https://ghproxy.com/
+    )
+  fi
+
+  envsubst < "$SCRIPT_DIR"/test.dockerfile | docker build "$@" "${docker_args[@]}" -
 }
 
 main "$@"

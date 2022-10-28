@@ -64,7 +64,7 @@ script:
       fi
 
       echo "To build ./dist/lobash.bash"
-      bash ./build
+      bash ./build ./dist/
       echo "Start to test in MacOS Bash"
       time bash ./test -d
     fi

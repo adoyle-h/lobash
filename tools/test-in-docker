@@ -13,11 +13,11 @@ echo "[test-in-docker] BASHVER=${BASHVER:=4.4}"
 
 if [[ -z $(docker images -q lobash/test-bash:"${BASHVER}") ]]; then
   echo "To build image lobash/test-bash:${BASHVER}"
-  BASHVER=$BASHVER "$SCRIPT_DIR/build-image"
+  BASHVER=$BASHVER IN_CHINA=${IN_CHINA:-} "$SCRIPT_DIR/build-test-image"
 fi
 
 if [[ -n ${BUILD_DIST:-} ]]; then
-  cmd='/lobash/build && /lobash/test -d'
+  cmd='/lobash/build /lobash/dist/ && /lobash/test -d'
 else
   cmd='/lobash/test'
 fi
