@@ -17,9 +17,9 @@ if [[ -z $(docker images -q lobash/test-bash:"${BASHVER}") ]]; then
 fi
 
 if [[ -n ${BUILD_DIST:-} ]]; then
-  cmd='/lobash/build /lobash/dist/ && /lobash/test -d'
+  cmd='mkdir dist && ./build ./dist && ./test -d'
 else
-  cmd='/lobash/test'
+  cmd='./test'
 fi
 
 if (( $# > 0 )); then
