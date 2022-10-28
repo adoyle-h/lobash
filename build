@@ -172,7 +172,27 @@ init_verbose() {
   done
 }
 
+usage() {
+  cat <<EOF
+Usage: $0 [OPTIONS] [<output>]
+
+Options:
+  -h, --help      Show usage.
+  -c, --config    Config file for building. If set, option "-p" will not work.
+  -p <prefix>     Prefix of variable names. [Default: l.]
+  -y, --yes       Overwrite output.
+  -v <level>      Show verbose. 0 means off. [Value: 0~4] [Default: 0]
+
+Arguments:
+  output   Output the lobash.bash file
+EOF
+}
+
 init() {
+  if [[ ${opts[h]:-${opts[help]:-}} == true ]]; then
+    usage
+  fi
+
   if (( ${#args[@]} == 0 )); then
     TARGET=$PWD/lobash.bash
   else
@@ -186,6 +206,8 @@ init() {
   CONFIG_PATH=${opts[c]:-${opts[config]:-}}
 
   init_verbose
+
+  PREFIX=${opts[p]:-${PREFIX:-l.}}
 
   if [[ -z ${CONFIG_PATH} ]]; then
     init_bash_min_version
@@ -202,11 +224,9 @@ init() {
     echo "Found config: $CONFIG_PATH"
     init_with_config_file
   fi
-  VERBOSE_1 "To import modules: ${module_names[*]}"
 
-  PREFIX=${PREFIX:-l.}
-  VERBOSE_1 "PREFIX=$PREFIX"
-  OVERWRITE=${OVERWRITE:-no}
+  VERBOSE_1 "BASH_MIN_VERSION=$BASH_MIN_VERSION PREFIX=$PREFIX"
+  VERBOSE_1 "To import modules: ${module_names[*]}"
 
   if ! is_valid_lobash_prefix "$PREFIX"; then
     echo -e "${RED}Invalid PREFIX=\"$PREFIX\". PREFIX must end with one of '_', '-', '.'${RESET_ALL}" >&2
@@ -236,8 +256,10 @@ init() {
 }
 
 clean() {
-  VERBOSE_1 "To clean"
-  if [[ $OVERWRITE != yes ]] && [[ -f $TARGET ]]; then
+  local OVERWRITE=${opts[y]:-${opts[yes]:-${OVERWRITE:-false}}}
+  VERBOSE_1 "To clean with OVERWRITE=${OVERWRITE}"
+
+  if [[ $OVERWRITE != true ]] && [[ -f $TARGET ]]; then
     local answer
     answer=$(l.ask "Existed file: ${TARGET}. Overwrite it?" N)
     echo -e "${GREY}$answer${RESET_ALL}"

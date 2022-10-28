@@ -36,6 +36,7 @@
 - [Contributions](#contributions)
 - [Versioning](#versioning)
 - [Copyright and License](#copyright-and-license)
+- [Other Projects](#other-projects)
 
 <!-- /MarkdownTOC -->
 
@@ -136,6 +137,8 @@ sudo ln -s "$PWD/build" /usr/local/bin/lobash-gen
 
 ## Usage
 
+`lobash-gen -h` show help.
+
 ### Build your lobash.bash
 
 First, build your own `lobash.bash` file by `./build`.
@@ -143,7 +146,7 @@ First, build your own `lobash.bash` file by `./build`.
 ```sh
 # Interactive build process, import all Lobash modules
 lobash-gen
-# Generated Lobash file: <lobash-dir>/dist/lobash.bash
+# Generated Lobash file: <lobash-dir>/lobash.bash
 
 # Or build Lobash to specific path
 lobash-gen <target-path>
@@ -181,10 +184,10 @@ set -o errtrace  # You can remove this line if you do not use l.trap_error.
 
 # It will load all Lobash modules
 source <path-to-lobash.bash>
-# Call l.<module_name> when build lobash.bash with default PREFIX
+# Call l.<module_name> when "lobash-gen"
 l.ask 'Hello Lobash?'
 
-# Call lobash.<module_name> when build lobash.bash with PREFIX=lobash_
+# Call lobash.<module_name> when "lobash-gen -p lobash_"
 # lobash_ask 'Hello Lobash?'
 ```
 
@@ -313,6 +316,10 @@ The project is licensed under the **Apache License Version 2.0**.
 See the [LICENSE][] file for the specific language governing permissions and limitations under the License.
 
 See the [NOTICE][] file distributed with this work for additional information regarding copyright ownership.
+
+## Other Projects
+
+[Other shell projects](https://github.com/adoyle-h?tab=repositories&q=&type=source&language=shell&sort=stargazers) created by me.
 
 
 <!-- Links -->

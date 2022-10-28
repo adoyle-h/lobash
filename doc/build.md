@@ -27,16 +27,16 @@ BASHVER=4.0 ./build
 ```
 
 ## Build Lobash with different PREFIX
+When you use Lobash to build a library or framework, it is necessary to set PREFIX with unique namespace for avoiding naming collisions.
 
 ```sh
-# Or build Lobash to specific path and change Lobash function prefix which defaults to "l."
-PREFIX=lobash_ ./build <target-path>
+# The prefix defaults to "l.". Build Lobash with prefix "lobash_".
+./build -p lobash_
 ```
 
-When you use Lobash to build a library or framework, it is necessary to set `PREFIX` with unique namespace for avoiding naming collisions.
-When you build a command, `PREFIX` is unnecessary.
+The PREFIX only effect Lobash public functions and variables names.
 
-The `PREFIX` only effect Lobash public functions and variables names.
+If use Lobash in a command, it's unnecessary to change the PREFIX.
 
 ## Build Lobash with config file
 

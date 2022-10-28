@@ -35,6 +35,7 @@ done
 
 echo "------Use Options------"
 
+# NOTE: Use ${opts[c]:-} instead of ${opts[c]}. If `set -o nounset`, ${opts[c]} will throw error when option omitted.
 if [[ -n ${opts[c]:-} ]]; then
   echo "c=${opts[c]}"
 fi
