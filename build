@@ -190,14 +190,15 @@ usage() {
 Usage: $0 [OPTIONS] [<output>]
 
 Options:
-  -h, --help      Show usage.
-  -c, --config    Config file for building. If set, option "-p" will not work.
-  -p <prefix>     Prefix of variable names. [Default: l.]
-  -y, --yes       Overwrite output.
-  -v <level>      Show verbose. 0 means off. [Value: 0~4] [Default: 0]
+  -h, --help                     Show usage.
+  -c, --config                   Config file for building. If set, option "-p" will not work.
+  -p <prefix>                    Prefix of variable names. [Default: l.]
+  -y, --yes                      Overwrite output.
+  -v <level>                     Show verbose. 0 means off. [Value: 0~4] [Default: 0]
+  -m <BASHVER>, --min <BASHVER>  Generated lobash supports the minimum version of Bash
 
 Arguments:
-  output   Output the lobash.bash file
+  <output>  Output the lobash.bash file
 EOF
 }
 
@@ -205,6 +206,8 @@ init() {
   if [[ ${opts[h]:-${opts[help]:-}} == true ]]; then
     usage
   fi
+
+  init_verbose
 
   if (( ${#args[@]} == 0 )); then
     TARGET=$PWD/lobash.bash
@@ -216,11 +219,9 @@ init() {
     fi
   fi
 
-  CONFIG_PATH=${opts[c]:-${opts[config]:-}}
-
-  init_verbose
-
   PREFIX=${opts[p]:-${PREFIX:-l.}}
+  CONFIG_PATH=${opts[c]:-${opts[config]:-}}
+  BASHVER=${opts[m]:-${opts[min]:-${BASHVER:-}}}
 
   if [[ -z ${CONFIG_PATH} ]]; then
     init_bash_min_version
@@ -238,7 +239,7 @@ init() {
     init_with_config_file
   fi
 
-  VERBOSE_1 "BASH_MIN_VERSION=$BASH_MIN_VERSION PREFIX=$PREFIX"
+  VERBOSE_1 "BASH_MIN_VERSION=$BASH_MIN_VERSION PREFIX=$PREFIX TARGET=$TARGET"
   VERBOSE_1 "To import modules: ${module_names[*]}"
 
   if ! is_valid_lobash_prefix "$PREFIX"; then
