@@ -10,6 +10,11 @@ load_module str_include.s
 	assert_output true
 }
 
+@test "l.str_include.s hello ''" {
+  run l.str_include.s hello ''
+	assert_success
+	assert_output true
+}
 
 @test "l.str_include.s hello ' he'" {
   run l.str_include.s hello ' he'
