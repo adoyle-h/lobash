@@ -44,15 +44,9 @@ load_module now
   elapsed=$(( now - last ))
 
   local flag=false
-  if [[ -n ${CI:-} ]]; then
-    # Travis CI has low performance, so +100ms
-    if [[ $elapsed -gt 950 ]] && [[ $elapsed -lt 1150 ]]; then
-      flag=true
-    fi
-  else
-    if [[ $elapsed -gt 950 ]] && [[ $elapsed -lt 1050 ]]; then
-      flag=true
-    fi
+  # Some machine has low performance, so +-150ms
+  if [[ $elapsed -gt 850 ]] && [[ $elapsed -lt 1150 ]]; then
+    flag=true
   fi
 
   if [[ $flag == false ]]; then
@@ -73,15 +67,9 @@ load_module now
   elapsed=$(( now - last ))
 
   local flag=false
-  if [[ -n ${CI:-} ]]; then
-    # Travis CI has low performance, so +100ms
-    if [[ $elapsed -gt 1950 ]] && [[ $elapsed -lt 2150 ]]; then
-      flag=true
-    fi
-  else
-    if [[ $elapsed -gt 1950 ]] && [[ $elapsed -lt 2050 ]]; then
-      flag=true
-    fi
+  # Some machine has low performance, so +-150ms
+  if [[ $elapsed -gt 1850 ]] && [[ $elapsed -lt 2150 ]]; then
+    flag=true
   fi
 
   if [[ $flag == false ]]; then
