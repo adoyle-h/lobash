@@ -27,7 +27,7 @@ if (( $# > 0 )); then
 fi
 
 docker run \
-  --rm \
+  --rm -t \
   -e DOCKER=true \
   -e CI="${CI:-}" \
   -e BASHVER=$BASHVER \
