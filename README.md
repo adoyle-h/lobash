@@ -129,6 +129,9 @@ git clone --depth 1 --branch $VERSION https://github.com/adoyle-h/lobash.git
 cd lobash
 # This step is optional. Clone submodules only if you want to run test cases.
 git submodule update --init --recursive --progress
+
+# Copy it to somewhere in your path
+sudo ln -s "$PWD/build" /usr/local/bin/lobash-gen
 ```
 
 ## Usage
@@ -139,11 +142,12 @@ First, build your own `lobash.bash` file by `./build`.
 
 ```sh
 # Interactive build process, import all Lobash modules
-./build
+lobash-gen
 # Generated Lobash file: <lobash-dir>/dist/lobash.bash
 
 # Or build Lobash to specific path
-./build <target-path>
+lobash-gen <target-path>
+# Generated Lobash file: <target-path>
 ```
 
 **See [./doc/build.md](./doc/build.md) for more details.**
@@ -206,7 +210,7 @@ See all module examples in [./example/modules](./example/modules).
 
 ### Export specific modules with config
 
-`./build` will export all modules by default. You can export specific modules with `-c <config>` option.
+`lobash-gen` will export all modules by default. You can export specific modules with `-c <config>` option.
 
 ```sh
 cp config.example config
@@ -214,7 +218,7 @@ cp config.example config
 
 # Edit config, set PREFIX, BASH_MIN_VERSION and modules for building
 
-./build -c ./config
+lobash-gen -c ./config
 ```
 
 ## Command
@@ -302,7 +306,7 @@ For more information on SemVer, please visit http://semver.org/ .
 
 ## Copyright and License
 
-Copyright 2019-2021 ADoyle (adoyle.h@gmail.com) Some Rights Reserved.
+Copyright 2019-2022 ADoyle (adoyle.h@gmail.com) Some Rights Reserved.
 
 The project is licensed under the **Apache License Version 2.0**.
 
