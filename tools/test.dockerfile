@@ -1,3 +1,4 @@
+ARG VERSION
 FROM bash:$VERSION
 
 WORKDIR /test
@@ -5,17 +6,16 @@ WORKDIR /test
 ARG APK_PROXY
 ARG GH_PROXY
 
-RUN if [[ -n "${APK_PROXY:-}" ]]; then \
+RUN if [ -n "$APK_PROXY" ]; then \
   cp /etc/apk/repositories /etc/apk/repositories.bak && \
-  sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories && \
-  apk update ;\
+  sed -i "s|dl-cdn.alpinelinux.org|$APK_PROXY|g" /etc/apk/repositories ; \
   fi
 
-RUN apk add git
-RUN git clone --depth 1 --branch v1.1.0 ${GH_PROXY:-}https://github.com/bats-core/bats-core.git && \
+RUN apk update && apk add git
+RUN git clone --depth 1 --branch v1.1.0 ${GH_PROXY}https://github.com/bats-core/bats-core.git && \
   ./bats-core/install.sh /test/bats
-RUN git clone --depth 1 ${GH_PROXY:-}https://github.com/jasonkarns/bats-assert-1.git
-RUN git clone --depth 1 ${GH_PROXY:-}https://github.com/jasonkarns/bats-support.git
+RUN git clone --depth 1 ${GH_PROXY}https://github.com/jasonkarns/bats-assert-1.git
+RUN git clone --depth 1 ${GH_PROXY}https://github.com/jasonkarns/bats-support.git
 
 #---------------------------------------------
 
@@ -26,17 +26,18 @@ WORKDIR /lobash
 
 ARG APK_PROXY
 
-RUN if [[ -n "${APK_PROXY:-}" ]]; then \
+RUN if [ -n "$APK_PROXY" ]; then \
   cp /etc/apk/repositories /etc/apk/repositories.bak && \
-  sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories && \
-  apk update ;\
+  sed -i "s|dl-cdn.alpinelinux.org|$APK_PROXY|g" /etc/apk/repositories ; \
   fi
 
-RUN apk add --no-cache perl
-RUN mkdir -p /test
+RUN apk update && apk add --no-cache perl && mkdir -p /test
 
 COPY --from=0 /test/bats /test/bats
 COPY --from=0 /test/bats-assert-1 /test/assert
 COPY --from=0 /test/bats-support /test/support
 
 ENV PATH=${PATH}:/test/bats/bin
+
+ENTRYPOINT [ "bash", "-c" ]
+CMD [ "bash" ]

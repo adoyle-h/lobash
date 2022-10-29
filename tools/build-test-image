@@ -10,20 +10,20 @@ readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 
 main() {
   local version="${BASHVER:-4.4}"
-  export VERSION="$version"
 
   local docker_args=(
     -t "lobash/test-bash:$version"
+    --build-arg "VERSION=$version"
   )
 
   if [[ -n ${IN_CHINA:-} ]]; then
     docker_args+=(
-      --build-arg APK_PROXY=true
-      --build-arg GH_PROXY=https://ghproxy.com/
+      --build-arg 'APK_PROXY=mirrors.ustc.edu.cn'
+      --build-arg 'GH_PROXY=https://ghproxy.com/'
     )
   fi
 
-  envsubst < "$SCRIPT_DIR"/test.dockerfile | docker build "$@" "${docker_args[@]}" -
+  docker build "$@" "${docker_args[@]}" - < "$SCRIPT_DIR"/test.dockerfile
 }
 
 main "$@"

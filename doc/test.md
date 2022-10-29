@@ -71,6 +71,11 @@ BASHVER=4.0 ./tools/build-test-image
 
 # Build image via proxy if you are in China
 IN_CHINA=true ./tools/build-test-image
+
+# Build all bash versions
+./tools/build-test-images
+# or
+IN_CHINA=true ./tools/build-test-images
 ```
 
 ## Test with different Bash versions in Docker

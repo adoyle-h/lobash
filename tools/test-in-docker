@@ -37,4 +37,4 @@ docker run \
   -v "$SCRIPT_DIR"/../src:/lobash/src \
   -v "$SCRIPT_DIR"/../tests:/lobash/tests \
   -v "$SCRIPT_DIR"/../tools:/lobash/tools \
-  lobash/test-bash:"${BASHVER}" bash -c "$cmd"
+  lobash/test-bash:"${BASHVER}" "$cmd"
