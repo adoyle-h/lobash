@@ -33,10 +33,9 @@
 - [Related Projects](#related-projects)
 - [References](#references)
 - [Test](#test)
-- [Contributions](#contributions)
+- [Suggestion, Bug Reporting, Contributing](#suggestion-bug-reporting-contributing)
 - [Versioning](#versioning)
 - [Copyright and License](#copyright-and-license)
-- [Other Projects](#other-projects)
 
 <!-- /MarkdownTOC -->
 
@@ -98,7 +97,7 @@ and make it compatible with Bash 4.0+ and MacOS/Linux/Alpine/Busybox systems.
 |     🚫    | Zsh      | *             | Plan to implement it in another project       |
 |     ❔    | Ksh      | *             | No tested                                     |
 
-Most Lobash modules support Bash 4.0+. See [module usages](./doc/module-usages/README.md#not-compatible) to find what modules not compatible with Bash 4.0.
+Most Lobash modules support Bash 4.0+. Read [module usages](./doc/module-usages/README.md#not-compatible) to find what modules not compatible with Bash 4.0.
 
 ✅💬 means Lobash can be used but not all features supported in shell.
 It will print notes to show what modules is not supported and it will be ignored when building Lobash file.
@@ -106,7 +105,7 @@ It will print notes to show what modules is not supported and it will be ignored
 **If you want use Lobash with Bash 4.3 and lower versions.**
 **Please read [./doc/with-lower-version-bash.md](./doc/with-lower-version-bash.md) first.**
 
-**Lobash not test with Bash 4.0 in MacOS. It seems a bug of Bash 4.0 in MacOS. Please contact me if you solved this problem.** See [this document](./doc/with-lower-version-bash.md#not-test-with-bash-40-in-macos).
+**Lobash not test with Bash 4.0 in MacOS. It seems a bug of Bash 4.0 in MacOS. Please contact me if you solved this problem.** Read [this document](./doc/with-lower-version-bash.md#not-test-with-bash-40-in-macos).
 
 Although most Linux distributions use Bash v4.3, and MacOS not installed Bash v4 by default,
 it is easily to upgrade Bash 4.4+ in most systems.
@@ -154,7 +153,7 @@ lobash-gen <target-path>
 # Generated Lobash file: <target-path>
 ```
 
-**See [./doc/build.md](./doc/build.md) for more details.**
+**Read [./doc/build.md](./doc/build.md) for more details.**
 
 ### Edit your scripts and set shell options
 
@@ -204,11 +203,11 @@ sys     0m0.036s
 
 ### Module Usages
 
-See available modules and categories in [config.example](./config.example).
+Read available modules and categories in [config.example](./config.example).
 
-See all module usages in [./doc/module-usages/][module-usages].
+Read all module usages in [./doc/module-usages/][module-usages].
 
-See all module examples in [./example/modules](./example/modules).
+Read all module examples in [./example/modules](./example/modules).
 
 ## Advanced Usages
 
@@ -285,6 +284,7 @@ YES
 
 - [shell-general-colors](https://github.com/adoyle-h/shell-general-colors): shell colors
 - [bats-core](https://github.com/bats-core/bats-core): test framework
+- [Other shell projects](https://github.com/adoyle-h?tab=repositories&q=&type=source&language=shell&sort=stargazers) created by me.
 
 ## References
 
@@ -294,11 +294,26 @@ YES
 
 ## Test
 
-See [./doc/test.md](./doc/test.md) for more details.
+Read [./doc/test.md](./doc/test.md) for more details.
 
-## Contributions
+## Suggestion, Bug Reporting, Contributing
 
-Any suggestions and contributions are always welcome. Please open an [issue][] to talk with me.
+Any comments and suggestions are always welcome.
+
+**Before open an issue/discussion/PR, You should search related issues/discussions/PRs first** for avoiding to create duplicated links.
+
+- For new feature request, open a [discussion][], describe your demand concisely and clearly.
+- For new feature submit, open a [PR][], describe your demand and design concisely and clearly.
+- For bug report, open an [issue][], describe the bug concisely and clearly.
+- For bug fix, open a [PR][], concisely and clearly describe what you fixed.
+- For question and suggestion, open a [discussion][].
+- For anything not mentioned above, open a [discussion][].
+
+Do not post duplicated and useless contents like `+1`, `LOL`. React to comments with emoji instead of.
+
+你可以使用中文反馈意见。但希望你尽可能使用英文，不要中英文混杂，而是写下完整的英文语句。
+因为我们处于国际社区，英文更通用，方便外国人阅读理解你的意见。
+(Please communicate in English as much as possible)
 
 Please read [./doc/contribution.md](./doc/contribution.md) before make a Pull Request.
 
@@ -311,23 +326,22 @@ For more information on SemVer, please visit http://semver.org/ .
 ## Copyright and License
 
 Copyright 2019-2022 ADoyle (adoyle.h@gmail.com) Some Rights Reserved.
-
 The project is licensed under the **Apache License Version 2.0**.
 
-See the [LICENSE][] file for the specific language governing permissions and limitations under the License.
+Read the [LICENSE][] file for the specific language governing permissions and limitations under the License.
 
-See the [NOTICE][] file distributed with this work for additional information regarding copyright ownership.
-
-## Other Projects
-
-[Other shell projects](https://github.com/adoyle-h?tab=repositories&q=&type=source&language=shell&sort=stargazers) created by me.
+Read the [NOTICE][] file distributed with this work for additional information regarding copyright ownership.
 
 
 <!-- Links -->
 
 [LICENSE]: ./LICENSE
 [NOTICE]: ./NOTICE
-[issue]: https://github.com/adoyle-h/dotfiles/issues
+[tags]: https://github.com/adoyle-h/lobash/tags
+[issue]: https://github.com/adoyle-h/lobash/issues
+[discussion]: https://github.com/adoyle-h/lobash/discussions
+[PR]: https://github.com/adoyle-h/lobash/pulls
+
 [Master Branch]: https://github.com/adoyle-h/lobash/tree/master
 [Develop Branch]: https://github.com/adoyle-h/lobash/tree/develop
 [travis repo]: https://travis-ci.com/adoyle-h/lobash
