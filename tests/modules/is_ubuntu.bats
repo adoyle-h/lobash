@@ -7,6 +7,6 @@ load_module is_ubuntu
 @test "l.is_ubuntu" {
   skip "how to test it?"
   run l.is_ubuntu
-	assert_failure
-	assert_output ''
+  assert_failure
+  assert_output ''
 }

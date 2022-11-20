@@ -4,7 +4,7 @@ setup_fixture
 test_prepare parse_params
 load_module parse_params
 
-@test "l.parse_params opts args \"$@\"" {
+@test "l.parse_params opts args \"\$@\"" {
   local -A opts=()
   local -a args=()
   t() {
@@ -44,7 +44,7 @@ load_module parse_params
   assert_equal "${args[2]}" 'baz'
 }
 
-@test "l.parse_params _ args \"$@\"" {
+@test "l.parse_params _ args \"\$@\"" {
   local -a args=()
   t() {
     l.parse_params _ args "$@"
@@ -59,7 +59,7 @@ load_module parse_params
   assert_equal "${args[2]}" 'baz'
 }
 
-@test "l.parse_params opts _ \"$@\"" {
+@test "l.parse_params opts _ \"\$@\"" {
   local -A opts=()
   t() {
     l.parse_params opts _ "$@"

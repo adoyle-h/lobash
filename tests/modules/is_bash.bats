@@ -6,6 +6,6 @@ load_module is_bash
 
 @test "l.is_bash" {
   run l.is_bash
-	assert_success
-	assert_output ''
+  assert_success
+  assert_output ''
 }
