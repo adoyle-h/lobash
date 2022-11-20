@@ -7,38 +7,38 @@ load_module is_array.s
 @test "l.is_array.s array" {
   local -a y=(a h)
   run l.is_array.s y
-	assert_success
-	assert_output true
+  assert_success
+  assert_output true
 }
 
 @test "l.is_array.s number" {
   local -i y=1
   run l.is_array.s y
-	assert_success
-	assert_output false
+  assert_success
+  assert_output false
 }
 
 @test "l.is_array.s string" {
   local y=string
   run l.is_array.s y
-	assert_success
-	assert_output false
+  assert_success
+  assert_output false
 }
 
 @test "l.is_array.s ''" {
   run l.is_array.s ''
-	assert_success
-	assert_output false
+  assert_success
+  assert_output false
 }
 
 @test "l.is_array.s" {
   run l.is_array.s
-	assert_success
-	assert_output false
+  assert_success
+  assert_output false
 }
 
 @test "l.is_array.s undefined variable" {
   run l.is_array.s k
-	assert_success
-	assert_output false
+  assert_success
+  assert_output false
 }

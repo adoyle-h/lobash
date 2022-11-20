@@ -8,10 +8,5 @@
 l.is_array.s() {
   [[ -z ${1:-} ]] && echo false && return 0
 
-  local str
-  str=$(declare -p -- "$1" 2>/dev/null || true)
-  [[ -z $str ]] && echo false && return 0
-
-  local start="declare -a "
-  [[ $start${str##"$start"} == "$str" ]] && echo true || echo false
+  [[ $(declare -p "$1" 2>/dev/null) =~ ^"declare -a $1=" ]] && echo true || echo false
 }
