@@ -11,7 +11,7 @@
 
 - [What is Lobash?](#what-is-lobash)
 - [Lobash Features](#lobash-features)
-- [Build Status](#build-status)
+- [CI Status](#ci-status)
 - [ChangeLog](#changelog)
 - [FAQ](#faq)
 - [Prerequisites](#prerequisites)
@@ -60,10 +60,11 @@ and make it compatible with Bash 4.0+ and MacOS/Linux/Alpine/Busybox systems.
 - Compatible with MacOS/Linux/Alpine/Busybox systems.
 - Compatible with Bash 4.0 and higher versions.
 
-## Build Status
+## CI Status
 
-- [Test Branch](https://github.com/adoyle-h/lobash/tree/test): [![Build Status](https://travis-ci.com/adoyle-h/lobash.svg?branch=test)][travis repo]
-- [v0.4.0](https://github.com/adoyle-h/lobash/tree/v0.4.0): [![Build Status](https://travis-ci.com/adoyle-h/lobash.svg?branch=v0.4.0)][travis repo]
+- [Branch: develop](https://github.com/adoyle-h/lobash/tree/develop): [![CI Status](![badge.svg](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml/badge.svg?branch=develop))](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml?query=branch%3Adevelop)
+- [v0.5.0](https://github.com/adoyle-h/lobash/tree/v0.5.0): [![CI Status](![badge.svg](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml/badge.svg?tag=v0.5.0))](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml?query=tag%3Av0.5.0)
+- [v0.4.0](https://github.com/adoyle-h/lobash/tree/v0.4.0): [![CI Status](![badge.svg](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml/badge.svg?tag=v0.4.0))](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml?query=tag%3Av0.4.0)
 
 ## [ChangeLog](./CHANGELOG.md)
 

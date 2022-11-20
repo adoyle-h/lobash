@@ -45,16 +45,15 @@ load_module str_include
   assert_output ''
 }
 
-# Maybe bats-core bug
-# @test "l.str_include 'hell$o world' '$'" {
-#   skip
-#   t() {
-#     l.str_include 'hell$o world' '$'
-#   }
-#   run t
-#   assert_success
-#   assert_output ''
-# }
+@test "l.str_include 'hell\$o world' '$'" {
+  t() {
+    # shellcheck disable=2016
+    l.str_include 'hell$o world' '$'
+  }
+  run t
+  assert_success
+  assert_output ''
+}
 
 @test "l.str_include '[hello world' '['" {
   run l.str_include '[hello world' '['

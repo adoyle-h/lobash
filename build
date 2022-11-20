@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# This script should support Bash: 4.0+
+# This script support Bash: 4.0+
 
 set -o errexit
 set -o nounset
@@ -49,7 +49,7 @@ readonly SCRIPT_PATH SCRIPT_DIR
 source "$SCRIPT_DIR/tools/colors.bash"
 # shellcheck source=./src/load_internals.bash
 source "$SCRIPT_DIR/src/load_internals.bash"
-_lobash.import_internals basic_meta_types module_meta rm erase_line
+_lobash.import_internals basic_meta_types module_meta rm erase_line is_tty_available
 _lobash.imports ask choose parse_params array_include union_array
 
 SUPPORTED_BASH_VERISONS=( 4.0 4.1 4.2 4.3 4.4 )
@@ -89,7 +89,12 @@ If you want to run Lobash with lower-version Bash, enter "N".
 Use Lobash for Bash 4.4+?
 EOF
   set -e
-  use_defualt=$(l.ask "$text" Y)
+
+  if _lobash.is_tty_available; then
+    use_defualt=$(l.ask "$text" Y)
+  else
+    use_defualt=YES
+  fi
 
   if [[ $use_defualt == YES ]]; then
     BASH_MIN_VERSION=4.4
@@ -270,6 +275,7 @@ init() {
 
 clean() {
   local OVERWRITE=${opts[y]:-${opts[yes]:-${OVERWRITE:-false}}}
+  if _lobash.is_tty_available; then OVERWRITE=true; fi
   VERBOSE_1 "To clean with OVERWRITE=${OVERWRITE}"
 
   if [[ $OVERWRITE != true ]] && [[ -f $TARGET ]]; then
