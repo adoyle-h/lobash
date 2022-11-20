@@ -8,5 +8,6 @@
 # shellcheck disable=SC2076
 
 l.str_include() {
+  [[ ${2:-} == '' ]] && return 0
   [[ "${1:-}" =~ "${2:-}" ]]
 }
