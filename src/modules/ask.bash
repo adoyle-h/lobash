@@ -33,15 +33,16 @@ _l.ask() {
     return 3
   fi
 
-  local answer result=''
-  [[ -c /dev/tty ]] && echo "$msg" > /dev/tty
+  local answer result='' tty_available
+  tty_available=$(_lobash.is_tty_available && echo true || echo false)
+  [[ $tty_available == true ]] && echo "$msg" > /dev/tty
 
   while [[ -z $result ]]; do
     read -rp "$prompt " answer
 
     if [[ -z $answer ]]; then
       if [[ -z $default ]]; then
-        [[ -c /dev/tty ]] && echo ">> Empty answer is not allowed." > /dev/tty
+        [[ $tty_available == true ]] && echo ">> Empty answer is not allowed." > /dev/tty
       else
         result="${default^^}"
       fi
@@ -55,7 +56,7 @@ _l.ask() {
       done
 
       if [[ -z $result ]]; then
-        [[ -c /dev/tty ]] && echo ">> Invalid answer '$answer'." > /dev/tty
+        [[ $tty_available == true ]] && echo ">> Invalid answer '$answer'." > /dev/tty
       fi
     fi
   done

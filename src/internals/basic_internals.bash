@@ -7,6 +7,7 @@
 # shellcheck source=./warn.bash
 # shellcheck source=./error.bash
 # shellcheck source=./import.bash
+# shellcheck source=./is_tty_available.bash
 _LOBASH_BASIC_INTERNALS=(
   detect_os
   consts
@@ -18,6 +19,7 @@ _LOBASH_BASIC_INTERNALS=(
   error
   import
   with_ifs
+  is_tty_available
 )
 
 # for build Lobash
@@ -30,4 +32,5 @@ _LOBASH_DIST_INTERNALS=(
   check_support
   dirname
   with_ifs
+  is_tty_available
 )
