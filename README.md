@@ -5,40 +5,6 @@
   A modern, safe, powerful utility library for Bash script development.
 </p>
 
-## TOC
-
-<!-- MarkdownTOC GFM -->
-
-- [What is Lobash?](#what-is-lobash)
-- [Lobash Features](#lobash-features)
-- [CI Status](#ci-status)
-- [ChangeLog](#changelog)
-- [FAQ](#faq)
-- [Prerequisites](#prerequisites)
-    - [Supported Platform](#supported-platform)
-    - [Supported Shells](#supported-shells)
-    - [Dependencies](#dependencies)
-- [Installation](#installation)
-- [Usage](#usage)
-    - [Build your lobash.bash](#build-your-lobashbash)
-    - [Edit your scripts and set shell options](#edit-your-scripts-and-set-shell-options)
-    - [Load lobash.bash in your scripts](#load-lobashbash-in-your-scripts)
-    - [Module Usages](#module-usages)
-- [Advanced Usages](#advanced-usages)
-    - [Export specific modules with config](#export-specific-modules-with-config)
-- [Command](#command)
-    - [lobash meta](#lobash-meta)
-    - [lobash mod](#lobash-mod)
-- [Who use Lobash](#who-use-lobash)
-- [Related Projects](#related-projects)
-- [References](#references)
-- [Test](#test)
-- [Suggestion, Bug Reporting, Contributing](#suggestion-bug-reporting-contributing)
-- [Versioning](#versioning)
-- [Copyright and License](#copyright-and-license)
-
-<!-- /MarkdownTOC -->
-
 ## What is Lobash?
 
 Due to its complex syntaxes with symbols, and Unix commands are different in platforms such like BSD and GNU utilities
@@ -54,7 +20,7 @@ and make it compatible with Bash 4.0+ and MacOS/Linux/Alpine/Busybox systems.
 ## Lobash Features
 
 - Modular and easy to use. One module one Function.
-- Rich Functions. Over [110+ modules][module-usages] provided.
+- Rich Functions. Over [120+ modules][module-usages] provided.
 - Robust and Safe. Over [600+ test cases](./tests/modules/) tested.
 - Fast. 0.058s to load Lobash completely.
 - Compatible with MacOS/Linux/Alpine/Busybox systems.
@@ -202,13 +168,13 @@ user    0m0.022s
 sys     0m0.036s
 ```
 
-### Module Usages
-
-Read available modules and categories in [config.example](./config.example).
+### Module Usages and Documents
 
 Read all module usages in [./doc/module-usages/][module-usages].
 
 Read all module examples in [./example/modules](./example/modules).
+
+Available modules list in [config.example](./config.example).
 
 ## Advanced Usages
 
@@ -225,60 +191,11 @@ cp config.example config
 lobash-gen -c ./config
 ```
 
-## Command
-
-While Lobash is a library for development, it also provides a command `./bin/lobash`.
-
-Enter `./bin/lobash` show help.
-
-```sh
-> ./bin/lobash
-
-Usage:
-  lobash [help|-h|--help]
-  lobash mod <module_name> [<sub_command_args>]...
-  lobash meta <module_name>
-
-Sub-Command:
-  help       Show help
-  mod        Invoke a Lobash module
-  mods       Show available module names
-  meta       Query metadatas of Lobash module
-  github     Open Lobash github page in your browser
-
-Description:
-The "lobash mod" command is only used for certain scenarios. Many modules not work as command.
-```
-
-### lobash meta
-
-```sh
-> ./bin/lobash meta normalize
-Module: normalize
-Usage: l.normalize <path>
-Description:
-  - Normalize the given path which can be an unexisted path.
-  - Trailing `/` always be removed.
-Dependent: split, join
-Deprecated: false
-Since: 0.1.0
-Bash: 4.0
-Status: tested
-```
-
-### lobash mod
-
-Note: The "lobash mod" command is only used for certain scenarios. Many modules not work as command.
-
-```sh
-> ./bin/lobash mod ask 'Is it OK?'
-Is it OK? ([Y]es/No)
-YES
-```
+### [Command](./doc/lobash-command.md)
 
 ## Who use Lobash
 
-- [adoyle-h/dotfiles](https://github.com/adoyle-h/dotfiles)
+- [adoyle-h/one.bash](https://github.com/adoyle-h/one.bash)
 - Contact me to add your project to list.
 
 ## Related Projects
@@ -318,11 +235,10 @@ Do not post duplicated and useless contents like `+1`, `LOL`. React to comments 
 
 Please read [./doc/contribution.md](./doc/contribution.md) before make a Pull Request.
 
-## Versioning
+## Versions
 
-The versioning follows the rules of SemVer 2.0.0.
-
-For more information on SemVer, please visit http://semver.org/ .
+Read [tags][].
+The versions follows the rules of [SemVer 2.0.0](http://semver.org/).
 
 ## Copyright and License
 

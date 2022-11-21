@@ -1,21 +1,5 @@
 # FAQ
 
-## TOC
-
-<!-- MarkdownTOC GFM -->
-
-- [Why not support other shells?](#why-not-support-other-shells)
-    - [Why not support Zsh?](#why-not-support-zsh)
-- [Why not support Windows system?](#why-not-support-windows-system)
-- [Why ./bin/lobash mod not always work?](#why-binlobash-mod-not-always-work)
-- [Why source script, not execute command?](#why-source-script-not-execute-command)
-- [Bash is outdated!](#bash-is-outdated)
-- [What is the different between echo true/false and return 0/1?](#what-is-the-different-between-echo-truefalse-and-return-01)
-- [sed: -e expression: Invalid character class name](#sed--e-expression-invalid-character-class-name)
-
-<!-- /MarkdownTOC -->
-
-
 ## Why not support other shells?
 
 Ash/Dash/Fish/Tcsh/Xiki and other shells are not supported because there are so many differences with Bash.

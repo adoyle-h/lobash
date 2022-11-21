@@ -1,21 +1,5 @@
 # How to write modules
 
-## TOC
-
-<!-- MarkdownTOC GFM -->
-
-- [Write a module](#write-a-module)
-    - [Module path](#module-path)
-    - [Function and constant name prefix keywords](#function-and-constant-name-prefix-keywords)
-    - [Module template](#module-template)
-- [Write test cases](#write-test-cases)
-    - [Test checklist](#test-checklist)
-- [Run test](#run-test)
-- [Internal Module](#internal-module)
-- [Forbidden export](#forbidden-export)
-
-<!-- /MarkdownTOC -->
-
 ## Write a module
 
 ### Module path

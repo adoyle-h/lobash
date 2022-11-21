@@ -20,24 +20,6 @@ The Metadata is order insensitive.
 
 **Attention**: Exactly `# ---`. No more or less spaces and `-`.
 
-## TOC
-
-
-<!-- MarkdownTOC GFM -->
-
-- [Category](#category)
-- [Deprecated](#deprecated)
-- [Dependent](#dependent)
-- [Since](#since)
-- [Usage](#usage)
-- [Description](#description)
-- [Bash](#bash)
-- [Status](#status)
-- [Module](#module)
-
-<!-- /MarkdownTOC -->
-
-
 ## Category
 
 It is required.
@@ -121,3 +103,9 @@ It is hidden.
 The module name, based on module filename.
 
 Currently, only be shown in `./bin/lobash meta`.
+
+## Notice
+
+It is optional.
+
+It records something important.

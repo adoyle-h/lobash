@@ -2,27 +2,6 @@
 
 If you want use Lobash with Bash 4.3 and lower versions, there are some knowledges you should know.
 
-## TOC
-
-<!-- MarkdownTOC GFM -->
-
-- [Compatible with different versions](#compatible-with-different-versions)
-    - [4.4](#44)
-    - [4.3](#43)
-    - [4.2](#42)
-    - [4.1](#41)
-    - [4.0](#40)
-        - [Not test with Bash 4.0 in MacOS](#not-test-with-bash-40-in-macos)
-- [What you should do with Lobash in different Bash versions](#what-you-should-do-with-lobash-in-different-bash-versions)
-    - [4.4](#44-1)
-    - [4.3](#43-1)
-    - [4.2](#42-1)
-    - [4.1](#41-1)
-    - [4.0](#40-1)
-
-<!-- /MarkdownTOC -->
-
-
 ## Compatible with different versions
 
 This section only show the compatibilities with different Bash versions.
@@ -36,6 +15,7 @@ Completely supported.
 ### 4.3
 
 - `shopt -s inherit_errexit` is new feature in Bash v4.4. There is no workaround in v4.3.
+- `declare -p` has a bug. See [./module-usages/condition.md#is_array](./module-usages/condition.md#is_array).
 
 ### 4.2
 
