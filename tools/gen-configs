@@ -4,11 +4,12 @@
 set -o errexit
 set -o nounset
 set -o pipefail
+set -o errtrace
 (shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
 [[ -n "${VERBOSE:-}" ]] && set -o verbose
-[[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
 
-readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+readonly SCRIPT_DIR
 
 # shellcheck source=./colors.bash
 source "$SCRIPT_DIR/colors.bash"
@@ -86,6 +87,7 @@ main() {
 # Choose the minimum version of Bash in which Lobash will run.
 # Available values: 4.0, 4.1, 4.2, 4.3, 4.4
 BASH_MIN_VERSION: 4.4
+PREFIX: l.
 
 # Select modules or categories to export
 # - [ ]  Unselected

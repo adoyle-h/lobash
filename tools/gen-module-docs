@@ -4,117 +4,39 @@
 set -o errexit
 set -o nounset
 set -o pipefail
+set -o errtrace
 (shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
-[[ -n "${VERBOSE:+x}" ]] && set -o verbose
-[[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
+[[ -n "${VERBOSE:-}" ]] && set -o verbose
 
-readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+readonly SCRIPT_DIR
 
 # shellcheck source=./colors.bash
 source "$SCRIPT_DIR/colors.bash"
 # shellcheck source=../src/load_internals.bash
 source "$SCRIPT_DIR"/../src/load_internals.bash
+
 _lobash.import_internals basic_meta_types module_meta erase_line rm
 _lobash.imports sort has
+
+# shellcheck source=./module-meta.bash
+source "$SCRIPT_DIR/module-meta.bash"
 
 print_category_header() {
   local -n mods=$1
   local TARGET=$2
 
-  {
-    printf '%s\n' "# Category: ${category}"
-    printf '\n%s\n' '[⬅️ Back to previous page](./README.md)'
+  cat <<EOF >> "$TARGET"
+# Category: ${category}
 
-    printf '\n%s\n\n' "## TOC"
-    for module_name in "${mods[@]}"; do
-      printf -- '- [%s](%s)\n' "${module_name}" "#$module_name"
-    done
-  } >> "$TARGET"
-}
+[⬅️ Back to previous page](./README.md)
 
-print_meta_type() {
-  printf -- '\n- %s:' "$meta_key" >> "$TARGET"
-}
+## TOC
 
-print_meta() {
-  printf ' %s' "${1}" >> "$TARGET"
-}
+EOF
 
-print_plural_meta() {
-  printf '\n  - %s'  "${1}" >> "$TARGET"
-}
-
-print_meta_Usage() {
-  printf ' `%s`' "${1}" >> "$TARGET"
-}
-
-print_plural_meta_Usage() {
-  printf '\n  - `%s`' "${1}" >> "$TARGET"
-}
-
-print_meta_Dependent() {
-  local deps=( ${1//,/ } )
-  local dep_cate dep_path
-  for dep in "${deps[@]}"; do
-    dep_cate=$(_lobash.get_module_metadata "$dep" Category)
-    dep_path="./${dep_cate,,}.md#$dep"
-    printf ' [`%s`](%s)' "${dep}" "${dep_path}" >> "$TARGET"
-  done
-}
-
-print_meta_skip_Deprecated() {
-  [[ $1 != true ]]
-}
-
-print_meta_Deprecated() {
-  if [[ -n ${1:-} ]]; then
-    printf ' true' >> "$TARGET"
-  fi
-}
-
-print_meta_Bash() {
-  printf ' %s+' "$1" >> "$TARGET"
-}
-
-print_module_metas() {
-  local module_name=$1
-
-  printf '\n%s\n' "### ${module_name}" >> "$TARGET"
-
-  local meta_val meta_key count i
-  for meta_key in "${_LOBASH_BASIC_META_TYPES[@]}"; do
-    count=$(_lobash.get_module_metadata "$module_name" "${meta_key}_count")
-    if [[ -z ${count:-} ]] || (( count == 0 )) ; then
-      continue
-    fi
-
-    meta_val=$(_lobash.get_module_metadata "$module_name" "${meta_key}")
-
-    if l.has function "print_meta_skip_${meta_key}" && \
-      "print_meta_skip_${meta_key}" "${meta_val}"
-    then
-      continue
-    fi
-
-    print_meta_type "$meta_val"
-
-    if (( count == 1 )); then
-      if l.has function "print_meta_${meta_key}"; then
-        "print_meta_${meta_key}" "${meta_val}" "${meta_key}"
-      else
-        print_meta "${meta_val}" "${meta_key}"
-      fi
-    else
-      for (( i = 0; i < count; i++ )); do
-        meta_val=$(_lobash.get_module_metadata "$module_name" "${meta_key}" "$i")
-
-        if l.has function "print_plural_meta_${meta_key}"; then
-          "print_plural_meta_${meta_key}" "${meta_val}" "$i" "${meta_key}"
-        else
-          print_plural_meta "${meta_val}" "$i" "${meta_key}"
-        fi
-      done
-    fi
+  for module_name in "${mods[@]}"; do
+    printf -- '- [%s](%s)\n' "${module_name}" "#$module_name" >> "$TARGET"
   done
 }
 
@@ -131,19 +53,19 @@ print_category() {
   printf '\n%s\n' "## Modules" >> "$TARGET"
 
   for module_name in "${c[@]}"; do
+    printf '\n%s\n\n' "### ${module_name}" >> "$TARGET"
+
     print_module_metas "$module_name"
 
-    {
-      printf -- '\n- Test Cases: [tests/modules/%s.bats](../../tests/modules/%s.bats)' "$module_name" "$module_name"
-      printf -- '\n- Source Code: [src/modules/%s.bash](../../src/modules/%s.bash)' "$module_name" "$module_name"
-      printf '\n'
-    } >> "$TARGET"
+    cat <<EOF >> "$TARGET"
+- Test Cases: [tests/modules/$module_name.bats](../../tests/modules/$module_name.bats)
+- Source Code: [src/modules/$module_name.bash](../../src/modules/$module_name.bash)
+EOF
 
     local example_path="example/modules/${module_name%%.p}"
     if [[ -f ${SCRIPT_DIR}/../$example_path ]]; then
       printf -- '- %s\n' "Executable Example: [$example_path](../../$example_path)" >> "$TARGET"
     fi
-
   done
 
   printf '\n%s\n' '[⬆️ Back up to TOC](#toc)' >> "$TARGET"
@@ -161,20 +83,6 @@ print_toc() {
     for module_name in "${c[@]}"; do
       printf -- '  - [%s](%s)\n' "${module_name}"  "./${category,,}.md#${module_name//\./}" >> "$TARGET"
     done
-  done
-}
-
-add_to_map() {
-  local name=$1
-  local -a founds=()
-  while read -r i
-  do
-    [[ -n "$i" ]] && founds+=("$i")
-  done < <(echo "$metadatas" | grep -Eo "^${name^}: .+$" | sed "s/${name^}: //" || true)
-
-  map[${module_name}_${name}_sum]=${#founds[@]}
-  for (( i = 0; i < ${#founds[@]}; i++ )); do
-    map[${module_name}_${name}_$i]="${founds["$i"]}"
   done
 }
 
@@ -238,12 +146,11 @@ main() {
   local -a categories
   local -A unsupported_mods
   local -i module_count=0
-  local filepath module_name category metadatas bash
+  local filepath module_name category bash
 
-  for filepath in $SCRIPT_DIR/../src/modules/*.bash; do
+  for filepath in "$SCRIPT_DIR"/../src/modules/*.bash; do
     ((module_count+=1))
     module_name=$(basename "$filepath" .bash)
-    metadatas=$(_lobash.get_module_metadata_str "$filepath")
 
     _lobash.erase_line
     printf '%s' "To scan module: $module_name"
