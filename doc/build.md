@@ -49,3 +49,20 @@ cp config.example config
 
 ./build -c ./config
 ```
+
+## Build lobash in docker
+
+```sh
+# Default to BASHVER=4.1
+./tools/build-build-image
+
+# Build image with bash 4.4
+BASHVER=4.4 ./tools/build-build-image
+
+# Build image via proxy if you are in China
+IN_CHINA=true ./tools/build-build-image
+```
+
+```sh
+docker run -it --rm -v "`pwd`:/a" lobash/build:4.1 '/a/build /a/dist/'
+```

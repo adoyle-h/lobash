@@ -1,19 +1,5 @@
 # Test
 
-## TOC
-
-<!-- MarkdownTOC GFM -->
-
-- [Test with your default Bash in local](#test-with-your-default-bash-in-local)
-- [Test with different Bash versions in local](#test-with-different-bash-versions-in-local)
-- [Test with different Bash versions in Docker](#test-with-different-bash-versions-in-docker)
-- [Build Docker images for testing](#build-docker-images-for-testing)
-- [Test with different Bash versions in Docker](#test-with-different-bash-versions-in-docker-1)
-- [Import specific modules for testing](#import-specific-modules-for-testing)
-- [Debug](#debug)
-
-<!-- /MarkdownTOC -->
-
 ## Test with your default Bash in local
 
 ```sh
@@ -60,7 +46,7 @@ BASHVER=4.0 BUILD_DIST=true ./tools/test-in-docker
 BASHVER=4.0 BUILD_DIST=true ./tools/test-in-docker ./tests/modules/${module_name}.bats
 ```
 
-## Build Docker images for testing
+## Build docker images for testing
 
 ```sh
 # Default to BASHVER=4.4
@@ -78,7 +64,7 @@ IN_CHINA=true ./tools/build-test-image
 IN_CHINA=true ./tools/build-test-images
 ```
 
-## Test with different Bash versions in Docker
+## Run interactive shell in test container
 
 ```sh
 BASHVER=4.0 ./tools/run-in-docker

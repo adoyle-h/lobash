@@ -321,9 +321,13 @@ fwrite() {
 generate() {
   VERBOSE_1 "To generate lobash file: $TARGET"
 
-  local VERSION_TAG=$VERSION
-  if [[ -f $SCRIPT_DIR/.git/HEAD ]]; then
-    VERSION_TAG="$VERSION ($(git -C "$SCRIPT_DIR" rev-parse HEAD))"
+  local VERSION_TAG git_commit
+  git_commit=$(git -C "$SCRIPT_DIR" rev-parse HEAD || true)
+
+  if [[ -n $git_commit ]]; then
+    VERSION_TAG="$VERSION ($git_commit)"
+  else
+    VERSION_TAG="$VERSION"
   fi
 
   VERBOSE_1 "To write header"
