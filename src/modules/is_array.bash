@@ -8,5 +8,5 @@
 l.is_array() {
   [[ -z ${1:-} ]] && return 1
 
-  [[ $(declare -p "$1" 2>/dev/null) =~ ^"declare -a $1=" ]]
+  [[ $(declare -p "$1" 2>/dev/null) =~ ^"declare -a $1" ]]
 }

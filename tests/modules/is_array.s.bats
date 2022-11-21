@@ -11,6 +11,13 @@ load_module is_array.s
   assert_output true
 }
 
+@test "l.is_array uninitialized array" {
+  local -a x
+  run l.is_array.s x
+  assert_success
+  assert_output true
+}
+
 @test "l.is_array.s number" {
   local -i y=1
   run l.is_array.s y
