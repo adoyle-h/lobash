@@ -49,22 +49,19 @@ readonly SCRIPT_PATH SCRIPT_DIR
 source "$SCRIPT_DIR/tools/colors.bash"
 # shellcheck source=./src/load_internals.bash
 source "$SCRIPT_DIR/src/load_internals.bash"
-_lobash.import_internals basic_meta_types module_meta rm erase_line detect_os
+_lobash.import_internals basic_meta_types module_meta rm erase_line
 _lobash.imports ask choose parse_params array_include union_array
 
 SUPPORTED_BASH_VERISONS=( 4.0 4.1 4.2 4.3 4.4 )
 
-OS=$(_lobash.detect_os)
-if [[ $OS == MacOS ]] || [[ $OS == BSD ]]; then
-  sedi() {
-    # BSD sed
-    sed -i '' "$@"
-  }
+is_gnu_sed() {
+  sed --version 2>/dev/null | grep 'GNU sed' >/dev/null
+}
+
+if is_gnu_sed; then
+  sedi() { sed -i "$@"; }
 else
-  sedi() {
-    # GNU sed
-    sed -i "$@"
-  }
+  sedi() { sed -i '' "$@"; }
 fi
 
 is_valid_lobash_prefix() {
