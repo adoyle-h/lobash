@@ -4,6 +4,10 @@ print_meta_type() {
   printf -- '- %s:' "$meta_key" >> "$TARGET"
 }
 
+print_meta_type_Notice() {
+  printf -- '- **%s**:' "$meta_key" >> "$TARGET"
+}
+
 print_meta_value() {
   printf -- ' %s\n' "${1}" >> "$TARGET"
 }
@@ -18,6 +22,14 @@ print_meta_Usage() {
 
 print_plural_meta_Usage() {
   printf -- '  - `%s`\n' "${1}" >> "$TARGET"
+}
+
+print_meta_Notice() {
+  printf -- ' **%s**\n' "${1}" >> "$TARGET"
+}
+
+print_plural_meta_Notice() {
+  printf -- '  - **%s**\n' "${1}" >> "$TARGET"
 }
 
 print_meta_Dependent() {
@@ -64,7 +76,11 @@ print_module_metas() {
       continue
     fi
 
-    print_meta_type "$meta_val"
+    if l.has_not function "print_meta_type_${meta_key}"; then
+      print_meta_type "$meta_val"
+    else
+      "print_meta_type_${meta_key}" "$meta_val"
+    fi
 
     if (( count == 1 )); then
       if l.has function "print_meta_${meta_key}"; then

@@ -1,6 +1,6 @@
 # Module Usages
 
-15 Categories, 116 Modules, 643 Test Cases.
+15 Categories, 123 Modules, 676 Test Cases.
 
 Each module provides only one function which naming prefixed with `l.`.
 
@@ -13,9 +13,9 @@ The function which naming suffixed with `.s` means in strict mode. It uses `echo
 
 Most Lobash modules support Bash 4.0+ except below modules.
 
+- [now_s](./time.md#now_s): 4.2+
 - [date](./time.md#date): 4.2+
 - [sleep](./system.md#sleep): 4.1+
-- [now_s](./time.md#now_s): 4.2+
 
 ## Modules TOC
 
@@ -51,12 +51,15 @@ Most Lobash modules support Bash 4.0+ except below modules.
   - [is_executable.s](./condition.md#is_executables)
   - [is_executable_file](./condition.md#is_executable_file)
   - [is_executable_file.s](./condition.md#is_executable_files)
+  - [is_exported](./condition.md#is_exported)
   - [is_falsy](./condition.md#is_falsy)
   - [is_falsy.s](./condition.md#is_falsys)
   - [is_file](./condition.md#is_file)
   - [is_file.s](./condition.md#is_files)
   - [is_float](./condition.md#is_float)
   - [is_float.s](./condition.md#is_floats)
+  - [is_function](./condition.md#is_function)
+  - [is_function.s](./condition.md#is_functions)
   - [is_integer](./condition.md#is_integer)
   - [is_integer.s](./condition.md#is_integers)
   - [is_link](./condition.md#is_link)
@@ -67,6 +70,10 @@ Most Lobash modules support Bash 4.0+ except below modules.
   - [is_readable.s](./condition.md#is_readables)
   - [is_truthy](./condition.md#is_truthy)
   - [is_truthy.s](./condition.md#is_truthys)
+  - [is_tty_available](./condition.md#is_tty_available)
+  - [is_tty_available.s](./condition.md#is_tty_availables)
+  - [is_ubuntu](./condition.md#is_ubuntu)
+  - [is_undefined](./condition.md#is_undefined)
   - [is_writable](./condition.md#is_writable)
   - [is_writable.s](./condition.md#is_writables)
   - [not.s](./condition.md#nots)

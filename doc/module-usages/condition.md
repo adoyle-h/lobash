@@ -21,12 +21,15 @@
 - [is_executable.s](#is_executable.s)
 - [is_executable_file](#is_executable_file)
 - [is_executable_file.s](#is_executable_file.s)
+- [is_exported](#is_exported)
 - [is_falsy](#is_falsy)
 - [is_falsy.s](#is_falsy.s)
 - [is_file](#is_file)
 - [is_file.s](#is_file.s)
 - [is_float](#is_float)
 - [is_float.s](#is_float.s)
+- [is_function](#is_function)
+- [is_function.s](#is_function.s)
 - [is_integer](#is_integer)
 - [is_integer.s](#is_integer.s)
 - [is_link](#is_link)
@@ -37,6 +40,10 @@
 - [is_readable.s](#is_readable.s)
 - [is_truthy](#is_truthy)
 - [is_truthy.s](#is_truthy.s)
+- [is_tty_available](#is_tty_available)
+- [is_tty_available.s](#is_tty_available.s)
+- [is_ubuntu](#is_ubuntu)
+- [is_undefined](#is_undefined)
 - [is_writable](#is_writable)
 - [is_writable.s](#is_writable.s)
 - [not.s](#not.s)
@@ -132,20 +139,27 @@
 ### is_array
 
 - Usage: `l.is_array <var_name>`
-- Description: Return 0 (true) or 1 (false). This function should never throw exception error.
+- Description: When the variable is array or associative array, it returns 0 (true). Otherwise it returns 1 (false). This function should never throw exception error.
 - Since: 0.3.0
 - Bash: 4.0+
 - Status: tested
+- **Notice**:
+  - **Only with bash 4.3, this function return 1 when the variable declared without initialization.**
+  - **Because `declare -p a` shows `declare: a: not found` when `declare -a a`. It's a bug in bash 4.3.**
 - Test Cases: [tests/modules/is_array.bats](../../tests/modules/is_array.bats)
 - Source Code: [src/modules/is_array.bash](../../src/modules/is_array.bash)
 
 ### is_array.s
 
 - Usage: `l.is_array.s <var_name>`
-- Description: This function always echo `true` or `false` and exit code always be 0.
+- Description: When the variable is array or associative array, it prints `true`. Otherwise it prints `false`. And it always exit with code 0.
+- Dependent: [`is_array`](./condition.md#is_array)
 - Since: 0.3.0
 - Bash: 4.0+
 - Status: tested
+- **Notice**:
+  - **Only with bash 4.3, this function will echo `false` when the variable declared without initialization.**
+  - **Because `declare -p a` shows `declare: a: not found` when `declare -a a`. It's a bug in bash 4.3.**
 - Test Cases: [tests/modules/is_array.s.bats](../../tests/modules/is_array.s.bats)
 - Source Code: [src/modules/is_array.s.bash](../../src/modules/is_array.s.bash)
 
@@ -243,6 +257,18 @@
 - Test Cases: [tests/modules/is_executable_file.s.bats](../../tests/modules/is_executable_file.s.bats)
 - Source Code: [src/modules/is_executable_file.s.bash](../../src/modules/is_executable_file.s.bash)
 
+### is_exported
+
+- Usage: `l.is_exported <var_name>`
+- Description:
+  - Check whether a shell variable is exported.
+  - Return 0 (true) or 1 (false). This function should never throw exception error.
+- Since: 0.5.0
+- Bash: 4.0+
+- Status: tested
+- Test Cases: [tests/modules/is_exported.bats](../../tests/modules/is_exported.bats)
+- Source Code: [src/modules/is_exported.bash](../../src/modules/is_exported.bash)
+
 ### is_falsy
 
 - Usage: `l.is_falsy <var>`
@@ -309,6 +335,28 @@
 - Status: tested
 - Test Cases: [tests/modules/is_float.s.bats](../../tests/modules/is_float.s.bats)
 - Source Code: [src/modules/is_float.s.bash](../../src/modules/is_float.s.bash)
+
+### is_function
+
+- Usage: `l.is_function <var_name>`
+- Description: Return 0 (true) or 1 (false). This function should never throw exception error.
+- Since: 0.5.0
+- Bash: 4.0+
+- Status: tested
+- Test Cases: [tests/modules/is_function.bats](../../tests/modules/is_function.bats)
+- Source Code: [src/modules/is_function.bash](../../src/modules/is_function.bash)
+
+### is_function.s
+
+- Usage: `l.is_function.s <var_name>`
+- Description:
+  - Detect `<var_name>` is whether a function or not.
+  - This function always echo `true` or `false` and exit code always be 0.
+- Since: 0.5.0
+- Bash: 4.0+
+- Status: tested
+- Test Cases: [tests/modules/is_function.s.bats](../../tests/modules/is_function.s.bats)
+- Source Code: [src/modules/is_function.s.bash](../../src/modules/is_function.s.bash)
 
 ### is_integer
 
@@ -416,6 +464,52 @@
 - Status: tested
 - Test Cases: [tests/modules/is_truthy.s.bats](../../tests/modules/is_truthy.s.bats)
 - Source Code: [src/modules/is_truthy.s.bash](../../src/modules/is_truthy.s.bash)
+
+### is_tty_available
+
+- Usage: `l.is_tty_available`
+- Description: Whether /dev/tty is available
+- Since: 0.5.0
+- Bash: 4.0+
+- Status: tested
+- Test Cases: [tests/modules/is_tty_available.bats](../../tests/modules/is_tty_available.bats)
+- Source Code: [src/modules/is_tty_available.bash](../../src/modules/is_tty_available.bash)
+
+### is_tty_available.s
+
+- Usage: `l.is_tty_available.s`
+- Description:
+  - Whether /dev/tty is available
+  - This function always echo `true` or `false` and exit code always be 0.
+- Since: 0.5.0
+- Bash: 4.0+
+- Status: tested
+- Test Cases: [tests/modules/is_tty_available.s.bats](../../tests/modules/is_tty_available.s.bats)
+- Source Code: [src/modules/is_tty_available.s.bash](../../src/modules/is_tty_available.s.bash)
+
+### is_ubuntu
+
+- Usage: `l.is_ubuntu`
+- Description:
+  - Detect whether current os is Ubuntu or not.
+  - Return 0 (true) or 1 (false). This function should never throw exception error.
+- Since: next-minor
+- Bash: 4.0+
+- Status: tested
+- Test Cases: [tests/modules/is_ubuntu.bats](../../tests/modules/is_ubuntu.bats)
+- Source Code: [src/modules/is_ubuntu.bash](../../src/modules/is_ubuntu.bash)
+
+### is_undefined
+
+- Usage: `l.is_undefined <var_name>`
+- Description:
+  - Check whether a shell variable is undefined.
+  - Return 0 (true) or 1 (false). This function should never throw exception error.
+- Since: 0.5.0
+- Bash: 4.0+
+- Status: tested
+- Test Cases: [tests/modules/is_undefined.bats](../../tests/modules/is_undefined.bats)
+- Source Code: [src/modules/is_undefined.bash](../../src/modules/is_undefined.bash)
 
 ### is_writable
 

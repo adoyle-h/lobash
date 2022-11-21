@@ -7,4 +7,5 @@ _LOBASH_BASIC_META_TYPES=(
   Since
   Bash
   Status
+  Notice
 )

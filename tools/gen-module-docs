@@ -17,7 +17,7 @@ source "$SCRIPT_DIR/colors.bash"
 source "$SCRIPT_DIR"/../src/load_internals.bash
 
 _lobash.import_internals basic_meta_types module_meta erase_line rm
-_lobash.imports sort has
+_lobash.imports sort has has_not
 
 # shellcheck source=./module-meta.bash
 source "$SCRIPT_DIR/module-meta.bash"

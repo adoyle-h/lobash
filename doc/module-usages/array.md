@@ -47,10 +47,11 @@
 ### keys
 
 - Usage: `l.keys <array_name>`
-- Description: List all keys of array or associative array
+- Description: List all keys of array or associative array.
 - Since: 0.5.0
 - Bash: 4.0+
 - Status: tested
+- **Notice**: **The order of keys is uncertain.**
 - Test Cases: [tests/modules/keys.bats](../../tests/modules/keys.bats)
 - Source Code: [src/modules/keys.bash](../../src/modules/keys.bash)
 
