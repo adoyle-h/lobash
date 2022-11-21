@@ -6,7 +6,6 @@ set -o nounset
 set -o pipefail
 (shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
 [[ -n "${VERBOSE:-}" ]] && set -o verbose
-[[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
 
 export IS_LOBASH_TEST=1
 LOBASH_ROOT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
