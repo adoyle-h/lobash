@@ -11,9 +11,23 @@ load_module is_array
   assert_output ''
 }
 
+@test "l.is_array associate array" {
+  local -A A=([a]=1)
+  run l.is_array A
+  assert_success
+  assert_output ''
+}
+
 @test "l.is_array uninitialized array" {
-  local -a x
-  run l.is_array x
+  if [[ $BASH_VERSION =~ ^'4.3' ]]; then skip; fi
+
+  local -a a
+  run l.is_array a
+  assert_success
+  assert_output ''
+
+  local -A A
+  run l.is_array A
   assert_success
   assert_output ''
 }
