@@ -18,6 +18,14 @@ on:
 jobs:
   linux:
     runs-on: ubuntu-22.04
+
+    if: "!(
+      startsWith(github.event.head_commit.message, 'docs:') ||
+      startsWith(github.event.head_commit.message, 'ci:') ||
+      startsWith(github.event.head_commit.message, 'chore:') ||
+      startsWith(github.event.head_commit.message, 'style:')
+      )"
+
     strategy:
       fail-fast: true
       max-parallel: 10
@@ -31,6 +39,14 @@ jobs:
 
   mac:
     runs-on: macos-12
+
+    if: "!(
+      startsWith(github.event.head_commit.message, 'docs:') ||
+      startsWith(github.event.head_commit.message, 'ci:') ||
+      startsWith(github.event.head_commit.message, 'chore:') ||
+      startsWith(github.event.head_commit.message, 'style:')
+      )"
+
     strategy:
       fail-fast: true
       max-parallel: 10
