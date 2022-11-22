@@ -346,10 +346,10 @@ generate() {
   local text
 
   if [[ ${BASH_MIN_VERSION} =~ ^4.(0|1|2|3)$ ]]; then
-    echo -e "${YELLOW}Note: Not all features are supported in Bash ${BASH_MIN_VERSION}.\\nPlease read this link: https://github.com/adoyle-h/lobash/blob/develop/doc/with-lower-version-bash.md${RESET_ALL}"
+    echo -e "${YELLOW}Note: Not all features are supported in Bash ${BASH_MIN_VERSION}.\\nPlease read this link: https://github.com/adoyle-h/lobash/blob/develop/docs/with-lower-version-bash.md${RESET_ALL}"
     write "#"
     write "# Note: Not all features are supported in Bash ${BASH_MIN_VERSION}."
-    write "# Please read this link: https://github.com/adoyle-h/lobash/blob/develop/doc/with-lower-version-bash.md"
+    write "# Please read this link: https://github.com/adoyle-h/lobash/blob/develop/docs/with-lower-version-bash.md"
   fi
 
   write ''

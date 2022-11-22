@@ -137,7 +137,7 @@ EOF
 }
 
 main() {
-  local BASE_DIR="$SCRIPT_DIR/../doc/module-usages"
+  local BASE_DIR="$SCRIPT_DIR/../docs/module-usages"
   _lobash.rm "$BASE_DIR"
   mkdir -p "$BASE_DIR"
 
@@ -189,7 +189,7 @@ main() {
   printf '\n%b%s\n%s%b\n' \
     "${GREEN}" \
     "Updated module usages documents." \
-    "See $(dirname "$SCRIPT_DIR")/doc/module-usages/README.md" \
+    "See $(dirname "$SCRIPT_DIR")/docs/module-usages/README.md" \
     "${RESET_ALL}"
 }
 

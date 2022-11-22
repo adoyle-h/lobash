@@ -26,8 +26,8 @@ Now most modules support bash 4.0+!
 
 ### Add
 
-- add [l.match_list](./doc/module-usages/string.md#match_list)
-- add [l.parse_params](./doc/module-usages/util.md#parse_params)
+- add [l.match_list](./docs/module-usages/string.md#match_list)
+- add [l.parse_params](./docs/module-usages/util.md#parse_params)
 - support export user specific modules/categories with config by `./build -c <config>`
 
 ### Fix

@@ -59,7 +59,7 @@ Although most Linux distributions use Bash v4.3, you can upgrade Bash easily and
 
 ## What is the different between echo true/false and return 0/1?
 
-Read this document: [How to return a Boolean value](https://github.com/adoyle-h/lobash/blob/develop/doc/how-to-write-functions.md#how-to-return-a-boolean-value).
+Read this document: [How to return a Boolean value](https://github.com/adoyle-h/lobash/blob/develop/docs/how-to-write-functions.md#how-to-return-a-boolean-value).
 
 Because we set the `set -o errexit` and `shopt -s inherit_errexit`, `l.is_*` will lead to process exit. For example,
 

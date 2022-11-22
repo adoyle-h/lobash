@@ -1,5 +1,5 @@
 <p align="center">
-  <img alt="Lobash Logo" src="./doc/imgs/lobash.svg">
+  <img alt="Lobash Logo" src="./docs/imgs/lobash.svg">
 </p>
 <p align="center">
   A modern, safe, powerful utility library for Bash script development.
@@ -36,7 +36,7 @@ It is implemented with pure bash script. (Except [l.now](src/modules/now.bash) f
 
 ## [ChangeLog](./CHANGELOG.md)
 
-## [FAQ](./doc/faq.md)
+## [FAQ](./docs/faq.md)
 
 ## Prerequisites
 
@@ -66,16 +66,16 @@ It is implemented with pure bash script. (Except [l.now](src/modules/now.bash) f
 |     🚫    | Zsh      | *             | -                                             |
 |     ❔    | Ksh      | *             | No tested                                     |
 
-Most Lobash modules support Bash 4.0 and higher versions. Some modules are not compatible with Bash version earlier than 4.4. See the [list](./doc/module-usages/README.md#not-compatible).
-Each module annotates a `Bash` label in [module usages](./doc/module-usages/README.md).
+Most Lobash modules support Bash 4.0 and higher versions. Some modules are not compatible with Bash version earlier than 4.4. See the [list](./docs/module-usages/README.md#not-compatible).
+Each module annotates a `Bash` label in [module usages](./docs/module-usages/README.md).
 `Bash: 4.2+` means compatible with Bash 4.2 and higher versions.
 
 ✅💬 means Lobash is compatible but not all modules supported in shell.
 It will print notes to show what modules is not supported and ignored when building Lobash.
 
-**If you use Lobash with Bash 4.0~4.3. Please read [./doc/with-lower-version-bash.md](./doc/with-lower-version-bash.md) first.**
+**If you use Lobash with Bash 4.0~4.3. Please read [./docs/with-lower-version-bash.md](./docs/with-lower-version-bash.md) first.**
 
-**Lobash not test with Bash 4.0 in MacOS. It seems a bug of Bash 4.0 in MacOS. Please contact me if you solved this problem.** Read [this document](./doc/with-lower-version-bash.md#not-test-with-bash-40-in-macos).
+**Lobash not test with Bash 4.0 in MacOS. It seems a bug of Bash 4.0 in MacOS. Please contact me if you solved this problem.** Read [this document](./docs/with-lower-version-bash.md#not-test-with-bash-40-in-macos).
 
 Although most Linux distributions use Bash v4.3 at the least, and MacOS installed Bash v3.2 by default,
 it is easily to upgrade Bash 4.4+ in most systems.
@@ -93,7 +93,7 @@ Make sure below dependencies have been installed.
 Available Lobash versions refer to [Git Tags](https://github.com/adoyle-h/lobash/tags) which named like "vX.Y.Z".
 
 ```sh
-VERSION=v0.4.0  # or VERSION=master
+VERSION=v0.4.0  # or VERSION=develop
 # Download source codes
 git clone --depth 1 --branch $VERSION https://github.com/adoyle-h/lobash.git
 cd lobash
@@ -122,7 +122,7 @@ lobash-gen <target-path>
 # Generated Lobash file: <target-path>
 ```
 
-**Read [./doc/build.md](./doc/build.md) for more details.**
+**Read [./docs/build.md](./docs/build.md) for more details.**
 
 ### Edit your scripts and set shell options
 
@@ -172,7 +172,7 @@ sys     0m0.036s
 
 ### Module Usages and Documents
 
-Read all module usages in [./doc/module-usages/][module-usages].
+Read all module usages in [./docs/module-usages/][module-usages].
 
 Read all module examples in [./example/modules](./example/modules).
 
@@ -193,7 +193,7 @@ cp config.example config
 lobash-gen -c ./config
 ```
 
-### [Command](./doc/lobash-command.md)
+### [Command](./docs/lobash-command.md)
 
 ## Who use Lobash
 
@@ -212,7 +212,7 @@ lobash-gen -c ./config
 - https://www.gnu.org/software/bash/manual/
 - http://mywiki.wooledge.org/BashFAQ
 
-## [Test](./doc/test.md)
+## [Test](./docs/test.md)
 
 ## Suggestion, Bug Reporting, Contributing
 
@@ -233,7 +233,7 @@ Do not post duplicated and useless contents like `+1`, `LOL`. React to comments 
 因为我们处于国际社区，英文更通用，方便外国人阅读理解你的意见。
 (Please communicate in English as much as possible)
 
-Please read [./doc/contribution.md](./doc/contribution.md) before make a Pull Request.
+Please read [./docs/CONTRIBUTING.md](./docs/CONTRIBUTING.md) before make a Pull Request.
 
 ## Versions
 
@@ -262,4 +262,4 @@ Read the [NOTICE][] file distributed with this work for additional information r
 [Master Branch]: https://github.com/adoyle-h/lobash/tree/master
 [Develop Branch]: https://github.com/adoyle-h/lobash/tree/develop
 [travis repo]: https://travis-ci.com/adoyle-h/lobash
-[module-usages]: ./doc/module-usages/README.md
+[module-usages]: ./docs/module-usages/README.md
