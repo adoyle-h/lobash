@@ -201,6 +201,21 @@ Arguments:
 EOF
 }
 
+# Reuse the last UNIQ_KEY if found
+set_uniq_key() {
+  UNIQ_KEY=$( grep -E '^# UNIQ_KEY: ' "$TARGET" 2>/dev/null | sed -E 's/^# UNIQ_KEY: (.+)/\1/' || true)
+
+  if [[ -n $UNIQ_KEY ]]; then return 0; fi
+
+  # Lobash built by Lobash 0.4 has not "# UNIQ_KEY" label. So try to get it from "readonly _LOBASH_[_0-9]+_PREFIX="
+  UNIQ_KEY=$( grep -E '^readonly _LOBASH_[_0-9]+_PREFIX=' "$TARGET" 2>/dev/null | sed -E 's/^readonly _LOBASH_([-_0-9]+)_PREFIX=.+/\1/' || true )
+
+  if [[ -n $UNIQ_KEY ]]; then return 0; fi
+
+  # If not found UNIQ_KEY, generate one based on current lobash version and time.
+  UNIQ_KEY=${VERSION//[^[:alnum:]]/_}_$(( $(date '+%s') - LOBASH_POUCH_TIME ))_$RANDOM
+}
+
 init() {
   if [[ ${opts[h]:-${opts[help]:-}} == true ]]; then
     usage
@@ -254,7 +269,7 @@ init() {
   # LOBASH_POUCH_TIME must never change
   LOBASH_POUCH_TIME=1561389473
 
-  UNIQ_KEY=${VERSION//[^[:alnum:]]/_}_$(( $(date '+%s') - LOBASH_POUCH_TIME ))_$RANDOM
+  set_uniq_key
   VERBOSE_1 "UNIQ_KEY=$UNIQ_KEY"
 
   if [[ $_LOBASH_OS == 'Linux' ]]; then
@@ -344,6 +359,7 @@ generate() {
   write "# Version: $VERSION_TAG"
   write "# Prefix: $PREFIX"
   write "# Bash Minimum Version: ${BASH_MIN_VERSION}"
+  write "# UNIQ_KEY: ${UNIQ_KEY}"
   write "# Included Modules: ${module_names[*]}"
 
   local text

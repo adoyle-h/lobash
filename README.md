@@ -23,7 +23,7 @@ It is implemented with pure bash script. (Except [l.now](src/modules/now.bash) f
 
 - Modular and easy to use. One module one Function.
 - Rich Functions. Over [120+ modules][module-usages] provided.
-- Robust and Safe. Over [600+ test cases](./tests/modules/) tested. Tested in Linux and MacOS with Bash 4.0~5.2, see [Github Actions](https://github.com/adoyle-h/lobash/actions).
+- Robust and Safe. Over [700+ test cases](./tests/modules/) tested. Tested in Linux and MacOS with Bash 4.0~5.2, see [Github Actions](https://github.com/adoyle-h/lobash/actions).
 - Fast. 0.058s to load Lobash completely.
 - Compatible with MacOS/Linux/Alpine/Busybox systems.
 - Compatible with Bash 4.0 and higher versions.
