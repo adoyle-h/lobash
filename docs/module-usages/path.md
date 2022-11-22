@@ -11,6 +11,7 @@
 - [normalize](#normalize)
 - [normalize.p](#normalize.p)
 - [pwd](#pwd)
+- [relative](#relative)
 
 ## Modules
 
@@ -88,5 +89,16 @@
 - Status: tested
 - Test Cases: [tests/modules/pwd.bats](../../tests/modules/pwd.bats)
 - Source Code: [src/modules/pwd.bash](../../src/modules/pwd.bash)
+
+### relative
+
+- Usage: `l.relative <from> <to>`
+- Description: Output the relative path.
+- Dependent: [`normalize`](./path.md#normalize)
+- Since: 0.5.0
+- Bash: 4.0+
+- Status: tested
+- Test Cases: [tests/modules/relative.bats](../../tests/modules/relative.bats)
+- Source Code: [src/modules/relative.bash](../../src/modules/relative.bash)
 
 [⬆️ Back up to TOC](#toc)

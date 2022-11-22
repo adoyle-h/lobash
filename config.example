@@ -101,6 +101,7 @@ PREFIX: l.
   - [ ] normalize
   - [ ] normalize.p
   - [ ] pwd
+  - [ ] relative
 
 - [ ]   Prompt
   - [ ] ask
@@ -119,6 +120,9 @@ PREFIX: l.
   - [ ] match_list
   - [ ] split
   - [ ] str_len
+  - [ ] str_replace
+  - [ ] str_replace_all
+  - [ ] str_replace_last
   - [ ] str_size
   - [ ] trim
   - [ ] trim.p

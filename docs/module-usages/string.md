@@ -14,6 +14,9 @@
 - [match_list](#match_list)
 - [split](#split)
 - [str_len](#str_len)
+- [str_replace](#str_replace)
+- [str_replace_all](#str_replace_all)
+- [str_replace_last](#str_replace_last)
 - [str_size](#str_size)
 - [trim](#trim)
 - [trim.p](#trim.p)
@@ -135,6 +138,36 @@
 - Status: tested
 - Test Cases: [tests/modules/str_len.bats](../../tests/modules/str_len.bats)
 - Source Code: [src/modules/str_len.bash](../../src/modules/str_len.bash)
+
+### str_replace
+
+- Usage: `l.str_replace <string> <pattern> <replace>`
+- Description: The first longest match of `<pattern>` is replaced with `<replace>`.
+- Since: 0.5.0
+- Bash: 4.0+
+- Status: tested
+- Test Cases: [tests/modules/str_replace.bats](../../tests/modules/str_replace.bats)
+- Source Code: [src/modules/str_replace.bash](../../src/modules/str_replace.bash)
+
+### str_replace_all
+
+- Usage: `l.str_replace_all <string> <pattern> <replace>`
+- Description: All matches of `<pattern>` are replaced with `<replace>`.
+- Since: 0.5.0
+- Bash: 4.0+
+- Status: tested
+- Test Cases: [tests/modules/str_replace_all.bats](../../tests/modules/str_replace_all.bats)
+- Source Code: [src/modules/str_replace_all.bash](../../src/modules/str_replace_all.bash)
+
+### str_replace_last
+
+- Usage: `l.str_replace_last <string> <pattern> <replace>`
+- Description: The first longest match of `<pattern>` is replaced with `<replace>`. But it matches from the end of string to the head.
+- Since: 0.5.0
+- Bash: 4.0+
+- Status: tested
+- Test Cases: [tests/modules/str_replace_last.bats](../../tests/modules/str_replace_last.bats)
+- Source Code: [src/modules/str_replace_last.bash](../../src/modules/str_replace_last.bash)
 
 ### str_size
 

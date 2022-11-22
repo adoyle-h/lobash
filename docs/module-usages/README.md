@@ -1,6 +1,6 @@
 # Module Usages
 
-15 Categories, 124 Modules, 680 Test Cases.
+15 Categories, 128 Modules, 719 Test Cases.
 
 Each module provides only one function which naming prefixed with `l.` by default.
 
@@ -106,6 +106,7 @@ Most Lobash modules support Bash 4.0+ except below modules.
   - [normalize](./path.md#normalize)
   - [normalize.p](./path.md#normalizep)
   - [pwd](./path.md#pwd)
+  - [relative](./path.md#relative)
 - [Prompt](./prompt.md)
   - [ask](./prompt.md#ask)
   - [ask_input](./prompt.md#ask_input)
@@ -122,6 +123,9 @@ Most Lobash modules support Bash 4.0+ except below modules.
   - [match_list](./string.md#match_list)
   - [split](./string.md#split)
   - [str_len](./string.md#str_len)
+  - [str_replace](./string.md#str_replace)
+  - [str_replace_all](./string.md#str_replace_all)
+  - [str_replace_last](./string.md#str_replace_last)
   - [str_size](./string.md#str_size)
   - [trim](./string.md#trim)
   - [trim.p](./string.md#trimp)

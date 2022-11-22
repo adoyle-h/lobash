@@ -22,6 +22,7 @@ It is implemented with pure bash script. (Except [l.now](src/modules/now.bash) f
 ## Lobash Features
 
 - Modular and easy to use. One module one Function.
+- Semantic functions instead of recondite bash expressions, substitutions, expansions.
 - Rich Functions. Over [120+ modules][module-usages] provided.
 - Robust and Safe. Over [700+ test cases](./tests/modules/) tested. Tested in Linux and MacOS with Bash 4.0~5.2, see [Github Actions](https://github.com/adoyle-h/lobash/actions).
 - Fast. 0.058s to load Lobash completely.
