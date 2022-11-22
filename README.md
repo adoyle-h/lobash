@@ -61,20 +61,21 @@ and make it compatible with Bash 4.0+ and MacOS/Linux/Alpine/Busybox systems.
 |    ✅💬   | Bash     | v4.0          | -                                             |
 |     🚫    | Bash     | v3            | Associative array is not supported until v4.0 |
 |     🚫    | POSIX sh | *             | `local` keyword not supported                 |
-|     🚫    | Zsh      | *             | Plan to implement it in another project       |
+|     🚫    | Zsh      | *             | -                                             |
 |     ❔    | Ksh      | *             | No tested                                     |
 
-Most Lobash modules support Bash 4.0+. Read [module usages](./doc/module-usages/README.md#not-compatible) to find what modules not compatible with Bash 4.0.
+Most Lobash modules support Bash 4.0 and higher versions. Some modules are not compatible with Bash version earlier than 4.4. See the [list](./doc/module-usages/README.md#not-compatible).
+Each module annotates a `Bash` label in [module usages](./doc/module-usages/README.md).
+`Bash: 4.2+` means compatible with Bash 4.2 and higher versions.
 
-✅💬 means Lobash can be used but not all features supported in shell.
-It will print notes to show what modules is not supported and it will be ignored when building Lobash file.
+✅💬 means Lobash is compatible but not all modules supported in shell.
+It will print notes to show what modules is not supported and ignored when building Lobash.
 
-**If you want use Lobash with Bash 4.3 and lower versions.**
-**Please read [./doc/with-lower-version-bash.md](./doc/with-lower-version-bash.md) first.**
+**If you use Lobash with Bash 4.0~4.3. Please read [./doc/with-lower-version-bash.md](./doc/with-lower-version-bash.md) first.**
 
 **Lobash not test with Bash 4.0 in MacOS. It seems a bug of Bash 4.0 in MacOS. Please contact me if you solved this problem.** Read [this document](./doc/with-lower-version-bash.md#not-test-with-bash-40-in-macos).
 
-Although most Linux distributions use Bash v4.3, and MacOS not installed Bash v4 by default,
+Although most Linux distributions use Bash v4.3 at the least, and MacOS installed Bash v3.2 by default,
 it is easily to upgrade Bash 4.4+ in most systems.
 
 ### Dependencies
@@ -90,8 +91,7 @@ Make sure below dependencies have been installed.
 Available Lobash versions refer to [Git Tags](https://github.com/adoyle-h/lobash/tags) which named like "vX.Y.Z".
 
 ```sh
-# or VERSION=master
-VERSION=v0.4.0
+VERSION=v0.4.0  # or VERSION=master
 # Download source codes
 git clone --depth 1 --branch $VERSION https://github.com/adoyle-h/lobash.git
 cd lobash

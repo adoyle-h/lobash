@@ -1,8 +1,8 @@
-# With Lower Version Bash
+# With Bash version < 4.4
 
 If you want use Lobash with Bash 4.3 and lower versions, there are some knowledges you should know.
 
-## Compatible with different versions
+## Compatible with different Bash versions
 
 This section only show the compatibilities with different Bash versions.
 
