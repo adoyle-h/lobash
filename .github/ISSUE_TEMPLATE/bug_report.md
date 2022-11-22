@@ -1,10 +1,9 @@
 ---
-name: Bug report
+name: Bug Report
 about: Create a report to help us improve
 title: ''
-labels: help wanted
+labels: bug
 assignees: adoyle-h
-
 ---
 
 <!-- You can describe it in English or Chinese -->

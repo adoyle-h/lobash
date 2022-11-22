@@ -1,10 +1,9 @@
 ---
-name: Feature request
+name: Feature Request
 about: Suggest an idea for this project
 title: ''
-labels: feature request
+labels: feature
 assignees: adoyle-h
-
 ---
 
 <!-- You can describe it in English or Chinese -->
@@ -14,29 +13,6 @@ assignees: adoyle-h
 
 ## Describe the solution you'd like
 <!-- A clear and concise description of what you want to happen. -->
-
-## Provide test cases
-<!-- Refer to .bats files under test/modules/ folder. For Example -->
-
-```
-@test "l.str_len ''" {
-  run l.str_len ''
-	assert_success
-	assert_output 0
-}
-
-@test "l.str_len hello" {
-  run l.str_len "hello"
-	assert_success
-	assert_output 5
-}
-
-@test "l.str_len ' hello '" {
-  run l.str_len " hello "
-	assert_success
-	assert_output 7
-}
-```
 
 ## Additional context
 <!-- Add any other context or screenshots about the feature request here. -->
@@ -49,29 +25,6 @@ assignees: adoyle-h
 <!-- 简洁地描述问题所在... -->
 
 ## 描述你期望的解决方案
-
-## 提供测试案例
-<!-- 参考 test/modules/ 下的 .bats 文件，例如 -->
-
-```
-@test "l.str_len ''" {
-  run l.str_len ''
-	assert_success
-	assert_output 0
-}
-
-@test "l.str_len hello" {
-  run l.str_len "hello"
-	assert_success
-	assert_output 5
-}
-
-@test "l.str_len ' hello '" {
-  run l.str_len " hello "
-	assert_success
-	assert_output 7
-}
-```
 
 ## 附加信息
 <!-- 在这里填写其他相关信息 -->

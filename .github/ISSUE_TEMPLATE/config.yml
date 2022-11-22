@@ -1,0 +1,22 @@
+blank_issues_enabled: false
+
+contact_links:
+  - name: Feature Request
+    url: https://github.com/adoyle-h/lobash/discussions
+    about: Open a discussion, describe your demand concisely and clearly.
+
+  - name: Feature Submit
+    url: https://github.com/adoyle-h/lobash/pulls
+    about: Open a PR, describe your demand and design concisely and clearly.
+
+  - name: Bug Fix
+    url: https://github.com/adoyle-h/lobash/pulls
+    about: Open a PR, concisely and clearly describe what you fixed.
+
+  - name: Question and Suggestion
+    url: https://github.com/adoyle-h/lobash/discussions
+    about: Open a discussion, describe your demand concisely and clearly.
+
+  - name: Anything not mentioned above
+    url: https://github.com/adoyle-h/lobash/discussions
+    about: Open a discussion, describe your demand concisely and clearly.
