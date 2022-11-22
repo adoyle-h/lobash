@@ -12,6 +12,7 @@ export IS_LOBASH_TEST=1
 LOBASH_ROOT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 export LOBASH_ROOT_DIR
 export LOBASH_TEST_DIR=$LOBASH_ROOT_DIR/tests
+export LOBASH_USE_DIST
 
 setup_fixture() {
   # shellcheck source=./tests/fixture/setup.bash
@@ -21,10 +22,13 @@ export -f setup_fixture
 
 if [[ ${1:-} == '-d' ]]; then
   shift
-  load_module() {
-    # shellcheck source=./dist/lobash.bash
-    source "$LOBASH_ROOT_DIR/dist/lobash.bash"
-  }
+
+  if [[ ! -f "$LOBASH_ROOT_DIR/dist/lobash.bash" ]]; then
+    echo "Not found $LOBASH_ROOT_DIR/dist/lobash.bash" >&2
+    exit 2
+  fi
+
+  LOBASH_USE_DIST=true
 fi
 
 if [[ -z "${1:-}" ]]; then

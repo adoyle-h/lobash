@@ -24,10 +24,17 @@ load_fixtrue() {
   load "$LOBASH_TEST_DIR/fixtrue/$path.bash" "$@"
 }
 
-load_module() {
-  [[ $# != 1 ]] && echo "load_module must have one argument at least." >&2 && return 3
-  _lobash.imports "$1"
-}
+if [[ $LOBASH_USE_DIST == true ]]; then
+  load_module() {
+    # shellcheck source=./dist/lobash.bash
+    source "$LOBASH_ROOT_DIR/dist/lobash.bash"
+  }
+else
+  load_module() {
+    [[ $# != 1 ]] && echo "load_module must have one argument at least." >&2 && return 3
+    _lobash.imports "$1"
+  }
+fi
 
 # Fix: bats-core reset "set -e"
 # https://github.com/bats-core/bats-core/blob/master/libexec/bats-core/bats-exec-test#L60
