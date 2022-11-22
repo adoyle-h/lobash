@@ -271,7 +271,7 @@ init() {
 
 clean() {
   local OVERWRITE=${opts[y]:-${opts[yes]:-${OVERWRITE:-false}}}
-  if l.is_tty_available; then OVERWRITE=true; fi
+  if ! l.is_tty_available; then OVERWRITE=true; fi
   VERBOSE_1 "To clean with OVERWRITE=${OVERWRITE}"
 
   if [[ $OVERWRITE != true ]] && [[ -f $TARGET ]]; then
