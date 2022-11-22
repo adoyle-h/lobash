@@ -14,7 +14,7 @@ Completely supported.
 
 ### 4.3
 
-- `shopt -s inherit_errexit` is new feature in Bash v4.4. There is no workaround in v4.3.
+- `shopt -s inherit_errexit` is a new feature in Bash v4.4. There is no workaround in v4.3.
 - `declare -p` has a bug. See [./module-usages/condition.md#is_array](./module-usages/condition.md#is_array).
 
 ### 4.2

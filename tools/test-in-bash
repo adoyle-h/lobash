@@ -10,10 +10,10 @@ set -o errtrace
 SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 readonly SCRIPT_DIR
 
-BASH_BIN_PATH=$SCRIPT_DIR/../dist/build-bash/$BASHVER/bin
+BASH_BIN_PATH=$SCRIPT_DIR/../tmp/bash-$BASHVER/bin
 if [[ ! -f $BASH_BIN_PATH/bash ]]; then
   echo "Not found $BASH_BIN_PATH/bash. To install Bash $BASHVER"
-  "$SCRIPT_DIR"/../tools/install-bash "$BASHVER"
+   BASHVER="$BASHVER" "$SCRIPT_DIR"/../tools/install-bash
 fi
 
 PATH=$BASH_BIN_PATH:$PATH

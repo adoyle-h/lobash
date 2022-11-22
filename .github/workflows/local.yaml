@@ -1,19 +1,43 @@
 name: local-test
 
-on: workflow_call
+on:
+  workflow_dispatch:
+    inputs:
+      test1:
+        description: 'Run job: test1'
+        required: false
+        type: boolean
+
+      test2:
+        description: 'Run job: test2'
+        required: false
+        type: boolean
+
+      local:
+        description: 'Run job: local'
+        required: false
+        type: boolean
 
 jobs:
-  test:
+  test1:
+    if: ${{ inputs.test1 }}
+    runs-on: macos-12
+    steps:
+      - run: dd bs=512 if=/dev/urandom count=1 2>/dev/null | tr -dc "a-zA-Z0-9@#*=[]" | head -c 10
+
+  test2:
+    if: ${{ inputs.test2 }}
     runs-on: macos-12
     steps:
       - run: LC_ALL=C tr -dc "a-zA-Z0-9@#*=[]" < /dev/urandom | head -c 10
 
   local:
+    if: ${{ inputs.local }}
     runs-on: macos-12
     strategy:
       fail-fast: true
       matrix:
-        # BASHVER: ['4.0']  # bash 4.0 has bug on MacOS: pointer being freed was not allocated
+        # Bash 4.0 has bug on MacOS. https://github.com/adoyle-h/lobash/blob/develop/doc/with-lower-version-bash.md#not-test-with-bash-40-in-macos
         BASHVER: ['4.1']
 
     steps:
@@ -25,27 +49,15 @@ jobs:
           echo "ACT: ${{ env.ACT }}"
 
           git submodule update --init --recursive
-          mkdir -p ./tmp
-
-      - name: Download bash-${{ matrix.BASHVER }}.tar.gz
-        if: steps.cache-bash.outputs.cache-hit != 'true'
-        run: |
-          curl --silent -L -o ./bash.tar.gz https://ftp.gnu.org/gnu/bash/bash-${{ matrix.BASHVER }}.tar.gz
-          tar -xzf ./bash.tar.gz
-        working-directory: tmp
 
       - name: Install bash
-        if: steps.cache-bash-install.outputs.cache-hit != 'true'
+        if: steps.cache-bash.outputs.cache-hit != 'true'
         run: |
-          CFLAGS='-Wno-implicit-function-declaration -DSSH_SOURCE_BASHRC' ./configure --silent
-          make
-          mkdir -p ${{ github.workspace }}/tmp/bash-install
-          make install prefix=/ DESTDIR=${{ github.workspace }}/tmp/bash-install
-        working-directory: tmp/bash-${{ matrix.BASHVER }}
+          BASHVER=${{ matrix.BASHVER }} ./tools/install-bash
 
       - name: To build ./dist/lobash.bash
         run: |
-          export PATH="${{ github.workspace }}/tmp/bash-install/bin:$PATH"
+          export PATH="${{ github.workspace }}/tmp/bash-${{ matrix.BASHVER }}/bin:$PATH"
           bash --version
           ./build -m "${{ matrix.BASHVER }}" ./dist/
 
@@ -54,5 +66,5 @@ jobs:
 
       - name: Start to test
         run: |
-          export PATH="${{ github.workspace }}/tmp/bash-install/bin:$PATH"
+          export PATH="${{ github.workspace }}/tmp/bash-${{ matrix.BASHVER }}/bin:$PATH"
           CI=true ./test -d

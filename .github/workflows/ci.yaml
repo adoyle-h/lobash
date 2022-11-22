@@ -35,7 +35,7 @@ jobs:
       fail-fast: true
       max-parallel: 10
       matrix:
-        # bash 4.0 has bug on MacOS: pointer being freed was not allocated
+        # Bash 4.0 has bug on MacOS. https://github.com/adoyle-h/lobash/blob/develop/doc/with-lower-version-bash.md#not-test-with-bash-40-in-macos
         BASHVER: ['4.1', '4.2', '4.3', '4.4', '5.0', '5.1', '5.2', '5.2.9']
 
     steps:
@@ -47,7 +47,6 @@ jobs:
           echo "ACT: ${{ env.ACT }}"
 
           git submodule update --init --recursive
-          mkdir -p ./tmp
 
       - name: Cache bash
         if: ${{ !env.ACT }}
@@ -57,37 +56,18 @@ jobs:
           path: ./tmp/bash-${{ matrix.BASHVER }}
           key: ${{ runner.os }}-bash-${{ matrix.BASHVER }}
 
-      - name: Cache bash-install
-        if: ${{ !env.ACT }}
-        id: cache-bash-install
-        uses: actions/cache@v3
-        with:
-          path: ./tmp/bash-install
-          key: ${{ runner.os }}-bash-install-${{ matrix.BASHVER }}
-
-      - name: Download bash-${{ matrix.BASHVER }}.tar.gz
+      - name: Install bash
         if: steps.cache-bash.outputs.cache-hit != 'true'
         run: |
-          curl --silent -L -o ./bash.tar.gz https://ftp.gnu.org/gnu/bash/bash-${{ matrix.BASHVER }}.tar.gz
-          tar -xzf ./bash.tar.gz
-        working-directory: tmp
-
-      - name: Install bash
-        if: steps.cache-bash-install.outputs.cache-hit != 'true'
-        run: |
-          CFLAGS='-Wno-implicit-function-declaration -DSSH_SOURCE_BASHRC' ./configure --silent
-          make
-          mkdir -p ${{ github.workspace }}/tmp/bash-install
-          make install prefix=/ DESTDIR=${{ github.workspace }}/tmp/bash-install
-        working-directory: tmp/bash-${{ matrix.BASHVER }}
+          BASHVER=${{ matrix.BASHVER }} ./tools/install-bash
 
       - name: To build ./dist/lobash.bash
         run: |
-          export PATH="${{ github.workspace }}/tmp/bash-install/bin:$PATH"
+          export PATH="${{ github.workspace }}/tmp/bash-${{ matrix.BASHVER }}/bin:$PATH"
           bash --version
           ./build -m "${{ matrix.BASHVER }}" ./dist/
 
       - name: Start to test
         run: |
-          export PATH="${{ github.workspace }}/tmp/bash-install/bin:$PATH"
+          export PATH="${{ github.workspace }}/tmp/bash-${{ matrix.BASHVER }}/bin:$PATH"
           CI=true ./test -d

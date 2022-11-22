@@ -14,23 +14,25 @@ Bash script development is complex and fallible.
 Javascript has a powerful library [Lodash](https://github.com/lodash/lodash) for simplifying development.
 So I build Lobash to do similar works for shell development.
 
-Lobash is a library not a command. It provides collections of functions to improve efficiency of shell development,
-and make it compatible with Bash 4.0+ and MacOS/Linux/Alpine/Busybox systems.
+Lobash provides collections of functions to improve efficiency of shell development.
+It is compatible with Bash 4.0+ and MacOS/Linux/Alpine/Busybox systems.
+
+It is implemented with pure bash script. (Except [l.now](src/modules/now.bash) function. It uses perl functions.)
 
 ## Lobash Features
 
 - Modular and easy to use. One module one Function.
 - Rich Functions. Over [120+ modules][module-usages] provided.
-- Robust and Safe. Over [600+ test cases](./tests/modules/) tested.
+- Robust and Safe. Over [600+ test cases](./tests/modules/) tested. Tested in Linux and MacOS with Bash 4.0~5.2, see [Github Actions](https://github.com/adoyle-h/lobash/actions).
 - Fast. 0.058s to load Lobash completely.
 - Compatible with MacOS/Linux/Alpine/Busybox systems.
 - Compatible with Bash 4.0 and higher versions.
 
 ## CI Status
 
-- [Branch: develop](https://github.com/adoyle-h/lobash/tree/develop): [![CI Status](![badge.svg](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml/badge.svg?branch=develop))](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml?query=branch%3Adevelop)
-- [v0.5.0](https://github.com/adoyle-h/lobash/tree/v0.5.0): [![CI Status](![badge.svg](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml/badge.svg?tag=v0.5.0))](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml?query=tag%3Av0.5.0)
-- [v0.4.0](https://github.com/adoyle-h/lobash/tree/v0.4.0): [![CI Status](![badge.svg](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml/badge.svg?tag=v0.4.0))](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml?query=tag%3Av0.4.0)
+- [develop branch](https://github.com/adoyle-h/lobash/tree/develop): [![CI Status](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml/badge.svg?branch=develop)](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml?query=branch%3Adevelop)
+- [v0.5.0](https://github.com/adoyle-h/lobash/tree/v0.5.0): [![CI Status](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml/badge.svg?tag=v0.5.0)](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml?query=tag%3Av0.5.0)
+- [v0.4.0](https://github.com/adoyle-h/lobash/tree/v0.4.0): [![CI Status](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml/badge.svg?tag=v0.4.0)](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml?query=tag%3Av0.4.0)
 
 ## [ChangeLog](./CHANGELOG.md)
 
@@ -129,7 +131,7 @@ All Lobash modules are written and tested with the shell options:
 - `set -o errexit`
 - `set -o nounset`
 - `set -o pipefail`
-- `shopt -s inherit_errexit`
+- `shopt -s inherit_errexit` (`inherit_errexit` is a new feature in Bash v4.4)
 
 If you do not understand the meanings of these shell options,
 please read [this article](https://dougrichardson.org/2018/08/03/fail-fast-bash-scripting.html).
