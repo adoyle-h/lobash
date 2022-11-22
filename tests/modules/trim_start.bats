@@ -69,3 +69,9 @@ load_module trim_start
   assert_success
   assert_output " file "
 }
+
+@test "l.trim_start ' pre fix. file ' ' pre fix.'" {
+  run l.trim_start ' pre fix. file ' ' pre fix.'
+  assert_success
+  assert_output " file "
+}

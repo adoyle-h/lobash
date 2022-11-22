@@ -11,6 +11,6 @@ l.trim_end() {
     # https://stackoverflow.com/a/3352015
     printf '%s\n' "${str%"${str##*[![:space:]]}"}"
   else
-    printf '%s\n' "${str%%$2}"
+    printf '%s\n' "${str%%"$2"}"
   fi
 }

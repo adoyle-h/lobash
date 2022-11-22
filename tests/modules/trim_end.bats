@@ -69,3 +69,9 @@ load_module trim_end
   assert_success
   assert_output " file "
 }
+
+@test "l.trim_end ' file .ex t' '.ex t'" {
+  run l.trim_end ' file .ex t' '.ex t'
+  assert_success
+  assert_output " file "
+}
