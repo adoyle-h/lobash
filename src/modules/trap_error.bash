@@ -1,6 +1,6 @@
 # ---
 # Category: Util
-# Since: next-minor
+# Since: 0.5.0
 # Usage: l.trap_error [trap_handler=_l.trap_error]
 # Description: Show error line number of file when program exited by error.
 # Description: Make sure `set -o errtrace` and `set -o errexit` before using l.trap_error.

@@ -493,7 +493,7 @@
 - Description:
   - Detect whether current os is Ubuntu or not.
   - Return 0 (true) or 1 (false). This function should never throw exception error.
-- Since: next-minor
+- Since: 0.5.0
 - Bash: 4.0+
 - Status: tested
 - Test Cases: [tests/modules/is_ubuntu.bats](../../tests/modules/is_ubuntu.bats)

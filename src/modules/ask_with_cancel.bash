@@ -1,6 +1,6 @@
 # ---
 # Category: Prompt
-# Since: next-minor
+# Since: 0.5.0
 # Usage: l.ask_with_cancel <message> [<default>='']
 # Description: Print the message to tty and wait for user typing from stdin.
 # Description: It will print 'YES' when user types y/Y/ye/Ye/yE/YE/yes/yES/yeS/YeS/Yes/YEs/YES.

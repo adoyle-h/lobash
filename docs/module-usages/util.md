@@ -69,7 +69,7 @@
   - Show error line number of file when program exited by error.
   - Make sure `set -o errtrace` and `set -o errexit` before using l.trap_error.
   - You can change trap handler to your own function.
-- Since: next-minor
+- Since: 0.5.0
 - Bash: 4.0+
 - Status: tested
 - Test Cases: [tests/modules/trap_error.bats](../../tests/modules/trap_error.bats)

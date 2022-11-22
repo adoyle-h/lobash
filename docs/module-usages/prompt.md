@@ -59,7 +59,7 @@
   - **Attention: "echo invalid_string | l.ask message" will fall into a infinite loop.**
   - "echo y | l.ask message" and "echo n | l.ask message" are valid.
 - Dependent: [`ask`](./prompt.md#ask)
-- Since: next-minor
+- Since: 0.5.0
 - Bash: 4.0+
 - Status: tested
 - Test Cases: [tests/modules/ask_with_cancel.bats](../../tests/modules/ask_with_cancel.bats)
