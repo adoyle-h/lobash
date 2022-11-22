@@ -19,9 +19,10 @@
 ## Test with different Bash versions in local
 
 ```sh
-BASHVER=4.0 ./tools/test-in-docker
-# or
-BASHVER=4.0 ./tools/test-in-docker ./tests/modules/${module_name}.bats
+BASHVER=4.0 ./tools/test
+# ./tools/test has same parameters to ./test
+BASHVER=4.0 ./tools/test -d
+BASHVER=4.0 ./tools/test ./tests/modules/${module_name}.bats
 ```
 
 ## Test with different Bash versions in Docker

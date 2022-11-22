@@ -44,7 +44,7 @@ Completely supported.
 To reproduce the problem,
 
 ```sh
-> BASHVER=4.0 ./tools/test-in-bash
+> BASHVER=4.0 ./tools/test
 bash(38696,0x7fff989c2380) malloc: *** error for object 0x1061ad800: pointer being freed was not allocated
 ```
 

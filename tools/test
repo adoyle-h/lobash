@@ -24,4 +24,3 @@ if (( $# > 0 )); then
 else
   bash "$cmd"
 fi
-

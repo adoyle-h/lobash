@@ -212,9 +212,7 @@ lobash-gen -c ./config
 - https://www.gnu.org/software/bash/manual/
 - http://mywiki.wooledge.org/BashFAQ
 
-## Test
-
-Read [./doc/test.md](./doc/test.md) for more details.
+## [Test](./doc/test.md)
 
 ## Suggestion, Bug Reporting, Contributing
 
