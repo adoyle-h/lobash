@@ -20,6 +20,7 @@ _LOBASH_BASIC_INTERNALS=(
   import
   with_ifs
   is_tty_available
+  is_gnu_sed
 )
 
 # for build Lobash
@@ -33,4 +34,5 @@ _LOBASH_DIST_INTERNALS=(
   dirname
   with_ifs
   is_tty_available
+  is_gnu_sed
 )
