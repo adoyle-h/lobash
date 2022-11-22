@@ -93,7 +93,7 @@ Make sure below dependencies have been installed.
 Available Lobash versions refer to [Git Tags](https://github.com/adoyle-h/lobash/tags) which named like "vX.Y.Z".
 
 ```sh
-VERSION=v0.4.0  # or VERSION=develop
+VERSION=v0.5.0  # or VERSION=develop
 # Download source codes
 git clone --depth 1 --branch $VERSION https://github.com/adoyle-h/lobash.git
 cd lobash

@@ -1,6 +1,6 @@
 # Module Usages
 
-15 Categories, 123 Modules, 680 Test Cases.
+15 Categories, 124 Modules, 680 Test Cases.
 
 Each module provides only one function which naming prefixed with `l.` by default.
 
@@ -60,6 +60,7 @@ Most Lobash modules support Bash 4.0+ except below modules.
   - [is_float.s](./condition.md#is_floats)
   - [is_function](./condition.md#is_function)
   - [is_function.s](./condition.md#is_functions)
+  - [is_gnu_sed](./condition.md#is_gnu_sed)
   - [is_integer](./condition.md#is_integer)
   - [is_integer.s](./condition.md#is_integers)
   - [is_link](./condition.md#is_link)

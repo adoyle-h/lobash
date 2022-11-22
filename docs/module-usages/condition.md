@@ -30,6 +30,7 @@
 - [is_float.s](#is_float.s)
 - [is_function](#is_function)
 - [is_function.s](#is_function.s)
+- [is_gnu_sed](#is_gnu_sed)
 - [is_integer](#is_integer)
 - [is_integer.s](#is_integer.s)
 - [is_link](#is_link)
@@ -357,6 +358,16 @@
 - Status: tested
 - Test Cases: [tests/modules/is_function.s.bats](../../tests/modules/is_function.s.bats)
 - Source Code: [src/modules/is_function.s.bash](../../src/modules/is_function.s.bash)
+
+### is_gnu_sed
+
+- Usage: `l.is_gnu_sed`
+- Description: Return 0 (true) or 1 (false). This function should never throw exception error.
+- Since: 0.5.0
+- Bash: 4.0+
+- Status: tested
+- Test Cases: [tests/modules/is_gnu_sed.bats](../../tests/modules/is_gnu_sed.bats)
+- Source Code: [src/modules/is_gnu_sed.bash](../../src/modules/is_gnu_sed.bash)
 
 ### is_integer
 

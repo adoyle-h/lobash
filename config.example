@@ -51,6 +51,7 @@ PREFIX: l.
   - [ ] is_float.s
   - [ ] is_function
   - [ ] is_function.s
+  - [ ] is_gnu_sed
   - [ ] is_integer
   - [ ] is_integer.s
   - [ ] is_link
