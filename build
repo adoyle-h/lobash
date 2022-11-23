@@ -135,8 +135,8 @@ init_module() {
 
 init_with_config_file() {
   read -r PREFIX < <(grep -E '^PREFIX:' "$CONFIG_PATH" | sed -E 's/^PREFIX: ?(.+)/\1/')
-
   read -r BASH_MIN_VERSION < <(grep -E '^BASH_MIN_VERSION:' "$CONFIG_PATH" | sed -E 's/^BASH_MIN_VERSION: ?(.+)/\1/')
+
   check_bash_version
   echo -e "${GREY}Build Lobash for Bash ${BASH_MIN_VERSION}+${RESET_ALL}"
 
@@ -253,10 +253,15 @@ init() {
       return 3
     fi
     echo "Found config: $CONFIG_PATH"
+
+    # Load PREFIX, BASH_MIN_VERSION and options from config
     init_with_config_file
   fi
 
-  VERBOSE_1 "BASH_MIN_VERSION=$BASH_MIN_VERSION PREFIX=$PREFIX TARGET=$TARGET"
+  PUBLIC_CONST_PREFIX=${PREFIX^^}
+  PUBLIC_CONST_PREFIX=${PUBLIC_CONST_PREFIX//[^[:alnum:]]/_}
+
+  VERBOSE_1 "BASH_MIN_VERSION=$BASH_MIN_VERSION PREFIX=$PREFIX PUBLIC_CONST_PREFIX=$PUBLIC_CONST_PREFIX TARGET=$TARGET"
   VERBOSE_1 "To import modules: ${module_names[*]}"
 
   if ! is_valid_lobash_prefix "$PREFIX"; then
@@ -319,23 +324,21 @@ fwrite() {
   local prefixes="${_LOBASH_INTERNAL_FUNC_PREFIX}|${_LOBASH_INTERNAL_CONST_PREFIX}|${_LOBASH_PRIVATE_FUNC_PREFIX}|${_LOBASH_PRIVATE_CONST_PREFIX}"
   prefixes=${prefixes//\./\\.}
 
-  local public_const_prefix=${PREFIX^^}
-
   VERBOSE_2 "To read content from $1"
   VERBOSE_3 "sed -E \"/^# /d;s/${WORD_BOUNDARY}($prefixes)([_a-zA-Z0-9]+)/\\1${UNIQ_KEY}_\\2/g\""
-  VERBOSE_3 "sed -E \"s/${WORD_BOUNDARY}${_LOBASH_PUBLIC_CONST_PREFIX}([_a-zA-Z0-9]+)/${public_const_prefix}\\1/g\""
+  VERBOSE_3 "sed -E \"s/${WORD_BOUNDARY}${_LOBASH_PUBLIC_CONST_PREFIX}([_a-zA-Z0-9]+)/${PUBLIC_CONST_PREFIX}\\1/g\""
 
   if [[ $PREFIX == 'l.' ]]; then
     <"$1" \
       sed -E "/^# /d;s/${WORD_BOUNDARY}($prefixes)([_a-zA-Z0-9]+)/\\1${UNIQ_KEY}_\\2/g" \
-      | sed -E "s/${WORD_BOUNDARY}${_LOBASH_PUBLIC_CONST_PREFIX}([_a-zA-Z0-9]+)/${public_const_prefix}\\1/g" \
+      | sed -E "s/${WORD_BOUNDARY}${_LOBASH_PUBLIC_CONST_PREFIX}([_a-zA-Z0-9]+)/${PUBLIC_CONST_PREFIX}\\1/g" \
       >> "$TARGET"
   else
     VERBOSE_3 "sed -E \"s/${WORD_BOUNDARY}${_LOBASH_PUBLIC_FUNC_PREFIX//\./\\.}([_a-zA-Z0-9]+)/${PREFIX}\\1/g\""
 
     <"$1" \
       sed -E "/^# /d;s/${WORD_BOUNDARY}($prefixes)([_a-zA-Z0-9]+)/\\1${UNIQ_KEY}_\\2/g" \
-      | sed -E "s/${WORD_BOUNDARY}${_LOBASH_PUBLIC_CONST_PREFIX}([_a-zA-Z0-9]+)/${public_const_prefix}\\1/g" \
+      | sed -E "s/${WORD_BOUNDARY}${_LOBASH_PUBLIC_CONST_PREFIX}([_a-zA-Z0-9]+)/${PUBLIC_CONST_PREFIX}\\1/g" \
       | sed -E "s/${WORD_BOUNDARY}${_LOBASH_PUBLIC_FUNC_PREFIX//\./\\.}([_a-zA-Z0-9]+)/${PREFIX}\\1/g" \
       >> "$TARGET"
   fi
@@ -396,7 +399,7 @@ generate() {
   VERBOSE_1 "To replace PREFIX=$PREFIX in file=$TARGET"
 
   sedi -E "s/^readonly ${_LOBASH_INTERNAL_CONST_PREFIX}${UNIQ_KEY}_PUBLIC_FUNC_PREFIX=.+/readonly _LOBASH_${UNIQ_KEY}_PUBLIC_FUNC_PREFIX=$PREFIX/" "$TARGET"
-  sedi -E "s/^readonly ${_LOBASH_INTERNAL_CONST_PREFIX}${UNIQ_KEY}_PUBLIC_CONST_PREFIX=.+/readonly _LOBASH_${UNIQ_KEY}_PUBLIC_CONST_PREFIX=${PREFIX^^}L_/" "$TARGET"
+  sedi -E "s/^readonly ${_LOBASH_INTERNAL_CONST_PREFIX}${UNIQ_KEY}_PUBLIC_CONST_PREFIX=.+/readonly _LOBASH_${UNIQ_KEY}_PUBLIC_CONST_PREFIX=${PUBLIC_CONST_PREFIX}/" "$TARGET"
   sedi -E "s/^readonly ${_LOBASH_INTERNAL_CONST_PREFIX}${UNIQ_KEY}_PREFIX=.+/readonly _LOBASH_${UNIQ_KEY}_PREFIX=$PREFIX/" "$TARGET"
   sedi -E "s/^readonly ${_LOBASH_INTERNAL_CONST_PREFIX}${UNIQ_KEY}_MIN_BASHVER=.+/readonly _LOBASH_${UNIQ_KEY}_MIN_BASHVER=$BASH_MIN_VERSION/" "$TARGET"
 
