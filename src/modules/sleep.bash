@@ -13,33 +13,27 @@
 #   read -rst "${1:-1}" -N 99999 || true
 # }
 
-# MacOS will show shows "/dev/fd/62: Permission denied" on `exec {_sleep_fd}<> <(true)`. So we make a workaround.
-if [[ $OSTYPE =~ darwin ]]; then
-  _L_SLEEP_TEMP=$(mktemp -u)
-  # Create a FIFO special file
-  mkfifo -m 700 "$_L_SLEEP_TEMP"
-fi
-
 # Refer to below links
 # - https://blog.dhampir.no/content/sleeping-without-a-subprocess-in-bash-and-how-to-sleep-forever
 # - https://bash.cyberciti.biz/guide/Opening_the_file_descriptors_for_reading_and_writing
 # - https://bash.cyberciti.biz/guide/Closes_the_file_descriptor_(fd)
 # - https://bash.cyberciti.biz/guide/Reads_from_the_file_descriptor_(fd)
 l.sleep() {
-  # Reset IFS in case it’s set to something weird.
-  local IFS
+  # Reset IFS in case
+  local IFS=''
   local _sleep_fd
 
   if [[ $OSTYPE =~ darwin ]]; then
     # MacOS will show shows "/dev/fd/62: Permission denied" on `exec {_sleep_fd}<> <(true)`. So we make a workaround.
 
-    # local _L_SLEEP_TEMP
-    # Get available temp file path
-    # _L_SLEEP_TEMP=$(mktemp -u)
-    # # Create a FIFO special file
-    # mkfifo -m 700 "$_L_SLEEP_TEMP"
+    if [[ ! -p ${_L_SLEEP_TEMP:-} ]]; then
+      # Get available temp file path
+      _L_SLEEP_TEMP=$(mktemp -u)
+      # Create a FIFO special file
+      mkfifo -m 700 "$_L_SLEEP_TEMP"
+    fi
+
     exec {_sleep_fd}<>"$_L_SLEEP_TEMP"
-    # rm -f "$_L_SLEEP_TEMP"
   else
     exec {_sleep_fd}<> <(true)
   fi
