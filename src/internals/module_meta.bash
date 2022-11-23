@@ -14,9 +14,8 @@ _lobash.get_module_path() {
 # <ver_a> > <ver_b> => 1
 _lobash.semver_compare() {
   local info_a info_b
-  local IFS='.'
-  info_a=( $1 )
-  info_b=( $2 )
+  IFS='.' read -r -a info_a <<<"$1"
+  IFS='.' read -r -a info_b <<<"$2"
 
   # result=$(( info_a[0] - info_b[0] ))
   if (( info_a[0] < info_b[0] )); then
@@ -105,9 +104,11 @@ _lobash.scan_module_metadata() {
   _lobash.meta_set_default Bash 4.0
 
   if [[ -n ${metadatas[Dependent_0]:-} ]]; then
+    # shellcheck disable=2016
     _lobash.with_IFS ',' 'deps=( ${metadatas[Dependent_0]} )'
 
     local dep compare dep_bashver
+    # shellcheck disable=2154
     for dep in "${deps[@]}"; do
       dep=${dep// /}
       _lobash.scan_module_metadata "$dep"
