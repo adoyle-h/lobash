@@ -7,7 +7,7 @@
 # ---
 
 l.is_ubuntu() {
-  if [[ -e /etc/os-release ]]; then
+  if [[ -f /etc/os-release ]]; then
     grep '^NAME="Ubuntu"' </etc/os-release &>/dev/null
   else
     return 1

@@ -13,7 +13,8 @@ load_module is_ubuntu
     assert_output ''
   else
     run l.is_ubuntu
-    assert_success
+    # run in alpine image, so it is not ubuntu
+    assert_failure
     assert_output ''
   fi
 }
