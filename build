@@ -125,6 +125,7 @@ init_module() {
   local deps dep
   deps=$(_lobash.get_module_metadata "$module_name" "Dependent")
   if [[ -n "$deps" ]]; then
+    # shellcheck disable=2206
     deps=( ${deps//,/ } )
     for dep in "${deps[@]}"; do
       init_module "$dep"
@@ -155,6 +156,7 @@ init_with_config_file() {
     init_module "$module_name"
   done < <(grep -E '^  - \[x\]' "$CONFIG_PATH" | sed -E 's/^  - \[x\] +(.+)/\1/')
 
+  # shellcheck disable=2207
   module_names=( $(l.union_array module_names) )
 }
 
@@ -316,20 +318,29 @@ write() {
 fwrite() {
   write ''
 
-  local prefixes="${_LOBASH_INTERNAL_FUNC_PREFIX}|${_LOBASH_INTERNAL_CONST_PREFIX}|${_LOBASH_PRIVATE_FUNC_PREFIX}|${_LOBASH_PRIVATE_CONST_PREFIX}|${_LOBASH_PUBLIC_FUNC_PREFIX}"
+  local prefixes="${_LOBASH_INTERNAL_FUNC_PREFIX}|${_LOBASH_INTERNAL_CONST_PREFIX}|${_LOBASH_PRIVATE_FUNC_PREFIX}|${_LOBASH_PRIVATE_CONST_PREFIX}"
   prefixes=${prefixes//\./\\.}
 
-  local public_const_prefix=${PREFIX//[^[:alnum:]]/_}
-  public_const_prefix=${public_const_prefix^^}
+  local public_const_prefix=${PREFIX^^}
 
   VERBOSE_2 "To read content from $1"
   VERBOSE_3 "sed -E \"/^# /d;s/${WORD_BOUNDARY}($prefixes)([_a-zA-Z0-9]+)/\\1${UNIQ_KEY}_\\2/g\""
   VERBOSE_3 "sed -E \"s/${WORD_BOUNDARY}${_LOBASH_PUBLIC_CONST_PREFIX}([_a-zA-Z0-9]+)/${public_const_prefix}\\1/g\""
 
-  <"$1" \
-    sed -E "/^# /d;s/${WORD_BOUNDARY}($prefixes)([_a-zA-Z0-9]+)/\\1${UNIQ_KEY}_\\2/g" \
-    | sed -E "s/${WORD_BOUNDARY}${_LOBASH_PUBLIC_CONST_PREFIX}([_a-zA-Z0-9]+)/${public_const_prefix}\\1/g" \
-    >> "$TARGET"
+  if [[ $PREFIX == 'l.' ]]; then
+    <"$1" \
+      sed -E "/^# /d;s/${WORD_BOUNDARY}($prefixes)([_a-zA-Z0-9]+)/\\1${UNIQ_KEY}_\\2/g" \
+      | sed -E "s/${WORD_BOUNDARY}${_LOBASH_PUBLIC_CONST_PREFIX}([_a-zA-Z0-9]+)/${public_const_prefix}\\1/g" \
+      >> "$TARGET"
+  else
+    VERBOSE_3 "sed -E \"s/${WORD_BOUNDARY}${_LOBASH_PUBLIC_FUNC_PREFIX//\./\\.}([_a-zA-Z0-9]+)/${PREFIX}\\1/g\""
+
+    <"$1" \
+      sed -E "/^# /d;s/${WORD_BOUNDARY}($prefixes)([_a-zA-Z0-9]+)/\\1${UNIQ_KEY}_\\2/g" \
+      | sed -E "s/${WORD_BOUNDARY}${_LOBASH_PUBLIC_CONST_PREFIX}([_a-zA-Z0-9]+)/${public_const_prefix}\\1/g" \
+      | sed -E "s/${WORD_BOUNDARY}${_LOBASH_PUBLIC_FUNC_PREFIX//\./\\.}([_a-zA-Z0-9]+)/${PREFIX}\\1/g" \
+      >> "$TARGET"
+  fi
 }
 
 generate() {
@@ -384,12 +395,14 @@ generate() {
   done
 
   VERBOSE_1 "To replace PREFIX=$PREFIX in file=$TARGET"
-  sedi -E "s/^readonly _LOBASH_${UNIQ_KEY}_PREFIX=.+/readonly _LOBASH_${UNIQ_KEY}_PREFIX=$PREFIX/" "$TARGET"
-  sedi -E "s/^readonly _LOBASH_${UNIQ_KEY}_PUBLIC_DEPTH=.+/readonly _LOBASH_${UNIQ_KEY}_PUBLIC_DEPTH=2/" "$TARGET"
-  sedi -E "s/^readonly _LOBASH_${UNIQ_KEY}_MIN_BASHVER=.+/readonly _LOBASH_${UNIQ_KEY}_MIN_BASHVER=$BASH_MIN_VERSION/" "$TARGET"
+
+  sedi -E "s/^readonly ${_LOBASH_INTERNAL_CONST_PREFIX}${UNIQ_KEY}_PUBLIC_FUNC_PREFIX=.+/readonly _LOBASH_${UNIQ_KEY}_PUBLIC_FUNC_PREFIX=$PREFIX/" "$TARGET"
+  sedi -E "s/^readonly ${_LOBASH_INTERNAL_CONST_PREFIX}${UNIQ_KEY}_PUBLIC_CONST_PREFIX=.+/readonly _LOBASH_${UNIQ_KEY}_PUBLIC_CONST_PREFIX=${PREFIX^^}L_/" "$TARGET"
+  sedi -E "s/^readonly ${_LOBASH_INTERNAL_CONST_PREFIX}${UNIQ_KEY}_PREFIX=.+/readonly _LOBASH_${UNIQ_KEY}_PREFIX=$PREFIX/" "$TARGET"
+  sedi -E "s/^readonly ${_LOBASH_INTERNAL_CONST_PREFIX}${UNIQ_KEY}_MIN_BASHVER=.+/readonly _LOBASH_${UNIQ_KEY}_MIN_BASHVER=$BASH_MIN_VERSION/" "$TARGET"
 
   write ''
-  write '######################## Private Methods ########################'
+  write '######################## Module Methods ########################'
 
   local compare module_name bashver
   local -A skips
@@ -414,17 +427,15 @@ generate() {
   done
 
   write ''
-  write '######################## Public Methods ########################'
+  write '######################## Skipped Modules ########################'
 
-  echo "Writing Module Public Methods..."
+  echo "Writing Skipped Modules..."
   for module_name in "${module_names[@]}"; do
     if [[ -n ${skips[$module_name]:-} ]]; then
       bashver=$(_lobash.get_module_metadata "$module_name" "Bash")
-      echo -e "${YELLOW}Note${RESET_ALL}: Module '${CYAN}$module_name${RESET_ALL}' is not included in generated file. It supports Bash ${BLUE}${bashver}+${RESET_ALL} while required Bash ${BLUE}$BASH_MIN_VERSION${RESET_ALL}."
+      echo -e "${YELLOW}Note${RESET_ALL}: Module '${CYAN}$module_name${RESET_ALL}' is not included in built file. It only supports Bash ${BLUE}${bashver}+${RESET_ALL}, and current Bash Minimum Version is ${BLUE}$BASH_MIN_VERSION${RESET_ALL}."
 
-      write "# Module '$module_name' is not included in generated file. It supports Bash ${bashver}+ while required Bash $BASH_MIN_VERSION."
-    else
-      write "$PREFIX$module_name() { l.${UNIQ_KEY}_$module_name \"\$@\"; }"
+      write "# Module '$module_name' is not included in built file. It only supports Bash ${bashver}+, and current Bash Minimum Version is $BASH_MIN_VERSION."
     fi
   done
 

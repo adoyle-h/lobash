@@ -10,6 +10,7 @@ _lobash.import_internal() {
   else
     src_dir="$(dirname "${BASH_SOURCE[0]}")/internals"
   fi
+  # shellcheck disable=1090
   source "$src_dir/$1.bash"
 }
 
