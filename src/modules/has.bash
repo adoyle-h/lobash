@@ -1,6 +1,6 @@
 # ---
 # Category: Condition
-# Since: 0.1.0
+# Since: 0.3.0
 # Usage: l.has <condition> <what>
 # Description: Exit with 0 or 1. Check if command/function/alias/keyword/builtin or anything existed.
 # Description: `<condition>` Valid value: `command`, `function`, `alias`, `keyword`, `builtin`, `the`

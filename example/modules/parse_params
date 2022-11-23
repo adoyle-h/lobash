@@ -3,11 +3,12 @@
 set -o errexit
 set -o nounset
 set -o pipefail
+set -o errtrace
 (shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
-[[ -n "${VERBOSE:+x}" ]] && set -o verbose
-[[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
+[[ -n "${VERBOSE:-}" ]] && set -o verbose
 
-readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+readonly SCRIPT_DIR
 # shellcheck source=./init.bash
 source "$SCRIPT_DIR"/init.bash
 
@@ -35,6 +36,7 @@ done
 
 echo "------Use Options------"
 
+# NOTE: Use ${opts[c]:-} instead of ${opts[c]}. If `set -o nounset`, ${opts[c]} will throw error when option omitted.
 if [[ -n ${opts[c]:-} ]]; then
   echo "c=${opts[c]}"
 fi

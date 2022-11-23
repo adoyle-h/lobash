@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o nounset
+set -o pipefail
+set -o errtrace
+(shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
+[[ -n "${VERBOSE:-}" ]] && set -o verbose
+
+SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+readonly SCRIPT_DIR
+
+if (( $# == 0)) || [[ $1 == -h ]] || [[ $1 == --help ]]; then
+  cat <<EOF
+Usage: $0 <major|minor|patch>
+Description: bump version for release
+EOF
+  exit 0
+fi
+
+semver=$SCRIPT_DIR/../tmp/semver
+
+if [[ ! -f $semver ]]; then
+  curl -Lo "$semver" https://raw.githubusercontent.com/fsaintjacques/semver-tool/master/src/semver
+  chmod +x "$semver"
+fi
+
+main() {
+  local version_file="$SCRIPT_DIR/../version"
+  local curVer nextVer
+  curVer=$(cat "$version_file")
+  nextVer=$( "$semver" bump "$1" "$curVer" )
+  echo "$nextVer" > "$version_file"
+}
+
+main "$@"

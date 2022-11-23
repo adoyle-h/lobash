@@ -1,23 +1,64 @@
 #!/usr/bin/env bash
-# Supported Bash: 4.0+
+# This script support Bash: 4.0+
 
 set -o errexit
 set -o nounset
 set -o pipefail
+set -o errtrace
 (shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
 [[ -n "${VERBOSE:-}" ]] && set -o verbose
-[[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
 
-readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+readlinkf() { # Modified from https://github.com/ko1nksm/readlinkf
+  [ "${1:-}" ] || return 1
+
+  CDPATH='' # to avoid changing to an unexpected directory
+  local max_symlinks=40
+  local link
+  local target=$1
+
+  [ -e "${target%/}" ] || target=${1%"${1##*[!/]}"} # trim trailing slashes
+  [ -d "${target:-/}" ] && target="$target/"
+
+  cd -P . 2>/dev/null || return 1
+  while [ "$max_symlinks" -ge 0 ] && max_symlinks=$((max_symlinks - 1)); do
+    if [ ! "$target" = "${target%/*}" ]; then
+      case $target in
+        /*) cd -P "${target%/*}/" 2>/dev/null || break ;;
+        *) cd -P "./${target%/*}" 2>/dev/null || break ;;
+      esac
+      target=${target##*/}
+    fi
+
+    if [ ! -L "$target" ]; then
+      target="${PWD%/}${target:+/}${target}"
+      printf '%s\n' "${target:-/}"
+      return 0
+    fi
+
+    link=$(ls -dl -- "$target" 2>/dev/null) || break
+    target=${link#*" $target -> "}
+  done
+  return 1
+}
+
+SCRIPT_PATH="$(readlinkf "$0")"
+SCRIPT_DIR=$(dirname "$SCRIPT_PATH")
+readonly SCRIPT_PATH SCRIPT_DIR
 
 # shellcheck source=./tools/colors.bash
 source "$SCRIPT_DIR/tools/colors.bash"
 # shellcheck source=./src/load_internals.bash
 source "$SCRIPT_DIR/src/load_internals.bash"
 _lobash.import_internals basic_meta_types module_meta rm erase_line
-_lobash.imports ask choose parse_params array_include union_array
+_lobash.imports ask choose parse_params array_include union_array is_tty_available is_gnu_sed relative
 
 SUPPORTED_BASH_VERISONS=( 4.0 4.1 4.2 4.3 4.4 )
+
+if l.is_gnu_sed; then
+  sedi() { sed -i "$@"; }
+else
+  sedi() { sed -i '' "$@"; }
+fi
 
 is_valid_lobash_prefix() {
   local prefix=$1
@@ -40,11 +81,16 @@ init_bash_min_version() {
   set +e
   read -r -d '' text <<EOF
 Default to generate Lobash for Bash 4.4+.
-If you want to run Lobash with lower-version Bash, enter "NO".
+If you want to run Lobash with lower-version Bash, enter "N".
 Use Lobash for Bash 4.4+?
 EOF
   set -e
-  use_defualt=$(l.ask "$text")
+
+  if l.is_tty_available; then
+    use_defualt=$(l.ask "$text" Y)
+  else
+    use_defualt=YES
+  fi
 
   if [[ $use_defualt == YES ]]; then
     BASH_MIN_VERSION=4.4
@@ -79,6 +125,7 @@ init_module() {
   local deps dep
   deps=$(_lobash.get_module_metadata "$module_name" "Dependent")
   if [[ -n "$deps" ]]; then
+    # shellcheck disable=2206
     deps=( ${deps//,/ } )
     for dep in "${deps[@]}"; do
       init_module "$dep"
@@ -87,14 +134,16 @@ init_module() {
 }
 
 init_with_config_file() {
-  read -r BASH_MIN_VERSION < <(grep -E '^BASH_MIN_VERSION:' "$config_path" | sed -E 's/^BASH_MIN_VERSION: ?(.+)/\1/')
+  read -r PREFIX < <(grep -E '^PREFIX:' "$CONFIG_PATH" | sed -E 's/^PREFIX: ?(.+)/\1/')
+  read -r BASH_MIN_VERSION < <(grep -E '^BASH_MIN_VERSION:' "$CONFIG_PATH" | sed -E 's/^BASH_MIN_VERSION: ?(.+)/\1/')
+
   check_bash_version
   echo -e "${GREY}Build Lobash for Bash ${BASH_MIN_VERSION}+${RESET_ALL}"
 
   module_names=()
 
   local category_names module_name
-  readarray -t category_names < <(grep -E '^- \[x\]' "$config_path" | sed -E 's/^- \[x\] +(.+)/\1/')
+  readarray -t category_names < <(grep -E '^- \[x\]' "$CONFIG_PATH" | sed -E 's/^- \[x\] +(.+)/\1/')
 
   for category_name in "${category_names[@]}"; do
     echo -e "${GREY}To import category ${category_name}${RESET_ALL}"
@@ -105,14 +154,80 @@ init_with_config_file() {
 
   while read -r module_name; do
     init_module "$module_name"
-  done < <(grep -E '^  - \[x\]' "$config_path" | sed -E 's/^  - \[x\] +(.+)/\1/')
+  done < <(grep -E '^  - \[x\]' "$CONFIG_PATH" | sed -E 's/^  - \[x\] +(.+)/\1/')
 
+  # shellcheck disable=2207
   module_names=( $(l.union_array module_names) )
 }
 
+# Supported functions: VERBOSE_1, VERBOSE_2, VERBOSE_3, VERBOSE_4
+# Usage: VERBOSE_i <message>
+# ./build -v=3
+# ./build -v
+init_verbose() {
+  if [[ -n ${opts[v]:-} ]]; then
+    if [[ ${opts[v]} == true ]]; then
+      VERBOSE=1
+    else
+      VERBOSE=${opts[v]}
+    fi
+  else
+    VERBOSE=0
+  fi
+
+  local i=1
+  while (( i <= 4 )); do
+    if (( i <= VERBOSE )); then
+      eval "VERBOSE_$i() { printf '%b[v=$i][%s:%s] %s%b\n' \"\$GREY\" \"\${BASH_LINENO}\" \"\${FUNCNAME[1]}\" \"\$1\" \"\$RESET_ALL\"; }"
+    else
+      eval "VERBOSE_$i() { true; }"
+    fi
+    i=$(( i + 1 ))
+  done
+}
+
+usage() {
+  cat <<EOF
+Usage: $0 [OPTIONS] [<output>]
+
+Options:
+  -h, --help                     Show usage.
+  -c, --config                   Config file for building. If set, option "-p" will not work.
+  -p <prefix>                    Prefix of variable names. [Default: l.]
+  -y, --yes                      Overwrite output.
+  -v <level>                     Show verbose. 0 means off. [Value: 0~4] [Default: 0]
+  -m <BASHVER>, --min <BASHVER>  Generated lobash supports the minimum version of Bash
+
+Arguments:
+  <output>  Output the lobash.bash file
+EOF
+}
+
+# Reuse the last UNIQ_KEY if found
+set_uniq_key() {
+  UNIQ_KEY=$( grep -E '^# UNIQ_KEY: ' "$TARGET" 2>/dev/null | sed -E 's/^# UNIQ_KEY: (.+)/\1/' || true)
+
+  if [[ -n $UNIQ_KEY ]]; then return 0; fi
+
+  # Lobash built by Lobash 0.4 has not "# UNIQ_KEY" label. So try to get it from "readonly _LOBASH_[_0-9]+_PREFIX="
+  UNIQ_KEY=$( grep -E '^readonly _LOBASH_[_0-9]+_PREFIX=' "$TARGET" 2>/dev/null | sed -E 's/^readonly _LOBASH_([-_0-9]+)_PREFIX=.+/\1/' || true )
+
+  if [[ -n $UNIQ_KEY ]]; then return 0; fi
+
+  # If not found UNIQ_KEY, generate one based on current lobash version and time.
+  UNIQ_KEY=${VERSION//[^[:alnum:]]/_}_$(( $(date '+%s') - LOBASH_POUCH_TIME ))_$RANDOM
+}
+
 init() {
+  if [[ ${opts[h]:-${opts[help]:-}} == true ]]; then
+    usage
+    exit 0
+  fi
+
+  init_verbose
+
   if (( ${#args[@]} == 0 )); then
-    TARGET=$SCRIPT_DIR/dist/lobash.bash
+    TARGET=$PWD/lobash.bash
   else
     if [[ -d ${args[0]} ]]; then
       TARGET=${args[0]}/lobash.bash
@@ -121,13 +236,11 @@ init() {
     fi
   fi
 
-  if [[ -n ${opts[c]:-} ]]; then
-    config_path=${opts[c]}
-  elif [[ -n ${opts[config]:-} ]]; then
-    config_path=${opts[config]}
-  fi
+  PREFIX=${opts[p]:-${PREFIX:-l.}}
+  CONFIG_PATH=${opts[c]:-${opts[config]:-}}
+  BASHVER=${opts[m]:-${opts[min]:-${BASHVER:-}}}
 
-  if [[ -z ${config_path:-} ]]; then
+  if [[ -z ${CONFIG_PATH} ]]; then
     init_bash_min_version
     module_names=()
     for path in "$SCRIPT_DIR"/src/modules/*.bash; do
@@ -135,32 +248,55 @@ init() {
       module_names+=("$module_name")
     done
   else
-    if [[ ! -f ${config_path} ]]; then
-      echo "Not found config file in path: $config_path" >&2
+    if [[ ! -f ${CONFIG_PATH} ]]; then
+      echo "Not found config file in path: $CONFIG_PATH" >&2
       return 3
     fi
-    echo "Found config: $config_path"
+    echo "Found config: $CONFIG_PATH"
+
+    # Load PREFIX, BASH_MIN_VERSION and options from config
     init_with_config_file
   fi
-  # echo -e "${GREY}To import modules: ${module_names[*]}${RESET_ALL}"
 
-  PREFIX=${PREFIX:-l.}
-  OVERWRITE=${OVERWRITE:-no}
+  PUBLIC_CONST_PREFIX=${PREFIX^^}
+  PUBLIC_CONST_PREFIX=${PUBLIC_CONST_PREFIX//[^[:alnum:]]/_}
+
+  VERBOSE_1 "BASH_MIN_VERSION=$BASH_MIN_VERSION PREFIX=$PREFIX PUBLIC_CONST_PREFIX=$PUBLIC_CONST_PREFIX TARGET=$TARGET"
+  VERBOSE_1 "To import modules: ${module_names[*]}"
 
   if ! is_valid_lobash_prefix "$PREFIX"; then
     echo -e "${RED}Invalid PREFIX=\"$PREFIX\". PREFIX must end with one of '_', '-', '.'${RESET_ALL}" >&2
     return 4
   fi
 
+  VERBOSE_1 "_LOBASH_OS=$_LOBASH_OS"
+
   VERSION=$(cat "$SCRIPT_DIR/version")
+  VERBOSE_1 "VERSION=$VERSION"
   # LOBASH_POUCH_TIME must never change
   LOBASH_POUCH_TIME=1561389473
 
-  UNIQ_KEY=${VERSION//[^[:alnum:]]/_}_$(( $(date '+%s') - LOBASH_POUCH_TIME ))_$RANDOM
+  set_uniq_key
+  VERBOSE_1 "UNIQ_KEY=$UNIQ_KEY"
+
+  if [[ $_LOBASH_OS == 'Linux' ]]; then
+    WORD_BOUNDARY='\b'
+  elif [[ $_LOBASH_OS == 'MacOS' ]]; then
+    WORD_BOUNDARY='[[:<:]]'
+  else
+    echo "Unexpected _LOBASH_OS=$_LOBASH_OS" >&2
+    exit 3
+  fi
+  VERBOSE_1 "WORD_BOUNDARY=$WORD_BOUNDARY"
+  VERBOSE_1 "_LOBASH_PUBLIC_CONST_PREFIX=$_LOBASH_PUBLIC_CONST_PREFIX"
 }
 
 clean() {
-  if [[ $OVERWRITE != yes ]] && [[ -f $TARGET ]]; then
+  local OVERWRITE=${opts[y]:-${opts[yes]:-${OVERWRITE:-false}}}
+  if ! l.is_tty_available; then OVERWRITE=true; fi
+  VERBOSE_1 "To clean with OVERWRITE=${OVERWRITE}"
+
+  if [[ $OVERWRITE != true ]] && [[ -f $TARGET ]]; then
     local answer
     answer=$(l.ask "Existed file: ${TARGET}. Overwrite it?" N)
     echo -e "${GREY}$answer${RESET_ALL}"
@@ -174,7 +310,9 @@ clean() {
     esac
   fi
 
+  VERBOSE_1 "To rm $TARGET"
   _lobash.rm "$TARGET"
+  VERBOSE_1 "Removed $TARGET"
   mkdir -p "$(dirname "$TARGET")"
 }
 
@@ -183,62 +321,90 @@ write() {
 }
 
 fwrite() {
-  write ''
-
-  local prefixes="${_LOBASH_INTERNAL_FUNC_PREFIX}|${_LOBASH_INTERNAL_CONST_PREFIX}|${_LOBASH_PRIVATE_FUNC_PREFIX}|${_LOBASH_PRIVATE_CONST_PREFIX}|${_LOBASH_PUBLIC_FUNC_PREFIX}"
+  local prefixes="${_LOBASH_INTERNAL_FUNC_PREFIX}|${_LOBASH_INTERNAL_CONST_PREFIX}|${_LOBASH_PRIVATE_FUNC_PREFIX}|${_LOBASH_PRIVATE_CONST_PREFIX}"
   prefixes=${prefixes//\./\\.}
 
-  local word_boundary
-  if [[ $_LOBASH_OS == 'Linux' ]]; then
-    word_boundary='\b'
-  elif [[ $_LOBASH_OS == 'MacOS' ]]; then
-    word_boundary='[[:<:]]'
+  VERBOSE_2 "To read content from $1"
+  VERBOSE_3 "sed -E \"/^# /d;s/${WORD_BOUNDARY}($prefixes)([_a-zA-Z0-9]+)/\\1${UNIQ_KEY}_\\2/g\""
+  VERBOSE_3 "sed -E \"s/${WORD_BOUNDARY}${_LOBASH_PUBLIC_CONST_PREFIX}([_a-zA-Z0-9]+)/${PUBLIC_CONST_PREFIX}\\1/g\""
+
+  if [[ $PREFIX == 'l.' ]]; then
+    <"$1" \
+      sed -E "/^# /d;s/${WORD_BOUNDARY}($prefixes)([_a-zA-Z0-9]+)/\\1${UNIQ_KEY}_\\2/g" \
+      | sed -E "s/${WORD_BOUNDARY}${_LOBASH_PUBLIC_CONST_PREFIX}([_a-zA-Z0-9]+)/${PUBLIC_CONST_PREFIX}\\1/g" \
+      >> "$TARGET"
   else
-    echo "Unexpected _LOBASH_OS=$_LOBASH_OS" >&2
+    VERBOSE_3 "sed -E \"s/${WORD_BOUNDARY}${_LOBASH_PUBLIC_FUNC_PREFIX//\./\\.}([_a-zA-Z0-9]+)/${PREFIX}\\1/g\""
+
+    <"$1" \
+      sed -E "/^# /d;s/${WORD_BOUNDARY}($prefixes)([_a-zA-Z0-9]+)/\\1${UNIQ_KEY}_\\2/g" \
+      | sed -E "s/${WORD_BOUNDARY}${_LOBASH_PUBLIC_CONST_PREFIX}([_a-zA-Z0-9]+)/${PUBLIC_CONST_PREFIX}\\1/g" \
+      | sed -E "s/${WORD_BOUNDARY}${_LOBASH_PUBLIC_FUNC_PREFIX//\./\\.}([_a-zA-Z0-9]+)/${PREFIX}\\1/g" \
+      >> "$TARGET"
   fi
-
-  local public_const_prefix=${PREFIX//[^[:alnum:]]/_}
-  public_const_prefix=${public_const_prefix^^}
-
-  <"$1" \
-    sed -E "/^# /d;s/${word_boundary}($prefixes)([_a-zA-Z0-9]+)/\\1${UNIQ_KEY}_\\2/g" \
-    | sed -E "s/${word_boundary}${_LOBASH_PUBLIC_CONST_PREFIX}([_a-zA-Z0-9]+)/${public_const_prefix}\\1/g" \
-    >> "$TARGET"
 }
 
 generate() {
+  VERBOSE_1 "To generate lobash file: $TARGET"
+
+  local VERSION_TAG git_commit
+  git_commit=$(git -C "$SCRIPT_DIR" rev-parse HEAD || true)
+
+  if [[ -n $git_commit ]]; then
+    VERSION_TAG="$VERSION ($git_commit)"
+  else
+    VERSION_TAG="$VERSION"
+  fi
+
+  local cmd
+  if [[ -z $CONFIG_PATH ]]; then
+    cmd="lobash-gen -p '$PREFIX' -m ${BASH_MIN_VERSION}${CONFIG_PATH:+ -c $CONFIG_PATH} $(basename "$TARGET")"
+  else
+    cmd="lobash-gen -c $(l.relative "$TARGET" "$CONFIG_PATH") $(basename "$TARGET")"
+  fi
+
+  VERBOSE_1 "To write header"
   write '# This file is generated by https://github.com/adoyle-h/lobash'
+  write "# Command: $cmd"
   write '# Author: ADoyle <adoyle.h@gmail.com>'
   write '# License: Apache License Version 2.0'
-  write "# Version: $VERSION"
+  write "# Version: $VERSION_TAG"
   write "# Prefix: $PREFIX"
   write "# Bash Minimum Version: ${BASH_MIN_VERSION}"
+  write "# UNIQ_KEY: ${UNIQ_KEY}"
   write "# Included Modules: ${module_names[*]}"
 
   local text
 
   if [[ ${BASH_MIN_VERSION} =~ ^4.(0|1|2|3)$ ]]; then
-    echo -e "${YELLOW}Note: Not all features are supported in Bash ${BASH_MIN_VERSION}.\\nPlease read this link: https://github.com/adoyle-h/lobash/blob/develop/doc/with-lower-version-bash.md${RESET_ALL}"
+    echo -e "${YELLOW}Note: Not all features are supported in Bash ${BASH_MIN_VERSION}.\\nPlease read this link: https://github.com/adoyle-h/lobash/blob/develop/docs/with-lower-version-bash.md${RESET_ALL}"
     write "#"
     write "# Note: Not all features are supported in Bash ${BASH_MIN_VERSION}."
-    write "# Please read this link: https://github.com/adoyle-h/lobash/blob/develop/doc/with-lower-version-bash.md"
+    write "# Please read this link: https://github.com/adoyle-h/lobash/blob/develop/docs/with-lower-version-bash.md"
   fi
 
   write ''
   write '######################## Lobash Internals ########################'
 
+  VERBOSE_1 "To load src/internals/basic_internals.bash"
   # shellcheck source=./src/internals/basic_internals.bash
   source "$SCRIPT_DIR"/src/internals/basic_internals.bash
 
+  printf '%s\n' "Writing Lobash Internals..."
   for name in "${_LOBASH_DIST_INTERNALS[@]}"; do
+    write ''
     fwrite "$SCRIPT_DIR/src/internals/$name.bash"
   done
-  write "_LOBASH_${UNIQ_KEY}_PREFIX=$PREFIX"
-  write "_LOBASH_${UNIQ_KEY}_PUBLIC_DEPTH=2"
-  write "_LOBASH_${UNIQ_KEY}_MIN_BASHVER=$BASH_MIN_VERSION"
+
+  VERBOSE_1 "To replace PREFIX=$PREFIX in file=$TARGET"
+
+  sedi -E "s/^readonly ${_LOBASH_INTERNAL_CONST_PREFIX}${UNIQ_KEY}_PUBLIC_FUNC_PREFIX=.+/readonly _LOBASH_${UNIQ_KEY}_PUBLIC_FUNC_PREFIX=$PREFIX/" "$TARGET"
+  sedi -E "s/^readonly ${_LOBASH_INTERNAL_CONST_PREFIX}${UNIQ_KEY}_PUBLIC_CONST_PREFIX=.+/readonly _LOBASH_${UNIQ_KEY}_PUBLIC_CONST_PREFIX=${PUBLIC_CONST_PREFIX}/" "$TARGET"
+  sedi -E "s/^readonly ${_LOBASH_INTERNAL_CONST_PREFIX}${UNIQ_KEY}_PREFIX=.+/readonly _LOBASH_${UNIQ_KEY}_PREFIX=$PREFIX/" "$TARGET"
+  sedi -E "s/^readonly ${_LOBASH_INTERNAL_CONST_PREFIX}${UNIQ_KEY}_MIN_BASHVER=.+/readonly _LOBASH_${UNIQ_KEY}_MIN_BASHVER=$BASH_MIN_VERSION/" "$TARGET"
 
   write ''
-  write '######################## Private Methods ########################'
+  write '######################## Module Methods ########################'
 
   local compare module_name bashver
   local -A skips
@@ -263,17 +429,15 @@ generate() {
   done
 
   write ''
-  write '######################## Public Methods ########################'
+  write '######################## Skipped Modules ########################'
 
-  echo "Writing Module Public Methods..."
+  echo "Writing Skipped Modules..."
   for module_name in "${module_names[@]}"; do
     if [[ -n ${skips[$module_name]:-} ]]; then
       bashver=$(_lobash.get_module_metadata "$module_name" "Bash")
-      echo -e "${YELLOW}Note${RESET_ALL}: Module '${CYAN}$module_name${RESET_ALL}' is not included in generated file. It supports Bash ${BLUE}${bashver}+${RESET_ALL} while required Bash ${BLUE}$BASH_MIN_VERSION${RESET_ALL}."
+      echo -e "${YELLOW}Note${RESET_ALL}: Module '${CYAN}$module_name${RESET_ALL}' is not included in built file. It only supports Bash ${BLUE}${bashver}+${RESET_ALL}, and current Bash Minimum Version is ${BLUE}$BASH_MIN_VERSION${RESET_ALL}."
 
-      write "# Module '$module_name' is not included in generated file. It supports Bash ${bashver}+ while required Bash $BASH_MIN_VERSION."
-    else
-      write "$PREFIX$module_name() { l.${UNIQ_KEY}_$module_name \"\$@\"; }"
+      write "# Module '$module_name' is not included in built file. It only supports Bash ${bashver}+, and current Bash Minimum Version is $BASH_MIN_VERSION."
     fi
   done
 
@@ -286,7 +450,12 @@ generate() {
 
 declare -A opts=()
 declare -a args=()
-l.parse_params opts args "$@"
-init
-clean
-generate
+
+main() {
+  l.parse_params opts args "$@"
+  init
+  clean
+  generate "$@"
+}
+
+main "$@"

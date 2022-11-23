@@ -1,6 +1,7 @@
 # Choose the minimum version of Bash in which Lobash will run.
 # Available values: 4.0, 4.1, 4.2, 4.3, 4.4
 BASH_MIN_VERSION: 4.4
+PREFIX: l.
 
 # Select modules or categories to export
 # - [ ]  Unselected
@@ -14,6 +15,7 @@ BASH_MIN_VERSION: 4.4
   - [ ] array_include
   - [ ] array_include.s
   - [ ] first
+  - [ ] keys
   - [ ] last
   - [ ] sort
   - [ ] union_array
@@ -40,12 +42,16 @@ BASH_MIN_VERSION: 4.4
   - [ ] is_executable.s
   - [ ] is_executable_file
   - [ ] is_executable_file.s
+  - [ ] is_exported
   - [ ] is_falsy
   - [ ] is_falsy.s
   - [ ] is_file
   - [ ] is_file.s
   - [ ] is_float
   - [ ] is_float.s
+  - [ ] is_function
+  - [ ] is_function.s
+  - [ ] is_gnu_sed
   - [ ] is_integer
   - [ ] is_integer.s
   - [ ] is_link
@@ -56,6 +62,10 @@ BASH_MIN_VERSION: 4.4
   - [ ] is_readable.s
   - [ ] is_truthy
   - [ ] is_truthy.s
+  - [ ] is_tty_available
+  - [ ] is_tty_available.s
+  - [ ] is_ubuntu
+  - [ ] is_undefined
   - [ ] is_writable
   - [ ] is_writable.s
   - [ ] not.s
@@ -91,10 +101,12 @@ BASH_MIN_VERSION: 4.4
   - [ ] normalize
   - [ ] normalize.p
   - [ ] pwd
+  - [ ] relative
 
 - [ ]   Prompt
   - [ ] ask
   - [ ] ask_input
+  - [ ] ask_with_cancel
   - [ ] choose
 
 - [ ]   String
@@ -108,6 +120,9 @@ BASH_MIN_VERSION: 4.4
   - [ ] match_list
   - [ ] split
   - [ ] str_len
+  - [ ] str_replace
+  - [ ] str_replace_all
+  - [ ] str_replace_last
   - [ ] str_size
   - [ ] trim
   - [ ] trim.p
@@ -142,6 +157,7 @@ BASH_MIN_VERSION: 4.4
   - [ ] compose
   - [ ] parse_params
   - [ ] repeat
+  - [ ] trap_error
   - [ ] with_ifs
 
 - [ ]   Variable

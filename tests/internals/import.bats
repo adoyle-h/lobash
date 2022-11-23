@@ -4,8 +4,8 @@ setup_fixture
 
 @test "_lobash.imports without any modules" {
   run _lobash.imports
-  assert_failure
-  assert_output '[ERROR:LOBASH] Not found any parameters passed to _lobash.imports function.'
+  assert_success
+  assert_output ''
 }
 
 @test "_lobash.imports module" {
@@ -28,13 +28,12 @@ setup_fixture
 
 @test "_lobash.imports a module which has two Dependents" {
   _lobash.imports has_not.s
-  assert_equal "$(type -t l.echo)" "function"
-  assert_equal "$(type -t l.dirname)" "function"
-  assert_equal "$(type -t l.not)" "function"
+  assert_equal "$(type -t l.has.s)" "function"
+  assert_equal "$(type -t l.not.s)" "function"
 }
 
 @test "_lobash.imports a module which has only one Dependent" {
-  _lobash.imports relative
-  assert_equal "$(type -t l.relative)" "function"
-  assert_equal "$(type -t l.normalize)" "function"
+  _lobash.imports rgb_to_hex
+  assert_equal "$(type -t l.rgb_to_hex)" "function"
+  assert_equal "$(type -t l.is_number)" "function"
 }

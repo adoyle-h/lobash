@@ -3,11 +3,12 @@
 set -o errexit
 set -o nounset
 set -o pipefail
+set -o errtrace
 (shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
-[[ -n "${VERBOSE:+x}" ]] && set -o verbose
-[[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
+[[ -n "${VERBOSE:-}" ]] && set -o verbose
 
-readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+readonly SCRIPT_DIR
 
 # shellcheck source=../src/load_internals.bash
 source "$SCRIPT_DIR"/../src/load_internals.bash

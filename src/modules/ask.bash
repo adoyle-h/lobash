@@ -1,45 +1,69 @@
 # ---
 # Category: Prompt
 # Since: 0.1.0
-# Usage: l.ask <message> [<default>=Y]
-# Description: Print a message and read Yes/No answer from stdin.
-# Description: It prints 'YES' when get answer y/Y/ye/Ye/yE/YE/yes/yES/yeS/YeS/Yes/YEs/YES.
-# Description: It prints 'NO' when get answer n/N/no/No/nO/NO.
-# Description: It prints default value when get empty answer.
-# Description: It prints 'Invalid Answer' when get other answers.
-# Description: When default=Y, if will return YES by default.
-# Description: When default=N, if will return NO by default.
-# Dependent: lower_case
+# Usage: l.ask <message> [<default>='']
+# Description: Print the message to tty and wait for user typing from stdin.
+# Description: It will print 'YES' when user types y/Y/ye/Ye/yE/YE/yes/yES/yeS/YeS/Yes/YEs/YES.
+# Description: It will print 'NO' when user types n/N/no/No/nO/NO.
+# Description: It will print the default value when get empty answer if default is not empty.
+# Description: When default=Y, it prints 'YES' by default.
+# Description: When default=N, it prints 'NO' by default.
+# Description: When default='', there is no default value. It will keep asking until user typed right answer.
+# Description: **Attention: "echo invalid_string | l.ask message" will fall into a infinite loop.**
+# Description: "echo y | l.ask message" and "echo n | l.ask message" are valid.
+# Dependent: start_with, join
 # ---
 
-l.ask() {
+_l.ask() {
   local msg=$1
-  local default=${2:-Y}
-  local prompt
+  local default=$2
+  local valid_values prompt
+  valid_values="$(l.join values /)"
+
   if [[ $default == Y ]]; then
-    default=YES
-    prompt='([Y]es/No)'
+    default=yes
+    prompt="[$valid_values (default ${default})]"
   elif [[ $default == N ]]; then
-    default=NO
-    prompt='(Yes/[N]o)'
+    default=no
+    prompt="[$valid_values (default ${default})]"
+  elif [[ $default == '' ]]; then
+    prompt="[$valid_values]"
   else
-    echo "Invalid argument 'default'. Valid value is 'Y' and 'N'. Current=${default}" >&2
+    echo "Invalid argument 'default'. Valid value is $valid_values. Current=${default}" >&2
     return 3
   fi
 
-  local answer
-  read -rp "$msg $prompt " answer
+  local answer result='' tty_available
+  tty_available=$(_lobash.is_tty_available && echo true || echo false)
+  [[ $tty_available == true ]] && echo "$msg" > /dev/tty
 
-  answer=$(l.lower_case "$answer")
-  if [[ $answer =~ ^ye?s?$ ]]; then
-    echo YES
-  elif [[ $answer =~ ^no?$ ]]; then
-    echo NO
-  elif [[ $answer == '' ]]; then
-    echo "$default"
-  else
-    echo 'Invalid Answer'
-  fi
+  while [[ -z $result ]]; do
+    read -rp "$prompt " answer
 
-  return 0
+    if [[ -z $answer ]]; then
+      if [[ -z $default ]]; then
+        [[ $tty_available == true ]] && echo ">> Empty answer is not allowed." > /dev/tty
+      else
+        result="${default^^}"
+      fi
+    else
+      local v
+      for v in "${values[@]}"; do
+        if l.start_with "$v" "${answer,,}"; then
+          result="${v^^}"
+          break
+        fi
+      done
+
+      if [[ -z $result ]]; then
+        [[ $tty_available == true ]] && echo ">> Invalid answer '$answer'." > /dev/tty
+      fi
+    fi
+  done
+  echo "$result"
+}
+
+l.ask() {
+  local values=(yes no)
+  _l.ask "$1" "${2:-}"
 }

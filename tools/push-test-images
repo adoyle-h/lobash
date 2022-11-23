@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o nounset
+set -o pipefail
+set -o errtrace
+(shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
+[[ -n "${VERBOSE:-}" ]] && set -o verbose
+
+SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+readonly SCRIPT_DIR
+
+# shellcheck source=./test-image-versions
+source "$SCRIPT_DIR/test-image-versions"
+
+main() {
+  for version in "${TEST_IMAGE_VERIONS[@]}"; do
+    echo "docker push lobash/test-bash:${version}"
+    docker push lobash/test-bash:"${version}"
+  done
+}
+
+main "$@"

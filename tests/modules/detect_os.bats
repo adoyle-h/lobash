@@ -7,6 +7,6 @@ load_module detect_os
 @test "l.detect_os" {
   skip "how to test it?"
   run l.detect_os
-	assert_success
-	assert_output MacOS
+  assert_success
+  assert_output MacOS
 }

@@ -3,5 +3,5 @@
 _lobash.with_IFS() {
   local IFS=$1
   shift
-  eval "$@"
+  eval "$*"
 }

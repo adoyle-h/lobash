@@ -3,38 +3,40 @@
 set -o errexit
 set -o nounset
 set -o pipefail
+set -o errtrace
 (shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
-[[ -n "${VERBOSE:+x}" ]] && set -o verbose
-[[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
+[[ -n "${VERBOSE:-}" ]] && set -o verbose
 
-readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+readonly SCRIPT_DIR
 
 echo "[test-in-docker] BASHVER=${BASHVER:=4.4}"
 
 if [[ -z $(docker images -q lobash/test-bash:"${BASHVER}") ]]; then
   echo "To build image lobash/test-bash:${BASHVER}"
-  BASHVER=$BASHVER "$SCRIPT_DIR/build-image"
-fi
-
-if [[ -n ${BUILD_DIST:-} ]]; then
-  cmd='/lobash/build && /lobash/test -d'
-else
-  cmd='/lobash/test'
+  BASHVER=$BASHVER IN_CHINA=${IN_CHINA:-} "$SCRIPT_DIR/build-test-image"
 fi
 
 if (( $# > 0 )); then
-  cmd="$cmd $*"
+  if [[ $1 == -d ]] || [[ "${*: -1}" == -d  ]]; then
+    cmd="mkdir -p dist && ./build ./dist && ./test $*"
+  else
+    cmd="./test $*"
+  fi
+else
+  cmd="./test"
 fi
 
 docker run \
-  --rm \
+  --rm -t \
   -e DOCKER=true \
   -e CI="${CI:-}" \
   -e BASHVER=$BASHVER \
+  -v "$SCRIPT_DIR"/../.git:/lobash/.git \
   -v "$SCRIPT_DIR"/../test:/lobash/test \
   -v "$SCRIPT_DIR"/../build:/lobash/build \
   -v "$SCRIPT_DIR"/../version:/lobash/version \
   -v "$SCRIPT_DIR"/../src:/lobash/src \
   -v "$SCRIPT_DIR"/../tests:/lobash/tests \
   -v "$SCRIPT_DIR"/../tools:/lobash/tools \
-  lobash/test-bash:"${BASHVER}" bash -c "$cmd"
+  lobash/test-bash:"${BASHVER}" "$cmd"

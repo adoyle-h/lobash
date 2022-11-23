@@ -14,9 +14,8 @@ _lobash.get_module_path() {
 # <ver_a> > <ver_b> => 1
 _lobash.semver_compare() {
   local info_a info_b
-  local IFS='.'
-  info_a=( $1 )
-  info_b=( $2 )
+  IFS='.' read -r -a info_a <<<"$1"
+  IFS='.' read -r -a info_b <<<"$2"
 
   # result=$(( info_a[0] - info_b[0] ))
   if (( info_a[0] < info_b[0] )); then
@@ -78,19 +77,21 @@ _lobash.scan_module_metadata() {
 
   local -A counts c
   while read -r line; do
-    meta_type=$(<<< "$line" sed -E "s/^# ([-_a-zA-Z0-9]+): ?(.+)$/\\1/" || true)
+    # Example: # Category: Arithmetic
+    #           meta_type: meta_values
+    meta_type=$(sed -E 's/^# ([-_a-zA-Z0-9]+):.+$/\1/' <<< "$line" || true)
     [[ -z $meta_type ]] && continue
+    meta_values=$(sed -E 's/^# [-_a-zA-Z0-9]+: ?(.+)$/\1/' <<< "$line" || true)
 
     if [[ -z ${counts[$meta_type]:-} ]]; then
       counts[$meta_type]=1
     else
-      counts[$meta_type]=$(( ${counts[$meta_type]}+1 ))
+      counts[$meta_type]=$(( ${counts[$meta_type]} + 1 ))
     fi
 
-    meta_values=$(<<< "$line" sed -E "s/^# ([-_a-zA-Z0-9]+): ?(.+)$/\\2/" || true)
     c=$(( counts["$meta_type"] - 1 ))
     metadatas[${meta_type}_${c}]="$meta_values"
-  done < <(< "$module_path" sed -n '/^# ---$/,/^# ---$/p' | sed '1d;$d;' || true)
+  done < <(sed -n '/^# ---$/,/^# ---$/p' < "$module_path" | sed '1d;$d;' || true)
 
   for meta_type in "${_LOBASH_BASIC_META_TYPES[@]}"; do
     metadatas[${meta_type}_count_0]=${counts[$meta_type]:-0}
@@ -103,9 +104,11 @@ _lobash.scan_module_metadata() {
   _lobash.meta_set_default Bash 4.0
 
   if [[ -n ${metadatas[Dependent_0]:-} ]]; then
+    # shellcheck disable=2016
     _lobash.with_IFS ',' 'deps=( ${metadatas[Dependent_0]} )'
 
     local dep compare dep_bashver
+    # shellcheck disable=2154
     for dep in "${deps[@]}"; do
       dep=${dep// /}
       _lobash.scan_module_metadata "$dep"

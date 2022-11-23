@@ -1,17 +1,13 @@
 # ---
 # Category: Condition
-# Since: 0.1.0
+# Since: 0.3.0
 # Usage: l.is_array.s <var_name>
-# Description: This function always echo `true` or `false` and exit code always be 0.
+# Description: When the variable is array or associative array, it prints `true`. Otherwise it prints `false`. And it always exit with code 0.
+# Dependent: is_array
+# Notice: Only with bash 4.3, this function will echo `false` when the variable declared without initialization.
+# Notice: Because `declare -p a` shows `declare: a: not found` when `declare -a a`. It's a bug in bash 4.3.
 # ---
 
 l.is_array.s() {
-  [[ -z ${1:-} ]] && echo false && return 0
-
-  local str
-  str=$(declare -p -- "$1" 2>/dev/null || true)
-  [[ -z $str ]] && echo false && return 0
-
-  local start="declare -a "
-  [[ $start${str##"$start"} == "$str" ]] && echo true || echo false
+  l.is_array "$@" && echo true || echo false
 }

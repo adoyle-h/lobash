@@ -1,43 +1,9 @@
 <p align="center">
-  <img alt="Lobash Logo" src="./doc/imgs/lobash.svg">
+  <img alt="Lobash Logo" src="./docs/imgs/lobash.svg">
 </p>
 <p align="center">
   A modern, safe, powerful utility library for Bash script development.
 </p>
-
-## TOC
-
-<!-- MarkdownTOC GFM -->
-
-- [What is Lobash?](#what-is-lobash)
-- [Lobash Features](#lobash-features)
-- [Build Status](#build-status)
-- [ChangeLog](#changelog)
-- [FAQ](#faq)
-- [Installation](#installation)
-- [Prerequisites](#prerequisites)
-    - [Supported Platform](#supported-platform)
-    - [Supported Shells](#supported-shells)
-    - [Dependencies](#dependencies)
-- [Usage](#usage)
-    - [Build your lobash.bash](#build-your-lobashbash)
-    - [Edit your scripts and set shell options](#edit-your-scripts-and-set-shell-options)
-    - [Load lobash.bash in your scripts](#load-lobashbash-in-your-scripts)
-    - [Module Usages](#module-usages)
-- [Advanced Usages](#advanced-usages)
-    - [Export specific modules with config](#export-specific-modules-with-config)
-- [Command](#command)
-    - [lobash meta](#lobash-meta)
-    - [lobash mod](#lobash-mod)
-- [Who use Lobash](#who-use-lobash)
-- [Related Projects](#related-projects)
-- [References](#references)
-- [Test](#test)
-- [Contributions](#contributions)
-- [Versioning](#versioning)
-- [Copyright and License](#copyright-and-license)
-
-<!-- /MarkdownTOC -->
 
 ## What is Lobash?
 
@@ -48,38 +14,30 @@ Bash script development is complex and fallible.
 Javascript has a powerful library [Lodash](https://github.com/lodash/lodash) for simplifying development.
 So I build Lobash to do similar works for shell development.
 
-Lobash is a library not a command. It provides collections of functions to improve efficiency of shell development,
-and make it compatible with Bash 4.0+ and MacOS/Linux/Alpine/Busybox systems.
+Lobash provides collections of functions to improve efficiency of shell development.
+It is compatible with Bash 4.0+ and MacOS/Linux/Alpine/Busybox systems.
+
+It is implemented with pure bash script. (Except [l.now](src/modules/now.bash) function. It uses perl functions.)
 
 ## Lobash Features
 
 - Modular and easy to use. One module one Function.
-- Rich Functions. Over [110+ modules][module-usages] provided.
-- Robust and Safe. Over [600+ test cases](./tests/modules/) tested.
+- Semantic functions instead of recondite bash expressions, substitutions, expansions.
+- Rich Functions. Over [120+ modules][module-usages] provided.
+- Robust and Safe. Over [700+ test cases](./tests/modules/) tested. Tested in Linux and MacOS with Bash 4.0~5.2, see [Github Actions](https://github.com/adoyle-h/lobash/actions).
 - Fast. 0.058s to load Lobash completely.
 - Compatible with MacOS/Linux/Alpine/Busybox systems.
 - Compatible with Bash 4.0 and higher versions.
 
-## Build Status
+## CI Status
 
-- [Test Branch](https://github.com/adoyle-h/lobash/tree/test): [![Build Status](https://travis-ci.com/adoyle-h/lobash.svg?branch=test)][travis repo]
+- [develop branch](https://github.com/adoyle-h/lobash/tree/develop): [![CI Status](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml/badge.svg?branch=develop)](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml?query=branch%3Adevelop)
+- [v0.5.0](https://github.com/adoyle-h/lobash/tree/v0.5.0): [![CI Status](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml/badge.svg?tag=v0.5.0)](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml?query=tag%3Av0.5.0)
+- [v0.4.0](https://github.com/adoyle-h/lobash/tree/v0.4.0): [![CI Status](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml/badge.svg?tag=v0.4.0)](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml?query=tag%3Av0.4.0)
 
 ## [ChangeLog](./CHANGELOG.md)
 
-## [FAQ](./doc/faq.md)
-
-## Installation
-
-Available Lobash versions refer to [Git Tags](https://github.com/adoyle-h/lobash/tags) which named like "vX.Y.Z".
-
-```sh
-VERSION=v0.3.1
-# Download source codes
-git clone --depth 1 --branch $VERSION https://github.com/adoyle-h/lobash.git
-cd lobash
-# This step is optional. Clone submodules only if you want to run test cases.
-git submodule update --init --recursive
-```
+## [FAQ](./docs/faq.md)
 
 ## Prerequisites
 
@@ -106,20 +64,21 @@ git submodule update --init --recursive
 |    ✅💬   | Bash     | v4.0          | -                                             |
 |     🚫    | Bash     | v3            | Associative array is not supported until v4.0 |
 |     🚫    | POSIX sh | *             | `local` keyword not supported                 |
-|     🚫    | Zsh      | *             | Plan to implement it in another project       |
+|     🚫    | Zsh      | *             | -                                             |
 |     ❔    | Ksh      | *             | No tested                                     |
 
-Most Lobash modules support Bash 4.0+. See [module usages](./doc/module-usages/README.md#not-compatible) to find what modules not compatible with Bash 4.0.
+Most Lobash modules support Bash 4.0 and higher versions. Some modules are not compatible with Bash version earlier than 4.4. See the [list](./docs/module-usages/README.md#not-compatible).
+Each module annotates a `Bash` label in [module usages](./docs/module-usages/README.md).
+`Bash: 4.2+` means compatible with Bash 4.2 and higher versions.
 
-✅💬 means Lobash can be used but not all features supported in shell.
-It will print notes to show what modules is not supported and it will be ignored when building Lobash file.
+✅💬 means Lobash is compatible but not all modules supported in shell.
+It will print notes to show what modules is not supported and ignored when building Lobash.
 
-**If you want use Lobash with Bash 4.3 and lower versions.**
-**Please read [./doc/with-lower-version-bash.md](./doc/with-lower-version-bash.md) first.**
+**If you use Lobash with Bash 4.0~4.3. Please read [./docs/with-lower-version-bash.md](./docs/with-lower-version-bash.md) first.**
 
-**Lobash not test with Bash 4.0 in MacOS. It seems a bug of Bash 4.0 in MacOS. Please contact me if you solved this problem.** See [this document](./doc/with-lower-version-bash.md#not-test-with-bash-40-in-macos).
+**Lobash not test with Bash 4.0 in MacOS. It seems a bug of Bash 4.0 in MacOS. Please contact me if you solved this problem.** Read [this document](./docs/with-lower-version-bash.md#not-test-with-bash-40-in-macos).
 
-Although most Linux distributions use Bash v4.3, and MacOS not installed Bash v4 by default,
+Although most Linux distributions use Bash v4.3 at the least, and MacOS installed Bash v3.2 by default,
 it is easily to upgrade Bash 4.4+ in most systems.
 
 ### Dependencies
@@ -130,7 +89,25 @@ Make sure below dependencies have been installed.
   - sed/grep/mktemp/dirname/basename/cd/printf/echo/wc
   - sed: BSD and GNU are both supported
 
+## Installation
+
+Available Lobash versions refer to [Git Tags](https://github.com/adoyle-h/lobash/tags) which named like "vX.Y.Z".
+
+```sh
+VERSION=v0.5.0  # or VERSION=develop
+# Download source codes
+git clone --depth 1 --branch $VERSION https://github.com/adoyle-h/lobash.git
+cd lobash
+# This step is optional. Clone submodules only if you want to run test cases.
+git submodule update --init --recursive --progress
+
+# Copy it to somewhere in your path
+sudo ln -s "$PWD/build" /usr/local/bin/lobash-gen
+```
+
 ## Usage
+
+`lobash-gen -h` show help.
 
 ### Build your lobash.bash
 
@@ -138,14 +115,15 @@ First, build your own `lobash.bash` file by `./build`.
 
 ```sh
 # Interactive build process, import all Lobash modules
-./build
-# Generated Lobash file: <lobash-dir>/dist/lobash.bash
+lobash-gen
+# Generated Lobash file: <lobash-dir>/lobash.bash
 
 # Or build Lobash to specific path
-./build <target-path>
+lobash-gen <target-path>
+# Generated Lobash file: <target-path>
 ```
 
-See [./doc/build.md](./doc/build.md) for more details.
+**Read [./docs/build.md](./docs/build.md) for more details.**
 
 ### Edit your scripts and set shell options
 
@@ -154,7 +132,7 @@ All Lobash modules are written and tested with the shell options:
 - `set -o errexit`
 - `set -o nounset`
 - `set -o pipefail`
-- `shopt -s inherit_errexit`
+- `shopt -s inherit_errexit` (`inherit_errexit` is a new feature in Bash v4.4)
 
 If you do not understand the meanings of these shell options,
 please read [this article](https://dougrichardson.org/2018/08/03/fail-fast-bash-scripting.html).
@@ -171,14 +149,15 @@ Second, load your own `lobash.bash` file in your scripts and all Lobash function
 set -o errexit
 set -o nounset
 set -o pipefail
+set -o errtrace  # You can remove this line if you do not use l.trap_error.
 (shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
 
 # It will load all Lobash modules
 source <path-to-lobash.bash>
-# Call l.<module_name> when build lobash.bash with default PREFIX
+# Call l.<module_name> when "lobash-gen"
 l.ask 'Hello Lobash?'
 
-# Call lobash.<module_name> when build lobash.bash with PREFIX=lobash_
+# Call lobash.<module_name> when "lobash-gen -p lobash_"
 # lobash_ask 'Hello Lobash?'
 ```
 
@@ -192,84 +171,41 @@ user    0m0.022s
 sys     0m0.036s
 ```
 
-### Module Usages
+### Module Usages and Documents
 
-See all module usages in [./doc/module-usages/][module-usages]
+Read all module usages in [./docs/module-usages/][module-usages].
+
+Read all module examples in [./example/modules](./example/modules).
+
+Available modules list in [config.example](./config.example).
 
 ## Advanced Usages
 
 ### Export specific modules with config
 
-`./build` will export all modules by default. You can export specific modules with `-c <config>` option.
+`lobash-gen` will export all modules by default. You can export specific modules with `-c <config>` option.
 
 ```sh
 cp config.example config
 # The "config" file is ignored by git
-# Edit config, select BASH_MIN_VERSION and modules to export
 
-./build -c ./config
+# Edit config, set PREFIX, BASH_MIN_VERSION and modules for building
+
+lobash-gen -c ./config
 ```
 
-## Command
-
-While Lobash is a library for development, it also provides a command `./bin/lobash`.
-
-Enter `./bin/lobash` show help.
-
-```sh
-> ./bin/lobash
-
-Usage:
-  lobash [help|-h|--help]
-  lobash mod <module_name> [<sub_command_args>]...
-  lobash meta <module_name>
-
-Sub-Command:
-  help       Show help
-  mod        Invoke a Lobash module
-  mods       Show available module names
-  meta       Query metadatas of Lobash module
-  github     Open Lobash github page in your browser
-
-Description:
-The "lobash mod" command is only used for certain scenarios. Many modules not work as command.
-```
-
-### lobash meta
-
-```sh
-> ./bin/lobash meta normalize
-Module: normalize
-Usage: l.normalize <path>
-Description:
-  - Normalize the given path which can be an unexisted path.
-  - Trailing `/` always be removed.
-Dependent: split, join
-Deprecated: false
-Since: 0.1.0
-Bash: 4.0
-Status: tested
-```
-
-### lobash mod
-
-Note: The "lobash mod" command is only used for certain scenarios. Many modules not work as command.
-
-```sh
-> ./bin/lobash mod ask 'Is it OK?'
-Is it OK? ([Y]es/No)
-YES
-```
+### [Command](./docs/lobash-command.md)
 
 ## Who use Lobash
 
-- [adoyle-h/dotfiles](https://github.com/adoyle-h/dotfiles)
+- [adoyle-h/one.bash](https://github.com/adoyle-h/one.bash)
 - Contact me to add your project to list.
 
 ## Related Projects
 
 - [shell-general-colors](https://github.com/adoyle-h/shell-general-colors): shell colors
 - [bats-core](https://github.com/bats-core/bats-core): test framework
+- [Other shell projects](https://github.com/adoyle-h?tab=repositories&q=&type=source&language=shell&sort=stargazers) created by me.
 
 ## References
 
@@ -277,39 +213,54 @@ YES
 - https://www.gnu.org/software/bash/manual/
 - http://mywiki.wooledge.org/BashFAQ
 
-## Test
+## [Test](./docs/test.md)
 
-See [./doc/test.md](./doc/test.md) for more details.
+## Suggestion, Bug Reporting, Contributing
 
-## Contributions
+Any comments and suggestions are always welcome.
 
-Any suggestions and contributions are always welcome. Please open an [issue][] to talk with me.
+**Before open an issue/discussion/PR, You should search related issues/discussions/PRs first** for avoiding to create duplicated links.
 
-Please read [./doc/contribution.md](./doc/contribution.md) before make a Pull Request.
+- For new feature request, open a [discussion][], describe your demand concisely and clearly.
+- For new feature submit, open a [PR][], describe your demand and design concisely and clearly.
+- For bug report, open an [issue][], describe the bug concisely and clearly.
+- For bug fix, open a [PR][], concisely and clearly describe what you fixed.
+- For question and suggestion, open a [discussion][].
+- For anything not mentioned above, open a [discussion][].
 
-## Versioning
+Do not post duplicated and useless contents like `+1`, `LOL`. React to comments with emoji instead of.
 
-The versioning follows the rules of SemVer 2.0.0.
+你可以使用中文反馈意见。但希望你尽可能使用英文，不要中英文混杂，而是写下完整的英文语句。
+因为我们处于国际社区，英文更通用，方便外国人阅读理解你的意见。
+(Please communicate in English as much as possible)
 
-For more information on SemVer, please visit http://semver.org/ .
+Please read [./docs/CONTRIBUTING.md](./docs/CONTRIBUTING.md) before make a Pull Request.
+
+## Versions
+
+Read [tags][].
+The versions follows the rules of [SemVer 2.0.0](http://semver.org/).
 
 ## Copyright and License
 
-Copyright 2019 ADoyle (adoyle.h@gmail.com) Some Rights Reserved.
-
+Copyright 2019-2022 ADoyle (adoyle.h@gmail.com) Some Rights Reserved.
 The project is licensed under the **Apache License Version 2.0**.
 
-See the [LICENSE][] file for the specific language governing permissions and limitations under the License.
+Read the [LICENSE][] file for the specific language governing permissions and limitations under the License.
 
-See the [NOTICE][] file distributed with this work for additional information regarding copyright ownership.
+Read the [NOTICE][] file distributed with this work for additional information regarding copyright ownership.
 
 
 <!-- Links -->
 
 [LICENSE]: ./LICENSE
 [NOTICE]: ./NOTICE
-[issue]: https://github.com/adoyle-h/dotfiles/issues
+[tags]: https://github.com/adoyle-h/lobash/tags
+[issue]: https://github.com/adoyle-h/lobash/issues
+[discussion]: https://github.com/adoyle-h/lobash/discussions
+[PR]: https://github.com/adoyle-h/lobash/pulls
+
 [Master Branch]: https://github.com/adoyle-h/lobash/tree/master
 [Develop Branch]: https://github.com/adoyle-h/lobash/tree/develop
 [travis repo]: https://travis-ci.com/adoyle-h/lobash
-[module-usages]: ./doc/module-usages/README.md
+[module-usages]: ./docs/module-usages/README.md

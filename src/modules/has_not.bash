@@ -1,6 +1,6 @@
 # ---
 # Category: Condition
-# Since: 0.1.0
+# Since: 0.3.0
 # Usage: l.has_not <condition> <what>
 # Description: Opposite to l.has
 # Dependent: has

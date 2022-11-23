@@ -1,4 +1,4 @@
-# This line is important, do not remove. See doc/internal-modules.md
+# This line is important, do not remove. See docs/internal-modules.md
 if ! declare -p _LOBASH_MOD_META_CACHE &>/dev/null; then
   declare -A _LOBASH_MOD_META_CACHE
 fi
@@ -10,6 +10,7 @@ _lobash.import_internal() {
   else
     src_dir="$(dirname "${BASH_SOURCE[0]}")/internals"
   fi
+  # shellcheck disable=1090
   source "$src_dir/$1.bash"
 }
 

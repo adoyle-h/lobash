@@ -1,6 +1,6 @@
 # ---
 # Category: Condition
-# Since: 0.1.0
+# Since: 0.3.0
 # Usage: l.has.s <condition> <what>
 # Description: Echo `true` or `false` to indicate that command/function/alias/keyword/builtin or anything existed.
 # Description: `<condition>` Valid value: `command`, `function`, `alias`, `keyword`, `builtin`, `the`

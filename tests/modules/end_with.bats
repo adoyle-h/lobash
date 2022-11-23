@@ -34,6 +34,18 @@ load_module end_with
   assert_output ''
 }
 
+@test "l.end_with '' ''" {
+  run l.end_with "" ""
+  assert_success
+  assert_output ''
+}
+
+@test "l.end_with '' 'abc'" {
+  run l.end_with "" "abc"
+  assert_failure
+  assert_output ''
+}
+
 @test "l.end_with 'file bash' 'sh'" {
   run l.end_with "file bash" "sh"
   assert_success

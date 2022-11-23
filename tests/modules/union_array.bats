@@ -15,12 +15,12 @@ load_module union_array
     done
   }
   run t
-	assert_success
+  assert_success
   assert_equal "${#lines[@]}" 4
-	assert_line -n 0 'a'
-	assert_line -n 1 'b'
-	assert_line -n 2 'c'
-	assert_line -n 3 'd'
+  assert_line -n 0 'a'
+  assert_line -n 1 'b'
+  assert_line -n 2 'c'
+  assert_line -n 3 'd'
 }
 
 @test "l.union_array (a 'b c') (d e)" {
@@ -35,12 +35,12 @@ load_module union_array
     done
   }
   run t
-	assert_success
+  assert_success
   assert_equal "${#lines[@]}" 4
-	assert_line -n 0 'a'
-	assert_line -n 1 'b c'
-	assert_line -n 2 'd'
-	assert_line -n 3 'e'
+  assert_line -n 0 'a'
+  assert_line -n 1 'b c'
+  assert_line -n 2 'd'
+  assert_line -n 3 'e'
 }
 
 @test "l.union_array (a b) (b c)" {
@@ -53,11 +53,11 @@ load_module union_array
     done
   }
   run t
-	assert_success
+  assert_success
   assert_equal "${#lines[@]}" 3
-	assert_line -n 0 'a'
-	assert_line -n 1 'b'
-	assert_line -n 2 'c'
+  assert_line -n 0 'a'
+  assert_line -n 1 'b'
+  assert_line -n 2 'c'
 }
 
 @test "l.union_array (a b a c)" {
@@ -66,11 +66,11 @@ load_module union_array
     l.union_array arr
   }
   run t
-	assert_success
+  assert_success
   assert_equal "${#lines[@]}" 3
-	assert_line -n 0 'a'
-	assert_line -n 1 'b'
-	assert_line -n 2 'c'
+  assert_line -n 0 'a'
+  assert_line -n 1 'b'
+  assert_line -n 2 'c'
 }
 
 @test "l.union_array (b c 'b c d' 'b c')" {
@@ -79,9 +79,9 @@ load_module union_array
     l.union_array arr
   }
   run t
-	assert_success
+  assert_success
   assert_equal "${#lines[@]}" 4
-	assert_line -n 0 'b'
+  assert_line -n 0 'b'
   assert_line -n 1 'c'
   assert_line -n 2 'b c d'
   assert_line -n 3 'b c'

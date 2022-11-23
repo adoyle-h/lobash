@@ -15,12 +15,16 @@ is_executable
 is_executable.s
 is_executable_file
 is_executable_file.s
+is_exported
 is_falsy
 is_falsy.s
 is_file
 is_file.s
 is_float
 is_float.s
+is_function
+is_function.s
+is_gnu_sed
 is_integer
 is_integer.s
 is_link
@@ -31,6 +35,10 @@ is_readable
 is_readable.s
 is_truthy
 is_truthy.s
+is_tty_available
+is_tty_available.s
+is_ubuntu
+is_undefined
 is_writable
 is_writable.s
 not.s

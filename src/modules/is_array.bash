@@ -1,17 +1,23 @@
 # ---
 # Category: Condition
-# Since: 0.1.0
+# Since: 0.3.0
 # Usage: l.is_array <var_name>
-# Description: Return 0 (true) or 1 (false). This function should never throw exception error.
+# Description: When the variable is array or associative array, it returns 0 (true). Otherwise it returns 1 (false). This function should never throw exception error.
+# Notice: Only with bash 4.3, this function return 1 when the variable declared without initialization.
+# Notice: Because `declare -p a` shows `declare: a: not found` when `declare -a a`. It's a bug in bash 4.3.
 # ---
 
 l.is_array() {
   [[ -z ${1:-} ]] && return 1
 
   local str
-  str=$(declare -p -- "$1" 2>/dev/null || true)
-  [[ -z $str ]] && return 1
+  str=$(declare -p "$1" 2>/dev/null || true)
 
-  local start="declare -a "
-  [[ $start${str##"$start"} == "$str" ]]
+  if [[ $str =~ ^"declare -a $1" ]]; then
+    return 0
+  elif [[ $str =~ ^"declare -A $1" ]]; then
+    return 0
+  else
+    return 1
+  fi
 }

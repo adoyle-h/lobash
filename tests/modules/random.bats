@@ -35,3 +35,10 @@ load_module random
   assert_equal "${#output}" 20
   assert_output -e '^[A-Z]+$'
 }
+
+@test "l.random 200 'A-Z'" {
+  run l.random 200 'A-Z'
+  assert_success
+  assert_equal "${#output}" 200
+  assert_output -e '^[A-Z]+$'
+}

@@ -1,0 +1,89 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - 'test/**'
+      - develop
+    tags:
+      - v*
+
+  pull_request:
+    branches:
+      - develop
+
+  workflow_dispatch:
+    inputs: {}
+
+jobs:
+  linux:
+    runs-on: ubuntu-22.04
+
+    if: "!(
+      startsWith(github.event.head_commit.message, 'docs:') ||
+      startsWith(github.event.head_commit.message, 'ci:') ||
+      startsWith(github.event.head_commit.message, 'chore:') ||
+      startsWith(github.event.head_commit.message, 'style:')
+      )"
+
+    strategy:
+      fail-fast: true
+      max-parallel: 10
+      matrix:
+        # 5.2 and 5.2.9 are same in bash docker image
+        BASHVER: ['4.0', '4.1', '4.2', '4.3', '4.4', '5.0', '5.1', '5.2']
+
+    steps:
+      - uses: actions/checkout@v3
+      - run: BASHVER=${{ matrix.BASHVER }} BUILD_DIST=true ./tools/test-in-docker
+
+  mac:
+    runs-on: macos-12
+
+    if: "!(
+      startsWith(github.event.head_commit.message, 'docs:') ||
+      startsWith(github.event.head_commit.message, 'ci:') ||
+      startsWith(github.event.head_commit.message, 'chore:') ||
+      startsWith(github.event.head_commit.message, 'style:')
+      )"
+
+    strategy:
+      fail-fast: true
+      max-parallel: 10
+      matrix:
+        # Bash 4.0 has bug on MacOS. https://github.com/adoyle-h/lobash/blob/develop/doc/with-lower-version-bash.md#not-test-with-bash-40-in-macos
+        BASHVER: ['4.1', '4.2', '4.3', '4.4', '5.0', '5.1', '5.2', '5.2.9']
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Init
+        run: |
+          echo "PWD: $PWD"
+          echo "ACT: ${{ env.ACT }}"
+
+          git submodule update --init --recursive
+
+      - name: Cache bash
+        if: ${{ !env.ACT }}
+        id: cache-bash
+        uses: actions/cache@v3
+        with:
+          path: ./tmp/bash-${{ matrix.BASHVER }}
+          key: ${{ runner.os }}-bash-${{ matrix.BASHVER }}
+
+      - name: Install bash
+        if: steps.cache-bash.outputs.cache-hit != 'true'
+        run: |
+          BASHVER=${{ matrix.BASHVER }} ./tools/install-bash
+
+      - name: To build ./dist/lobash.bash
+        run: |
+          export PATH="${{ github.workspace }}/tmp/bash-${{ matrix.BASHVER }}/bin:$PATH"
+          bash --version
+          ./build -m "${{ matrix.BASHVER }}" ./dist/
+
+      - name: Start to test
+        run: |
+          export PATH="${{ github.workspace }}/tmp/bash-${{ matrix.BASHVER }}/bin:$PATH"
+          CI=true ./test -d

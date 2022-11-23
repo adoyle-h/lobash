@@ -1,0 +1,98 @@
+name: local-test
+
+on:
+  workflow_dispatch:
+    inputs:
+      test1:
+        description: 'Run job: test1'
+        required: false
+        type: boolean
+
+      test2:
+        description: 'Run job: test2'
+        required: false
+        type: boolean
+
+      MacOS_12:
+        description: 'Run command in MacOS 12'
+        required: false
+        type: boolean
+
+      Ubuntu_22_04:
+        description: 'Run command in Ubuntu 22.04'
+        required: false
+        type: boolean
+
+      cmd:
+        description: 'Command'
+        required: false
+        default: ''
+        type: string
+
+      local:
+        description: 'Run job: local'
+        required: false
+        type: boolean
+
+jobs:
+  test1:
+    if: ${{ inputs.test1 }}
+    runs-on: macos-12
+    steps:
+      - run: dd bs=512 if=/dev/urandom count=1 2>/dev/null | LC_ALL=C tr -dc "a-zA-Z0-9@#*=[]" | head -c 10
+
+  test2:
+    if: ${{ inputs.test2 }}
+    runs-on: macos-12
+    steps:
+      - run: LC_ALL=C tr -dc "a-zA-Z0-9@#*=[]" < /dev/urandom | head -c 10
+
+  Macos_12:
+    if: ${{ inputs.Macos_12 }}
+    runs-on: macos-12
+    steps:
+      - run: ${{ inputs.cmd }}
+
+  Ubuntu_22_04:
+    if: ${{ inputs.Ubuntu_22_04 }}
+    runs-on: ubuntu-22.04
+    steps:
+      - run: ${{ inputs.cmd }}
+
+  local:
+    if: ${{ inputs.local }}
+    runs-on: macos-12
+    strategy:
+      fail-fast: true
+      matrix:
+        # Bash 4.0 has bug on MacOS. https://github.com/adoyle-h/lobash/blob/develop/doc/with-lower-version-bash.md#not-test-with-bash-40-in-macos
+        BASHVER: ['4.1']
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Init
+        run: |
+          echo "PWD: $PWD"
+          echo "ACT: ${{ env.ACT }}"
+
+          git submodule update --init --recursive
+
+      - name: Install bash
+        if: steps.cache-bash.outputs.cache-hit != 'true'
+        run: |
+          BASHVER=${{ matrix.BASHVER }} ./tools/install-bash
+
+      - name: To build ./dist/lobash.bash
+        run: |
+          export PATH="${{ github.workspace }}/tmp/bash-${{ matrix.BASHVER }}/bin:$PATH"
+          bash --version
+          ./build -m "${{ matrix.BASHVER }}" ./dist/
+
+          # docker run --rm -v "${{ github.workspace }}:/workspace" lobash/build:4.1 \
+          #       '/workspace/build -m "${{ matrix.BASHVER }}" /workspace/dist/'
+
+      - name: Start to test
+        run: |
+          export PATH="${{ github.workspace }}/tmp/bash-${{ matrix.BASHVER }}/bin:$PATH"
+          CI=true ./test -d

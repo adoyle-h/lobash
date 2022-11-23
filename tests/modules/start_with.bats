@@ -28,6 +28,18 @@ load_module start_with
   assert_output ''
 }
 
+@test "l.start_with '' ''" {
+  run l.start_with "" ""
+  assert_success
+  assert_output ''
+}
+
+@test "l.start_with '' 'abc'" {
+  run l.start_with "" "abc"
+  assert_failure
+  assert_output ''
+}
+
 @test "l.start_with 'file bash' 'fi'" {
   run l.start_with "file bash" "fi"
   assert_success

@@ -7,21 +7,21 @@ load_module ask
 # It uses echo pipe just for test.
 # You should invoke `l.ask <message>` for normal usage.
 
-@test "'l.ask hello' returns 'YES'" {
+@test "'l.ask test_ask' returns 'YES'" {
   t() {
-    echo y | l.ask hello
-    echo Y | l.ask hello
-    echo ye | l.ask hello
-    echo Ye | l.ask hello
-    echo yE | l.ask hello
-    echo YE | l.ask hello
-    echo yes | l.ask hello
-    echo yES | l.ask hello
-    echo yeS | l.ask hello
-    echo YeS | l.ask hello
-    echo Yes | l.ask hello
-    echo YEs | l.ask hello
-    echo YES | l.ask hello
+    echo y | l.ask test_ask
+    echo Y | l.ask test_ask
+    echo ye | l.ask test_ask
+    echo Ye | l.ask test_ask
+    echo yE | l.ask test_ask
+    echo YE | l.ask test_ask
+    echo yes | l.ask test_ask
+    echo yES | l.ask test_ask
+    echo yeS | l.ask test_ask
+    echo YeS | l.ask test_ask
+    echo Yes | l.ask test_ask
+    echo YEs | l.ask test_ask
+    echo YES | l.ask test_ask
   }
   run t
   assert_success
@@ -41,14 +41,14 @@ load_module ask
   assert_line -n 12 'YES'
 }
 
-@test "'l.ask hello' returns 'NO'" {
+@test "'l.ask test_ask' returns 'NO'" {
   t() {
-    echo n | l.ask hello
-    echo N | l.ask hello
-    echo no | l.ask hello
-    echo No | l.ask hello
-    echo nO | l.ask hello
-    echo NO | l.ask hello
+    echo n | l.ask test_ask
+    echo N | l.ask test_ask
+    echo no | l.ask test_ask
+    echo No | l.ask test_ask
+    echo nO | l.ask test_ask
+    echo NO | l.ask test_ask
   }
   run t
   assert_success
@@ -61,38 +61,18 @@ load_module ask
   assert_line -n 5 'NO'
 }
 
-@test "'l.ask hello' returns 'Invalid Answer'" {
+@test "echo '' | l.ask 'test_ask' N" {
   t() {
-    echo yesn | l.ask hello
-    echo yn | l.ask hello
-    echo w | l.ask hello
-    echo x | l.ask hello
-    echo 0 | l.ask hello
-    echo _ | l.ask hello
-  }
-  run t
-  assert_success
-  assert_equal "${#lines[@]}" 6
-  assert_line -n 0 'Invalid Answer'
-  assert_line -n 1 'Invalid Answer'
-  assert_line -n 2 'Invalid Answer'
-  assert_line -n 3 'Invalid Answer'
-  assert_line -n 4 'Invalid Answer'
-  assert_line -n 5 'Invalid Answer'
-}
-
-@test "echo '' | l.ask 'hello world' N" {
-  t() {
-    echo '' | l.ask 'hello world' N
+    echo '' | l.ask 'test_ask' N
   }
   run t
   assert_success
   assert_output 'NO'
 }
 
-@test "echo '' | l.ask 'hello world' Y" {
+@test "echo '' | l.ask 'test_ask' Y" {
   t() {
-    echo '' | l.ask 'hello world' Y
+    echo '' | l.ask 'test_ask' Y
   }
   run t
   assert_success
