@@ -16,7 +16,7 @@ readonly _LOBASH_PUBLIC_CONST_PREFIX=L_
 
 # _LOBASH_PREFIX, _LOBASH_PUBLIC_DEPTH, _LOBASH_MIN_BASHVER will be reassigned when ./build
 readonly _LOBASH_PREFIX=l.
-readonly _LOBASH_PUBLIC_DEPTH=1
+_LOBASH_PUBLIC_DEPTH=1  # NOTE: _LOBASH_PUBLIC_DEPTH should not be readonly
 readonly _LOBASH_MIN_BASHVER=4.0
 
 readonly _LOBASH_OS=$(_lobash.detect_os)

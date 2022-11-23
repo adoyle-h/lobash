@@ -28,6 +28,23 @@ if [[ $LOBASH_USE_DIST == true ]]; then
   load_module() {
     # shellcheck source=./dist/lobash.bash
     source "$LOBASH_ROOT_DIR/dist/lobash.bash"
+
+    _lobash.import_internal helpers
+
+    local prefix func uniq_key
+    prefix=$( grep -E '^# Prefix: ' "$LOBASH_ROOT_DIR/dist/lobash.bash" 2>/dev/null | sed -E 's/^# Prefix: (.+)/\1/' || true)
+    uniq_key=$( grep -E '^# UNIQ_KEY: ' "$LOBASH_ROOT_DIR/dist/lobash.bash" 2>/dev/null | sed -E 's/^# UNIQ_KEY: (.+)/\1/' || true)
+
+    eval "_LOBASH_${uniq_key}_PUBLIC_DEPTH=2"
+
+    if [[ $prefix != l. ]]; then
+      # If dist/lobash.bash has different prefix, create l.<func> function wrappers for test cases
+      while read -r func; do
+        # echo "$func|$prefix|l.${func##"$prefix"}() { $func \"\$@\"; }" >/dev/tty
+        # shellcheck disable=2295
+        eval "l.${func##$prefix}() { $func \"\$@\"; }"
+      done < <(compgen -A function "$prefix")
+    fi
   }
 else
   load_module() {
