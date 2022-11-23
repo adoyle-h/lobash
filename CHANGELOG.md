@@ -20,9 +20,74 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 [Full Changes](https://github.com/adoyle-h/lobash/compare/master...develop)
 
+<a name="v0.5.0"></a>
+## v0.5.0 (2022-11-24 00:56:00 +0800)
+
+[Full Changes](https://github.com/adoyle-h/lobash/compare/v0.4.0...v0.5.0)
+
+### New Features
+
+- add [l.str_replace](./docs/module-usages/string.md#str_replace)
+- add [l.str_replace_all](./docs/module-usages/string.md#str_replace_all)
+- add [l.str_replace_last](./docs/module-usages/string.md#str_replace_last)
+- add [l.relative](./docs/module-usages/path.md#relative)
+- add [l.is_gnu_sed](./docs/module-usages/condition.md#is_gnu_sed)
+- add [l.is_tty_available](./docs/module-usages/condition.md#is_tty_available)
+- add [l.is_function](./docs/module-usages/condition.md#is_function)
+- add [l.is_exported](./docs/module-usages/condition.md#is_exported)
+- add [l.is_undefined](./docs/module-usages/condition.md#is_undefined)
+- add [l.is_ubuntu](./docs/module-usages/condition.md#is_ubuntu)
+- add [l.trap_error](./docs/module-usages/util.md#trap_error)
+- add [l.ask_with_cancel](./docs/module-usages/prompt.md#ask_with_cancel)
+- **build**: support -m <BASHVER>, --min <BASHVER> option to instead of BASHVER
+- **build**: support to set PREFIX with config
+- **build**: reuse the last UNIQ_KEY if found
+- **build**: Add Command and UNIQ_KEY labels
+- **tool**: add tools/module-metadata
+
+### Bug Fixes
+
+- **build**: Add options "-h", "-y" and "-p". env PREFIX and OVERWRITE are still compatible, but should not used any more.
+- **build**: add git commit into built verion annotation && fix version in doc
+- **build**: support symbol link to ./build file
+- **build**: failed with linux sed
+- **build**: OVERWRITE should be false by default
+- **build**: remove public method wrappers && internal variables should be replaced when building
+- **ci**: mkdir ./dist when test-in-docker
+- **ci**: test-in-docker should have tty
+- **ci**: load_module should load dist/lobash.bash
+- **l.ask**: no longer return "Invalid Answer"
+- **l.str_include**: with empty string should return true
+- **l.keys**: test failed in linux
+- **l.is_array**: uninitialized (declare -a arr) should be an array
+- **l.random**: l.random hangs up in Github Action
+- **l.sleep**: do not create _L_SLEEP_TEMP when loading lobash
+- **l.with_ifs**: eval "$@" -> eval "$*"
+- **l.is_array**: it should return true when test associative array && it returns false with uninitialized array in bash 4.3
+
+### Document Changes
+
+- update module usages && add Notice
+- rename /doc to /docs for github issue template
+- improve documents && remove TOC to use the Github builtin TOC
+- fix metadata since && update changelog
+- **l.sort**: update description && add examples
+
+### BREAKING CHANGE
+
+- **l.ask**:
+  - no longer return "Invalid Answer"
+  - default value of l.ask use "" instead of "Y"
+- **l.is_array**
+  - There is a bug in bash 4.3 with `declare -p`. It may be a breaking change.
+  - With associative array, it returns true now. But it returns false in previous version.
+
+<a name="v0.4.0"></a>
 ## [v0.4.0] - 2019-07-12 21:36:00 +0800
 
 Now most modules support bash 4.0+!
+
+[Full Changes](https://github.com/adoyle-h/lobash/compare/v0.3.1...v0.4.0)
 
 ### Add
 
@@ -56,7 +121,10 @@ Now most modules support bash 4.0+!
 
 - Modules usages document shows what modules not compatible with Bash 4.0.
 
+<a name="v0.3.1"></a>
 ## [v0.3.1] - 2019-07-08 02:22:00 +0800
+
+[Full Changes](https://github.com/adoyle-h/lobash/compare/v0.3.0...v0.3.1)
 
 ### Add
 
@@ -70,9 +138,10 @@ Now most modules support bash 4.0+!
 - l.array_include return 0/1 instead of echo true/false
 - str_include, end_with, start_with move to Condition Category
 
-[Full Changes](https://github.com/adoyle-h/lobash/compare/v0.3.0...v0.3.1)
-
+<a name="v0.3.0"></a>
 ## [v0.3.0] - 2019-07-08 01:16:00 +0800
+
+[Full Changes](https://github.com/adoyle-h/lobash/compare/v0.2.0...v0.3.0)
 
 ### Breaking Change
 
@@ -90,9 +159,10 @@ All Condition modules should provide two implements. Like `is_file` and `is_file
 - rename l.not => l.not.s
 - rename l.not.p => l.not.s.p
 
-[Full Changes](https://github.com/adoyle-h/lobash/compare/v0.2.0...v0.3.0)
-
+<a name="v0.2.0"></a>
 ## [v0.2.0] - 2019-07-07 15:26:01 +0800
+
+[Full Changes](https://github.com/adoyle-h/lobash/compare/v0.1.0...v0.2.0)
 
 ### Fix
 
@@ -117,8 +187,7 @@ All Condition modules should provide two implements. Like `is_file` and `is_file
 
 - Change file structure of "module usages" and show more metadatas. Now you can see what Bash version each module supported.
 
-[Full Changes](https://github.com/adoyle-h/lobash/compare/v0.1.0...v0.2.0)
-
+<a name="v0.1.0"></a>
 ## [v0.1.0] - 2019-07-01 23:46:15 +0800
 
 First release! It works in Bash 4.4+.

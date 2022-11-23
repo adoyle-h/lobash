@@ -1,0 +1,45 @@
+style: github
+template: CHANGELOG.tpl.md
+info:
+  title: CHANGELOG
+  repository_url: https://github.com/adoyle-h/lobash
+options:
+  tag_filter_pattern: '^v'
+  sort: "date"
+
+  commits:
+    filters:
+      Type:
+        - feat
+        - fix
+        - revert
+        - perf
+        - docs
+    sort_by: Scope
+
+  commit_groups:
+    group_by: Type
+    sort_by: Custom
+    title_order:
+      - feat
+      - fix
+      - revert
+      - perf
+      - docs
+
+    title_maps:
+      feat: New Features
+      fix: Bug Fixes
+      perf: Performance Improvements
+      docs: Document Changes
+
+  header:
+    pattern: "^(\\w*)(?:\\(([\\w\\$\\.\\-\\*\\s]*)\\))?\\:\\s(.*)$"
+    pattern_maps:
+      - Type
+      - Scope
+      - Subject
+
+  notes:
+    keywords:
+      - BREAKING CHANGE
