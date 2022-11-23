@@ -23,7 +23,7 @@ jobs:
     if: ${{ inputs.test1 }}
     runs-on: macos-12
     steps:
-      - run: dd bs=512 if=/dev/urandom count=1 2>/dev/null | tr -dc "a-zA-Z0-9@#*=[]" | head -c 10
+      - run: dd bs=512 if=/dev/urandom count=1 2>/dev/null | LC_ALL=C tr -dc "a-zA-Z0-9@#*=[]" | head -c 10
 
   test2:
     if: ${{ inputs.test2 }}
