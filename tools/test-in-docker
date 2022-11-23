@@ -23,6 +23,8 @@ if (( $# > 0 )); then
   else
     cmd="./test $*"
   fi
+else
+  cmd="./test"
 fi
 
 docker run \
