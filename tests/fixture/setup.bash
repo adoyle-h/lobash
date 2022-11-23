@@ -35,8 +35,6 @@ if [[ $LOBASH_USE_DIST == true ]]; then
     prefix=$( grep -E '^# Prefix: ' "$LOBASH_ROOT_DIR/dist/lobash.bash" 2>/dev/null | sed -E 's/^# Prefix: (.+)/\1/' || true)
     uniq_key=$( grep -E '^# UNIQ_KEY: ' "$LOBASH_ROOT_DIR/dist/lobash.bash" 2>/dev/null | sed -E 's/^# UNIQ_KEY: (.+)/\1/' || true)
 
-    eval "_LOBASH_${uniq_key}_PUBLIC_DEPTH=2"
-
     if [[ $prefix != l. ]]; then
       # If dist/lobash.bash has different prefix, create l.<func> function wrappers for test cases
       while read -r func; do
@@ -44,6 +42,8 @@ if [[ $LOBASH_USE_DIST == true ]]; then
         # shellcheck disable=2295
         eval "l.${func##$prefix}() { $func \"\$@\"; }"
       done < <(compgen -A function "$prefix")
+
+      eval "_LOBASH_${uniq_key}_PUBLIC_DEPTH=2"
     fi
   }
 else
