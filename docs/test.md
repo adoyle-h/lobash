@@ -41,10 +41,10 @@ BASHVER=4.0 ./tools/test-in-docker ./tests/modules/${module_name}.bats
 IN_CHINA=true BASHVER=4.0 ./tools/test-in-docker
 
 # Build Lobash for Bash 4.0+, test Lobash dist in docker with Bash 4.0
-BASHVER=4.0 BUILD_DIST=true ./tools/test-in-docker
+BASHVER=4.0 ./tools/test-in-docker -d
 
 # Build Lobash for Bash 4.0+, test Lobash dist in docker with Bash 4.0
-BASHVER=4.0 BUILD_DIST=true ./tools/test-in-docker ./tests/modules/${module_name}.bats
+BASHVER=4.0 ./tools/test-in-docker -d ./tests/modules/${module_name}.bats
 ```
 
 ## Build docker images for testing

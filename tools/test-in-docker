@@ -17,14 +17,12 @@ if [[ -z $(docker images -q lobash/test-bash:"${BASHVER}") ]]; then
   BASHVER=$BASHVER IN_CHINA=${IN_CHINA:-} "$SCRIPT_DIR/build-test-image"
 fi
 
-if [[ -n ${BUILD_DIST:-} ]]; then
-  cmd='mkdir dist && ./build ./dist && ./test -d'
-else
-  cmd='./test'
-fi
-
 if (( $# > 0 )); then
-  cmd="$cmd $*"
+  if [[ $1 == -d ]] || [[ "${*: -1}" == -d  ]]; then
+    cmd="mkdir -p dist && ./build ./dist && ./test $*"
+  else
+    cmd="./test $*"
+  fi
 fi
 
 docker run \
@@ -32,6 +30,7 @@ docker run \
   -e DOCKER=true \
   -e CI="${CI:-}" \
   -e BASHVER=$BASHVER \
+  -v "$SCRIPT_DIR"/../.git:/lobash/.git \
   -v "$SCRIPT_DIR"/../test:/lobash/test \
   -v "$SCRIPT_DIR"/../build:/lobash/build \
   -v "$SCRIPT_DIR"/../version:/lobash/version \

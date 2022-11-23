@@ -7,4 +7,4 @@ set -o errtrace
 (shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
 [[ -n "${VERBOSE:-}" ]] && set -o verbose
 
-BUILD_DIST=true BASHVER=${BASHVER:=4.4} ./tools/test-in-docker "${@:-}"
+BASHVER=${BASHVER:=4.4} ./tools/test-in-docker -d "${@:-}"
