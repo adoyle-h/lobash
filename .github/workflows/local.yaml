@@ -13,6 +13,22 @@ on:
         required: false
         type: boolean
 
+      MacOS_12:
+        description: 'Run command in MacOS 12'
+        required: false
+        type: boolean
+
+      Ubuntu_22_04:
+        description: 'Run command in Ubuntu 22.04'
+        required: false
+        type: boolean
+
+      cmd:
+        description: 'Command'
+        required: false
+        default: ''
+        type: string
+
       local:
         description: 'Run job: local'
         required: false
@@ -30,6 +46,18 @@ jobs:
     runs-on: macos-12
     steps:
       - run: LC_ALL=C tr -dc "a-zA-Z0-9@#*=[]" < /dev/urandom | head -c 10
+
+  Macos_12:
+    if: ${{ inputs.Macos_12 }}
+    runs-on: macos-12
+    steps:
+      - run: ${{ inputs.cmd }}
+
+  Ubuntu_22_04:
+    if: ${{ inputs.Ubuntu_22_04 }}
+    runs-on: ubuntu-22.04
+    steps:
+      - run: ${{ inputs.cmd }}
 
   local:
     if: ${{ inputs.local }}
