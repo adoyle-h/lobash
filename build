@@ -316,8 +316,6 @@ write() {
 }
 
 fwrite() {
-  write ''
-
   local prefixes="${_LOBASH_INTERNAL_FUNC_PREFIX}|${_LOBASH_INTERNAL_CONST_PREFIX}|${_LOBASH_PRIVATE_FUNC_PREFIX}|${_LOBASH_PRIVATE_CONST_PREFIX}"
   prefixes=${prefixes//\./\\.}
 
@@ -391,6 +389,7 @@ generate() {
 
   printf '%s\n' "Writing Lobash Internals..."
   for name in "${_LOBASH_DIST_INTERNALS[@]}"; do
+    write ''
     fwrite "$SCRIPT_DIR/src/internals/$name.bash"
   done
 

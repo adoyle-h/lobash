@@ -19,4 +19,5 @@ readonly _LOBASH_PREFIX=l.
 _LOBASH_PUBLIC_DEPTH=1  # NOTE: _LOBASH_PUBLIC_DEPTH should not be readonly
 readonly _LOBASH_MIN_BASHVER=4.0
 
-readonly _LOBASH_OS=$(_lobash.detect_os)
+_LOBASH_OS=$(_lobash.detect_os)
+readonly _LOBASH_OS
