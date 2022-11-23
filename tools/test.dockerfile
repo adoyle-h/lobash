@@ -31,7 +31,7 @@ RUN if [ -n "$APK_PROXY" ]; then \
   sed -i "s|dl-cdn.alpinelinux.org|$APK_PROXY|g" /etc/apk/repositories ; \
   fi
 
-RUN apk update && apk add --no-cache perl && mkdir -p /test
+RUN apk update && apk add --no-cache git perl && mkdir -p /test
 
 COPY --from=0 /test/bats /test/bats
 COPY --from=0 /test/bats-assert-1 /test/assert
