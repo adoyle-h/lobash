@@ -2,13 +2,14 @@
   <img alt="Lobash Logo" src="./docs/imgs/lobash.svg">
 </p>
 <p align="center">
-  A modern, safe, powerful utility library for Bash script development.
+  A modern, safe, powerful utility/library for Bash script development.
 </p>
+
+中文文档 [./README.zh.md](./README.zh.md)
 
 ## What is Lobash?
 
-Due to its complex syntaxes with symbols, and Unix commands are different in platforms such like BSD and GNU utilities
-have different options and behaviors with same command name,
+Due to its complex syntaxes and symbols, and Unix commands different options and behaviors in same name (such like GNU `sed` and BSD `sed` are different),
 Bash script development is complex and fallible.
 
 Javascript has a powerful library [Lodash](https://github.com/lodash/lodash) for simplifying development.
@@ -19,12 +20,14 @@ It is compatible with Bash 4.0+ and MacOS/Linux/Alpine/Busybox systems.
 
 It is implemented with pure bash script. (Except [l.now](src/modules/now.bash) function. It uses perl functions.)
 
-## Lobash Features
+## Features
 
 - Modular and easy to use. One module one Function.
 - Semantic functions instead of recondite bash expressions, substitutions, expansions.
 - Rich Functions. Over [120+ modules][module-usages] provided.
-- Robust and Safe. Over [700+ test cases](./tests/modules/) tested. Tested in Linux and MacOS with Bash 4.0~5.2, see [Github Actions](https://github.com/adoyle-h/lobash/actions).
+  - 15 Categories: Arithmetic, Array, Color, Condition, Console, Debug, File, Path, Prompt, String, System, Terminal, Time, Util, Variable.
+  - Each function is [documented][module-usages].
+- Robust and Safe. Over [700+ test cases](./tests/modules/) passed in [Github Actions](https://github.com/adoyle-h/lobash/actions).
 - Fast. 0.058s to load Lobash completely.
 - Compatible with MacOS/Linux/Alpine/Busybox systems.
 - Compatible with Bash 4.0 and higher versions.
@@ -65,10 +68,10 @@ It is implemented with pure bash script. (Except [l.now](src/modules/now.bash) f
 |     🚫    | Bash     | v3            | Associative array is not supported until v4.0 |
 |     🚫    | POSIX sh | *             | `local` keyword not supported                 |
 |     🚫    | Zsh      | *             | -                                             |
-|     ❔    | Ksh      | *             | No tested                                     |
+|     🚫    | Fish     | *             | -                                             |
 
 Most Lobash modules support Bash 4.0 and higher versions. Some modules are not compatible with Bash version earlier than 4.4. See the [list](./docs/module-usages/README.md#not-compatible).
-Each module annotates a `Bash` label in [module usages](./docs/module-usages/README.md).
+Each module annotates a `Bash` label in [module usages][module-usages].
 `Bash: 4.2+` means compatible with Bash 4.2 and higher versions.
 
 ✅💬 means Lobash is compatible but not all modules supported in shell.
@@ -83,11 +86,11 @@ it is easily to upgrade Bash 4.4+ in most systems.
 
 ### Dependencies
 
-Make sure below dependencies have been installed.
+Make sure below dependencies have been installed in your system.
 
 - Linux commands:
   - sed/grep/mktemp/dirname/basename/cd/printf/echo/wc
-  - sed: BSD and GNU are both supported
+  - sed: BSD and GNU are both compatible with Lobash
 
 ## Installation
 
@@ -111,16 +114,16 @@ sudo ln -s "$PWD/build" /usr/local/bin/lobash-gen
 
 ### Build your lobash.bash
 
-First, build your own `lobash.bash` file by `./build`.
+First, build your own `lobash.bash` file by `lobash-gen`.
 
 ```sh
 # Interactive build process, import all Lobash modules
 lobash-gen
-# Generated Lobash file: <lobash-dir>/lobash.bash
+# Generated file: <lobash-dir>/lobash.bash
 
 # Or build Lobash to specific path
 lobash-gen <target-path>
-# Generated Lobash file: <target-path>
+# Generated file: <target-path>
 ```
 
 **Read [./docs/build.md](./docs/build.md) for more details.**
@@ -175,22 +178,23 @@ sys     0m0.036s
 
 Read all module usages in [./docs/module-usages/][module-usages].
 
-Read all module examples in [./example/modules](./example/modules).
+Read all module examples in [./example/modules](./example/modules) and [test cases](./tests/modules).
 
 Available modules list in [config.example](./config.example).
 
 ## Advanced Usages
 
-### Export specific modules with config
+### lobash-gen -c config
 
 `lobash-gen` will export all modules by default. You can export specific modules with `-c <config>` option.
+
+You can also set `PREFIX`, `BASH_MIN_VERSION` in config.
 
 ```sh
 cp config.example config
 # The "config" file is ignored by git
 
-# Edit config, set PREFIX, BASH_MIN_VERSION and modules for building
-
+# Edit config
 lobash-gen -c ./config
 ```
 
