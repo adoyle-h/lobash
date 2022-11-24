@@ -86,4 +86,14 @@ l.last a b c
 
 ## Debug
 
+Some tricks to debug while testing.
+
+### LOBASH_DEBUG
+
 Set environment variable `LOBASH_DEBUG=true` to print verbose logs.
+
+### /dev/tty
+
+The outputs to stdout (`>&1`) and stderr (`>&2`) are catched by bats.
+
+You could use `echo "" >/dev/tty` to print texts to screen for debug.

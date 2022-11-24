@@ -10,14 +10,11 @@
 l.is_array() {
   [[ -z ${1:-} ]] && return 1
 
-  local str
-  str=$(declare -p "$1" 2>/dev/null || true)
+  local attrs
+  # shellcheck disable=2207
+  attrs=$(declare -p "$1" 2>/dev/null | sed -E "s/^declare -([-a-zA-Z]+) .+/\\1/" || true)
 
-  if [[ $str =~ ^"declare -a $1" ]]; then
-    return 0
-  elif [[ $str =~ ^"declare -A $1" ]]; then
-    return 0
-  else
-    return 1
-  fi
+  # a: array
+  # A: associate array
+  if [[ ${attrs} =~ a|A ]]; then return 0; else return 1; fi
 }
