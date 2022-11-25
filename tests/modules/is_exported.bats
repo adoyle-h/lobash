@@ -62,7 +62,11 @@ load_module is_exported
 }
 
 @test "l.is_exported <export-but-uninitialized> -> false" {
-  if [[ $BASH_VERSION =~ ^'4.3' ]]; then skip; fi # Skip testing uninitialized variable for bash 4.3
+  if [[ $BASH_VERSION =~ ^'4.0' ]] || \
+    [[ $BASH_VERSION =~ ^'4.1' ]] || \
+    [[ $BASH_VERSION =~ ^'4.2' ]] || \
+    [[ $BASH_VERSION =~ ^'4.3' ]] ; \
+  then skip; fi # Skip testing uninitialized variable for bash 4.0~4.3
 
   export g
   run l.is_exported g
