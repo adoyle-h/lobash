@@ -32,11 +32,46 @@ It is implemented with pure bash script. (Except [l.now](src/modules/now.bash) f
 - Compatible with MacOS/Linux/Alpine/Busybox systems.
 - Compatible with Bash 4.0 and higher versions.
 
+## Design philosophy
+
+### One Feature only with One Function
+
+If a function needs to pass much arguments and combine much functions to accomplish this, it does not conform to the design philosophy of Lobash.
+
+For example, a logger library could be as simple as `l.log() { echo "$1" >> "$2"; }`, calling `l.log "message" "/var/log/file"` to append a log.
+It could also be complex. With many features such as Colorful Highlights, Formatting, Caller Location, Log Level, Log Storages, Log Rotation.
+
+Lobash provides the simplest and easy-to-use functions. For complex features, please search for other projects. Here are a few recommended projects.
+
+- [ebash](https://github.com/elibs/ebash): implements many complex features.
+- Logger: [b-log](https://github.com/idelsink/b-log) or [bash-logger](https://github.com/adoyle-h/bash-logger)
+- Colors: [shell-general-colors](https://github.com/adoyle-h/shell-general-colors)
+
+### No Side Effects
+
+A function has only input and output, no side effects. When the same input is given, it will always return the same output.
+
+Lobash does not modify global variables. No internal variables are created to store intermediate state (ideally).
+
+However, Lobash will modify user-passed variables to store the result of the computation in it. e.g., [`l.parse_params`](. /example/modules/parse_params).
+
+### Reducing Implicit Errors
+
+Bash's syntaxes and behaviors are too weird.
+Lobash provides semantic functions that implement a single feature to keep it simple.
+
+Lobash helps to reduce the mental burden on developers.
+
 ## CI Status
 
 - [develop branch](https://github.com/adoyle-h/lobash/tree/develop): [![CI Status](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml/badge.svg?branch=develop)](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml?query=branch%3Adevelop)
-- [v0.5.0](https://github.com/adoyle-h/lobash/tree/v0.5.0): [![CI Status](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml/badge.svg?tag=v0.5.0)](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml?query=tag%3Av0.5.0)
-- [v0.4.0](https://github.com/adoyle-h/lobash/tree/v0.4.0): [![CI Status](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml/badge.svg?tag=v0.4.0)](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml?query=tag%3Av0.4.0)
+- [v0.5.0](https://github.com/adoyle-h/lobash/tree/v0.5.0): [![CI Status](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml/badge.svg?branch=v0.5.0)](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml?query=branch%3Av0.5.0)
+- [v0.4.0](https://github.com/adoyle-h/lobash/tree/v0.4.0): [![CI Status](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml/badge.svg?branch=v0.4.0)](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml?query=branch%3Av0.4.0)
+
+## Versions
+
+Read [tags][].
+The versions follows the rules of [SemVer 2.0.0](http://semver.org/).
 
 ## [ChangeLog](./CHANGELOG.md)
 
@@ -97,7 +132,7 @@ Make sure below dependencies have been installed in your system.
 Available Lobash versions refer to [Git Tags](https://github.com/adoyle-h/lobash/tags) which named like "vX.Y.Z".
 
 ```sh
-VERSION=v0.5.0  # or VERSION=develop
+VERSION=v0.5.0  # or VERSION=develop, but develop branch is unstable.
 # Download source codes
 git clone --depth 1 --branch $VERSION https://github.com/adoyle-h/lobash.git
 cd lobash
@@ -239,11 +274,6 @@ Do not post duplicated and useless contents like `+1`, `LOL`. React to comments 
 (Please communicate in English as much as possible)
 
 Please read [./docs/CONTRIBUTING.md](./docs/CONTRIBUTING.md) before make a Pull Request.
-
-## Versions
-
-Read [tags][].
-The versions follows the rules of [SemVer 2.0.0](http://semver.org/).
 
 ## Copyright and License
 

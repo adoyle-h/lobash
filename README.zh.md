@@ -30,11 +30,47 @@ Lobash 提供了一系列函数来提高 shell 开发的效率。它兼容 Bash 
 - 兼容 MacOS/Linux/Alpine/Busybox 系统。
 - 兼容 Bash 4.0 及以上版本。
 
+## 设计理念
+
+Lobash 追求的是简单、易用。具体分为以下几个方面。
+
+### 一个功能只对应一个函数
+
+如果一个功能需要传递很多参数，组合很多函数来完成，那么就不符合 Lobash 的设计理念。
+
+比如日志库，它可以很简单，比如实现 `l.log() { echo "$1" >> "$2"; }`，调用 `l.log "message" "/var/log/file"` 输出日志。
+它也可以变得很复杂。有很多的功能，比如颜色高亮、格式化、调用位置、日志等级、日志文件存储、日志转储。
+
+Lobash 只会提供最简单易用的函数。对于复杂的功能，请搜索其他项目。这里推荐几个项目：
+
+- [ebash](https://github.com/elibs/ebash): 实现了很多复杂的功能。
+- 日志: [b-log](https://github.com/idelsink/b-log) 或 [bash-logger](https://github.com/adoyle-h/bash-logger)
+- 颜色: [shell-general-colors](https://github.com/adoyle-h/shell-general-colors)
+
+### 没有副作用
+
+一个函数只有输入和输出，没有副作用。若给定相同的输入，它将始终返回相同的结果。
+
+Lobash 不会修改全局变量。不创建内部变量来存储中间状态（理想情况下）。
+
+但 Lobash 会修改用户传入的变量，将计算结果存储在用户传入的变量里，例如 [`l.parse_params`](./example/modules/parse_params) 这样。
+
+### 减少潜在的错误
+
+Bash 的语法设计太怪异了，开发者很容易踩坑。Lobash 提供语义化的函数，实现单一的功能，保持简单。
+
+Lobash 能减少开发者的心智负担。
+
 ## CI 状态
 
 - [develop 分支](https://github.com/adoyle-h/lobash/tree/develop): [![CI Status](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml/badge.svg?branch=develop)](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml?query=branch%3Adevelop)
-- [v0.5.0](https://github.com/adoyle-h/lobash/tree/v0.5.0): [![CI Status](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml/badge.svg?tag=v0.5.0)](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml?query=tag%3Av0.5.0)
-- [v0.4.0](https://github.com/adoyle-h/lobash/tree/v0.4.0): [![CI Status](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml/badge.svg?tag=v0.4.0)](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml?query=tag%3Av0.4.0)
+- [v0.5.0](https://github.com/adoyle-h/lobash/tree/v0.5.0): [![CI Status](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml/badge.svg?branch=v0.5.0)](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml?query=branch%3Av0.5.0)
+- [v0.4.0](https://github.com/adoyle-h/lobash/tree/v0.4.0): [![CI Status](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml/badge.svg?branch=v0.4.0)](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml?query=branch%3Av0.4.0)
+
+## 版本
+
+Read [tags][].
+The versions follows the rules of [SemVer 2.0.0](http://semver.org/).
 
 ## [变更日志 ChangeLog](./CHANGELOG.md)
 
@@ -95,7 +131,7 @@ Lobash 提供了一系列函数来提高 shell 开发的效率。它兼容 Bash 
 在 [Git Tags](https://github.com/adoyle-h/lobash/tags) 中查看 Lobash 的可用版本 ("vX.Y.Z")。
 
 ```sh
-VERSION=v0.5.0  # 或者 VERSION=develop
+VERSION=v0.5.0  # 或者 VERSION=develop，但是 develop 分支不稳定
 # 下载源码
 git clone --depth 1 --branch $VERSION https://github.com/adoyle-h/lobash.git
 cd lobash
@@ -235,11 +271,6 @@ lobash-gen -c ./config
 因为我们处于国际社区，英文更通用，方便外国人阅读理解你的意见。
 
 请阅读[如何为本项目贡献](./docs/CONTRIBUTING.md)。
-
-## 版本
-
-Read [tags][].
-The versions follows the rules of [SemVer 2.0.0](http://semver.org/).
 
 ## 版权声明
 
