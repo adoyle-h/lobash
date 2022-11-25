@@ -10,7 +10,7 @@
 l.is_exported() {
   local s
   if s=$(declare -p "$1" 2>/dev/null) ;then
-    s=$(echo "$s" | sed -E 's/^declare ([-a-z]+) /\1/')
+    s=$(echo "$s" | sed -E 's/^declare ([-a-zA-Z]+) .+/\1/')
     if [[ $s == *x* ]]; then
       return 0
     else
