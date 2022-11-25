@@ -61,6 +61,15 @@ load_module is_exported
   assert_output ''
 }
 
+@test "l.is_exported <export-but-uninitialized> -> false" {
+  if [[ $BASH_VERSION =~ ^'4.3' ]]; then skip; fi # Skip testing uninitialized variable for bash 4.3
+
+  export g
+  run l.is_exported g
+  assert_success
+  assert_output ''
+}
+
 @test "l.is_exported <function> -> false" {
   fff() { echo 1; }
   run l.is_exported fff
