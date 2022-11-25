@@ -7,9 +7,6 @@ set -o errtrace
 (shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
 [[ -n "${VERBOSE:-}" ]] && set -o verbose
 
-SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
-readonly SCRIPT_DIR
-
 if (( $# == 0)) || [[ $1 == -h ]] || [[ $1 == --help ]]; then
   cat <<EOF
 Usage: $0 <major|minor|patch>
@@ -18,19 +15,44 @@ EOF
   exit 0
 fi
 
+SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+readonly SCRIPT_DIR
+
 semver=$SCRIPT_DIR/../tmp/semver
+
+# shellcheck source=../src/internals/is_gnu_sed.bas
+. $SCRIPT_DIR/../src/internals/is_gnu_sed.bash
+
+if _lobash.is_gnu_sed; then
+  sedi() { sed -i "$@"; }
+else
+  sedi() { sed -i '' "$@"; }
+fi
 
 if [[ ! -f $semver ]]; then
   curl -Lo "$semver" https://raw.githubusercontent.com/fsaintjacques/semver-tool/master/src/semver
   chmod +x "$semver"
 fi
 
+update_changelog() {
+  local next_ver=$1
+
+  local line_num
+  line_num=$(grep -nE '^## \[Unreleased\]' "$SCRIPT_DIR/../CHANGELOG.md" | sed -E 's/^([0-9]+):.+/\1/')
+  line_num=$(( line_num + 2 ))
+
+  git-chglog --next-tag "v$next_ver" | \
+    sedi "$line_num r /dev/stdin" "$SCRIPT_DIR/../CHANGELOG.md"
+}
+
 main() {
   local version_file="$SCRIPT_DIR/../version"
-  local curVer nextVer
-  curVer=$(cat "$version_file")
-  nextVer=$( "$semver" bump "$1" "$curVer" )
-  echo "$nextVer" > "$version_file"
+  local cur_ver next_ver
+  cur_ver=$(cat "$version_file")
+  next_ver=$( "$semver" bump "$1" "$cur_ver" )
+  echo "$next_ver" > "$version_file"
+
+  update_changelog "$next_ver"
 }
 
 main "$@"
