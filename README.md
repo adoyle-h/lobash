@@ -53,7 +53,7 @@ A function has only input and output, no side effects. When the same input is gi
 
 Lobash does not modify global variables. No internal variables are created to store intermediate state (ideally).
 
-However, Lobash will modify user-passed variables to store the result of the computation in it. e.g., [`l.parse_params`](. /example/modules/parse_params).
+However, Lobash will modify user-passed variables to store the result of the computation in it. e.g., [`l.parse_params`](./example/modules/parse_params).
 
 ### Reducing Implicit Errors
 
@@ -112,7 +112,7 @@ Each module annotates a `Bash` label in [module usages][module-usages].
 ✅💬 means Lobash is compatible but not all modules supported in shell.
 It will print notes to show what modules is not supported and ignored when building Lobash.
 
-**If you use Lobash with Bash 4.0~4.3. Please read [./docs/with-lower-version-bash.md](./docs/with-lower-version-bash.md) first.**
+**If you use Lobash with Bash 4.0~4.3. Please read [./docs/with-lower-version-bash.md](./docs/with-lower-version-bash.md) first. It's very important.**
 
 **Lobash not test with Bash 4.0 in MacOS. It seems a bug of Bash 4.0 in MacOS. Please contact me if you solved this problem.** Read [this document](./docs/with-lower-version-bash.md#not-test-with-bash-40-in-macos).
 

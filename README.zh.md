@@ -111,7 +111,7 @@ The versions follows the rules of [SemVer 2.0.0](http://semver.org/).
 ✅💬 表示 Lobash 是支持的，但是并非所有模块都支持。
 在构建 lobash 时会打印提示出不支持的模块。
 
-**如果你在 Bash 4.0~4.3 中使用 Lobash，请先阅读 [./docs/with-lower-version-bash.md](./docs/with-lower-version-bash.md)。**
+**如果你在 Bash 4.0~4.3 中使用 Lobash，请先阅读 [./docs/with-lower-version-bash.md](./docs/with-lower-version-bash.md)。这非常重要。**
 
 **Lobash 没有在 MacOS 中测试 Bash 4.0 版本。因为这似乎有个 [Bug](./docs/with-lower-version-bash.md#not-test-with-bash-40-in-macos)。如果你解决了这个问题，请告知我。**
 
