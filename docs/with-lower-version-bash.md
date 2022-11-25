@@ -15,25 +15,29 @@ Completely supported.
 ### 4.3
 
 - `shopt -s inherit_errexit` is a new feature in Bash v4.4. There is no workaround in v4.3.
-- `declare -p` has a bug. See [./module-usages/condition.md#is_array](./module-usages/condition.md#is_array).
+- `declare -p` has a bug. See [./module-usages/condition.md#is_array](./module-usages/condition.md#is_array) and [./module-usages/condition.md#is_exported](./module-usages/condition.md#is_exported).
+  - You should always declare a variable with initialization, like `declare -a var=()`, `local var=`, `export var=` instead of `declare -a var`, `local var`, `export var`.
 
 ### 4.2
 
 - The Nameref is new feature in Bash v4.3. Use `eval` as workaround.
+- `declare -p` has a bug. See [./module-usages/condition.md#is_exported](./module-usages/condition.md#is_exported).
+  - You should always declare a variable with initialization, like `declare -a var=()`, `local var=`, `export var=` instead of `declare -a var`, `local var`, `export var`.
 
 ### 4.1
 
 - `declare -g var=str` not supported util v4.2, use `read -r var <<< "str"` instead.
-
 - `$(( "$i" + 1 ))` not work in Bash 4.1, use `$(( i + 1))` instead.
-
 - `[[ $'\e' == $'\u001b' ]]` is `false` in Bash less than v4.2. **No workaround**.
-
 - `printf "%($1)T\\n" "-1"` not work in v4.1. **No workaround**.
+- `declare -p` has a bug. See [./module-usages/condition.md#is_exported](./module-usages/condition.md#is_exported).
+  - You should always declare a variable with initialization, like `declare -a var=()`, `local var=`, `export var=` instead of `declare -a var`, `local var`, `export var`.
 
 ### 4.0
 
 - `exec {_sleep_fd}<> <(true)` is not supported util v4.1. **No workaround**.
+- `declare -p` has a bug. See [./module-usages/condition.md#is_exported](./module-usages/condition.md#is_exported).
+  - You should always declare a variable with initialization, like `declare -a var=()`, `local var=`, `export var=` instead of `declare -a var`, `local var`, `export var`.
 
 - Empty `$@` and `$*` will throw error "unbound variable" with `set -u` in v4.0. It is a bug of Bash. See https://unix.stackexchange.com/a/16565
 

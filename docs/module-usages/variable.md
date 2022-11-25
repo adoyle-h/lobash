@@ -25,8 +25,9 @@
 
 - Usage: `l.random [<length>=10] [<pattern>=a-zA-Z0-9@#*=[]]`
 - Description:
-  - Return a random string in specific length.
+  - Return a random string in specific length. It must be a positive integer.
   - The `<pattern>` is allowed characters in range.
+  - This function requires `dd` command available in system.
 - Since: 0.1.0
 - Bash: 4.0+
 - Status: tested

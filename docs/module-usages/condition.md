@@ -267,6 +267,10 @@
 - Since: 0.5.0
 - Bash: 4.0+
 - Status: tested
+- **Notice**:
+  - **Only with bash 4.3, this function return 1 when the exported variable declared without initialization.**
+  - **Because `declare -p a` shows `declare: a: not found` when `declare -a a`. It's a bug in bash 4.3.**
+  - **In bash 4.0~4.3, when `export <var>` without initialization, is_exported will return false. Because `declare -p <var>` will print "not found". It's a bug in Bash.**
 - Test Cases: [tests/modules/is_exported.bats](../../tests/modules/is_exported.bats)
 - Source Code: [src/modules/is_exported.bash](../../src/modules/is_exported.bash)
 

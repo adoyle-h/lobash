@@ -20,6 +20,25 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 [Full Changes](https://github.com/adoyle-h/lobash/compare/master...develop)
 
+<a name="v0.5.1"></a>
+## v0.5.1 (2022-11-26 00:30:46 +08:00)
+
+[Full Changes](https://github.com/adoyle-h/lobash/compare/v0.5.0...v0.5.1)
+
+### Bug Fixes
+
+- **is_array**: exported array should be true
+  - Only with bash 4.3, this function return 1 when the variable declared without initialization. Because `declare -p a` shows `declare: a: not found` when `declare -a a`. It's a bug in bash 4.3.
+- **is_exported**: it should be false if local variable is associate array but its name contains x
+  - In bash 4.0~4.3, when `export <var>` without initialization, is_exported will return false. Because `declare -p <var>` will print "not found". It's a bug in Bash.
+  - ([-a-z]+) not matches attribution `-A`, so the sed will print whole line. If the variable name contains "x", the `[[ $s == *x* ]]` will be true. That will cause a bug. See the last [test case](./tests/modules/is_exported.bats).
+
+### Document Changes
+
+- update module usages
+- improve documents
+- add Chinese documents
+
 <a name="v0.5.0"></a>
 ## v0.5.0 (2022-11-24 00:56:00 +0800)
 
