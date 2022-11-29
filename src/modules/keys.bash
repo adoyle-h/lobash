@@ -8,5 +8,7 @@
 
 l.keys() {
   local name=$1
+  # shellcheck disable=2034
+  local key
   eval "for key in \"\${!${name}[@]}\" ; do echo \"\$key\"; done"
 }

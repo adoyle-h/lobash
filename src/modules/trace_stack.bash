@@ -10,6 +10,7 @@ l.trace_stack() {
     "Trace Function Stack:${1:+ $1}" \
     "  # Function (File:Line)"
 
+  local i
   # _LOBASH_PUBLIC_DEPTH=1 in built lobash.bash, and _LOBASH_PUBLIC_DEPTH=2 in test.
   for i in $(seq "$_LOBASH_PUBLIC_DEPTH" $(( ${#FUNCNAME[@]} -1 ))); do
     printf -- '  - %s (%s:%s)\n' "${FUNCNAME[$i]}" "${BASH_SOURCE[$i]:-(shell)}" "${BASH_LINENO[$i]}"

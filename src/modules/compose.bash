@@ -7,6 +7,8 @@
 
 l.compose() {
   local -a last=()
+  local f
+
   for f in "$@"; do
     if [[ $(type -t "$f") == function ]]; then
       if (( ${#last[@]} > 0 )); then
@@ -18,5 +20,6 @@ l.compose() {
       last=( "$f" )
     fi
   done
+
   printf '%s\n' "${last[@]:-}"
 }

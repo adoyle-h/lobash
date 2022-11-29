@@ -22,7 +22,9 @@ _l.parse_single_hyphen_options() {
 
   local -a matches=()
   local k letters
+
   l.match_list "$param" '^(.+)=(.*)$' matches
+
   if (( ${#matches[@]} == 2 )); then
     # -a=3 or -abc=3
     # -a= or -abc=
@@ -87,6 +89,7 @@ _l.parse_params_add_none() {
 }
 
 _l.parse_params_add_opt() {
+  # shellcheck disable=1087
   eval "$opts_name[\$1]=\"\$2\""
 }
 
@@ -116,8 +119,9 @@ l.parse_params() {
   fi
 
   local param_size=$#
-  local param
+  local param i
   local rest_is_args=false
+
   for (( i = 3; i <= param_size; i++ )); do
     param=${!i}
 

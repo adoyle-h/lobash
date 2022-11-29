@@ -8,6 +8,7 @@
 _l.run_benchmark() {
   local c=$1
   local repeats=$2
+  local i
 
   # Run the given command [repeats] times
   for (( i = 1; i <= "$repeats" ; i++ )); do
