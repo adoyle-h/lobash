@@ -23,12 +23,11 @@
 ### now
 
 - Usage: `l.now`
-- Description:
-  - Print the timestamp of the number of milliseconds that have elapsed since the Unix epoch (1 January 1970 00:00:00 UTC).
-  - Require Perl 5.8.8 and higher install if run in Alpine/Busybox systems. And most Unix/Linux operating systems have included Perl 5. See the [Perl Binaries](https://www.cpan.org/ports/binaries.html).
+- Description: Print the timestamp of the number of milliseconds that have elapsed since the Unix epoch (1 January 1970 00:00:00 UTC).
 - Since: 0.1.0
 - Bash: 4.0+
 - Status: tested
+- **Notice**: **When run under Bash 4.0~4.4 and Alpine/Busybox systems, perl 5+ is required. Most Unix/Linux operating systems have included Perl 5. See the [Perl Binaries](https://www.cpan.org/ports/binaries.html).**
 - Test Cases: [tests/modules/now.bats](../../tests/modules/now.bats)
 - Source Code: [src/modules/now.bash](../../src/modules/now.bash)
 
