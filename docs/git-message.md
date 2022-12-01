@@ -5,12 +5,14 @@ Generally follows the [Conventional Commits](https://www.conventionalcommits.org
 ## Commit Message Format
 
 ```
-<type>[optional scope]: <description>
+<type>[(scope)][!]: <description>
 
 [optional body]
 
 [optional footer]
 ```
+
+`[(scope)]` is optional.
 
 ## Type
 
@@ -18,14 +20,14 @@ Must be one of the following:
 
 - **build**: Changes that affect the build system or external dependencies
 - **ci**: Changes to our CI configuration files and scripts
-- **doc**: Documentation only changes
+- **docs**: Documentation only changes
 - **feat**: A new feature
 - **fix**: A bug fix
 - **perf**: A code change that improves performance
 - **refactor**: A code change that neither fixes a bug nor adds a feature
 - **style**: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
 - **test**: Adding missing tests or correcting existing tests
-- **other**: Update other things not related to production codes
+- **chore**: Other changes that don't modify src or test files
 
 
 ## Breaking Change
