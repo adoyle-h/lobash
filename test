@@ -39,6 +39,19 @@ elif [[ "${*: -1}" == -d  ]]; then
   LOBASH_USE_DIST=true
 fi
 
+declare -a bats_args=(
+  --print-output-on-failure
+)
+
+if [[ -n ${CI:-} ]]; then
+  bats_args+=(--tap)
+fi
+
+if [[ ${1:-} == '-j' ]] && [[ -n ${2:-} ]]; then
+  bats_args+=(-j "$2")
+  shift 2
+fi
+
 if [[ -z "${1:-}" ]]; then
   test_dirs=( "$LOBASH_TEST_DIR"/{,modules} )
 else
@@ -48,4 +61,4 @@ fi
 export PATH="$LOBASH_TEST_DIR/fixture/bats/bin:${PATH}"
 bats --version
 
-exec bats --print-output-on-failure ${CI:+--tap} "${test_dirs[@]}"
+exec bats "${bats_args[@]}" "${test_dirs[@]}"
