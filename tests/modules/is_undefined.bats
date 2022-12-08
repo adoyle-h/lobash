@@ -1,8 +1,6 @@
 #!/usr/bin/env bats
 
 setup_fixture
-test_prepare is_undefined
-load_module is_undefined
 
 @test "l.is_undefined <exported variable> -> false" {
   export a=1

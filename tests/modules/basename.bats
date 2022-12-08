@@ -1,8 +1,6 @@
 #!/usr/bin/env bats
 
 setup_fixture
-test_prepare basename
-load_module basename
 
 @test "l.basename hello.world" {
   run l.basename hello.world

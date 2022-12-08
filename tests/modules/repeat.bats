@@ -1,8 +1,6 @@
 #!/usr/bin/env bats
 
 setup_fixture
-test_prepare repeat
-load_module repeat
 
 @test "l.repeat -1 echo 0" {
   run l.repeat -1 echo 0

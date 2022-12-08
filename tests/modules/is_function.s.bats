@@ -2,8 +2,6 @@
 # shellcheck disable=2034
 
 setup_fixture
-test_prepare is_function.s
-load_module is_function.s
 
 @test "l.is_function.s a function" {
   function abc() { echo 123; }

@@ -1,8 +1,6 @@
 #!/usr/bin/env bats
 
 setup_fixture
-test_prepare str_size
-load_module str_size
 
 @test "l.str_size ''" {
   run l.str_size ''

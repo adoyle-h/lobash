@@ -1,8 +1,6 @@
 #!/usr/bin/env bats
 
 setup_fixture
-test_prepare is_falsy
-load_module is_falsy
 
 @test "l.is_falsy true" {
   run l.is_falsy true

@@ -1,8 +1,6 @@
 #!/usr/bin/env bats
 
 setup_fixture
-test_prepare ask_with_cancel
-load_module ask_with_cancel
 
 # It uses echo pipe just for test.
 # You should invoke `l.ask_with_cancel <message>` for normal usage.

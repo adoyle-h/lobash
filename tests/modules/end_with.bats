@@ -1,8 +1,6 @@
 #!/usr/bin/env bats
 
 setup_fixture
-test_prepare end_with
-load_module end_with
 
 @test "l.end_with hello o" {
   run l.end_with "hello" "o"

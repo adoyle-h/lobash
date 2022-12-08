@@ -1,8 +1,6 @@
 #!/usr/bin/env bats
 
 setup_fixture
-test_prepare lower_case
-load_module lower_case
 
 @test "l.lower_case 'abc'" {
   run l.lower_case 'abc'

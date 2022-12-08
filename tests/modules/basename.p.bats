@@ -1,8 +1,6 @@
 #!/usr/bin/env bats
 
 setup_fixture
-test_prepare basename.p
-load_module basename.p
 
 @test "echo hello.world | l.basename.p" {
   t() {

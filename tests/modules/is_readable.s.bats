@@ -1,8 +1,6 @@
 #!/usr/bin/env bats
 
 setup_fixture
-test_prepare is_readable.s
-load_module is_readable.s
 
 @test "l.is_readable.s a normal file" {
   local temp=$(mktemp)

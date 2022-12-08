@@ -1,8 +1,6 @@
 #!/usr/bin/env bats
 
 setup_fixture
-test_prepare is_executable_file.s
-load_module is_executable_file.s
 
 @test "l.is_executable_file.s a normal file" {
   local temp=$(mktemp)

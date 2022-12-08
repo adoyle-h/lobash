@@ -1,8 +1,6 @@
 #!/usr/bin/env bats
 
 setup_fixture
-test_prepare str_replace_last
-load_module str_replace_last
 
 @test "l.str_replace_last asd" {
   run l.str_replace_last "/qwe/asd/zxc/asd" "asd" "---"

@@ -1,8 +1,6 @@
 #!/usr/bin/env bats
 
 setup_fixture
-test_prepare count_files
-load_module count_files
 
 @test "l.count_files /temp_dir with no file" {
   local temp_dir

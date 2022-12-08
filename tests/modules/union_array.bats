@@ -1,8 +1,6 @@
 #!/usr/bin/env bats
 
 setup_fixture
-test_prepare union_array
-load_module union_array
 
 @test "l.union_array (a b) (c d)" {
   local arr1=(a b)

@@ -1,8 +1,6 @@
 #!/usr/bin/env bats
 
 setup_fixture
-test_prepare is_array.s
-load_module is_array.s
 
 @test "l.is_array.s array" {
   local -a y=(a h)

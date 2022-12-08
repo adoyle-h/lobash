@@ -1,8 +1,6 @@
 #!/usr/bin/env bats
 
 setup_fixture
-test_prepare array_include.s
-load_module array_include.s
 
 @test "l.array_include.s (he ll o world) hello" {
   local arr=(he ll o world)

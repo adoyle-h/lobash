@@ -1,8 +1,6 @@
 #!/usr/bin/env bats
 
 setup_fixture
-test_prepare compose
-load_module compose
 
 @test "l.compose foo bar baz" {
   foo() {

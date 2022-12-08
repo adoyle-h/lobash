@@ -1,8 +1,6 @@
 #!/usr/bin/env bats
 
 setup_fixture
-test_prepare is_exported
-load_module is_exported
 
 @test "l.is_exported <exported variable> -> true" {
   export a=1

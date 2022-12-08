@@ -1,8 +1,6 @@
 #!/usr/bin/env bats
 
 setup_fixture
-test_prepare trace_start
-load_module trace_start
 
 @test "l.trace_start" {
   # How to test PS4?

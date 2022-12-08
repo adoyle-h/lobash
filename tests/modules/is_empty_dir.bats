@@ -1,8 +1,6 @@
 #!/usr/bin/env bats
 
 setup_fixture
-test_prepare is_empty_dir
-load_module is_empty_dir
 
 @test "l.is_empty_dir ''" {
   run l.is_empty_dir

@@ -1,8 +1,6 @@
 #!/usr/bin/env bats
 
 setup_fixture
-test_prepare count_lines
-load_module count_lines
 
 @test "l.count_lines ''" {
   run l.count_lines ''

@@ -1,8 +1,6 @@
 #!/usr/bin/env bats
 
 setup_fixture
-test_prepare is_file
-load_module is_file
 
 @test "l.is_file a file" {
   local temp=$(mktemp)

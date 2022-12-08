@@ -1,8 +1,6 @@
 #!/usr/bin/env bats
 
 setup_fixture
-test_prepare has_not
-load_module has_not
 
 @test "l.has_not command cat, while cat is existed" {
   run l.has_not command cat

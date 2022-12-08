@@ -1,8 +1,6 @@
 #!/usr/bin/env bats
 
 setup_fixture
-test_prepare trace_time
-load_module trace_time
 
 @test "l.trace_time without label twice between 1 seconds" {
   l.trace_time

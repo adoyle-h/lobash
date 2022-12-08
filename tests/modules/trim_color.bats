@@ -1,8 +1,6 @@
 #!/usr/bin/env bats
 
 setup_fixture
-test_prepare trim_color
-load_module trim_color
 
 @test "l.trim_color empty" {
   run l.trim_color ''

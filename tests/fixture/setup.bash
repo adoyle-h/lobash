@@ -1,17 +1,3 @@
-# bats not open errexit, nounset and pipefail by default
-set -o errexit
-# set -o nounset
-set -o pipefail
-(shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
-
-if [[ -n ${DOCKER:-} ]]; then
-  load /test/support/load.bash
-  load /test/assert/load.bash
-else
-  load "$LOBASH_TEST_DIR"/fixture/support/load.bash
-  load "$LOBASH_TEST_DIR"/fixture/assert/load.bash
-fi
-
 load_src() {
   local path=$1;
   shift
@@ -26,6 +12,8 @@ load_fixtrue() {
 
 if [[ $LOBASH_USE_DIST == true ]]; then
   load_module() {
+    declare -p "_loaded_module_lobash_dist" &>/dev/null && return
+
     # shellcheck source=./dist/lobash.bash
     source "$LOBASH_ROOT_DIR/dist/lobash.bash"
 
@@ -45,27 +33,21 @@ if [[ $LOBASH_USE_DIST == true ]]; then
 
       eval "_LOBASH_${uniq_key}_PUBLIC_DEPTH=2"
     fi
+
+    declare -g "_loaded_module_lobash_dist"=true
   }
 else
   load_module() {
     [[ $# != 1 ]] && echo "load_module must have one argument at least." >&2 && return 3
+
+    declare -p "_loaded_module_${1//./_}" &>/dev/null && return
+    if ! declare -f _lobash.import >/dev/null; then
+      _lobash.import_internal imports
+    fi
     _lobash.imports "$1"
+    declare -g "_loaded_module_${1//./_}"=true
   }
 fi
-
-# Fix: bats-core reset "set -e"
-# https://github.com/bats-core/bats-core/blob/master/libexec/bats-core/bats-exec-test#L60
-run() {
-  local origFlags="$-"
-  local origIFS="$IFS"
-  set +eET
-  # bats has bug, /lobash/tests/fixture/bats/libexec/bats-core/bats-exec-test: line 7: BASH_SOURCE: unbound variable
-  output="$(set -o nounset; set -e; "$@" 2>&1)"
-  status="$?"
-  IFS=$'\n' lines=($output)
-  IFS="$origIFS"
-  set "-$origFlags"
-}
 
 # check_bash <module_name>
 check_bash() {
@@ -77,18 +59,66 @@ check_bash() {
 
   if (( compare > 0 )); then
     echo "[Skip Test] '$module_name' support Bash $bashver+, while current BASH_VERSION=$BASH_VERSION"
-    exit 0
+    exit 1
   fi
 }
 
-test_prepare() {
-  local module_name=$1
-  # This line is important. Set cache map variable
-  declare -A _LOBASH_MOD_META_CACHE
-  _lobash.import_internals module_meta
+# Do not define functions and variables in setup_file,
+# because it runs in child process different from test and setup.
+setup_file() {
+  if [[ $BATS_TEST_FILENAME =~ "/modules/$module_name.bats"$ ]]; then
+    # This line is important. Set cache map variable
+    declare -A _LOBASH_MOD_META_CACHE
+    _lobash.import_internals module_meta
 
-  check_bash "$module_name"
+    if ! check_bash "$module_name"; then
+      skip
+      return
+    fi
+  fi
 }
 
-# If import has bug, all test cases will failed
-load_src load_internals
+# https://bats-core.readthedocs.io/en/stable/tutorial.html#avoiding-costly-repeated-setups
+setup() {
+  local module_name
+  module_name=$(basename "$BATS_TEST_FILENAME" .bats)
+
+  # If import has bug, all test cases will failed
+  load_src load_internals
+
+  if [[ "$BATS_TEST_FILENAME" =~ "/modules/$module_name.bats"$ ]]; then
+    # Auto load module for /modules/*.bats testing
+    load_module "$module_name"
+  fi
+
+  # Note: Use setup_test instead of setup function in .bats
+  if declare -f setup_test >/dev/null; then setup_test; fi
+}
+
+{
+  # Hack in run() at tests/fixture/bats/lib/bats-core/test_functions.bash
+  # set -eETu in run() command
+  # shellcheck disable=2016
+  eval "$(declare -f run | \
+    sed 's/$("$pre_command"/$(set -eETu; "$pre_command"/' | \
+    sed 's/ && status=0 || status=$?;/; status=$?;/')"  # this line fix errexit ignored in test condition
+
+  # For debug:
+  # declare -f run | sed 's/$("$pre_command"/$(set -eETu; "$pre_command"/' | sed 's/ && status=0 || status=$?;/; status=$?;/' > /dev/tty
+}
+
+{
+  # To load assert helpers
+  if [[ -n ${DOCKER:-} ]]; then
+    load /test/support/load.bash
+    load /test/assert/load.bash
+    load /test/bats-file/load.bash
+  else
+    load "$LOBASH_TEST_DIR"/fixture/support/load.bash
+    load "$LOBASH_TEST_DIR"/fixture/assert/load.bash
+    load "$LOBASH_TEST_DIR"/fixture/bats-file/load.bash
+  fi
+
+  # To fix run --separate-stderr
+  bats_require_minimum_version 1.5.0
+}

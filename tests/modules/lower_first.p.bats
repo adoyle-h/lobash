@@ -1,8 +1,6 @@
 #!/usr/bin/env bats
 
 setup_fixture
-test_prepare lower_first.p
-load_module lower_first.p
 
 @test "echo 'abc' | l.lower_first.p" {
   t() {

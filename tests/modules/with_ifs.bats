@@ -1,8 +1,6 @@
 #!/usr/bin/env bats
 
 setup_fixture
-test_prepare with_ifs
-load_module with_ifs
 
 @test "echo y | l.ask_input hello" {
   t() {

@@ -12,10 +12,11 @@ RUN if [ -n "$APK_PROXY" ]; then \
   fi
 
 RUN apk update && apk add git
-RUN git clone --depth 1 --branch v1.1.0 ${GH_PROXY}https://github.com/bats-core/bats-core.git && \
+RUN git clone --depth 1 --branch v1.8.2 ${GH_PROXY}https://github.com/bats-core/bats-core.git && \
   ./bats-core/install.sh /test/bats
-RUN git clone --depth 1 ${GH_PROXY}https://github.com/jasonkarns/bats-assert-1.git
-RUN git clone --depth 1 ${GH_PROXY}https://github.com/jasonkarns/bats-support.git
+RUN git clone --depth 1 --branch feat/stderr ${GH_PROXY}https://github.com/adoyle-h/bats-assert.git
+RUN git clone --depth 1 ${GH_PROXY}https://github.com/bats-core/bats-file.git
+RUN git clone --depth 1 ${GH_PROXY}https://github.com/bats-core/bats-support.git
 
 #---------------------------------------------
 
@@ -34,7 +35,8 @@ RUN if [ -n "$APK_PROXY" ]; then \
 RUN apk update && apk add --no-cache git perl && mkdir -p /test
 
 COPY --from=0 /test/bats /test/bats
-COPY --from=0 /test/bats-assert-1 /test/assert
+COPY --from=0 /test/bats-assert /test/assert
+COPY --from=0 /test/bats-file /test/bats-file
 COPY --from=0 /test/bats-support /test/support
 
 ENV PATH=${PATH}:/test/bats/bin

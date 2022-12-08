@@ -1,8 +1,6 @@
 #!/usr/bin/env bats
 
 setup_fixture
-test_prepare trim_start
-load_module trim_start
 
 @test "l.trim_start" {
   run l.trim_start

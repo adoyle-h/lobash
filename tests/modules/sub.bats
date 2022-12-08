@@ -1,8 +1,6 @@
 #!/usr/bin/env bats
 
 setup_fixture
-test_prepare sub
-load_module sub
 
 @test "l.sub 2 without any print" {
   local y=2

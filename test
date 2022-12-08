@@ -46,5 +46,6 @@ else
 fi
 
 export PATH="$LOBASH_TEST_DIR/fixture/bats/bin:${PATH}"
+bats --version
 
-exec bats ${CI:+--tap} "${test_dirs[@]}"
+exec bats --print-output-on-failure ${CI:+--tap} "${test_dirs[@]}"

@@ -1,8 +1,6 @@
 #!/usr/bin/env bats
 
 setup_fixture
-test_prepare echo_screen
-load_module echo_screen
 
 @test "l.echo_screen hello" {
   run l.echo_screen hello

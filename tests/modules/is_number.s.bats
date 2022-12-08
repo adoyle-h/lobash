@@ -1,8 +1,6 @@
 #!/usr/bin/env bats
 
 setup_fixture
-test_prepare is_number.s
-load_module is_number.s
 
 @test "l.is_number.s, integers" {
   run l.is_number.s 0

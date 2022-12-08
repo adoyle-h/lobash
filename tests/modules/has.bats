@@ -1,8 +1,6 @@
 #!/usr/bin/env bats
 
 setup_fixture
-test_prepare has
-load_module has
 
 @test "l.has command cat, while cat is existed" {
   run l.has command cat

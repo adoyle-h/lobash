@@ -1,8 +1,6 @@
 #!/usr/bin/env bats
 
 setup_fixture
-test_prepare normalize.p
-load_module normalize.p
 
 @test "echo '' | l.normalize.p" {
   t() {

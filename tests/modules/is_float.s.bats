@@ -1,8 +1,6 @@
 #!/usr/bin/env bats
 
 setup_fixture
-test_prepare is_float.s
-load_module is_float.s
 
 @test "l.is_float.s, integers" {
   run l.is_float.s 0

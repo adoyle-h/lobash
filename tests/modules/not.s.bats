@@ -1,8 +1,6 @@
 #!/usr/bin/env bats
 
 setup_fixture
-test_prepare not.s
-load_module not.s
 
 @test "l.not.s true" {
   run l.not.s true

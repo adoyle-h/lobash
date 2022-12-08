@@ -1,8 +1,6 @@
 #!/usr/bin/env bats
 
 setup_fixture
-test_prepare is_writable.s
-load_module is_writable.s
 
 @test "l.is_writable.s a normal file" {
   local temp=$(mktemp)

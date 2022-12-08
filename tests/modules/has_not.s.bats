@@ -1,8 +1,6 @@
 #!/usr/bin/env bats
 
 setup_fixture
-test_prepare has_not.s
-load_module has_not.s
 
 @test "l.has_not.s the gti, which is an alias" {
   shopt -s expand_aliases

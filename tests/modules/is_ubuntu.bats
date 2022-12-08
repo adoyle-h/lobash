@@ -1,8 +1,6 @@
 #!/usr/bin/env bats
 
 setup_fixture
-test_prepare is_ubuntu
-load_module is_ubuntu
 
 @test "l.is_ubuntu" {
   if [[ -z ${CI:-} ]]; then skip "Only test this case in CI"; fi

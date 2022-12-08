@@ -1,8 +1,6 @@
 #!/usr/bin/env bats
 
 setup_fixture
-test_prepare sort
-load_module sort
 
 @test "l.sort (B a C d E b 8 1 2 4)" {
   local arr=(B a C d E b 8 1 2 4)

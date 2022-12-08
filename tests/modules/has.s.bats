@@ -1,8 +1,6 @@
 #!/usr/bin/env bats
 
 setup_fixture
-test_prepare has.s
-load_module has.s
 
 @test 'if [[ l.has.s == true ]]' {
   test() {
@@ -118,24 +116,25 @@ load_module has.s
 }
 
 @test "l.has.s what type" {
-  run l.has.s what type
+  run --separate-stderr l.has.s what type
   assert_failure 3
-  assert_output 'Invalid Condition: what'
+  assert_output ''
+  assert_stderr 'Invalid Condition: what'
 }
 
 @test "result=\$(l.has.s what type)" {
   foo() {
-    set -e;
     local r
     r=$(l.has.s what type)
     if [[ $r == true ]]; then
-      echo 4
+      return 4
     else
-      echo 5
+      return 5
     fi
   }
 
-  run foo
+  run --separate-stderr foo
   assert_failure 3
-  assert_line -n 0 'Invalid Condition: what'
+  assert_output ''
+  assert_stderr_line -n 0 'Invalid Condition: what'
 }

@@ -1,8 +1,6 @@
 #!/usr/bin/env bats
 
 setup_fixture
-test_prepare keys
-load_module keys
 
 @test "l.keys <array>" {
   local array=(a b c)

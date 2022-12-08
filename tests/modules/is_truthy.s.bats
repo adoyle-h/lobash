@@ -1,8 +1,6 @@
 #!/usr/bin/env bats
 
 setup_fixture
-test_prepare is_truthy.s
-load_module is_truthy.s
 
 @test "l.is_truthy.s true" {
   run l.is_truthy.s true

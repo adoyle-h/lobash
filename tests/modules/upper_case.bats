@@ -1,8 +1,6 @@
 #!/usr/bin/env bats
 
 setup_fixture
-test_prepare upper_case
-load_module upper_case
 
 @test "l.upper_case" {
   run l.upper_case

@@ -1,3 +1,7 @@
+.PHONY: test
+test:
+	./test
+
 .PHONY: bump-major bump-minor bump-patch
 
 bump-major:

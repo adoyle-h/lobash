@@ -1,8 +1,6 @@
 #!/usr/bin/env bats
 
 setup_fixture
-test_prepare echo
-load_module echo
 
 @test "l.echo hello" {
   run l.echo hello

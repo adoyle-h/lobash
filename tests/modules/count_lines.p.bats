@@ -1,8 +1,6 @@
 #!/usr/bin/env bats
 
 setup_fixture
-test_prepare count_lines.p
-load_module count_lines.p
 
 @test "printf '' | l.count_lines.p" {
   test() {

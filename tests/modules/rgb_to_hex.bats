@@ -1,8 +1,6 @@
 #!/usr/bin/env bats
 
 setup_fixture
-test_prepare rgb_to_hex
-load_module rgb_to_hex
 
 @test "l.rgb_to_hex 255 255 255" {
   run l.rgb_to_hex 255 255 255

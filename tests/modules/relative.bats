@@ -1,8 +1,6 @@
 #!/usr/bin/env bats
 
 setup_fixture
-test_prepare relative
-load_module relative
 
 @test "l.relative '' ''" {
   run l.relative '' ''

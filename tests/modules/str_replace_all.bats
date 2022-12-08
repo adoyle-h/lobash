@@ -1,8 +1,6 @@
 #!/usr/bin/env bats
 
 setup_fixture
-test_prepare str_replace_all
-load_module str_replace_all
 
 @test "l.str_replace_all asd" {
   run l.str_replace_all "/qwe/asd/zxc/asd" "asd" "---"

@@ -1,8 +1,6 @@
 #!/usr/bin/env bats
 
 setup_fixture
-test_prepare parse_params
-load_module parse_params
 
 @test "l.parse_params opts args \"\$@\"" {
   local -A opts=()

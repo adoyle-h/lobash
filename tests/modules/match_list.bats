@@ -1,8 +1,6 @@
 #!/usr/bin/env bats
 
 setup_fixture
-test_prepare match_list
-load_module match_list
 
 @test "l.match_list 'hello world' 'hello ([a-z]+)' list" {
   t() {

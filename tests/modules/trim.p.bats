@@ -1,8 +1,6 @@
 #!/usr/bin/env bats
 
 setup_fixture
-test_prepare trim.p
-load_module trim.p
 
 @test "echo '' | l.trim.p" {
   t() {

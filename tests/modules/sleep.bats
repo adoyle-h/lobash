@@ -1,9 +1,10 @@
 #!/usr/bin/env bats
 
 setup_fixture
-test_prepare sleep
-load_module sleep
-load_module now
+
+setup_test() {
+  load_module now
+}
 
 @test "l.sleep 0.1" {
   if [[ -n ${CI:-} ]]; then skip; fi

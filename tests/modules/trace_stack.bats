@@ -1,8 +1,6 @@
 #!/usr/bin/env bats
 
 setup_fixture
-test_prepare trace_stack
-load_module trace_stack
 
 @test "l.trace_stack without label" {
   t() {

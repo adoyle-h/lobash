@@ -1,8 +1,6 @@
 #!/usr/bin/env bats
 
 setup_fixture
-test_prepare not.s.p
-load_module not.s.p
 
 @test "echo true | l.not.s.p" {
   t() {

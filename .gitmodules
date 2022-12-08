@@ -4,7 +4,9 @@
   shallow = true
 [submodule "tests/fixture/assert"]
 	path = tests/fixture/assert
-	url = https://github.com/bats-core/bats-assert.git
+  ; TODO: Waiting merged: https://github.com/bats-core/bats-assert/pull/52
+	url = https://github.com/adoyle-h/bats-assert.git
+	branch = feat/stderr
   shallow = true
 [submodule "tests/fixture/bats-file"]
 	path = tests/fixture/bats-file

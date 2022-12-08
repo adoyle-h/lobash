@@ -1,8 +1,6 @@
 #!/usr/bin/env bats
 
 setup_fixture
-test_prepare start_with.s
-load_module start_with.s
 
 @test "l.start_with.s hello o" {
   run l.start_with.s "hello" "o"
