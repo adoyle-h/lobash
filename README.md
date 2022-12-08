@@ -70,8 +70,8 @@ Lobash helps to reduce the mental burden on developers.
 
 ## Versions
 
-Read [tags][].
-The versions follows the rules of [SemVer 2.0.0](http://semver.org/).
+Read [tags][] for verions.
+The versions follow the rules of [Semantic Versioning 2.0.0](http://semver.org/spec/v2.0.0.html).
 
 ## [ChangeLog](./CHANGELOG.md)
 

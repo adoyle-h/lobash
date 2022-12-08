@@ -69,8 +69,8 @@ Lobash 能减少开发者的心智负担。
 
 ## 版本
 
-Read [tags][].
-The versions follows the rules of [SemVer 2.0.0](http://semver.org/).
+版本详见 [tags][]。
+版本命名遵守 [Semantic Versioning 2.0.0](http://semver.org/spec/v2.0.0.html)。
 
 ## [变更日志 ChangeLog](./CHANGELOG.md)
 

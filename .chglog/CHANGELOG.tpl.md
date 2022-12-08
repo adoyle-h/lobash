@@ -4,11 +4,27 @@
 
 {{ if .Tag.Previous }}[Full Changes]({{ $.Info.RepositoryURL }}/compare/{{ .Tag.Previous.Name }}...{{ .Tag.Name }}){{ end }}
 
+{{ if .NoteGroups -}}
+{{ range .NoteGroups -}}
+### {{ .Title }}
+
+{{ range .Notes -}}
+{{ .Body }}
+{{  end }}
+{{  end }}
+{{- end -}}
+
 {{ range .CommitGroups -}}
 ### {{ .Title }}
 
 {{ range .Commits -}}
-- {{ if .Scope }}**{{ .Scope }}**: {{ end }}{{ .Subject }}
+- {{ if .Scope }}**{{ .Scope }}**: {{ end }}{{ .Subject }} [[{{.Hash.Short}}]({{$.Info.RepositoryURL}}/commit/{{.Hash.Long}})] 
+{{- if not (empty .Refs) }} ({{ range .Refs }}#{{ .Ref }} {{ end }}) {{- end }}
+{{- if not (empty .Body) }}
+  ```
+  {{ regexReplaceAll "\n" .Body "\n  " | abbrev 960 }}
+  ```
+{{ end }}
 {{ end }}
 {{ end -}}
 
@@ -26,15 +42,5 @@
 {{ range .MergeCommits -}}
 - {{ .Header }}
 {{ end }}
-{{ end -}}
-
-{{- if .NoteGroups -}}
-{{ range .NoteGroups -}}
-### {{ .Title }}
-
-{{ range .Notes }}
-{{ .Body }}
-{{ end }}
-{{ end -}}
 {{ end -}}
 {{ end -}}

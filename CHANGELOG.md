@@ -2,19 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is inspired by [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
-and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
+The format is inspired by [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
-## Change Types
-
-- Add: New features.
-- Fix: Bug fixes.
-- Change: Changes in existing functionality.
-- Breaking Change: Changes which incompatible with previous version in existing functionality
-- Deprecate: Features soon-to-be removed.
-- Remove: Features removed now.
-- Security: In case of vulnerabilities.
-- Doc: Documentation changes.
+The versions follow the rules of [Semantic Versioning 2.0.0](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 

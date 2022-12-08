@@ -18,19 +18,16 @@ SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 readonly SCRIPT_DIR
 
 semver=$SCRIPT_DIR/../tmp/semver
+changelog=$SCRIPT_DIR/../CHANGELOG.md
 
-# shellcheck source=../src/internals/is_gnu_sed.bas
-. $SCRIPT_DIR/../src/internals/is_gnu_sed.bash
+_lobash.is_gnu_sed() {
+  sed --version 2>/dev/null | grep 'GNU sed' >/dev/null
+}
 
 if _lobash.is_gnu_sed; then
   sedi() { sed -i "$@"; }
 else
   sedi() { sed -i '' "$@"; }
-fi
-
-if [[ ! -f $semver ]]; then
-  curl -Lo "$semver" https://raw.githubusercontent.com/fsaintjacques/semver-tool/master/src/semver
-  chmod +x "$semver"
 fi
 
 update_changelog() {
@@ -41,10 +38,28 @@ update_changelog() {
   line_num=$(( line_num + 2 ))
 
   git-chglog --next-tag "v$next_ver" | \
-    sedi "$line_num r /dev/stdin" "$SCRIPT_DIR/../CHANGELOG.md"
+    sedi "$line_num r /dev/stdin" "$changelog"
+
+  echo "Updated file: $changelog"
+}
+
+ensure_semver() {
+  if [[ ! -f $semver ]]; then
+    echo "To download semver-tool"
+    curl -Lo "$semver" https://raw.githubusercontent.com/fsaintjacques/semver-tool/master/src/semver
+    chmod +x "$semver"
+  fi
 }
 
 main() {
+  if [[ ! -f "$changelog" ]]; then
+    git-chglog > "$changelog"
+    echo "Created file: $changelog"
+    return 0
+  fi
+
+  ensure_semver
+
   local version_file="$SCRIPT_DIR/../version"
   local cur_ver next_ver
   cur_ver=$(cat "$version_file")
