@@ -1,3 +1,8 @@
+.PHONY:
+check-links:
+	# https://github.com/tcort/markdown-link-check
+	ag --md -l --ignore-dir tests | xargs -n1 markdown-link-check
+
 .PHONY: test
 test:
 	./test

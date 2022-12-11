@@ -1,6 +1,6 @@
 # Module Usages
 
-15 Categories, 128 Modules, 725 Test Cases.
+15 Categories, 129 Modules, 729 Test Cases.
 
 Each module provides only one function which naming prefixed with `l.` by default.
 
@@ -47,6 +47,7 @@ Most Lobash modules support Bash 4.0+ except below modules.
   - [is_bash.s](./condition.md#is_bashs)
   - [is_dir](./condition.md#is_dir)
   - [is_dir.s](./condition.md#is_dirs)
+  - [is_empty_dir](./condition.md#is_empty_dir)
   - [is_executable](./condition.md#is_executable)
   - [is_executable.s](./condition.md#is_executables)
   - [is_executable_file](./condition.md#is_executable_file)

@@ -7,7 +7,7 @@
 - [count_file_lines](#count_file_lines)
 - [count_files](#count_files)
 - [extname](#extname)
-- [extname.p](#extname.p)
+- [extname.p](#extnamep)
 
 ## Modules
 

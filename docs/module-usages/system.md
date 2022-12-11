@@ -27,7 +27,6 @@
 - Since: 0.1.0
 - Bash: 4.0+
 - Status: tested
-- Test Cases: [tests/modules/hostname.bats](../../tests/modules/hostname.bats)
 - Source Code: [src/modules/hostname.bash](../../src/modules/hostname.bash)
 
 ### sleep

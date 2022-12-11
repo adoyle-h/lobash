@@ -31,7 +31,6 @@
 - Since: 0.1.0
 - Bash: 4.0+
 - Status: tested
-- Test Cases: [tests/modules/trace_end.bats](../../tests/modules/trace_end.bats)
 - Source Code: [src/modules/trace_end.bash](../../src/modules/trace_end.bash)
 
 ### trace_stack

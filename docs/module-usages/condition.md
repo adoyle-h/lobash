@@ -5,54 +5,55 @@
 ## TOC
 
 - [end_with](#end_with)
-- [end_with.s](#end_with.s)
+- [end_with.s](#end_withs)
 - [has](#has)
-- [has.s](#has.s)
+- [has.s](#hass)
 - [has_not](#has_not)
-- [has_not.s](#has_not.s)
+- [has_not.s](#has_nots)
 - [if](#if)
 - [is_array](#is_array)
-- [is_array.s](#is_array.s)
+- [is_array.s](#is_arrays)
 - [is_bash](#is_bash)
-- [is_bash.s](#is_bash.s)
+- [is_bash.s](#is_bashs)
 - [is_dir](#is_dir)
-- [is_dir.s](#is_dir.s)
+- [is_dir.s](#is_dirs)
+- [is_empty_dir](#is_empty_dir)
 - [is_executable](#is_executable)
-- [is_executable.s](#is_executable.s)
+- [is_executable.s](#is_executables)
 - [is_executable_file](#is_executable_file)
-- [is_executable_file.s](#is_executable_file.s)
+- [is_executable_file.s](#is_executable_files)
 - [is_exported](#is_exported)
 - [is_falsy](#is_falsy)
-- [is_falsy.s](#is_falsy.s)
+- [is_falsy.s](#is_falsys)
 - [is_file](#is_file)
-- [is_file.s](#is_file.s)
+- [is_file.s](#is_files)
 - [is_float](#is_float)
-- [is_float.s](#is_float.s)
+- [is_float.s](#is_floats)
 - [is_function](#is_function)
-- [is_function.s](#is_function.s)
+- [is_function.s](#is_functions)
 - [is_gnu_sed](#is_gnu_sed)
 - [is_integer](#is_integer)
-- [is_integer.s](#is_integer.s)
+- [is_integer.s](#is_integers)
 - [is_link](#is_link)
-- [is_link.s](#is_link.s)
+- [is_link.s](#is_links)
 - [is_number](#is_number)
-- [is_number.s](#is_number.s)
+- [is_number.s](#is_numbers)
 - [is_readable](#is_readable)
-- [is_readable.s](#is_readable.s)
+- [is_readable.s](#is_readables)
 - [is_truthy](#is_truthy)
-- [is_truthy.s](#is_truthy.s)
+- [is_truthy.s](#is_truthys)
 - [is_tty_available](#is_tty_available)
-- [is_tty_available.s](#is_tty_available.s)
+- [is_tty_available.s](#is_tty_availables)
 - [is_ubuntu](#is_ubuntu)
 - [is_undefined](#is_undefined)
 - [is_writable](#is_writable)
-- [is_writable.s](#is_writable.s)
-- [not.s](#not.s)
-- [not.s.p](#not.s.p)
+- [is_writable.s](#is_writables)
+- [not.s](#nots)
+- [not.s.p](#notsp)
 - [start_with](#start_with)
-- [start_with.s](#start_with.s)
+- [start_with.s](#start_withs)
 - [str_include](#str_include)
-- [str_include.s](#str_include.s)
+- [str_include.s](#str_includes)
 
 ## Modules
 
@@ -207,6 +208,18 @@
 - Status: tested
 - Test Cases: [tests/modules/is_dir.s.bats](../../tests/modules/is_dir.s.bats)
 - Source Code: [src/modules/is_dir.s.bash](../../src/modules/is_dir.s.bash)
+
+### is_empty_dir
+
+- Usage: `l.is_empty_dir <path>`
+- Description:
+  - Test `<path>` is whether a empty directory or not. If directory not found, it returns false.
+  - Return 0 (true) or 1 (false). This function should never throw exception error.
+- Since: next-patch
+- Bash: 4.0+
+- Status: tested
+- Test Cases: [tests/modules/is_empty_dir.bats](../../tests/modules/is_empty_dir.bats)
+- Source Code: [src/modules/is_empty_dir.bash](../../src/modules/is_empty_dir.bash)
 
 ### is_executable
 
@@ -370,7 +383,6 @@
 - Since: 0.5.0
 - Bash: 4.0+
 - Status: tested
-- Test Cases: [tests/modules/is_gnu_sed.bats](../../tests/modules/is_gnu_sed.bats)
 - Source Code: [src/modules/is_gnu_sed.bash](../../src/modules/is_gnu_sed.bash)
 
 ### is_integer
@@ -401,7 +413,6 @@
 - Since: 0.3.0
 - Bash: 4.0+
 - Status: tested
-- Test Cases: [tests/modules/is_link.bats](../../tests/modules/is_link.bats)
 - Source Code: [src/modules/is_link.bash](../../src/modules/is_link.bash)
 
 ### is_link.s
@@ -411,7 +422,6 @@
 - Since: 0.3.0
 - Bash: 4.0+
 - Status: tested
-- Test Cases: [tests/modules/is_link.s.bats](../../tests/modules/is_link.s.bats)
 - Source Code: [src/modules/is_link.s.bash](../../src/modules/is_link.s.bash)
 
 ### is_number
@@ -487,7 +497,6 @@
 - Since: 0.5.0
 - Bash: 4.0+
 - Status: tested
-- Test Cases: [tests/modules/is_tty_available.bats](../../tests/modules/is_tty_available.bats)
 - Source Code: [src/modules/is_tty_available.bash](../../src/modules/is_tty_available.bash)
 
 ### is_tty_available.s
@@ -499,7 +508,6 @@
 - Since: 0.5.0
 - Bash: 4.0+
 - Status: tested
-- Test Cases: [tests/modules/is_tty_available.s.bats](../../tests/modules/is_tty_available.s.bats)
 - Source Code: [src/modules/is_tty_available.s.bash](../../src/modules/is_tty_available.s.bash)
 
 ### is_ubuntu

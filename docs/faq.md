@@ -39,7 +39,7 @@ No. I have found that most Linux distributions still use Bash as default/login s
 
 - Alpine/Busybox uses **Ash**.
 - FreeBSD uses **Tcsh 6**.
-  - https://www.freebsd.org/doc/en_US.ISO8859-1/articles/linux-users/shells.html
+  - https://docs.freebsd.org/en/articles/linux-users/#shells
 - PfSense uses **Tcsh 6**
 - MacOS (since MacOS Catalina) uses **Zsh**.
 - MacOS (before MacOS Catalina) uses **Bash 3**.
@@ -59,7 +59,7 @@ Although most Linux distributions use Bash v4.3, you can upgrade Bash easily and
 
 ## What is the different between echo true/false and return 0/1?
 
-Read this document: [How to return a Boolean value](https://github.com/adoyle-h/lobash/blob/develop/docs/how-to-write-functions.md#how-to-return-a-boolean-value).
+Read this document: [How to return a Boolean value](https://github.com/adoyle-h/lobash/blob/master/docs/how-to-write-functions.md#how-to-return-a-boolean-value).
 
 Because we set the `set -o errexit` and `shopt -s inherit_errexit`, `l.is_*` will lead to process exit. For example,
 

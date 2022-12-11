@@ -35,8 +35,15 @@ print_category_header() {
 EOF
 
   for module_name in "${mods[@]}"; do
-    printf -- '- [%s](%s)\n' "${module_name}" "#$module_name" >> "$TARGET"
+    printf -- '- [%s](%s)\n' "${module_name}" "#${module_name//\./}" >> "$TARGET"
   done
+}
+
+write_test_case_file() {
+  local path="tests/modules/$1.bats"
+  if [[ -f $path ]]; then
+    echo "- Test Cases: [$path](../../$path)" >> "$TARGET"
+  fi
 }
 
 print_category() {
@@ -55,11 +62,8 @@ print_category() {
     printf '\n%s\n\n' "### ${module_name}" >> "$TARGET"
 
     print_module_metas "$module_name"
-
-    cat <<EOF >> "$TARGET"
-- Test Cases: [tests/modules/$module_name.bats](../../tests/modules/$module_name.bats)
-- Source Code: [src/modules/$module_name.bash](../../src/modules/$module_name.bash)
-EOF
+    write_test_case_file "$module_name"
+    echo "- Source Code: [src/modules/$module_name.bash](../../src/modules/$module_name.bash)" >> "$TARGET"
 
     local example_path="example/modules/${module_name%%.p}"
     if [[ -f ${SCRIPT_DIR}/../$example_path ]]; then

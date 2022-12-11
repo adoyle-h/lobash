@@ -4,12 +4,12 @@
 
 ## TOC
 
-- [count_lines.p](#count_lines.p)
+- [count_lines.p](#count_linesp)
 - [join](#join)
 - [lower_case](#lower_case)
-- [lower_case.p](#lower_case.p)
+- [lower_case.p](#lower_casep)
 - [lower_first](#lower_first)
-- [lower_first.p](#lower_first.p)
+- [lower_first.p](#lower_firstp)
 - [match](#match)
 - [match_list](#match_list)
 - [split](#split)
@@ -19,17 +19,17 @@
 - [str_replace_last](#str_replace_last)
 - [str_size](#str_size)
 - [trim](#trim)
-- [trim.p](#trim.p)
+- [trim.p](#trimp)
 - [trim_color](#trim_color)
-- [trim_color.p](#trim_color.p)
+- [trim_color.p](#trim_colorp)
 - [trim_end](#trim_end)
-- [trim_end.p](#trim_end.p)
+- [trim_end.p](#trim_endp)
 - [trim_start](#trim_start)
-- [trim_start.p](#trim_start.p)
+- [trim_start.p](#trim_startp)
 - [upper_case](#upper_case)
-- [upper_case.p](#upper_case.p)
+- [upper_case.p](#upper_casep)
 - [upper_first](#upper_first)
-- [upper_first.p](#upper_first.p)
+- [upper_first.p](#upper_firstp)
 
 ## Modules
 

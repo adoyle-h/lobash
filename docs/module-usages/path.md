@@ -5,11 +5,11 @@
 ## TOC
 
 - [basename](#basename)
-- [basename.p](#basename.p)
+- [basename.p](#basenamep)
 - [dirname](#dirname)
-- [dirname.p](#dirname.p)
+- [dirname.p](#dirnamep)
 - [normalize](#normalize)
-- [normalize.p](#normalize.p)
+- [normalize.p](#normalizep)
 - [pwd](#pwd)
 - [relative](#relative)
 
@@ -87,7 +87,6 @@
 - Since: 0.1.0
 - Bash: 4.0+
 - Status: tested
-- Test Cases: [tests/modules/pwd.bats](../../tests/modules/pwd.bats)
 - Source Code: [src/modules/pwd.bash](../../src/modules/pwd.bash)
 
 ### relative

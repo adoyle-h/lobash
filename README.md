@@ -173,7 +173,7 @@ All Lobash modules are written and tested with the shell options:
 - `shopt -s inherit_errexit` (`inherit_errexit` is a new feature in Bash v4.4)
 
 If you do not understand the meanings of these shell options,
-please read [this article](https://dougrichardson.org/2018/08/03/fail-fast-bash-scripting.html).
+please read [this article](https://dougrichardson.us/notes/fail-fast-bash-scripting.html).
 
 **Lobash not enable these options by default. Make sure the same shell options enabled before call Lobash functions in your scripts. Otherwise there may be unexpected behaviors with it.**
 
@@ -237,7 +237,7 @@ lobash-gen -c ./config
 
 ## Who use Lobash
 
-- [adoyle-h/one.bash](https://github.com/adoyle-h/one.bash)
+- [one.bash](https://github.com/one-bash/one.bash)
 - Contact me to add your project to list.
 
 ## Related Projects

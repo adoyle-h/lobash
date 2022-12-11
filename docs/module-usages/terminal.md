@@ -17,7 +17,6 @@
 - Since: 0.1.0
 - Bash: 4.0+
 - Status: tested
-- Test Cases: [tests/modules/cursor_col.bats](../../tests/modules/cursor_col.bats)
 - Source Code: [src/modules/cursor_col.bash](../../src/modules/cursor_col.bash)
 
 ### cursor_pos
@@ -29,7 +28,6 @@
 - Since: 0.1.0
 - Bash: 4.0+
 - Status: tested
-- Test Cases: [tests/modules/cursor_pos.bats](../../tests/modules/cursor_pos.bats)
 - Source Code: [src/modules/cursor_pos.bash](../../src/modules/cursor_pos.bash)
 
 ### cursor_row
@@ -39,7 +37,6 @@
 - Since: 0.1.0
 - Bash: 4.0+
 - Status: tested
-- Test Cases: [tests/modules/cursor_row.bats](../../tests/modules/cursor_row.bats)
 - Source Code: [src/modules/cursor_row.bash](../../src/modules/cursor_row.bash)
 
 [⬆️ Back up to TOC](#toc)

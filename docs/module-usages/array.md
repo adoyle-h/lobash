@@ -5,7 +5,7 @@
 ## TOC
 
 - [array_include](#array_include)
-- [array_include.s](#array_include.s)
+- [array_include.s](#array_includes)
 - [first](#first)
 - [keys](#keys)
 - [last](#last)

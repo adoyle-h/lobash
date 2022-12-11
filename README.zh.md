@@ -171,7 +171,7 @@ lobash-gen <target-path>
 - `set -o pipefail`
 - `shopt -s inherit_errexit` (`inherit_errexit` 选项在 Bash v4.4 中才支持)
 
-如果你不明白这些选项的意义，请阅读[这篇文章](https://dougrichardson.org/2018/08/03/fail-fast-bash-scripting.html)。
+如果你不明白这些选项的意义，请阅读[这篇文章](https://dougrichardson.us/notes/fail-fast-bash-scripting.html)。
 
 **Lobash 默认不开启这些选项。在执行 Lobash 函数之前，你需要确保它们已开启。否则可能会有未知的错误发生。**
 
@@ -235,7 +235,7 @@ lobash-gen -c ./config
 
 ## 谁使用 Lobash
 
-- [adoyle-h/one.bash](https://github.com/adoyle-h/one.bash)
+- [one.bash](https://github.com/one-bash/one.bash)
 - 联系我把你的项目加进这个列表
 
 ## 相关项目
