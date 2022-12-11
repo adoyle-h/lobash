@@ -1,8 +1,8 @@
 # ---
 # Category: Time
 # Since: 0.1.0
-# Usage: l.date [<format>=]
-# Description: Refer to 'man strftime' for `<format>`.
+# Usage: l.date <format>
+# Description: Get the current date using [strftime](https://man7.org/linux/man-pages/man3/strftime.3.html).
 # Bash: 4.2
 # ---
 
