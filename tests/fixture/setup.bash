@@ -53,27 +53,29 @@ fi
 check_bash() {
   local module_name=$1
   _lobash.scan_module_metadata "$module_name"
+
   local bashver compare
   bashver=$(_lobash.get_module_metadata "$module_name" 'Bash')
   compare=$(_lobash.semver_compare "$bashver" "${BASH_VERSINFO[0]}.${BASH_VERSINFO[1]}")
 
-  if (( compare > 0 )); then
-    echo "[Skip Test] '$module_name' support Bash $bashver+, while current BASH_VERSION=$BASH_VERSION"
-    exit 1
-  fi
+  if (( compare > 0 )); then return 1; fi
 }
 
 # Do not define functions and variables in setup_file,
 # because it runs in child process different from test and setup.
 setup_file() {
-  if [[ $BATS_TEST_FILENAME =~ "/modules/$module_name.bats"$ ]]; then
-    # This line is important. Set cache map variable
+  local module_name
+  module_name=$(basename "$BATS_TEST_FILENAME" .bats)
+
+  if [[ $BATS_TEST_FILENAME =~ "/tests/modules/$module_name.bats"$ ]]; then
+    # This line is important. Set cache of module_meta
     declare -A _LOBASH_MOD_META_CACHE
+
+    load_src load_internals
     _lobash.import_internals module_meta
 
     if ! check_bash "$module_name"; then
-      skip
-      return
+      skip "Only support Bash $bashver+, while current BASH_VERSION=$BASH_VERSION"
     fi
   fi
 }
@@ -86,8 +88,8 @@ setup() {
   # If import has bug, all test cases will failed
   load_src load_internals
 
-  if [[ "$BATS_TEST_FILENAME" =~ "/modules/$module_name.bats"$ ]]; then
-    # Auto load module for /modules/*.bats testing
+  if [[ "$BATS_TEST_FILENAME" =~ "/tests/modules/$module_name.bats"$ ]]; then
+    # Auto load module for /tests/modules/*.bats testing
     load_module "$module_name"
   fi
 

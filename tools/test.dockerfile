@@ -12,7 +12,8 @@ RUN if [ -n "$APK_PROXY" ]; then \
   fi
 
 RUN apk update && apk add git
-RUN git clone --depth 1 --branch v1.8.2 ${GH_PROXY}https://github.com/bats-core/bats-core.git && \
+# RUN git clone --depth 1 --branch v1.8.2 ${GH_PROXY}https://github.com/bats-core/bats-core.git && \
+RUN git clone --depth 1 --branch a ${GH_PROXY}https://github.com/adoyle-h/bats-core.git && \
   ./bats-core/install.sh /test/bats
 RUN git clone --depth 1 --branch feat/stderr ${GH_PROXY}https://github.com/adoyle-h/bats-assert.git
 RUN git clone --depth 1 ${GH_PROXY}https://github.com/bats-core/bats-file.git
