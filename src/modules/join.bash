@@ -6,13 +6,10 @@
 # ---
 
 l.join() {
-  local array_name=$1
-  local _IFS=$IFS
   if [[ $# == 1 ]]; then
-    IFS=,
+    local IFS=,
   else
-    IFS=${2}
+    local IFS=${2}
   fi
-  eval "printf '%s\\n' \"\${${array_name}[*]:-}\""
-  IFS=$_IFS
+  eval "printf '%s\\n' \"\${${1}[*]:-}\""
 }

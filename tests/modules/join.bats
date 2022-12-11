@@ -7,6 +7,7 @@ setup_fixture
   run l.join arr
   assert_success
   assert_output 'a,b,c,d'
+  assert [ "$IFS" = $' \t\n' ]
 }
 
 @test "l.join (a b c d) ''" {
@@ -14,6 +15,7 @@ setup_fixture
   run l.join arr ''
   assert_success
   assert_output 'abcd'
+  assert [ "$IFS" = $' \t\n' ]
 }
 
 @test "l.join (a b c d) ' '" {
@@ -21,6 +23,7 @@ setup_fixture
   run l.join arr ' '
   assert_success
   assert_output 'a b c d'
+  assert [ "$IFS" = $' \t\n' ]
 }
 
 @test "l.join (a b c d) ," {
@@ -28,6 +31,7 @@ setup_fixture
   run l.join arr ,
   assert_success
   assert_output 'a,b,c,d'
+  assert [ "$IFS" = $' \t\n' ]
 }
 
 @test "l.join ('') ," {
@@ -35,6 +39,7 @@ setup_fixture
   run l.join arr ,
   assert_success
   assert_output ''
+  assert [ "$IFS" = $' \t\n' ]
 }
 
 @test "l.join ('' '') ," {
@@ -42,6 +47,7 @@ setup_fixture
   run l.join arr ,
   assert_success
   assert_output ','
+  assert [ "$IFS" = $' \t\n' ]
 }
 
 @test "l.join () ," {
@@ -49,4 +55,5 @@ setup_fixture
   run l.join arr ,
   assert_success
   assert_output ''
+  assert [ "$IFS" = $' \t\n' ]
 }
