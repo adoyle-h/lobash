@@ -11,8 +11,8 @@ SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 readonly SCRIPT_DIR
 
 # GNU Mirror List: https://www.gnu.org/prep/ftp.html
-# MIRROR=https://ftp.gnu.org
-MIRROR=https://gnu.freemirror.org
+MIRROR=${MIRROR:-https://ftpmirror.gnu.org}
+MIRROR=${MIRROR%/}
 TMP_DIR="$SCRIPT_DIR/../tmp"
 # BUILD_DIR=${DIST_DIR}/$BASHVER
 # BASH_TGZ="$SCRIPT_DIR/../tmp/bash-$BASHVER.tar.gz"
