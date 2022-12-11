@@ -15,6 +15,8 @@ docker run \
   --rm -it \
   -e DOCKER=true \
   -e CI="${CI:-}" \
+  -e OS="alpine" \
+  -e BASHVER=$BASHVER \
   -v "$SCRIPT_DIR"/../bin:/lobash/bin \
   -v "$SCRIPT_DIR"/../example:/lobash/example \
   -v "$SCRIPT_DIR"/../test:/lobash/test \

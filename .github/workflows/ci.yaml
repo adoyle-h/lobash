@@ -102,4 +102,4 @@ jobs:
       - name: Start to test
         run: |
           export PATH="${{ github.workspace }}/tmp/bash-${{ matrix.BASHVER }}/bin:$PATH"
-          CI=true ./test -d
+          OS=${{ runner.os }} CI=true ./test -d

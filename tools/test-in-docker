@@ -26,10 +26,12 @@ else
   cmd="./test"
 fi
 
+# NOTE: Do not set `-i` parameter
 docker run \
   --rm -t \
   -e DOCKER=true \
   -e CI="${CI:-}" \
+  -e OS="alpine" \
   -e BASHVER=$BASHVER \
   -v "$SCRIPT_DIR"/../.git:/lobash/.git \
   -v "$SCRIPT_DIR"/../test:/lobash/test \
