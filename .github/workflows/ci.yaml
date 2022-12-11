@@ -16,7 +16,7 @@ on:
     inputs: {}
 
 jobs:
-  linux:
+  alpine:
     runs-on: ubuntu-22.04
 
     if: "!(
@@ -37,9 +37,7 @@ jobs:
       - uses: actions/checkout@v3
       - run: BASHVER=${{ matrix.BASHVER }} BUILD_DIST=true ./tools/test-in-docker
 
-  mac:
-    runs-on: macos-12
-
+  host:
     if: "!(
       startsWith(github.event.head_commit.message, 'docs:') ||
       startsWith(github.event.head_commit.message, 'ci:') ||
@@ -51,8 +49,11 @@ jobs:
       fail-fast: true
       max-parallel: 10
       matrix:
+        os: ['ubuntu-22.04', 'macos-12']
         # Bash 4.0 has bug on MacOS. https://github.com/adoyle-h/lobash/blob/develop/doc/with-lower-version-bash.md#not-test-with-bash-40-in-macos
         BASHVER: ['4.1', '4.2', '4.3', '4.4', '5.0', '5.1', '5.2', '5.2.9']
+
+    runs-on: ${{ matrix.os }}
 
     steps:
       - uses: actions/checkout@v3
@@ -62,7 +63,17 @@ jobs:
           echo "PWD: $PWD"
           echo "ACT: ${{ env.ACT }}"
 
-          git submodule update --init --recursive
+      - name: Cache test/fixture
+        if: ${{ !env.ACT }}
+        id: cache-test-fixture
+        uses: actions/cache@v3
+        with:
+          path: |
+            tests/fixture/assert
+            tests/fixture/bats
+            tests/fixture/bats-file
+            tests/fixture/support
+          key: ${{ runner.os }}-test-fixture
 
       - name: Cache bash
         if: ${{ !env.ACT }}
@@ -71,6 +82,11 @@ jobs:
         with:
           path: ./tmp/bash-${{ matrix.BASHVER }}
           key: ${{ runner.os }}-bash-${{ matrix.BASHVER }}
+
+      - name: Update git submodules
+        if: steps.cache-test-fixture.outputs.cache-hit != 'true'
+        run:
+          git submodule update --init --recursive
 
       - name: Install bash
         if: steps.cache-bash.outputs.cache-hit != 'true'

@@ -76,6 +76,9 @@ jobs:
           echo "PWD: $PWD"
           echo "ACT: ${{ env.ACT }}"
 
+      - name: Update git submodules
+        if: steps.cache-test-fixture.outputs.cache-hit != 'true'
+        run:
           git submodule update --init --recursive
 
       - name: Install bash
