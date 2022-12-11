@@ -34,7 +34,7 @@ if [[ $LOBASH_USE_DIST == true ]]; then
       eval "_LOBASH_${uniq_key}_PUBLIC_DEPTH=2"
     fi
 
-    declare -g "_loaded_module_lobash_dist"=true
+    read -r "_loaded_module_lobash_dist" <<<"true"
   }
 else
   load_module() {
@@ -45,7 +45,7 @@ else
       _lobash.import_internal imports
     fi
     _lobash.imports "$1"
-    declare -g "_loaded_module_${1//./_}"=true
+    read -r "_loaded_module_${1//./_}" <<<"true"
   }
 fi
 
