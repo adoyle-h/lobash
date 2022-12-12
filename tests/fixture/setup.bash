@@ -54,7 +54,7 @@ check_bash() {
   local module_name=$1
   _lobash.scan_module_metadata "$module_name"
 
-  local bashver compare
+  local compare
   bashver=$(_lobash.get_module_metadata "$module_name" 'Bash')
   compare=$(_lobash.semver_compare "$bashver" "${BASH_VERSINFO[0]}.${BASH_VERSINFO[1]}")
 
@@ -68,16 +68,21 @@ setup_file() {
   module_name=$(basename "$BATS_TEST_FILENAME" .bats)
 
   if [[ $BATS_TEST_FILENAME =~ "/tests/modules/$module_name.bats"$ ]]; then
+    # ]] this comment line will fix highlights
     # This line is important. Set cache of module_meta
     declare -A _LOBASH_MOD_META_CACHE
 
     load_src load_internals
     _lobash.import_internals module_meta
 
+    local bashver
     if ! check_bash "$module_name"; then
-      skip "Only support Bash $bashver+, while current BASH_VERSION=$BASH_VERSION"
+      skip "Only support Bash ${bashver}+, while current BASH_VERSION=$BASH_VERSION"
     fi
   fi
+
+  # Note: Use _setup_file instead of setup_file function in .bats
+  if declare -f _setup_file >/dev/null; then _setup_file; fi
 }
 
 # https://bats-core.readthedocs.io/en/stable/tutorial.html#avoiding-costly-repeated-setups
@@ -93,8 +98,8 @@ setup() {
     load_module "$module_name"
   fi
 
-  # Note: Use setup_test instead of setup function in .bats
-  if declare -f setup_test >/dev/null; then setup_test; fi
+  # Note: Use _setup instead of setup function in .bats
+  if declare -f _setup >/dev/null; then _setup; fi
 }
 
 {

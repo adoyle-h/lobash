@@ -2,13 +2,15 @@
 
 setup_fixture
 
-setup_test() {
+_setup_file() {
+  if [[ -n ${CI:-} ]]; then skip; fi
+}
+
+_setup() {
   load_module now
 }
 
 @test "l.sleep 0.1" {
-  if [[ -n ${CI:-} ]]; then skip; fi
-
   local last now elapsed
 
   last=$(l.now)
