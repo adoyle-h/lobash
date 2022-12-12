@@ -11,6 +11,7 @@ is_bash
 is_bash.s
 is_dir
 is_dir.s
+is_empty_dir
 is_executable
 is_executable.s
 is_executable_file

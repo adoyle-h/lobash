@@ -45,7 +45,7 @@
 - Status: tested
 - Test Cases: [tests/modules/count_lines.p.bats](../../tests/modules/count_lines.p.bats)
 - Source Code: [src/modules/count_lines.p.bash](../../src/modules/count_lines.p.bash)
-- Executable Example: [example/modules/count_lines](../../example/modules/count_lines)
+- Example: [example/modules/count_lines](../../example/modules/count_lines)
 
 ### join
 
@@ -189,7 +189,7 @@
 - Status: tested
 - Test Cases: [tests/modules/trim.bats](../../tests/modules/trim.bats)
 - Source Code: [src/modules/trim.bash](../../src/modules/trim.bash)
-- Executable Example: [example/modules/trim](../../example/modules/trim)
+- Example: [example/modules/trim](../../example/modules/trim)
 
 ### trim.p
 
@@ -201,7 +201,7 @@
 - Status: tested
 - Test Cases: [tests/modules/trim.p.bats](../../tests/modules/trim.p.bats)
 - Source Code: [src/modules/trim.p.bash](../../src/modules/trim.p.bash)
-- Executable Example: [example/modules/trim](../../example/modules/trim)
+- Example: [example/modules/trim](../../example/modules/trim)
 
 ### trim_color
 

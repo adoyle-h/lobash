@@ -30,7 +30,7 @@
 - Status: tested
 - Test Cases: [tests/modules/ask.bats](../../tests/modules/ask.bats)
 - Source Code: [src/modules/ask.bash](../../src/modules/ask.bash)
-- Executable Example: [example/modules/ask](../../example/modules/ask)
+- Example: [example/modules/ask](../../example/modules/ask)
 
 ### ask_input
 
@@ -64,7 +64,7 @@
 - Status: tested
 - Test Cases: [tests/modules/ask_with_cancel.bats](../../tests/modules/ask_with_cancel.bats)
 - Source Code: [src/modules/ask_with_cancel.bash](../../src/modules/ask_with_cancel.bash)
-- Executable Example: [example/modules/ask_with_cancel](../../example/modules/ask_with_cancel)
+- Example: [example/modules/ask_with_cancel](../../example/modules/ask_with_cancel)
 
 ### choose
 
@@ -75,6 +75,6 @@
 - Status: tested
 - Test Cases: [tests/modules/choose.bats](../../tests/modules/choose.bats)
 - Source Code: [src/modules/choose.bash](../../src/modules/choose.bash)
-- Executable Example: [example/modules/choose](../../example/modules/choose)
+- Example: [example/modules/choose](../../example/modules/choose)
 
 [⬆️ Back up to TOC](#toc)

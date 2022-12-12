@@ -19,7 +19,7 @@
 - Status: tested
 - Test Cases: [tests/modules/cur_function_name.bats](../../tests/modules/cur_function_name.bats)
 - Source Code: [src/modules/cur_function_name.bash](../../src/modules/cur_function_name.bash)
-- Executable Example: [example/modules/cur_function_name](../../example/modules/cur_function_name)
+- Example: [example/modules/cur_function_name](../../example/modules/cur_function_name)
 
 ### random
 

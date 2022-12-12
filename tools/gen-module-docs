@@ -67,7 +67,7 @@ print_category() {
 
     local example_path="example/modules/${module_name%%.p}"
     if [[ -f ${SCRIPT_DIR}/../$example_path ]]; then
-      printf -- '- %s\n' "Executable Example: [$example_path](../../$example_path)" >> "$TARGET"
+      printf -- '- %s\n' "Example: [$example_path](../../$example_path)" >> "$TARGET"
     fi
   done
 

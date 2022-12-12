@@ -22,13 +22,17 @@
 ### cursor_pos
 
 - Usage:
-  - `l.cursor_pos`
-  - `IFS=';' c_pos=( $(l.cursor_pos) )`
-- Description: Get current cursor position. It will print "row;column" with default IFS.
+  - `l.cursor_pos [<array_name>]`
+  - `{ IFS=';'; pos=( $(l.cursor_pos) ); }`
+- Description:
+  - Get current cursor position.
+  - If `[<array_name>]` passed, it will assign row to `${array_name[0]}`, and col to `${array_name[1]}`.
+  - If `[<array_name>]` not passed, it will print "row;column".
 - Since: 0.1.0
 - Bash: 4.0+
 - Status: tested
 - Source Code: [src/modules/cursor_pos.bash](../../src/modules/cursor_pos.bash)
+- Example: [example/modules/cursor_pos](../../example/modules/cursor_pos)
 
 ### cursor_row
 

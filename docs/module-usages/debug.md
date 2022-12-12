@@ -42,7 +42,7 @@
 - Status: tested
 - Test Cases: [tests/modules/trace_stack.bats](../../tests/modules/trace_stack.bats)
 - Source Code: [src/modules/trace_stack.bash](../../src/modules/trace_stack.bash)
-- Executable Example: [example/modules/trace_stack](../../example/modules/trace_stack)
+- Example: [example/modules/trace_stack](../../example/modules/trace_stack)
 
 ### trace_start
 

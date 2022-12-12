@@ -76,7 +76,7 @@
 - Status: tested
 - Test Cases: [tests/modules/sort.bats](../../tests/modules/sort.bats)
 - Source Code: [src/modules/sort.bash](../../src/modules/sort.bash)
-- Executable Example: [example/modules/sort](../../example/modules/sort)
+- Example: [example/modules/sort](../../example/modules/sort)
 
 ### union_array
 

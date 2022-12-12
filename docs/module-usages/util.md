@@ -41,8 +41,8 @@
   - `l.parse_params <opts_name> _ "$@"`
 - Description:
   - It parses all parameters "$@" and put arguments to `args_name` and
-  - `opts_name` must be an associative array or "_". If "_", no options will be parsed.
-  - `args_name` must be an array or "_". If "_", no arguments will be parsed.
+  - `opts_name` must be an associative array or `_`. If `_`, no options will be parsed.
+  - `args_name` must be an array or `_`. If `_`, no arguments will be parsed.
   - See test cases for details.
 - Dependent: [`start_with`](./condition.md#start_with) [`match`](./string.md#match) [`match_list`](./string.md#match_list)
 - Since: 0.4.0
@@ -50,7 +50,7 @@
 - Status: tested
 - Test Cases: [tests/modules/parse_params.bats](../../tests/modules/parse_params.bats)
 - Source Code: [src/modules/parse_params.bash](../../src/modules/parse_params.bash)
-- Executable Example: [example/modules/parse_params](../../example/modules/parse_params)
+- Example: [example/modules/parse_params](../../example/modules/parse_params)
 
 ### repeat
 
@@ -74,7 +74,7 @@
 - Status: tested
 - Test Cases: [tests/modules/trap_error.bats](../../tests/modules/trap_error.bats)
 - Source Code: [src/modules/trap_error.bash](../../src/modules/trap_error.bash)
-- Executable Example: [example/modules/trap_error](../../example/modules/trap_error)
+- Example: [example/modules/trap_error](../../example/modules/trap_error)
 
 ### with_ifs
 

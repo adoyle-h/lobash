@@ -1,5 +1,7 @@
 # Build
 
+`./build -h` for help.
+
 ## Build Lobash for different Bash versions
 
 ```sh
@@ -66,3 +68,11 @@ IN_CHINA=true ./tools/build-build-image
 ```sh
 docker run -it --rm -v "`pwd`:/a" lobash/build:4.1 '/a/build /a/dist/'
 ```
+
+## Force to write output
+
+```sh
+./build -y -- <path>
+```
+
+NOTE: Do not use `./build -y <path>`.

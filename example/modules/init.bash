@@ -1,6 +1,7 @@
 DIST_LOBASH="$SCRIPT_DIR"/../../dist/lobash.bash
 if [[ ! -f "$DIST_LOBASH" ]]; then
-  "$SCRIPT_DIR/../../build" -y "$DIST_LOBASH"
+  echo "Not found $DIST_LOBASH. To build it."
+  "$SCRIPT_DIR/../../build" -y -- "$DIST_LOBASH"
 fi
 
 # shellcheck source=../../dist/lobash.bash
