@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o nounset
+set -o pipefail
+set -o errtrace
+(shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
+
+SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+readonly SCRIPT_DIR
+
+# shellcheck source=./init.bash
+source "$SCRIPT_DIR"/init.bash
+
+tput sc         # Save cursor position
+tput cup 5 10   # Move to row 6 col 11
+pos1=()
+l.cursor_pos pos1
+tput cup 10 2    # Move to row 11 col 3
+pos2=$(l.cursor_pos)
+tput rc # Restore cursor position
+
+echo "cursor position 1: ${pos1[*]}" # print 6 11
+echo "cursor position 2: ${pos2}"    # print 11;3
