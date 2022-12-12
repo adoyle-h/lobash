@@ -5,8 +5,8 @@
 # Usage: l.parse_params _ <args_name> "$@"
 # Usage: l.parse_params <opts_name> _ "$@"
 # Description: It parses all parameters "$@" and put arguments to `args_name` and
-# Description: `opts_name` must be an associative array or "_". If "_", no options will be parsed.
-# Description: `args_name` must be an array or "_". If "_", no arguments will be parsed.
+# Description: `opts_name` must be an associative array or `_`. If `_`, no options will be parsed.
+# Description: `args_name` must be an array or `_`. If `_`, no arguments will be parsed.
 # Description: See test cases for details.
 # Dependent: start_with, match, match_list
 # ---
