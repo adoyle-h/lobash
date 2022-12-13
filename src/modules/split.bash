@@ -2,7 +2,12 @@
 # Category: String
 # Since: 0.1.0
 # Usage: l.split <string> <output_array_name> [<delimiter>=' ']
-# Description: Splits string by delimiter. The result will be assigned to `<output_array_name>`.
+# Usage: l.read_array <output_array_name> < <(l.split <string> - [<delimiter>=' '])
+# Description: Splits string by delimiter. The delimiter defaults to ` `.
+# Description: If `<output_array_name>` equals `-`, the result will be printed to stdout.
+# Description: Otherwise, the result will be assigned to `<output_array_name>`.
+# Notice: When in subshell, you must call `l.split <string> - [<delimiter>=' ']`.
+# Notice: The `l.split <string> <output_array_name>` not works in subshell.
 # ---
 
 _l.split() {
@@ -54,11 +59,16 @@ l.split() {
   local string=$1
   local output=$2
   local delimiter
+
   if [[ $# == 2 ]]; then
     delimiter=' '
   else
     delimiter="${3}"
   fi
 
-  IFS=$'\n' readarray -t "$output" < <(_l.split)
+  if [[ $2 == '-' ]]; then
+    _l.split
+  else
+    IFS=$'\n' readarray -t "$output" < <(_l.split)
+  fi
 }

@@ -2,145 +2,199 @@
 
 setup_fixture
 
-@test "l.split 'a,asd,bcd,d' ','" {
+_setup() {
+  load_module read_array
+}
+
+@test "l.split 'a,asd,bcd,d' target ','" {
   local -a target
   local expect=(a asd bcd d)
   l.split 'a,asd,bcd,d' target ','
-
-  for (( i=0 ; i < ${#expect[@]} ; i++ )) ; do
-    assert_equal "${target[i]}" "${expect[i]}"
-  done
-  assert_equal "${#target[@]}" "${#expect[@]}"
+  assert_array target expect
 }
 
-@test "l.split 'a asd bcd d' ' '" {
+@test "l.split 'a asd bcd d' target ' '" {
   local -a target
   local expect=(a asd bcd d)
   l.split 'a asd bcd d' target ' '
-
-  assert_equal "${#target[@]}" "${#expect[@]}"
-  for (( i=0 ; i < ${#expect[@]} ; i++ )) ; do
-    assert_equal "${target[i]}" "${expect[i]}"
-  done
+  assert_array target expect
 }
 
-@test "l.split 'a ad bcd d'" {
+@test "l.split 'a ad bcd d' target" {
   local -a target
   local expect=(a ad bcd d)
   l.split 'a ad bcd d' target
-
-  for (( i=0 ; i < ${#expect[@]} ; i++ )) ; do
-    assert_equal "${target[i]}" "${expect[i]}"
-  done
-  assert_equal "${#target[@]}" "${#expect[@]}"
+  assert_array target expect
 }
 
-@test "l.split '../..' '/'" {
+@test "l.split '../..' target '/'" {
   local -a target
   local expect=('..' '..')
   l.split '../..' target '/'
-
-  for (( i=0 ; i < ${#expect[@]} ; i++ )) ; do
-    assert_equal "${target[i]}" "${expect[i]}"
-  done
-  assert_equal "${#target[@]}" "${#expect[@]}"
+  assert_array target expect
 }
 
-@test "l.split '../' '/'" {
+@test "l.split '../' target '/'" {
   local -a target
   local expect=('..' '')
   l.split '../' target '/'
-
-  for (( i=0 ; i < ${#expect[@]} ; i++ )) ; do
-    assert_equal "${target[i]}" "${expect[i]}"
-  done
-  assert_equal "${#target[@]}" "${#expect[@]}"
+  assert_array target expect
 }
 
-@test "l.split '/../' '/'" {
+@test "l.split '/../' target '/'" {
   local -a target
   local expect=('' '..' '')
   l.split '/../' target '/'
-
-  for (( i=0 ; i < ${#expect[@]} ; i++ )) ; do
-    assert_equal "${target[i]}" "${expect[i]}"
-  done
-  assert_equal "${#target[@]}" "${#expect[@]}"
+  assert_array target expect
 }
 
-@test "l.split 'a b ' ' '" {
+@test "l.split 'a b ' target ' '" {
   local -a target
   local expect=('a' 'b' '')
   l.split 'a b ' target ' '
-
-  for (( i=0 ; i < ${#expect[@]} ; i++ )) ; do
-    assert_equal "${target[i]}" "${expect[i]}"
-  done
-  assert_equal "${#target[@]}" "${#expect[@]}"
+  assert_array target expect
 }
 
-@test "l.split 'ab c' ''" {
+@test "l.split 'ab c' target ''" {
   local -a target
   local expect=('a' 'b' ' ' 'c')
   l.split 'ab c' target ''
-
-  for (( i=0 ; i < ${#expect[@]} ; i++ )) ; do
-    assert_equal "${target[i]}" "${expect[i]}"
-  done
-  assert_equal "${#target[@]}" "${#expect[@]}"
+  assert_array target expect
 }
 
-@test "l.split 'abc' 'abc'" {
+@test "l.split 'abc' target 'abc'" {
   local -a target
   local expect=('' '')
   l.split 'abc' target 'abc'
-
-  for (( i=0 ; i < ${#expect[@]} ; i++ )) ; do
-    assert_equal "${target[i]}" "${expect[i]}"
-  done
-  assert_equal "${#target[@]}" "${#expect[@]}"
+  assert_array target expect
 }
 
-@test "l.split 'abc' 'def'" {
+@test "l.split 'abc' target 'def'" {
   local -a target
   local expect=('abc')
   l.split 'abc' target 'def'
-
-  for (( i=0 ; i < ${#expect[@]} ; i++ )) ; do
-    assert_equal "${target[i]}" "${expect[i]}"
-  done
-  assert_equal "${#target[@]}" "${#expect[@]}"
+  assert_array target expect
 }
 
-@test "l.split 'abcd' 'cd'" {
+@test "l.split 'abcd' target 'cd'" {
   local -a target
   local expect=('ab' '')
   l.split 'abcd' target 'cd'
-
-  for (( i=0 ; i < ${#expect[@]} ; i++ )) ; do
-    assert_equal "${target[i]}" "${expect[i]}"
-  done
-  assert_equal "${#target[@]}" "${#expect[@]}"
+  assert_array target expect
 }
 
-@test "l.split 'abcd' 'ab'" {
+@test "l.split 'abcd' target 'ab'" {
   local -a target
   local expect=('' 'cd')
   l.split 'abcd' target 'ab'
-
-  for (( i=0 ; i < ${#expect[@]} ; i++ )) ; do
-    assert_equal "${target[i]}" "${expect[i]}"
-  done
-  assert_equal "${#target[@]}" "${#expect[@]}"
+  assert_array target expect
 }
 
-@test "l.split 'abcd' 'bc'" {
+@test "l.split 'abcd' target 'bc'" {
   local -a target
   local expect=('a' 'd')
   l.split 'abcd' target 'bc'
+  assert_array target expect
+}
 
-  for (( i=0 ; i < ${#expect[@]} ; i++ )) ; do
-    assert_equal "${target[i]}" "${expect[i]}"
-  done
-  assert_equal "${#target[@]}" "${#expect[@]}"
+@test "(l.split 'abcd' target 'bc')" {
+  # shellcheck disable=2034
+  local -a target
+  # shellcheck disable=2034
+  local expect=()
+  ( l.split 'abcd' target 'bc' )
+  assert_array target expect
+}
+
+@test "l.split 'a,asd,bcd,d' - ','" {
+  local -a target
+  local expect=(a asd bcd d)
+  l.read_array target < <(l.split 'a,asd,bcd,d' - ',')
+  assert_array target expect
+}
+
+@test "l.split 'a asd bcd d' - ' '" {
+  local -a target
+  local expect=(a asd bcd d)
+  l.read_array target < <(l.split 'a asd bcd d' - ' ')
+  assert_array target expect
+}
+
+@test "l.split 'a ad bcd d' -" {
+  local -a target
+  local expect=(a ad bcd d)
+  l.read_array target < <(l.split 'a ad bcd d' -)
+  assert_array target expect
+}
+
+@test "l.split '../..' - '/'" {
+  local -a target
+  local expect=('..' '..')
+  l.read_array target < <(l.split '../..' - '/')
+  assert_array target expect
+}
+
+@test "l.split '../' - '/'" {
+  local -a target
+  local expect=('..' '')
+  l.read_array target < <(l.split '../' - '/')
+  assert_array target expect
+}
+
+@test "l.split '/../' - '/'" {
+  local -a target
+  local expect=('' '..' '')
+  l.read_array target < <(l.split '/../' - '/')
+  assert_array target expect
+}
+
+@test "l.split 'a b ' - ' '" {
+  local -a target
+  local expect=('a' 'b' '')
+  l.read_array target < <(l.split 'a b ' - ' ')
+  assert_array target expect
+}
+
+@test "l.split 'ab c' - ''" {
+  local -a target
+  local expect=('a' 'b' ' ' 'c')
+  l.read_array target < <(l.split 'ab c' - '')
+  assert_array target expect
+}
+
+@test "l.split 'abc' - 'abc'" {
+  local -a target
+  local expect=('' '')
+  l.read_array target < <(l.split 'abc' - 'abc')
+  assert_array target expect
+}
+
+@test "l.split 'abc' - 'def'" {
+  local -a target
+  local expect=('abc')
+  l.read_array target < <(l.split 'abc' - 'def')
+  assert_array target expect
+}
+
+@test "l.split 'abcd' - 'cd'" {
+  local -a target
+  local expect=('ab' '')
+  l.read_array target < <(l.split 'abcd' - 'cd')
+  assert_array target expect
+}
+
+@test "l.split 'abcd' - 'ab'" {
+  local -a target
+  local expect=('' 'cd')
+  l.read_array target < <(l.split 'abcd' - 'ab')
+  assert_array target expect
+}
+
+@test "l.split 'abcd' - 'bc'" {
+  # shellcheck disable=2034
+  local -a target
+  # shellcheck disable=2034
+  local expect=('a' 'd')
+  l.read_array target < <(l.split 'abcd' - 'bc')
+  assert_array target expect
 }
