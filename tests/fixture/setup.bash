@@ -134,4 +134,6 @@ setup() {
 
   # To fix run --separate-stderr
   bats_require_minimum_version 1.5.0
+
+  load "$LOBASH_TEST_DIR/fixture/asserts.bash"
 }
