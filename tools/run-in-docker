@@ -10,20 +10,27 @@ SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 readonly SCRIPT_DIR
 
 echo "[run-in-docker] BASHVER=${BASHVER:=4.4}"
+DOCKER_IMAGE="lobash/test-bash:$BASHVER"
 
-docker run \
-  --rm -it \
-  -e DOCKER=true \
-  -e CI="${CI:-}" \
-  -e OS="alpine" \
-  -e BASHVER=$BASHVER \
-  -v "$SCRIPT_DIR"/../bin:/lobash/bin \
-  -v "$SCRIPT_DIR"/../example:/lobash/example \
-  -v "$SCRIPT_DIR"/../test:/lobash/test \
-  -v "$SCRIPT_DIR"/../build:/lobash/build \
-  -v "$SCRIPT_DIR"/../version:/lobash/version \
-  -v "$SCRIPT_DIR"/../src:/lobash/src \
-  -v "$SCRIPT_DIR"/../tests:/lobash/tests \
-  -v "$SCRIPT_DIR"/../tools:/lobash/tools \
-  -v "$SCRIPT_DIR"/../dist:/lobash/dist \
-  lobash/test-bash:"${BASHVER}"
+args=(
+  --rm -it
+  -e DOCKER=true
+  -e CI="${CI:-}"
+  -e OS="alpine"
+  -e BASHVER="$BASHVER"
+)
+
+vols=(
+  .git test build version src tests tools
+  dist example bin
+)
+
+for vol in "${vols[@]}"; do
+  v=$(printf '%s:%s' "$SCRIPT_DIR/../$vol" "/lobash/$vol")
+  # shellcheck disable=2016
+  args+=( -v "$v")
+done
+
+echo "docker run ${args[*]} $DOCKER_IMAGE"
+
+docker run "${args[@]}" "$DOCKER_IMAGE"

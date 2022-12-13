@@ -35,7 +35,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - run: BASHVER=${{ matrix.BASHVER }} BUILD_DIST=true ./tools/test-in-docker
+      - run: BASHVER=${{ matrix.BASHVER }} BUILD_DIST=true PULL_IMAGE=true ./tools/test-in-docker
 
   host:
     if: "!(

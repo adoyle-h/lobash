@@ -10,10 +10,15 @@ SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 readonly SCRIPT_DIR
 
 echo "[test-in-docker] BASHVER=${BASHVER:=4.4}"
+DOCKER_IMAGE="lobash/test-bash:$BASHVER"
 
-if [[ -z $(docker images -q lobash/test-bash:"${BASHVER}") ]]; then
-  echo "To build image lobash/test-bash:${BASHVER}"
-  BASHVER=$BASHVER IN_CHINA=${IN_CHINA:-} "$SCRIPT_DIR/build-test-image"
+if [[ -z $(docker images -q $DOCKER_IMAGE) ]]; then
+  if [[ -n ${PULL_IMAGE:-} ]]; then
+    docker pull $DOCKER_IMAGE
+  else
+    echo "To build image $DOCKER_IMAGE"
+    BASHVER=$BASHVER IN_CHINA=${IN_CHINA:-} "$SCRIPT_DIR/build-test-image"
+  fi
 fi
 
 if (( $# > 0 )); then
@@ -26,18 +31,25 @@ else
   cmd="./test"
 fi
 
-# NOTE: Do not set `-i` parameter
-docker run \
-  --rm -t \
-  -e DOCKER=true \
-  -e CI="${CI:-}" \
-  -e OS="alpine" \
-  -e BASHVER=$BASHVER \
-  -v "$SCRIPT_DIR"/../.git:/lobash/.git \
-  -v "$SCRIPT_DIR"/../test:/lobash/test \
-  -v "$SCRIPT_DIR"/../build:/lobash/build \
-  -v "$SCRIPT_DIR"/../version:/lobash/version \
-  -v "$SCRIPT_DIR"/../src:/lobash/src \
-  -v "$SCRIPT_DIR"/../tests:/lobash/tests \
-  -v "$SCRIPT_DIR"/../tools:/lobash/tools \
-  lobash/test-bash:"${BASHVER}" "$cmd"
+args=(
+  # NOTE: Do not set `-i` parameter
+  --rm -t
+  -e DOCKER=true
+  -e CI="${CI:-}"
+  -e OS="alpine"
+  -e BASHVER="$BASHVER"
+)
+
+vols=(
+  .git test build version src tests tools
+)
+
+for vol in "${vols[@]}"; do
+  v=$(printf '%s:%s' "$SCRIPT_DIR/../$vol" "/lobash/$vol")
+  # shellcheck disable=2016
+  args+=( -v "$v")
+done
+
+echo "docker run ${args[*]} $DOCKER_IMAGE $cmd"
+
+docker run "${args[@]}" "$DOCKER_IMAGE" "$cmd"
