@@ -61,14 +61,18 @@ check_bash() {
   if (( compare > 0 )); then return 1; fi
 }
 
+__ends_with() {
+  [[ $1 =~ "$2"$ ]]
+  # ]] This comment line will fix syntax highlights
+}
+
 # Do not define functions and variables in setup_file,
 # because it runs in child process different from test and setup.
 setup_file() {
   local module_name
   module_name=$(basename "$BATS_TEST_FILENAME" .bats)
 
-  if [[ $BATS_TEST_FILENAME =~ "/tests/modules/$module_name.bats"$ ]]; then
-    # ]] this comment line will fix highlights
+  if __ends_with "$BATS_TEST_FILENAME" "/tests/modules/$module_name.bats"; then
     # This line is important. Set cache of module_meta
     declare -A _LOBASH_MOD_META_CACHE
 
@@ -93,9 +97,11 @@ setup() {
   # If import has bug, all test cases will failed
   load_src load_internals
 
-  if [[ "$BATS_TEST_FILENAME" =~ "/tests/modules/$module_name.bats"$ ]]; then
+  if __ends_with "$BATS_TEST_FILENAME" "/tests/modules/$module_name.bats"; then
     # Auto load module for /tests/modules/*.bats testing
     load_module "$module_name"
+  elif __ends_with "$BATS_TEST_FILENAME" "/tests/internals/$module_name.bats"; then
+    _lobash.import_internals "$module_name"
   fi
 
   # Note: Use _setup instead of setup function in .bats
