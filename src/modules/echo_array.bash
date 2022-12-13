@@ -6,6 +6,5 @@
 # ---
 
 l.echo_array() {
-  local array_name=$1
-  eval "printf '%s\\n' \"\${${array_name}[@]:-}\""
+  eval "printf '%s\\n' \"\${${1}[@]:-}\""
 }

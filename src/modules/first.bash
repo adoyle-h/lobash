@@ -6,6 +6,5 @@
 # ---
 
 l.first() {
-  local array_name=$1
-  eval "[[ \${#${array_name}[@]} == 0 ]] && echo '' || printf '%s\\n' \"\${${array_name}[@]:0:1}\""
+  eval "[[ \${#${1}[@]} == 0 ]] && echo '' || printf '%s\\n' \"\${${1}[@]:0:1}\""
 }
