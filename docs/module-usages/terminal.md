@@ -16,7 +16,6 @@
 - Description: Get column number of current cursor position.
 - Since: 0.1.0
 - Bash: 4.0+
-- Status: tested
 - Source Code: [src/modules/cursor_col.bash](../../src/modules/cursor_col.bash)
 
 ### cursor_pos
@@ -30,7 +29,6 @@
   - If `[<array_name>]` not passed, it will print "row;column".
 - Since: 0.1.0
 - Bash: 4.0+
-- Status: tested
 - Source Code: [src/modules/cursor_pos.bash](../../src/modules/cursor_pos.bash)
 - Example: [example/modules/cursor_pos](../../example/modules/cursor_pos)
 
@@ -40,7 +38,6 @@
 - Description: Get row number of current cursor position.
 - Since: 0.1.0
 - Bash: 4.0+
-- Status: tested
 - Source Code: [src/modules/cursor_row.bash](../../src/modules/cursor_row.bash)
 
 [⬆️ Back up to TOC](#toc)

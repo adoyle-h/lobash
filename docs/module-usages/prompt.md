@@ -27,7 +27,6 @@
 - Dependent: [`start_with`](./condition.md#start_with) [`join`](./string.md#join)
 - Since: 0.1.0
 - Bash: 4.0+
-- Status: tested
 - Test Cases: [tests/modules/ask.bats](../../tests/modules/ask.bats)
 - Source Code: [src/modules/ask.bash](../../src/modules/ask.bash)
 - Example: [example/modules/ask](../../example/modules/ask)
@@ -40,7 +39,6 @@
   - If `<default>` provided, return it when user type empty.
 - Since: 0.2.0
 - Bash: 4.0+
-- Status: tested
 - Test Cases: [tests/modules/ask_input.bats](../../tests/modules/ask_input.bats)
 - Source Code: [src/modules/ask_input.bash](../../src/modules/ask_input.bash)
 
@@ -61,7 +59,6 @@
 - Dependent: [`ask`](./prompt.md#ask)
 - Since: 0.5.0
 - Bash: 4.0+
-- Status: tested
 - Test Cases: [tests/modules/ask_with_cancel.bats](../../tests/modules/ask_with_cancel.bats)
 - Source Code: [src/modules/ask_with_cancel.bash](../../src/modules/ask_with_cancel.bash)
 - Example: [example/modules/ask_with_cancel](../../example/modules/ask_with_cancel)
@@ -72,7 +69,6 @@
 - Description: Prompt user to choose one item from options. The function will return the value of chosen item.
 - Since: 0.1.0
 - Bash: 4.0+
-- Status: tested
 - Test Cases: [tests/modules/choose.bats](../../tests/modules/choose.bats)
 - Source Code: [src/modules/choose.bash](../../src/modules/choose.bash)
 - Example: [example/modules/choose](../../example/modules/choose)

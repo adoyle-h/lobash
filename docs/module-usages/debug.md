@@ -20,7 +20,6 @@
   - Attention: l.trace_count should run in same process. It will not work in subprocess such as $(l.trace_count)
 - Since: 0.1.0
 - Bash: 4.0+
-- Status: tested
 - Test Cases: [tests/modules/trace_count.bats](../../tests/modules/trace_count.bats)
 - Source Code: [src/modules/trace_count.bash](../../src/modules/trace_count.bash)
 
@@ -30,7 +29,6 @@
 - Description: Close xtrace mode and reset PS4. Cooperated with trace_start.
 - Since: 0.1.0
 - Bash: 4.0+
-- Status: tested
 - Source Code: [src/modules/trace_end.bash](../../src/modules/trace_end.bash)
 
 ### trace_stack
@@ -39,7 +37,6 @@
 - Description: Print current function stack for debug.
 - Since: 0.1.0
 - Bash: 4.0+
-- Status: tested
 - Test Cases: [tests/modules/trace_stack.bats](../../tests/modules/trace_stack.bats)
 - Source Code: [src/modules/trace_stack.bash](../../src/modules/trace_stack.bash)
 - Example: [example/modules/trace_stack](../../example/modules/trace_stack)
@@ -52,7 +49,6 @@
   - Open xtrace mode and set PS4. It will print each script line with nice prompt for debug.
 - Since: 0.1.0
 - Bash: 4.0+
-- Status: tested
 - Test Cases: [tests/modules/trace_start.bats](../../tests/modules/trace_start.bats)
 - Source Code: [src/modules/trace_start.bash](../../src/modules/trace_start.bash)
 
@@ -63,7 +59,6 @@
 - Dependent: [`now`](./time.md#now)
 - Since: 0.1.0
 - Bash: 4.0+
-- Status: tested
 - Test Cases: [tests/modules/trace_time.bats](../../tests/modules/trace_time.bats)
 - Source Code: [src/modules/trace_time.bash](../../src/modules/trace_time.bash)
 

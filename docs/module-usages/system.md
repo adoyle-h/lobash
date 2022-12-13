@@ -16,7 +16,6 @@
 - Description: Return the name of current operator system.
 - Since: 0.1.0
 - Bash: 4.0+
-- Status: tested
 - Test Cases: [tests/modules/detect_os.bats](../../tests/modules/detect_os.bats)
 - Source Code: [src/modules/detect_os.bash](../../src/modules/detect_os.bash)
 
@@ -26,7 +25,6 @@
 - Description: Return current hostname.
 - Since: 0.1.0
 - Bash: 4.0+
-- Status: tested
 - Source Code: [src/modules/hostname.bash](../../src/modules/hostname.bash)
 
 ### sleep
@@ -38,7 +36,6 @@
   - When run it in MacOS, the precision of sleep time is 100ms. The deviation of sleep time is 30~40ms by actual measurement.
 - Since: 0.1.0
 - Bash: 4.1+
-- Status: tested
 - Test Cases: [tests/modules/sleep.bats](../../tests/modules/sleep.bats)
 - Source Code: [src/modules/sleep.bash](../../src/modules/sleep.bash)
 

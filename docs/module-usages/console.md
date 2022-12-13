@@ -19,7 +19,6 @@
   - See https://github.com/anordal/shellharden/blob/master/how_to_do_things_safely_in_bash.md#echo--printf
 - Since: 0.1.0
 - Bash: 4.0+
-- Status: tested
 - Test Cases: [tests/modules/echo.bats](../../tests/modules/echo.bats)
 - Source Code: [src/modules/echo.bash](../../src/modules/echo.bash)
 
@@ -29,7 +28,6 @@
 - Description: Print each values of array with newline.
 - Since: 0.1.0
 - Bash: 4.0+
-- Status: tested
 - Test Cases: [tests/modules/echo_array.bats](../../tests/modules/echo_array.bats)
 - Source Code: [src/modules/echo_array.bash](../../src/modules/echo_array.bash)
 
@@ -41,7 +39,6 @@
   - If no screen, it will print nothing.
 - Since: 0.2.0
 - Bash: 4.0+
-- Status: tested
 - Test Cases: [tests/modules/echo_screen.bats](../../tests/modules/echo_screen.bats)
 - Source Code: [src/modules/echo_screen.bash](../../src/modules/echo_screen.bash)
 

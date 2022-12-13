@@ -63,7 +63,6 @@
 - Description: Return 0 (true) or 1 (false). This function should never throw exception error.
 - Since: 0.3.1
 - Bash: 4.0+
-- Status: tested
 - Test Cases: [tests/modules/end_with.bats](../../tests/modules/end_with.bats)
 - Source Code: [src/modules/end_with.bash](../../src/modules/end_with.bash)
 
@@ -74,7 +73,6 @@
 - Dependent: [`end_with`](./condition.md#end_with)
 - Since: 0.3.1
 - Bash: 4.0+
-- Status: tested
 - Test Cases: [tests/modules/end_with.s.bats](../../tests/modules/end_with.s.bats)
 - Source Code: [src/modules/end_with.s.bash](../../src/modules/end_with.s.bash)
 
@@ -86,7 +84,6 @@
   - `<condition>` Valid value: `command`, `function`, `alias`, `keyword`, `builtin`, `the`
 - Since: 0.3.0
 - Bash: 4.0+
-- Status: tested
 - Test Cases: [tests/modules/has.bats](../../tests/modules/has.bats)
 - Source Code: [src/modules/has.bash](../../src/modules/has.bash)
 
@@ -98,7 +95,6 @@
   - `<condition>` Valid value: `command`, `function`, `alias`, `keyword`, `builtin`, `the`
 - Since: 0.3.0
 - Bash: 4.0+
-- Status: tested
 - Test Cases: [tests/modules/has.s.bats](../../tests/modules/has.s.bats)
 - Source Code: [src/modules/has.s.bash](../../src/modules/has.s.bash)
 
@@ -109,7 +105,6 @@
 - Dependent: [`has`](./condition.md#has)
 - Since: 0.3.0
 - Bash: 4.0+
-- Status: tested
 - Test Cases: [tests/modules/has_not.bats](../../tests/modules/has_not.bats)
 - Source Code: [src/modules/has_not.bash](../../src/modules/has_not.bash)
 
@@ -120,7 +115,6 @@
 - Dependent: [`has.s`](./condition.md#has.s) [`not.s`](./condition.md#not.s)
 - Since: 0.3.0
 - Bash: 4.0+
-- Status: tested
 - Test Cases: [tests/modules/has_not.s.bats](../../tests/modules/has_not.s.bats)
 - Source Code: [src/modules/has_not.s.bash](../../src/modules/has_not.s.bash)
 
@@ -134,7 +128,6 @@
   - When `<condition>` is true, `<then>` function will be invoked. Otherwise `<else>` will be invoked if it passed.
 - Since: 0.1.0
 - Bash: 4.0+
-- Status: tested
 - Test Cases: [tests/modules/if.bats](../../tests/modules/if.bats)
 - Source Code: [src/modules/if.bash](../../src/modules/if.bash)
 
@@ -144,7 +137,6 @@
 - Description: When the variable is array or associative array, it returns 0 (true). Otherwise it returns 1 (false). This function should never throw exception error.
 - Since: 0.3.0
 - Bash: 4.0+
-- Status: tested
 - **Notice**:
   - **Only with bash 4.3, this function return 1 when the variable declared without initialization.**
   - **Because `declare -p a` shows `declare: a: not found` when `declare -a a`. It's a bug in bash 4.3.**
@@ -158,7 +150,6 @@
 - Dependent: [`is_array`](./condition.md#is_array)
 - Since: 0.3.0
 - Bash: 4.0+
-- Status: tested
 - **Notice**:
   - **Only with bash 4.3, this function will echo `false` when the variable declared without initialization.**
   - **Because `declare -p a` shows `declare: a: not found` when `declare -a a`. It's a bug in bash 4.3.**
@@ -171,7 +162,6 @@
 - Description: Return 0 (true) or 1 (false). This function should never throw exception error.
 - Since: 0.3.0
 - Bash: 4.0+
-- Status: tested
 - Test Cases: [tests/modules/is_bash.bats](../../tests/modules/is_bash.bats)
 - Source Code: [src/modules/is_bash.bash](../../src/modules/is_bash.bash)
 
@@ -181,7 +171,6 @@
 - Description: This function always echo `true` or `false` and exit code always be 0.
 - Since: 0.3.0
 - Bash: 4.0+
-- Status: tested
 - Test Cases: [tests/modules/is_bash.s.bats](../../tests/modules/is_bash.s.bats)
 - Source Code: [src/modules/is_bash.s.bash](../../src/modules/is_bash.s.bash)
 
@@ -193,7 +182,6 @@
   - Return 0 (true) or 1 (false). This function should never throw exception error.
 - Since: 0.3.0
 - Bash: 4.0+
-- Status: tested
 - Test Cases: [tests/modules/is_dir.bats](../../tests/modules/is_dir.bats)
 - Source Code: [src/modules/is_dir.bash](../../src/modules/is_dir.bash)
 
@@ -205,7 +193,6 @@
   - This function always echo `true` or `false` and exit code always be 0.
 - Since: 0.3.0
 - Bash: 4.0+
-- Status: tested
 - Test Cases: [tests/modules/is_dir.s.bats](../../tests/modules/is_dir.s.bats)
 - Source Code: [src/modules/is_dir.s.bash](../../src/modules/is_dir.s.bash)
 
@@ -217,7 +204,6 @@
   - Return 0 (true) or 1 (false). This function should never throw exception error.
 - Since: next-patch
 - Bash: 4.0+
-- Status: tested
 - Test Cases: [tests/modules/is_empty_dir.bats](../../tests/modules/is_empty_dir.bats)
 - Source Code: [src/modules/is_empty_dir.bash](../../src/modules/is_empty_dir.bash)
 
@@ -229,7 +215,6 @@
   - Return 0 (true) or 1 (false). This function should never throw exception error.
 - Since: 0.3.0
 - Bash: 4.0+
-- Status: tested
 - Test Cases: [tests/modules/is_executable.bats](../../tests/modules/is_executable.bats)
 - Source Code: [src/modules/is_executable.bash](../../src/modules/is_executable.bash)
 
@@ -241,7 +226,6 @@
   - This function always echo `true` or `false` and exit code always be 0.
 - Since: 0.3.0
 - Bash: 4.0+
-- Status: tested
 - Test Cases: [tests/modules/is_executable.s.bats](../../tests/modules/is_executable.s.bats)
 - Source Code: [src/modules/is_executable.s.bash](../../src/modules/is_executable.s.bash)
 
@@ -254,7 +238,6 @@
 - Dependent: [`is_dir`](./condition.md#is_dir)
 - Since: 0.3.0
 - Bash: 4.0+
-- Status: tested
 - Test Cases: [tests/modules/is_executable_file.bats](../../tests/modules/is_executable_file.bats)
 - Source Code: [src/modules/is_executable_file.bash](../../src/modules/is_executable_file.bash)
 
@@ -267,7 +250,6 @@
 - Dependent: [`is_executable_file`](./condition.md#is_executable_file)
 - Since: 0.3.0
 - Bash: 4.0+
-- Status: tested
 - Test Cases: [tests/modules/is_executable_file.s.bats](../../tests/modules/is_executable_file.s.bats)
 - Source Code: [src/modules/is_executable_file.s.bash](../../src/modules/is_executable_file.s.bash)
 
@@ -279,7 +261,6 @@
   - Return 0 (true) or 1 (false). This function should never throw exception error.
 - Since: 0.5.0
 - Bash: 4.0+
-- Status: tested
 - **Notice**:
   - **Only with bash 4.3, this function return 1 when the exported variable declared without initialization.**
   - **Because `declare -p a` shows `declare: a: not found` when `declare -a a`. It's a bug in bash 4.3.**
@@ -296,7 +277,6 @@
 - Dependent: [`is_integer`](./condition.md#is_integer)
 - Since: 0.3.0
 - Bash: 4.0+
-- Status: tested
 - Test Cases: [tests/modules/is_falsy.bats](../../tests/modules/is_falsy.bats)
 - Source Code: [src/modules/is_falsy.bash](../../src/modules/is_falsy.bash)
 
@@ -309,7 +289,6 @@
 - Dependent: [`is_falsy`](./condition.md#is_falsy)
 - Since: 0.3.0
 - Bash: 4.0+
-- Status: tested
 - Test Cases: [tests/modules/is_falsy.s.bats](../../tests/modules/is_falsy.s.bats)
 - Source Code: [src/modules/is_falsy.s.bash](../../src/modules/is_falsy.s.bash)
 
@@ -319,7 +298,6 @@
 - Description: Return 0 (true) or 1 (false). This function should never throw exception error.
 - Since: 0.3.0
 - Bash: 4.0+
-- Status: tested
 - Test Cases: [tests/modules/is_file.bats](../../tests/modules/is_file.bats)
 - Source Code: [src/modules/is_file.bash](../../src/modules/is_file.bash)
 
@@ -329,7 +307,6 @@
 - Description: This function always echo `true` or `false` and exit code always be 0.
 - Since: 0.3.0
 - Bash: 4.0+
-- Status: tested
 - Test Cases: [tests/modules/is_file.s.bats](../../tests/modules/is_file.s.bats)
 - Source Code: [src/modules/is_file.s.bash](../../src/modules/is_file.s.bash)
 
@@ -339,7 +316,6 @@
 - Description: Return 0 (true) or 1 (false). This function should never throw exception error.
 - Since: 0.3.0
 - Bash: 4.0+
-- Status: tested
 - Test Cases: [tests/modules/is_float.bats](../../tests/modules/is_float.bats)
 - Source Code: [src/modules/is_float.bash](../../src/modules/is_float.bash)
 
@@ -350,7 +326,6 @@
 - Dependent: [`is_float`](./condition.md#is_float)
 - Since: 0.3.0
 - Bash: 4.0+
-- Status: tested
 - Test Cases: [tests/modules/is_float.s.bats](../../tests/modules/is_float.s.bats)
 - Source Code: [src/modules/is_float.s.bash](../../src/modules/is_float.s.bash)
 
@@ -360,7 +335,6 @@
 - Description: Return 0 (true) or 1 (false). This function should never throw exception error.
 - Since: 0.5.0
 - Bash: 4.0+
-- Status: tested
 - Test Cases: [tests/modules/is_function.bats](../../tests/modules/is_function.bats)
 - Source Code: [src/modules/is_function.bash](../../src/modules/is_function.bash)
 
@@ -372,7 +346,6 @@
   - This function always echo `true` or `false` and exit code always be 0.
 - Since: 0.5.0
 - Bash: 4.0+
-- Status: tested
 - Test Cases: [tests/modules/is_function.s.bats](../../tests/modules/is_function.s.bats)
 - Source Code: [src/modules/is_function.s.bash](../../src/modules/is_function.s.bash)
 
@@ -382,7 +355,6 @@
 - Description: Return 0 (true) or 1 (false). This function should never throw exception error.
 - Since: 0.5.0
 - Bash: 4.0+
-- Status: tested
 - Source Code: [src/modules/is_gnu_sed.bash](../../src/modules/is_gnu_sed.bash)
 
 ### is_integer
@@ -391,7 +363,6 @@
 - Description: Return 0 (true) or 1 (false). This function should never throw exception error.
 - Since: 0.3.0
 - Bash: 4.0+
-- Status: tested
 - Test Cases: [tests/modules/is_integer.bats](../../tests/modules/is_integer.bats)
 - Source Code: [src/modules/is_integer.bash](../../src/modules/is_integer.bash)
 
@@ -402,7 +373,6 @@
 - Dependent: [`is_integer`](./condition.md#is_integer)
 - Since: 0.3.0
 - Bash: 4.0+
-- Status: tested
 - Test Cases: [tests/modules/is_integer.s.bats](../../tests/modules/is_integer.s.bats)
 - Source Code: [src/modules/is_integer.s.bash](../../src/modules/is_integer.s.bash)
 
@@ -412,7 +382,6 @@
 - Description: Return 0 (true) or 1 (false). This function should never throw exception error.
 - Since: 0.3.0
 - Bash: 4.0+
-- Status: tested
 - Source Code: [src/modules/is_link.bash](../../src/modules/is_link.bash)
 
 ### is_link.s
@@ -421,7 +390,6 @@
 - Description: This function always echo `true` or `false` and exit code always be 0.
 - Since: 0.3.0
 - Bash: 4.0+
-- Status: tested
 - Source Code: [src/modules/is_link.s.bash](../../src/modules/is_link.s.bash)
 
 ### is_number
@@ -430,7 +398,6 @@
 - Description: Return 0 (true) or 1 (false). This function should never throw exception error.
 - Since: 0.3.0
 - Bash: 4.0+
-- Status: tested
 - Test Cases: [tests/modules/is_number.bats](../../tests/modules/is_number.bats)
 - Source Code: [src/modules/is_number.bash](../../src/modules/is_number.bash)
 
@@ -441,7 +408,6 @@
 - Dependent: [`is_number`](./condition.md#is_number)
 - Since: 0.3.0
 - Bash: 4.0+
-- Status: tested
 - Test Cases: [tests/modules/is_number.s.bats](../../tests/modules/is_number.s.bats)
 - Source Code: [src/modules/is_number.s.bash](../../src/modules/is_number.s.bash)
 
@@ -451,7 +417,6 @@
 - Description: Return 0 (true) or 1 (false). This function should never throw exception error.
 - Since: 0.3.0
 - Bash: 4.0+
-- Status: tested
 - Test Cases: [tests/modules/is_readable.bats](../../tests/modules/is_readable.bats)
 - Source Code: [src/modules/is_readable.bash](../../src/modules/is_readable.bash)
 
@@ -461,7 +426,6 @@
 - Description: This function always echo `true` or `false` and exit code always be 0.
 - Since: 0.3.0
 - Bash: 4.0+
-- Status: tested
 - Test Cases: [tests/modules/is_readable.s.bats](../../tests/modules/is_readable.s.bats)
 - Source Code: [src/modules/is_readable.s.bash](../../src/modules/is_readable.s.bash)
 
@@ -473,7 +437,6 @@
   - Return 0 (true) or 1 (false). This function should never throw exception error.
 - Since: 0.3.0
 - Bash: 4.0+
-- Status: tested
 - Test Cases: [tests/modules/is_truthy.bats](../../tests/modules/is_truthy.bats)
 - Source Code: [src/modules/is_truthy.bash](../../src/modules/is_truthy.bash)
 
@@ -486,7 +449,6 @@
 - Dependent: [`is_truthy`](./condition.md#is_truthy)
 - Since: 0.3.0
 - Bash: 4.0+
-- Status: tested
 - Test Cases: [tests/modules/is_truthy.s.bats](../../tests/modules/is_truthy.s.bats)
 - Source Code: [src/modules/is_truthy.s.bash](../../src/modules/is_truthy.s.bash)
 
@@ -496,7 +458,6 @@
 - Description: Whether /dev/tty is available
 - Since: 0.5.0
 - Bash: 4.0+
-- Status: tested
 - Source Code: [src/modules/is_tty_available.bash](../../src/modules/is_tty_available.bash)
 
 ### is_tty_available.s
@@ -507,7 +468,6 @@
   - This function always echo `true` or `false` and exit code always be 0.
 - Since: 0.5.0
 - Bash: 4.0+
-- Status: tested
 - Source Code: [src/modules/is_tty_available.s.bash](../../src/modules/is_tty_available.s.bash)
 
 ### is_ubuntu
@@ -518,7 +478,6 @@
   - Return 0 (true) or 1 (false). This function should never throw exception error.
 - Since: 0.5.0
 - Bash: 4.0+
-- Status: tested
 - Test Cases: [tests/modules/is_ubuntu.bats](../../tests/modules/is_ubuntu.bats)
 - Source Code: [src/modules/is_ubuntu.bash](../../src/modules/is_ubuntu.bash)
 
@@ -530,7 +489,6 @@
   - Return 0 (true) or 1 (false). This function should never throw exception error.
 - Since: 0.5.0
 - Bash: 4.0+
-- Status: tested
 - Test Cases: [tests/modules/is_undefined.bats](../../tests/modules/is_undefined.bats)
 - Source Code: [src/modules/is_undefined.bash](../../src/modules/is_undefined.bash)
 
@@ -540,7 +498,6 @@
 - Description: Return 0 (true) or 1 (false). This function should never throw exception error.
 - Since: 0.3.0
 - Bash: 4.0+
-- Status: tested
 - Test Cases: [tests/modules/is_writable.bats](../../tests/modules/is_writable.bats)
 - Source Code: [src/modules/is_writable.bash](../../src/modules/is_writable.bash)
 
@@ -550,7 +507,6 @@
 - Description: This function always echo `true` or `false` and exit code always be 0.
 - Since: 0.3.0
 - Bash: 4.0+
-- Status: tested
 - Test Cases: [tests/modules/is_writable.s.bats](../../tests/modules/is_writable.s.bats)
 - Source Code: [src/modules/is_writable.s.bash](../../src/modules/is_writable.s.bash)
 
@@ -560,7 +516,6 @@
 - Description: `<condition>` must be `true` or `false`. This function returns the opposite value.
 - Since: 0.3.0
 - Bash: 4.0+
-- Status: tested
 - Test Cases: [tests/modules/not.s.bats](../../tests/modules/not.s.bats)
 - Source Code: [src/modules/not.s.bash](../../src/modules/not.s.bash)
 
@@ -571,7 +526,6 @@
 - Dependent: [`not.s`](./condition.md#not.s)
 - Since: 0.3.0
 - Bash: 4.0+
-- Status: tested
 - Test Cases: [tests/modules/not.s.p.bats](../../tests/modules/not.s.p.bats)
 - Source Code: [src/modules/not.s.p.bash](../../src/modules/not.s.p.bash)
 
@@ -583,7 +537,6 @@
   - Return 0 (true) or 1 (false). This function should never throw exception error.
 - Since: 0.3.1
 - Bash: 4.0+
-- Status: tested
 - Test Cases: [tests/modules/start_with.bats](../../tests/modules/start_with.bats)
 - Source Code: [src/modules/start_with.bash](../../src/modules/start_with.bash)
 
@@ -596,7 +549,6 @@
 - Dependent: [`start_with`](./condition.md#start_with)
 - Since: 0.3.1
 - Bash: 4.0+
-- Status: tested
 - Test Cases: [tests/modules/start_with.s.bats](../../tests/modules/start_with.s.bats)
 - Source Code: [src/modules/start_with.s.bash](../../src/modules/start_with.s.bash)
 
@@ -606,7 +558,6 @@
 - Description: Return `true` or `false`. Check if a string includes given match string.
 - Since: 0.3.1
 - Bash: 4.0+
-- Status: tested
 - Test Cases: [tests/modules/str_include.bats](../../tests/modules/str_include.bats)
 - Source Code: [src/modules/str_include.bash](../../src/modules/str_include.bash)
 
@@ -617,7 +568,6 @@
 - Dependent: [`str_include`](./condition.md#str_include)
 - Since: 0.3.1
 - Bash: 4.0+
-- Status: tested
 - Test Cases: [tests/modules/str_include.s.bats](../../tests/modules/str_include.s.bats)
 - Source Code: [src/modules/str_include.s.bash](../../src/modules/str_include.s.bash)
 

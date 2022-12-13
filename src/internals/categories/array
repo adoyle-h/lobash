@@ -1,7 +1,9 @@
 array_include
 array_include.s
+array_reverse
 first
 keys
 last
+read_array
 sort
 union_array

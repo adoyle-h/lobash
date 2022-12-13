@@ -19,7 +19,6 @@
 - Description: Run command in repeats to get benchmarks.
 - Since: 0.1.0
 - Bash: 4.0+
-- Status: tested
 - Test Cases: [tests/modules/benchmark.bats](../../tests/modules/benchmark.bats)
 - Source Code: [src/modules/benchmark.bash](../../src/modules/benchmark.bash)
 
@@ -29,7 +28,6 @@
 - Description: Function composition
 - Since: 0.1.0
 - Bash: 4.0+
-- Status: tested
 - Test Cases: [tests/modules/compose.bats](../../tests/modules/compose.bats)
 - Source Code: [src/modules/compose.bash](../../src/modules/compose.bash)
 
@@ -47,7 +45,6 @@
 - Dependent: [`start_with`](./condition.md#start_with) [`match`](./string.md#match) [`match_list`](./string.md#match_list)
 - Since: 0.4.0
 - Bash: 4.0+
-- Status: tested
 - Test Cases: [tests/modules/parse_params.bats](../../tests/modules/parse_params.bats)
 - Source Code: [src/modules/parse_params.bash](../../src/modules/parse_params.bash)
 - Example: [example/modules/parse_params](../../example/modules/parse_params)
@@ -58,7 +55,6 @@
 - Description: Execute command in N times.
 - Since: 0.1.0
 - Bash: 4.0+
-- Status: tested
 - Test Cases: [tests/modules/repeat.bats](../../tests/modules/repeat.bats)
 - Source Code: [src/modules/repeat.bash](../../src/modules/repeat.bash)
 
@@ -71,7 +67,6 @@
   - You can change trap handler to your own function.
 - Since: 0.5.0
 - Bash: 4.0+
-- Status: tested
 - Test Cases: [tests/modules/trap_error.bats](../../tests/modules/trap_error.bats)
 - Source Code: [src/modules/trap_error.bash](../../src/modules/trap_error.bash)
 - Example: [example/modules/trap_error](../../example/modules/trap_error)
@@ -82,7 +77,6 @@
 - Description: run `<command_string>` with `<IFS>` effects
 - Since: 0.2.0
 - Bash: 4.0+
-- Status: tested
 - Test Cases: [tests/modules/with_ifs.bats](../../tests/modules/with_ifs.bats)
 - Source Code: [src/modules/with_ifs.bash](../../src/modules/with_ifs.bash)
 

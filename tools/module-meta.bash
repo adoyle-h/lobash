@@ -59,6 +59,10 @@ print_meta_Bash() {
   printf -- ' %s+\n' "$1" >> "$TARGET"
 }
 
+print_meta_skip_Status() {
+  [[ $1 == 'tested' ]]
+}
+
 print_module_metas() {
   local module_name=$1
   local meta_val meta_key count i
