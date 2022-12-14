@@ -52,7 +52,25 @@ setup_fixture
 
 @test "l.echo ( -n 123 )" {
   local b=( -n 123 )
-  run l.echo ${b[@]}
+  run l.echo "${b[@]}"
   assert_success
   assert_output '-n 123'
+}
+
+@test "l.seq l.echo 01 10" {
+  load_module seq
+  run l.seq l.echo 01 10
+  assert_success
+  assert_output_text <<EOF
+01
+02
+03
+04
+05
+06
+07
+08
+09
+10
+EOF
 }
