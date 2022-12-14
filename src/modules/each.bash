@@ -7,6 +7,7 @@
 # Description: The function is invoked with two arguments: (value, index|key).
 # Description: `<array>` must be the array name. `<fn>` must be the function name.
 # Description: You can use `l.read_array` to create an array with l.each while `<fn>` printing new value.
+# Notice: For associative array, the order of keys is uncertain.
 # ---
 
 l.each() {

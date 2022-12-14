@@ -21,17 +21,16 @@ setup_fixture
 @test "l.each ([hello]=world [foo]=bar) fn" {
   # shellcheck disable=2034
   local -A a=([hello]=world [foo]=bar)
-  local expect=( 'hello=world' 'foo=bar' )
+  local expect=( 'foo=bar' 'hello=world' )
   fn() { echo "$2=$1"; }
   run l.each a fn
 
   assert_success
   assert_equal "${#lines[@]}" "${#expect[@]}"
 
-  local i
-  for (( i = 0; i < ${#expect[@]}; i++ )); do
-    assert_line -n "$i" "${expect[$i]}"
-  done
+  local out=()
+  readarray -t out < <(printf '%s\n' "${lines[@]}" | sort)
+  assert_array out expect
 }
 
 @test "l.read_array < <(l.each (a b 1 2) fn)" {

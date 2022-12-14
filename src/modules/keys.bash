@@ -3,7 +3,7 @@
 # Since: 0.5.0
 # Usage: l.keys <array_name>
 # Description: List all keys of array or associative array.
-# Notice: The order of keys is uncertain.
+# Notice: For associative array, the order of keys is uncertain.
 # ---
 
 l.keys() {
