@@ -8,9 +8,7 @@
 l.first() {
   local _size_
   _size_=$(eval "echo \${#${1}[@]}")
-  if (( _size_ == 0 )); then
-    echo ''
-  else
+  if (( _size_ > 0 )); then
     eval "printf '%s\\n' \"\${${1}[@]:0:${2:-1}}\""
   fi
 }

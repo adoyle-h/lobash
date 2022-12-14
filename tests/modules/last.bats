@@ -20,6 +20,7 @@ setup_fixture
   local a=()
   run l.last a
   assert_success
+  assert_equal "${#lines[@]}" 0
   assert_output ""
 }
 

@@ -10,9 +10,7 @@ l.last() {
   local _size_
   _size_=$(eval "echo \${#${1}[@]}")
 
-  if (( _size_ == 0 )); then
-    echo ''
-  else
+  if (( _size_ > 0 )); then
     if (( _count_ < _size_ )); then
       eval "printf '%s\\n' \"\${${1}[@]: -${_count_}:${_count_}}\""
     else

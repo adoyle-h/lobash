@@ -20,6 +20,7 @@ setup_fixture
   local arr=()
   run l.first arr
   assert_success
+  assert_equal "${#lines[@]}" 0
   assert_output ''
 }
 
