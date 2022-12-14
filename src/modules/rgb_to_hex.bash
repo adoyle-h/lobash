@@ -3,7 +3,8 @@
 # Since: 0.1.0
 # Usage: l.rgb_to_hex <R> <G> <B>
 # Dependent: is_number
-# Description: Return hex string. Like '#ffffff'
+# Description: `<R>`, `<G>`, `<B>` must be positive integer (0~255).
+# Description: It prints hex string. Like '#ffffff'
 # ---
 
 # Reference: https://github.com/dylanaraps/pure-bash-bible#convert-an-rgb-color-to-hex
