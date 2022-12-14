@@ -121,6 +121,8 @@ This project provides these assert libraries:
 And other additional functions:
 
 - `assert_array <actual_array_name> <expected_array_name>`. Read the [source code](../tests/fixture/asserts.bash).
+- `assert_output_text "text"`
+- `assert_output_text <<EOF text EOF`
 
 ### setup_fixture
 
