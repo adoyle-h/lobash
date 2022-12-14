@@ -6,15 +6,12 @@
 # ---
 
 l.array_include() {
-  local array_name=$1
-  local exit_code
-  eval "(( \${#${array_name}[@]} == 0 )) && exit_code=1 || true"
-  [[ -n ${exit_code:-} ]] && return "$exit_code"
+  local _exit_code_
+  eval "(( \${#${1}[@]} == 0 )) && _exit_code_=1 || true"
+  [[ -n ${_exit_code_:-} ]] && return "$_exit_code_"
 
-  local match="$2"
-  local e
-  shift
+  local _e_
 
-  eval "for e in \"\${${array_name}[@]}\"; do [[ \"\$e\" == \"\$match\" ]] && exit_code=0 && return 0; done"
-  [[ -n ${exit_code:-} ]] && return "$exit_code" || return 1
+  eval "for _e_ in \"\${${1}[@]}\"; do [[ \"\$_e_\" == \"$2\" ]] && _exit_code_=0 && return 0; done"
+  [[ -n ${_exit_code_:-} ]] && return "$_exit_code_" || return 1
 }

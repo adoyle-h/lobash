@@ -13,12 +13,12 @@
 
 l.array_reverse() {
   # shellcheck disable=2034
-  local size idx
-  size=$(eval "echo \${#$1[@]}")
+  local _size_ _idx_
+  _size_=$(eval "echo \${#$1[@]}")
 
   if (( $# > 1 )); then
-    eval "for idx in {0..$(( size - 1 ))}; do ${2}[\$(( $(( size - 1 )) - idx ))]=\${${1}[\$idx]}; done"
+    eval "for _idx_ in {0..$(( _size_ - 1 ))}; do ${2}[\$(( $(( _size_ - 1 )) - _idx_ ))]=\${${1}[\$_idx_]}; done"
   else
-    eval "for idx in {$(( size - 1 ))..0..-1}; do echo \${${1}[\$idx]}; done"
+    eval "for _idx_ in {$(( _size_ - 1 ))..0..-1}; do echo \${${1}[\$_idx_]}; done"
   fi
 }

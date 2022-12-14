@@ -6,6 +6,5 @@
 # ---
 
 l.inc() {
-  local var_name=$1
-  eval "((${var_name}+=${2:-1})) || true"
+  eval "((${1}+=${2:-1})) || true"
 }

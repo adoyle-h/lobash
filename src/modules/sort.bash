@@ -7,7 +7,7 @@
 # ---
 
 l.sort() {
-  local array_name=$1
+  local _array_name_=$1
   shift
-  eval "printf '%s\\n' \"\${${array_name}[@]:-}\" | sort \"\$@\""
+  eval "printf '%s\\n' \"\${${_array_name_}[@]:-}\" | sort \"\$@\""
 }
