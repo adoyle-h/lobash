@@ -8,12 +8,21 @@ set -o errtrace
 
 SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 readonly SCRIPT_DIR
+BUILDER=lobash-test-builder
+
+if ! docker buildx inspect $BUILDER &>/dev/null; then
+  docker buildx create --name $BUILDER --driver docker-container --bootstrap
+fi
+
+docker buildx use $BUILDER
 
 main() {
   local version="${BASHVER:-4.4}"
 
   local docker_args=(
     -t "lobash/test-bash:$version"
+    --platform 'linux/amd64,linux/arm64'
+    --push
     --build-arg "VERSION=$version"
   )
 
@@ -24,7 +33,9 @@ main() {
     )
   fi
 
-  docker build "$@" "${docker_args[@]}" - < "$SCRIPT_DIR"/test.dockerfile
+  echo "[TODO] docker buildx build $* ${docker_args[*]} - < $SCRIPT_DIR/test.dockerfile"
+
+  docker buildx build "$@" "${docker_args[@]}" - < "$SCRIPT_DIR"/test.dockerfile
 }
 
 main "$@"

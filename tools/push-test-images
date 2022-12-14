@@ -14,8 +14,8 @@ source "$SCRIPT_DIR/test-image-versions"
 
 main() {
   for version in "${TEST_IMAGE_VERIONS[@]}"; do
-    echo "docker push lobash/test-bash:${version}"
-    docker push lobash/test-bash:"${version}"
+    echo "[TODO] docker push $* lobash/test-bash:${version}"
+    docker push "$@" lobash/test-bash:"${version}"
   done
 }
 
