@@ -85,7 +85,24 @@ setup_fixture
   done
 }
 
+@test "l.seq fn 10 1 4" {
+  local expect=( 10 6 2 )
+  fn() { echo "$1"; }
+  run l.seq fn 10 1 4
+
+  assert_success
+  assert_equal "${#lines[@]}" "${#expect[@]}"
+  local i
+  for (( i = 0; i < ${#expect[@]}; i++ )); do
+    assert_line -n "$i" "${expect[$i]}"
+  done
+}
+
 @test "l.seq fn 10 01 4" {
+  if [[ ${BASH_VERSINFO[0]} == 4 ]] && [[ ${BASH_VERSINFO[1]} == 0 ]]; then
+    skip 'BASH 4.0 has bug'
+  fi
+
   local expect=( 10 06 02 )
   fn() { echo "$1"; }
   run l.seq fn 10 01 4
