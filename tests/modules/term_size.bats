@@ -2,6 +2,12 @@
 
 setup_fixture
 
+_setup_file() {
+  if [[ -n ${CI:-} ]]; then
+    skip 'CI has not terminal window'
+  fi
+}
+
 @test "l.term_size" {
   run l.term_size
   assert_equal "$?" 0
