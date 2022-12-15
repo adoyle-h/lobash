@@ -24,3 +24,7 @@ assert_output_text() {
   # shellcheck disable=2154
   assert_equal "${#lines[@]}" "$text_lines"
 }
+
+assert_lines_size() {
+  assert_equal "${#lines[@]}" "$1"
+}

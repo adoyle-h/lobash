@@ -17,8 +17,10 @@ tput cup 5 10   # Move to row 6 col 11
 pos1=()
 l.cursor_pos pos1
 tput cup 10 2    # Move to row 11 col 3
-pos2=$(l.cursor_pos)
+
+pos2=()
+l.read_array pos2 < <(l.cursor_pos)
 tput rc # Restore cursor position
 
 echo "cursor position 1: ${pos1[*]}" # print 6 11
-echo "cursor position 2: ${pos2}"    # print 11;3
+echo "cursor position 2: ${pos2[*]}" # print 11 3
