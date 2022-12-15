@@ -2,31 +2,33 @@
 <a name="{{ .Tag.Name }}"></a>
 ## {{ .Tag.Name }} ({{ datetime "2006-01-02 15:04:05 -07:00" .Tag.Date }})
 
-{{ if .Tag.Previous }}[Full Changes]({{ $.Info.RepositoryURL }}/compare/{{ .Tag.Previous.Name }}...{{ .Tag.Name }}){{ end }}
+{{ if .Tag.Previous -}}
+[Full Changes]({{ $.Info.RepositoryURL }}/compare/{{ .Tag.Previous.Name }}...{{ .Tag.Name }})
+{{ end }}
 
-{{ if .NoteGroups -}}
-{{ range .NoteGroups -}}
-### {{ .Title }}
+{{- if .NoteGroups }}
+### Breaking Changes
+{{- $noteIdx := 0 -}}
+{{- range .NoteGroups }}{{ range .Notes }}
+{{- $noteIdx = add $noteIdx 1 -}}
+{{ end }}
+{{ end }}
+Have {{ $noteIdx }} breaking changes. Check below logs with ⚠️ .
+{{ end }}
 
-{{ range .Notes -}}
-{{ .Body }}
-{{  end }}
-{{  end }}
-{{- end -}}
-
-{{ range .CommitGroups -}}
+{{- range .CommitGroups }}
 ### {{ .Title }}
 
 {{ range .Commits -}}
-- {{ if .Scope }}**{{ .Scope }}**: {{ end }}{{ .Subject }} [[{{.Hash.Short}}]({{$.Info.RepositoryURL}}/commit/{{.Hash.Long}})] 
-{{- if not (empty .Refs) }} ({{ range .Refs }}#{{ .Ref }} {{ end }}) {{- end }}
+- {{ if .Notes }}⚠️  {{ end }}{{ if .Scope }}**{{ .Scope }}**: {{ end }}
+  {{- regexReplaceAll "([^`]<.*>[^`])" .Subject "`$1`" }} ([{{.Hash.Short}}]({{$.Info.RepositoryURL}}/commit/{{.Hash.Long}})
+{{- if .Refs }} {{ range .Refs }}[#{{ .Ref }}]({{$.Info.RepositoryURL}}/issues/{{ .Ref }}) {{- end }}{{- end }})
 {{- if not (empty .Body) }}
-  ```
-  {{ regexReplaceAll "\n" .Body "\n  " | abbrev 960 }}
-  ```
+  > {{ regexReplaceAll "\n" .Body "\n  > " | abbrev 960 }}
+
+{{- end }}
 {{ end }}
-{{ end }}
-{{ end -}}
+{{- end -}}
 
 {{- if .RevertCommits -}}
 ### Reverts
