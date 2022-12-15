@@ -3,14 +3,15 @@
 setup_fixture
 
 @test "l.is_dir a file" {
-  local temp=$(mktemp)
+  local temp="$BATS_TEST_TMPDIR/normal"
+  : > "$temp"
   run l.is_dir "$temp"
   assert_failure
   assert_output ''
 }
 
 @test "l.is_dir a directory" {
-  local temp=$(mktemp -d)
+  local temp="$BATS_TEST_TMPDIR"
   run l.is_dir "$temp"
   assert_success
   assert_output ''

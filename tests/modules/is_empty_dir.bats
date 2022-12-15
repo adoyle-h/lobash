@@ -25,8 +25,8 @@ setup_fixture
 }
 
 @test "l.is_empty_dir temp_dir" {
-  local temp_dir
-  temp_dir=$(mktemp -d)
+  local temp_dir=$BATS_TEST_TMPDIR/emtpy_dir
+  mkdir "$temp_dir"
   run l.is_empty_dir "$temp_dir"
   assert_success
   assert_output ''

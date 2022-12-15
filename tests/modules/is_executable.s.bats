@@ -3,14 +3,16 @@
 setup_fixture
 
 @test "l.is_executable.s a normal file" {
-  local temp=$(mktemp)
+  local temp="$BATS_TEST_TMPDIR/normal"
+  touch "$temp"
   run l.is_executable.s "$temp"
   assert_success
   assert_output false
 }
 
 @test "l.is_executable.s a executable file" {
-  local temp=$(mktemp)
+  local temp="$BATS_TEST_TMPDIR/executable"
+  touch "$temp"
   chmod +x "$temp"
   run l.is_executable.s "$temp"
   assert_success
@@ -18,7 +20,7 @@ setup_fixture
 }
 
 @test "l.is_executable.s a directory" {
-  local temp=$(mktemp -d)
+  local temp=$BATS_TEST_TMPDIR
   run l.is_executable.s "$temp"
   assert_success
   # interesting https://superuser.com/a/168583

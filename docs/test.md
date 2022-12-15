@@ -124,7 +124,7 @@ And other additional functions:
 - `assert_output_text "text"`
 - `assert_output_text <<EOF text EOF`
 
-### setup_fixture
+#### setup_fixture
 
 You must invoke `setup_fixture` in .bats file. It will load the file [tests/fixture/setup.bash](../tests/fixture/setup.bash).
 
@@ -133,19 +133,19 @@ It will do below things,
 - Auto load test module.
 - Check current bash version. If current test module do not support current bash version, it will skip test cases.
 
-### _setup_file
+#### _setup_file
 
 Due to the `setup_file` function is defined in tests/fixture/setup.bash,
 you must not define `setup_file` function in .bats file.
 You can define `_setup_file` function, which work same to origin `setup_file`.
 
-### _setup
+#### _setup
 
 Due to the `setup` function is defined in tests/fixture/setup.bash,
 you must not define `setup` function in .bats file.
 You can define `_setup` function, which work same to origin `setup`.
 
-### run
+#### run
 
 **Notice**: With `run <cmd>`, the commands will run in subshell. So commands which modifing variables will have no effect.
 
@@ -178,6 +178,16 @@ This case will pass.
   assert_equal "${out[2]}" c
 }
 ```
+
+### Temporary Files
+
+Use below variables.
+
+- `$BATS_SUITE_TMPDIR` is a temporary directory common to all tests of a suite. Could be used to create files required by multiple tests.
+- `$BATS_FILE_TMPDIR` is a temporary directory common to all tests of a test file. Could be used to create files required by multiple tests in the same test file.
+- `$BATS_TEST_TMPDIR` is a temporary directory unique for each test. Could be used to create files required only for specific tests.
+
+https://bats-core.readthedocs.io/en/stable/writing-tests.html#special-variables
 
 ## Debug while testing
 

@@ -3,8 +3,8 @@
 setup_fixture
 
 @test "l.count_files /temp_dir with no file" {
-  local temp_dir
-  temp_dir=$(mktemp -d)
+  local temp_dir="$BATS_TEST_TMPDIR/empty_dir"
+  mkdir "$temp_dir"
 
   run l.count_files "$temp_dir"
   assert_success
@@ -12,8 +12,8 @@ setup_fixture
 }
 
 @test "l.count_files /temp_dir/ with no file" {
-  local temp_dir
-  temp_dir=$(mktemp -d)
+  local temp_dir="$BATS_TEST_TMPDIR/empty_dir2"
+  mkdir "$temp_dir"
 
   run l.count_files "$temp_dir/"
   assert_success
@@ -21,8 +21,8 @@ setup_fixture
 }
 
 @test "l.count_files /temp_dir with two files" {
-  local temp_dir
-  temp_dir=$(mktemp -d)
+  local temp_dir="$BATS_TEST_TMPDIR/dir"
+  mkdir "$temp_dir"
   touch "$temp_dir"/a
   touch "$temp_dir"/b
 
@@ -37,8 +37,8 @@ setup_fixture
 
 
 @test "l.count_files /temp_dir/a and /temp_dir/b/" {
-  local temp_dir
-  temp_dir=$(mktemp -d)
+  local temp_dir="$BATS_TEST_TMPDIR/dir2"
+  mkdir "$temp_dir"
   touch "$temp_dir"/a
   mkdir "$temp_dir"/b
 
@@ -52,10 +52,9 @@ setup_fixture
 }
 
 @test "l.count_files /temp_dir/a and /temp_dir/b/c/d/e/" {
-  local temp_dir
-  temp_dir=$(mktemp -d)
-  touch "$temp_dir"/a
+  local temp_dir="$BATS_TEST_TMPDIR/dir3"
   mkdir -p "$temp_dir"/b/c/d/e
+  touch "$temp_dir"/a
 
   run l.count_files "$temp_dir"
   assert_success
@@ -67,10 +66,9 @@ setup_fixture
 }
 
 @test "l.count_files /temp_dir/a and /temp_dir/b/c and /temp_dir/b/d" {
-  local temp_dir
-  temp_dir=$(mktemp -d)
+  local temp_dir="$BATS_TEST_TMPDIR/dir4"
+  mkdir -p "$temp_dir"/b
   touch "$temp_dir"/a
-  mkdir -p "$temp_dir"/b/
   touch "$temp_dir"/b/c
   touch "$temp_dir"/b/d
 
@@ -84,8 +82,8 @@ setup_fixture
 }
 
 @test "l.count_files /temp_dir/a and /temp_dir/b and /temp_dir/.c" {
-  local temp_dir
-  temp_dir=$(mktemp -d)
+  local temp_dir="$BATS_TEST_TMPDIR/dir5"
+  mkdir "$temp_dir"
   touch "$temp_dir"/a
   touch "$temp_dir"/b
   touch "$temp_dir"/.c
@@ -99,9 +97,9 @@ setup_fixture
   assert_output 3
 }
 
-@test "l.count_files '$temp_dir/a b'" {
-  local temp_dir
-  temp_dir=$(mktemp -d)
+@test "l.count_files 'temp_dir/a b'" {
+  local temp_dir="$BATS_TEST_TMPDIR/dir6"
+  mkdir "$temp_dir"
   touch "$temp_dir/a b"
 
   run l.count_files "$temp_dir"
