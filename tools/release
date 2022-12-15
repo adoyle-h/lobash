@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o nounset
+set -o pipefail
+set -o errtrace
+(shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
+
+usage() {
+  cat <<EOF
+Usage: $0 <major|minor|patch>
+Description: bump version and update documents for release
+EOF
+}
+
+if (( $# == 0)) || [[ $1 == -h ]] || [[ $1 == --help ]]; then
+  usage
+  exit 0
+fi
+
+case $1 in
+  major|minor|patch)
+    ;;
+  *)
+    echo "Invalid Argument: $1" >&2
+    echo ''
+    usage
+    exit 2
+    ;;
+esac
+
+SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+readonly SCRIPT_DIR
+
+"$SCRIPT_DIR/bump" "$1"
+version="$(cat "$SCRIPT_DIR/../version")"
+"$SCRIPT_DIR/gen-changelog" "$version"
+"$SCRIPT_DIR/replace-since-version" "$version"

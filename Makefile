@@ -10,10 +10,10 @@ test:
 .PHONY: bump-major bump-minor bump-patch
 
 bump-major:
-	./tools/bump major
+	./tools/release major
 
 bump-minor:
-	./tools/bump minor
+	./tools/release minor
 
 bump-patch:
-	./tools/bump patch
+	./tools/release patch

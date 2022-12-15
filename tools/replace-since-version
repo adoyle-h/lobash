@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o nounset
+set -o pipefail
+set -o errtrace
+(shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
+
+SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+readonly SCRIPT_DIR
+
+_lobash.is_gnu_sed() {
+  sed --version 2>/dev/null | grep 'GNU sed' >/dev/null
+}
+
+if _lobash.is_gnu_sed; then
+  l.sedi() { sed -i'' "$@"; }
+else
+  l.sedi() { sed -i '' "$@"; }
+fi
+export -f l.sedi
+
+version=$1
+ag '# Since: [^0-9]' "$SCRIPT_DIR"/../src/modules/ -l | tee | \
+  xargs -n 1 bash -c "l.sedi 's/# Since: .*/# Since: $version/' \"\$@\"" _

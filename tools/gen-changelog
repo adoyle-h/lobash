@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+# vim: set ft=sh
+
+set -o errexit
+set -o nounset
+set -o pipefail
+set -o errtrace
+(shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
+
+SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+readonly SCRIPT_DIR
+changelog=$SCRIPT_DIR/../CHANGELOG.md
+
+_lobash.is_gnu_sed() {
+  sed --version 2>/dev/null | grep 'GNU sed' >/dev/null
+}
+
+if _lobash.is_gnu_sed; then
+  l.sedi() { sed -i "$@"; }
+else
+  l.sedi() { sed -i '' "$@"; }
+fi
+
+update_changelog() {
+  local next_ver=$1
+
+  local line_num
+  line_num=$(grep -nE '^## \[Unreleased\]' "$SCRIPT_DIR/../CHANGELOG.md" | sed -E 's/^([0-9]+):.+/\1/')
+  line_num=$(( line_num + 2 ))
+
+  git-chglog --next-tag "v$next_ver" | \
+    l.sedi "$line_num r /dev/stdin" "$changelog"
+
+  echo "Updated ChangeLog: $changelog"
+}
+
+if [[ ! -f "$changelog" ]]; then
+  git-chglog > "$changelog"
+  echo "Created ChangeLog: $changelog"
+  return 0
+else
+  update_changelog "$@"
+fi
