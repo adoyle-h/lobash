@@ -1,6 +1,6 @@
 # ---
 # Category: Array
-# Since: next
+# Since: 0.6.0
 # Usage: l.head <count> < "file"
 # Description: Display first lines from pipe
 # ---

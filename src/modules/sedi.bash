@@ -1,6 +1,6 @@
 # ---
 # Category: Util
-# Since: next
+# Since: 0.6.0
 # Usage: l.sedi <sed-command>... <file>
 # Description: Wrap "sed -i". Compatible with GNU sed and BSD sed.
 # Description: The usage refer to `man sed`.

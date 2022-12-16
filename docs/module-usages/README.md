@@ -1,6 +1,6 @@
 # Module Usages
 
-15 Categories, 131 Modules, 748 Test Cases.
+15 Categories, 139 Modules, 779 Test Cases.
 
 Each module provides only one function which naming prefixed with `l.` by default.
 
@@ -26,10 +26,14 @@ Most Lobash modules support Bash 4.0+ except below modules.
   - [array_include](./array.md#array_include)
   - [array_include.s](./array.md#array_includes)
   - [array_reverse](./array.md#array_reverse)
+  - [each](./array.md#each)
+  - [each.p](./array.md#eachp)
   - [first](./array.md#first)
+  - [head](./array.md#head)
   - [keys](./array.md#keys)
   - [last](./array.md#last)
   - [read_array](./array.md#read_array)
+  - [seq](./array.md#seq)
   - [sort](./array.md#sort)
   - [union_array](./array.md#union_array)
 - [Color](./color.md)
@@ -88,6 +92,7 @@ Most Lobash modules support Bash 4.0+ except below modules.
   - [str_include.s](./condition.md#str_includes)
 - [Console](./console.md)
   - [echo](./console.md#echo)
+  - [echo.p](./console.md#echop)
   - [echo_array](./console.md#echo_array)
   - [echo_screen](./console.md#echo_screen)
 - [Debug](./debug.md)
@@ -117,6 +122,7 @@ Most Lobash modules support Bash 4.0+ except below modules.
   - [choose](./prompt.md#choose)
 - [String](./string.md)
   - [count_lines.p](./string.md#count_linesp)
+  - [extract](./string.md#extract)
   - [join](./string.md#join)
   - [lower_case](./string.md#lower_case)
   - [lower_case.p](./string.md#lower_casep)
@@ -150,6 +156,7 @@ Most Lobash modules support Bash 4.0+ except below modules.
   - [cursor_col](./terminal.md#cursor_col)
   - [cursor_pos](./terminal.md#cursor_pos)
   - [cursor_row](./terminal.md#cursor_row)
+  - [term_size](./terminal.md#term_size)
 - [Time](./time.md)
   - [date](./time.md#date)
   - [now](./time.md#now)
@@ -159,6 +166,7 @@ Most Lobash modules support Bash 4.0+ except below modules.
   - [compose](./util.md#compose)
   - [parse_params](./util.md#parse_params)
   - [repeat](./util.md#repeat)
+  - [sedi](./util.md#sedi)
   - [trap_error](./util.md#trap_error)
   - [with_ifs](./util.md#with_ifs)
 - [Variable](./variable.md)

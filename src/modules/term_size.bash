@@ -1,6 +1,6 @@
 # ---
 # Category: Terminal
-# Since: next
+# Since: 0.6.0
 # Usage: l.term_size
 # Description: Print the terminal size. Format: `$lines\n$columns\n`
 # Description: You can use `l.read_array term < <(l.term_size)` to create an array.

@@ -1,6 +1,6 @@
 # ---
 # Category: String
-# Since: next
+# Since: 0.6.0
 # Usage: l.extract <opening_marker> <closing_marker> < "<file>"
 # Usage: printf 'text\n' | l.extract <from> <to>
 # Description: Extract strings between `<opening_marker>` and `<closing_marker>`.

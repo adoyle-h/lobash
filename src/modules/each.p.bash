@@ -1,6 +1,6 @@
 # ---
 # Category: Array
-# Since: next
+# Since: 0.6.0
 # Usage: printf '1\n2\n' | l.each.p <fn>
 # Description: Iterates over elements from pipe and invokes function with each element.
 # Description: The function is invoked with two arguments: (value, index).

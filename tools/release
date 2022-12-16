@@ -36,3 +36,4 @@ readonly SCRIPT_DIR
 version="$(cat "$SCRIPT_DIR/../version")"
 "$SCRIPT_DIR/gen-changelog" "$version"
 "$SCRIPT_DIR/replace-since-version" "$version"
+"$SCRIPT_DIR/gen"

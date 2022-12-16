@@ -5,6 +5,7 @@
 ## TOC
 
 - [count_lines.p](#count_linesp)
+- [extract](#extract)
 - [join](#join)
 - [lower_case](#lower_case)
 - [lower_case.p](#lower_casep)
@@ -45,6 +46,17 @@
 - Test Cases: [tests/modules/count_lines.p.bats](../../tests/modules/count_lines.p.bats)
 - Source Code: [src/modules/count_lines.p.bash](../../src/modules/count_lines.p.bash)
 - Example: [example/modules/count_lines](../../example/modules/count_lines)
+
+### extract
+
+- Usage:
+  - `l.extract <opening_marker> <closing_marker> < "<file>"`
+  - `printf 'text\n' | l.extract <from> <to>`
+- Description: Extract strings between `<opening_marker>` and `<closing_marker>`.
+- Since: 0.6.0
+- Bash: 4.0+
+- Test Cases: [tests/modules/extract.bats](../../tests/modules/extract.bats)
+- Source Code: [src/modules/extract.bash](../../src/modules/extract.bash)
 
 ### join
 

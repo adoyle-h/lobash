@@ -12,7 +12,7 @@
 ### hex_to_rgb
 
 - Usage: `l.hex_to_rgb <HEX>`
-- Description: Return a list contains `<R> <G> <B>`.
+- Description: It prints `$r\n$g\n$b\n`.
 - Since: 0.1.0
 - Bash: 4.0+
 - Test Cases: [tests/modules/hex_to_rgb.bats](../../tests/modules/hex_to_rgb.bats)
@@ -21,7 +21,9 @@
 ### rgb_to_hex
 
 - Usage: `l.rgb_to_hex <R> <G> <B>`
-- Description: Return hex string. Like '#ffffff'
+- Description:
+  - `<R>`, `<G>`, `<B>` must be positive integer (0~255).
+  - It prints hex string. Like '#ffffff'
 - Dependent: [`is_number`](./condition.md#is_number)
 - Since: 0.1.0
 - Bash: 4.0+

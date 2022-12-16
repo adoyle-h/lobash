@@ -8,6 +8,7 @@
 - [compose](#compose)
 - [parse_params](#parse_params)
 - [repeat](#repeat)
+- [sedi](#sedi)
 - [trap_error](#trap_error)
 - [with_ifs](#with_ifs)
 
@@ -57,6 +58,17 @@
 - Bash: 4.0+
 - Test Cases: [tests/modules/repeat.bats](../../tests/modules/repeat.bats)
 - Source Code: [src/modules/repeat.bash](../../src/modules/repeat.bash)
+
+### sedi
+
+- Usage: `l.sedi <sed-command>... <file>`
+- Description:
+  - Wrap "sed -i". Compatible with GNU sed and BSD sed.
+  - The usage refer to `man sed`.
+- Since: 0.6.0
+- Bash: 4.0+
+- Test Cases: [tests/modules/sedi.bats](../../tests/modules/sedi.bats)
+- Source Code: [src/modules/sedi.bash](../../src/modules/sedi.bash)
 
 ### trap_error
 

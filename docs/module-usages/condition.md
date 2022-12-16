@@ -202,7 +202,7 @@
 - Description:
   - Test `<path>` is whether a empty directory or not. If directory not found, it returns false.
   - Return 0 (true) or 1 (false). This function should never throw exception error.
-- Since: next-patch
+- Since: 0.6.0
 - Bash: 4.0+
 - Test Cases: [tests/modules/is_empty_dir.bats](../../tests/modules/is_empty_dir.bats)
 - Source Code: [src/modules/is_empty_dir.bash](../../src/modules/is_empty_dir.bash)

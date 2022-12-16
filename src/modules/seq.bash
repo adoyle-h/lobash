@@ -1,6 +1,6 @@
 # ---
 # Category: Array
-# Since: next
+# Since: 0.6.0
 # Usage: l.seq <fn> <start> <end> [<step>=1]
 # Description: Same to `for i in {<start>..<end>..<step>}; do <fn> "$i"; done`
 # Description: `<step>` must be positive integer. And `<end>` can be less than `<start>`.

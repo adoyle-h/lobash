@@ -1,9 +1,13 @@
 array_include
 array_include.s
 array_reverse
+each
+each.p
 first
+head
 keys
 last
 read_array
+seq
 sort
 union_array

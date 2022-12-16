@@ -5,6 +5,7 @@
 ## TOC
 
 - [echo](#echo)
+- [echo.p](#echop)
 - [echo_array](#echo_array)
 - [echo_screen](#echo_screen)
 
@@ -17,10 +18,20 @@
   - A easy and safe way to print string. Not support any options.
   - The builtin echo will get unexpected result while execute `b=( -n 123 ); echo "${b[@]}"`.
   - See https://github.com/anordal/shellharden/blob/master/how_to_do_things_safely_in_bash.md#echo--printf
+  - It can be used as iteratee, `l.seq l.echo 01 100`
 - Since: 0.1.0
 - Bash: 4.0+
 - Test Cases: [tests/modules/echo.bats](../../tests/modules/echo.bats)
 - Source Code: [src/modules/echo.bash](../../src/modules/echo.bash)
+
+### echo.p
+
+- Usage: `printf '%s\n' {01..10} | l.echo.p`
+- Description: Just print each line from pipe. It can be used for functional programming.
+- Since: 0.6.0
+- Bash: 4.0+
+- Test Cases: [tests/modules/echo.p.bats](../../tests/modules/echo.p.bats)
+- Source Code: [src/modules/echo.p.bash](../../src/modules/echo.p.bash)
 
 ### echo_array
 

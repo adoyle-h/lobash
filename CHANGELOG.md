@@ -10,6 +10,59 @@ The versions follow the rules of [Semantic Versioning 2.0.0](http://semver.org/s
 
 [Full Changes](https://github.com/adoyle-h/lobash/compare/master...develop)
 
+<a name="v0.6.0"></a>
+## v0.6.0 (2022-12-15 02:35:30 +08:00)
+
+[Full Changes](https://github.com/adoyle-h/lobash/compare/v0.5.1...v0.6.0)
+
+### Breaking Changes
+
+Have 1 breaking changes. Check below logs with ⚠️ .
+
+### New Features
+
+- add l.head ([24f2dad](https://github.com/adoyle-h/lobash/commit/24f2dad1f5f412b41e8a4cceaecc52fade49fc00))
+- add l.seq ([06bb8f3](https://github.com/adoyle-h/lobash/commit/06bb8f3c9e465aa2618bab3a44344455d944303e))
+- add l.echo.p ([331b97b](https://github.com/adoyle-h/lobash/commit/331b97b016114baf66afff53cd01b0f7fcc820a6))
+- add l.extract ([5a0f7fb](https://github.com/adoyle-h/lobash/commit/5a0f7fb839dddb9102e4ae7c9dd61b8886498b9f))
+- l.last support "`<count>`" parameter, which defaults to 1 ([4be3317](https://github.com/adoyle-h/lobash/commit/4be3317bb20d17eada54cd5cdece0614b4e42c9e))
+- l.first support "`<count>`" parameter, which defaults to 1 ([ded7bb8](https://github.com/adoyle-h/lobash/commit/ded7bb8ca156719f50fc41d07107422be58a66f7))
+- add l.term_size ([9d2518a](https://github.com/adoyle-h/lobash/commit/9d2518aab6379cca5cd5afc12f1814807b31852e))
+- add l.each.p ([afbed00](https://github.com/adoyle-h/lobash/commit/afbed00304d702b7ba3e0fd4ab72ee8979627fa9))
+- add l.sedi ([46b7910](https://github.com/adoyle-h/lobash/commit/46b7910031262a01770ee4cf9fccf48603fc1b53))
+- add l.each ([d3338cc](https://github.com/adoyle-h/lobash/commit/d3338cc7db270b354c42cb8512693c72af4fa9bc))
+- add l.is_empty_dir ([cfa1474](https://github.com/adoyle-h/lobash/commit/cfa1474e6e38476f7faeff114a46982befe0632c))
+- add l.array_reverse ([dee8361](https://github.com/adoyle-h/lobash/commit/dee836173bf4b2a3713ecba2ecea3cffc72f6ff7))
+- add l.read_array ([2ac330b](https://github.com/adoyle-h/lobash/commit/2ac330bdd67d81806a0f85c591da4783b09eb65b))
+- **l.cursor_pos**: support variable parameter ([019aa5c](https://github.com/adoyle-h/lobash/commit/019aa5c1002b8a81123b81bae317de173b711a68))
+  > now it supports `l.cursor_pos <array_name>`
+- **l.split**: support "l.split `<string>` -" for subshell ([3852be5](https://github.com/adoyle-h/lobash/commit/3852be51262321d9b37e74e8168ccd917e1f2177))
+  > `l.split <string> <output_array_name>` not works in subshell.
+  > So use `l.split <string> -` to print results to stdout in subshell.
+
+### Bug Fixes
+
+- l.first and l.last, when array is emtpy, do not echo '' ([7d4874e](https://github.com/adoyle-h/lobash/commit/7d4874e298e01971bd1b2b6e7f0bf3eac84b6d32))
+- If refer array name outside function, the local variable names should prevent duplicates ([37c38fe](https://github.com/adoyle-h/lobash/commit/37c38fee8d6c7d9358e620bfb6ccdaa8680820ea))
+- variables defined in "for" and "while" should be local ([0b5c1de](https://github.com/adoyle-h/lobash/commit/0b5c1de512c8e8ccaddbfdcdf513ffd11f5920cb))
+  > Fix modules: benchmark, compose, keys, parse_params, trace_stack
+- ⚠️  **l.cursor_pos**: Change the output format of l.cursor_pos ([9ed1ae5](https://github.com/adoyle-h/lobash/commit/9ed1ae56abc010f5b09fb3031180da76f8477a48))
+  > Breaking Change:
+  > 
+  > Change the output format of l.cursor_pos from `row;column` to `$row\n$column\n`
+
+### Document Changes
+
+- update module descriptions for l.hex_to_rgb and l.rgb_to_hex ([6e3983b](https://github.com/adoyle-h/lobash/commit/6e3983bb6a24338ffe87741675f784ab2d48bac8))
+- add how to write test case ([96b6ac2](https://github.com/adoyle-h/lobash/commit/96b6ac26c722056ecfd352fb1fff5f78611d6169))
+- fix dead and wrong links ([28ae283](https://github.com/adoyle-h/lobash/commit/28ae283e3ac6ca8aef226cbf03a6d8938ee096e9) [#6](https://github.com/adoyle-h/lobash/issues/6))
+  > - add "make check-links" to check daed links
+  > - Remove non-existed Test Cases links
+  > 
+  > Fix [#6](https://github.com/adoyle-h/lobash/issues/6)
+- update git-message rules ([133f9a3](https://github.com/adoyle-h/lobash/commit/133f9a3196f258376c51fbd51e8424149b24c33c))
+- **l.date**: update description ([3668155](https://github.com/adoyle-h/lobash/commit/3668155eae82be344c54cc3992aaa42ddb0fd154))
+
 <a name="v0.5.1"></a>
 ## v0.5.1 (2022-11-26 00:30:46 +08:00)
 

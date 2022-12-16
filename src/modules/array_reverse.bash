@@ -1,6 +1,6 @@
 # ---
 # Category: Array
-# Since: next
+# Since: 0.6.0
 # Usage: l.array_reverse <input_array_name> <output_array_name>
 # Usage: l.read_array <output_array_name> < <(l.array_reverse <input_array_name>)
 # Description: Reverse array `<input_array_name>`.

@@ -15,10 +15,14 @@ PREFIX: l.
   - [ ] array_include
   - [ ] array_include.s
   - [ ] array_reverse
+  - [ ] each
+  - [ ] each.p
   - [ ] first
+  - [ ] head
   - [ ] keys
   - [ ] last
   - [ ] read_array
+  - [ ] seq
   - [ ] sort
   - [ ] union_array
 
@@ -80,6 +84,7 @@ PREFIX: l.
 
 - [ ]   Console
   - [ ] echo
+  - [ ] echo.p
   - [ ] echo_array
   - [ ] echo_screen
 
@@ -114,6 +119,7 @@ PREFIX: l.
 
 - [ ]   String
   - [ ] count_lines.p
+  - [ ] extract
   - [ ] join
   - [ ] lower_case
   - [ ] lower_case.p
@@ -149,6 +155,7 @@ PREFIX: l.
   - [ ] cursor_col
   - [ ] cursor_pos
   - [ ] cursor_row
+  - [ ] term_size
 
 - [ ]   Time
   - [ ] date
@@ -160,6 +167,7 @@ PREFIX: l.
   - [ ] compose
   - [ ] parse_params
   - [ ] repeat
+  - [ ] sedi
   - [ ] trap_error
   - [ ] with_ifs
 

@@ -2,5 +2,6 @@ benchmark
 compose
 parse_params
 repeat
+sedi
 trap_error
 with_ifs

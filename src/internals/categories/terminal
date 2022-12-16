@@ -1,3 +1,4 @@
 cursor_col
 cursor_pos
 cursor_row
+term_size
