@@ -65,6 +65,7 @@ Lobash helps to reduce the mental burden on developers.
 ## CI Status
 
 - [develop branch](https://github.com/adoyle-h/lobash/tree/develop): [![CI Status](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml/badge.svg?branch=develop)](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml?query=branch%3Adevelop)
+- [v0.6.0](https://github.com/adoyle-h/lobash/tree/v0.6.0): [![CI Status](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml/badge.svg?branch=v0.6.0)](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml?query=branch%3Av0.6.0)
 - [v0.5.1](https://github.com/adoyle-h/lobash/tree/v0.5.1): [![CI Status](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml/badge.svg?branch=v0.5.1)](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml?query=branch%3Av0.5.1)
 - [v0.5.0](https://github.com/adoyle-h/lobash/tree/v0.5.0): [![CI Status](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml/badge.svg?branch=v0.5.0)](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml?query=branch%3Av0.5.0)
 
@@ -132,7 +133,7 @@ Make sure below dependencies have been installed in your system.
 Available Lobash versions refer to [Git Tags](https://github.com/adoyle-h/lobash/tags) which named like "vX.Y.Z".
 
 ```sh
-VERSION=v0.5.1  # or VERSION=develop, but develop branch is unstable.
+VERSION=v0.6.0  # or VERSION=develop, but develop branch is unstable.
 # Download source codes
 git clone --depth 1 --branch $VERSION https://github.com/adoyle-h/lobash.git
 cd lobash
