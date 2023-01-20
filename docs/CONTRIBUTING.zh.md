@@ -16,13 +16,19 @@
 ### 禁止 +1
 
 不要发重复或无用的内容，比如 `+1`，`哈哈`，`附议`，`我希望这问题能够得到修复`，`这问题啥时候修好？`。
+
 这样的评论无助于问题的解决。如果项目管理员删除了此类评论，请别生气。
+
 请[贴 emoji 标签反馈到评论上](https://github.blog/2016-03-10-add-reactions-to-pull-requests-issues-and-comments/)。
 
 ### 尽量用英文
 
-你可以使用中文反馈意见。但希望你尽可能使用英文，不要中英文混杂，而是写下完整的英文语句。
+对于非英语母语的人，请尽可能使用英语交流。
+推荐使用 [DeepL Translator](https://www.deepl.com/translator)。
+
+你也可以使用中文反馈意见。不过希望你尽可能使用英文。
 因为我们处于国际社区，英文更通用，方便外国人阅读理解你的意见。
+注意不要中英文混杂（专业词汇除外），请写完整的英文或中文语句。
 
 ## 创建 Pull Request 之前
 
@@ -42,18 +48,18 @@
 
 所有 PR 必须遵守以下条件。
 
-- [ ] 一个模块一个公共函数。
+- [ ] Git message 必须[有效](./git-message.md)。
 - [ ] 代码风格检查通过。
 - [ ] 测试案例全部通过，无 error。
-- [ ] 运行 `./tool/gen` 生成文档。
 - [ ] 每个 PR 只有一个 Git commit。
-- [ ] Git message 必须[有效](./git-message.md)。
+- [ ] 所有 git commit 都已签署 [DCO](./dco.md)。
+- [ ] 一个模块一个公共函数。
+- [ ] 运行 `./tool/gen` 生成文档。
 <!-- - [ ] 运行 `./tools/check_module <path-to-your-module>` 无措。 (当前这个脚本无效) -->
 
 
 <!-- Links -->
 
-[tags]: https://github.com/adoyle-h/lobash/tags
 [issue]: https://github.com/adoyle-h/lobash/issues
 [discussion]: https://github.com/adoyle-h/lobash/discussions
 [PR]: https://github.com/adoyle-h/lobash/pulls

@@ -16,12 +16,15 @@
 ### No +1
 
 Do not post duplicated and useless comments like `+1`, `LOL`, `Me too`, `I too would like to see this issue fixed.`, `When is this issue going to be fixed?`.
+
 Such comments do not help fix issues. Please don't be offended if project admins delete such comments.
+
 Please [react to comments with emoji][github-reaction] instead of.
 
 ### Use English AMAP
 
-Please communicate in English as much as possible.
+For non-native English speakers, please communicate in English as much as possible.
+It is recommended to use [DeepL Translator](https://www.deepl.com/translator).
 
 ## Before making a Pull Request
 
@@ -41,18 +44,18 @@ Read below links before making any contributions.
 
 All PRs should follow below conditions.
 
-- [ ] One module one public function.
+- [ ] Git message is [valid](./git-message.md).
 - [ ] Code style lint pass.
 - [ ] Test cases all passed without errors.
-- [ ] Run `./tool/gen` to generate documents.
 - [ ] Squash one Git commit per PR.
-- [ ] Git message is [valid](./git-message.md).
+- [ ] All git commits follow the [DCO](./dco.md).
+- [ ] One module one public function.
+- [ ] Run `./tool/gen` to generate documents.
 <!-- - [ ] Run `./tools/check_module <path-to-your-module>` without error. (Currently this script not work) -->
 
 
 <!-- Links -->
 
-[tags]: https://github.com/adoyle-h/lobash/tags
 [issue]: https://github.com/adoyle-h/lobash/issues
 [discussion]: https://github.com/adoyle-h/lobash/discussions
 [PR]: https://github.com/adoyle-h/lobash/pulls
