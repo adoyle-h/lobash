@@ -13,3 +13,7 @@ trim_trailing_whitespace = false
 
 [Makefile]
 indent_style = tab
+
+[{Dockerfile,Dockerfile.*,*.dockerfile}]
+indent_style = space
+indent_size = 2
