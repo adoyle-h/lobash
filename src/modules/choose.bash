@@ -28,8 +28,8 @@ l.choose() {
   fi
 
   if [[ $num -gt ${#items[@]} ]] || [[ $num -lt 1 ]]; then
-   printf '%s\n' "Invalid choose number: $num" >&2
-   return 4
+    printf '%s\n' "Invalid choose number: $num" >&2
+    return 4
   fi
 
   printf '%s\n' "${items[$((num - 1))]}"
