@@ -1,6 +1,6 @@
 # Git Commit Message Style
 
-Generally follows the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0-beta.4/).
+Generally follows the [Conventional Commits v1.0.0](https://www.conventionalcommits.org/en/v1.0.0/).
 
 ## Commit Message Format
 

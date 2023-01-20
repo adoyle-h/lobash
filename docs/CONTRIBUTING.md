@@ -1,8 +1,10 @@
 # Contributing
 
+中文文档 [./CONTRIBUTING.zh.md](./CONTRIBUTING.zh.md)
+
 ## Any comments and suggestions are always welcome
 
-**Before open an issue/discussion/PR, You should search related issues/discussions/PRs first** for avoiding to create duplicated links.
+**Before opening new Issue/Discussion/PR, you should search related [Issues][issue]/[Discussions][discussion]/[PRs][PR] first** for avoiding to create duplicated links.
 
 - For new feature request, open a [discussion][], describe your demand concisely and clearly.
 - For new feature submit, open a [PR][], describe your demand and design concisely and clearly.
@@ -11,13 +13,20 @@
 - For question and suggestion, open a [discussion][].
 - For anything not mentioned above, open a [discussion][].
 
-Do not post duplicated and useless contents like `+1`, `LOL`. React to comments with emoji instead of.
+### No +1
 
-你可以使用中文反馈意见。但希望你尽可能使用英文，不要中英文混杂，而是写下完整的英文语句。
-因为我们处于国际社区，英文更通用，方便外国人阅读理解你的意见。
-(Please communicate in English as much as possible)
+Do not post duplicated and useless comments like `+1`, `LOL`, `Me too`, `I too would like to see this issue fixed.`, `When is this issue going to be fixed?`.
 
-## Before make a Pull Request
+Such comments do not help fix issues. Please don't be offended if project admins delete such comments.
+
+Please [react to comments with emoji][github-reaction] instead of.
+
+### Use English AMAP
+
+For non-native English speakers, please communicate in English as much as possible.
+It is recommended to use [DeepL Translator](https://www.deepl.com/translator).
+
+## Before making a Pull Request
 
 Read below links before making any contributions.
 
@@ -35,18 +44,19 @@ Read below links before making any contributions.
 
 All PRs should follow below conditions.
 
-- [ ] One module one public function.
-- [ ] Code style lint pass.
-- [ ] Test cases without errors and skips.
-- [ ] Run `./tool/gen` to generate documents.
-- [ ] Squash one Git commit per PR.
 - [ ] Git message is [valid](./git-message.md).
-- [ ] Run `./tools/check_module <path-to-your-module>` without error. (Currently this script not work)
+- [ ] Code style lint pass.
+- [ ] Test cases all passed without errors.
+- [ ] Squash one Git commit per PR.
+- [ ] All git commits follow the [DCO](./dco.md).
+- [ ] One module one public function.
+- [ ] Run `./tool/gen` to generate documents.
+<!-- - [ ] Run `./tools/check_module <path-to-your-module>` without error. (Currently this script not work) -->
 
 
 <!-- Links -->
 
-[tags]: https://github.com/adoyle-h/lobash/tags
 [issue]: https://github.com/adoyle-h/lobash/issues
 [discussion]: https://github.com/adoyle-h/lobash/discussions
 [PR]: https://github.com/adoyle-h/lobash/pulls
+[github-reaction]: https://github.blog/2016-03-10-add-reactions-to-pull-requests-issues-and-comments/

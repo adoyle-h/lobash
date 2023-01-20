@@ -2,13 +2,8 @@
 
 ## First of all
 
-- Your IDE must support [editorconfig](http://editorconfig.org/) and recognize the `.editorconfig` file in project.
+- Your IDE must support [editorconfig](http://editorconfig.org/) and recognize the [`.editorconfig`](./.editorconfig) file in project.
 - [Shellcheck](https://github.com/koalaman/shellcheck) must be installed, and your IDE supports it.
-
-## Indentation
-
-- `.bats`, `.bash` files: Indent 2 spaces. No tabs.
-- Dockerfile: Indent 4 spaces. No tabs.
 
 ## File naming
 

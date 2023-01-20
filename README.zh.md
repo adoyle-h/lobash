@@ -255,27 +255,11 @@ lobash-gen -c ./config
 
 ## 提建议，修 Bug，做贡献
 
-欢迎提供任何建议或者意见。
-
-**在开 issue/discussion/PR 之前，你必须先搜索相关 [issue][]/[discussion][]/[PR][]**，避免创建重复的链接。
-
-- 请求新功能。请开一个 [discussion][]，简短且清晰地描述你的需求。
-- 提交新功能。请开一个 [PR][]，简短且清晰地描述你的需求和设计。
-- 报告 BUG。请开一个 [issue][]，简短且清晰地描述你发现的问题。
-- 修复 BUG。请开一个 [PR][]，简短且清晰地描述你修了什么。
-- 提问和建议。请开一个 [discussion][]。
-- 其他上面未提到的内容，请开一个 [discussion][] 来讨论。
-
-不要发重复或无用的内容，比如 `+1`，`哈哈`。请贴 emoji 标签反馈到评论上。
-
-你可以使用中文反馈意见。但希望你尽可能使用英文，不要中英文混杂，而是写下完整的英文语句。
-因为我们处于国际社区，英文更通用，方便外国人阅读理解你的意见。
-
-请阅读[如何为本项目贡献](./docs/CONTRIBUTING.md)。
+在创建新的 Issue/Discussion/PR，以及发表评论之前，请先阅读 [./docs/CONTRIBUTING.zh.md](./docs/CONTRIBUTING.zh.md)。
 
 ## 版权声明
 
-Copyright 2019-2022 ADoyle (adoyle.h@gmail.com) Some Rights Reserved.
+Copyright 2019-2023 ADoyle (adoyle.h@gmail.com) Some Rights Reserved.
 The project is licensed under the **Apache License Version 2.0**.
 
 Read the [LICENSE][] file for the specific language governing permissions and limitations under the License.
