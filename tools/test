@@ -12,7 +12,7 @@ readonly SCRIPT_DIR
 BASH_BIN_PATH=$SCRIPT_DIR/../tmp/bash-$BASHVER/bin
 if [[ ! -f $BASH_BIN_PATH/bash ]]; then
   echo "Not found $BASH_BIN_PATH/bash. To install Bash $BASHVER"
-   BASHVER="$BASHVER" "$SCRIPT_DIR"/../tools/install-bash
+  BASHVER="$BASHVER" "$SCRIPT_DIR"/../tools/install-bash
 fi
 
 PATH=$BASH_BIN_PATH:$PATH
