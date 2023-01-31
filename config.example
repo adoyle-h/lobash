@@ -3,6 +3,19 @@
 BASH_MIN_VERSION: 4.4
 PREFIX: l.
 
+PROTECTED_PATHS: (
+  # Linux
+  '/' '/bin' '/boot' '/dev' '/etc' '/home' '/initrd' '/lib' '/lib32' '/lib64' '/proc'
+  '/root' '/sbin' '/sys' '/usr' '/usr/bin' '/usr/include' '/usr/lib' '/usr/local'
+  '/usr/local/bin' '/usr/local/include' '/usr/local/sbin' '/usr/local/share' '/usr/sbin'
+  '/usr/share' '/usr/src' '/var'
+
+  # MacOS
+  '/Applications' '/cores' '/Library' '/System' '/System/Applications' '/System/Developer'
+  '/System/DriverKit' '/System/iOSSupport' '/System/Library' '/System/Volumes' '/Users'
+  '/Users/Shared' '/Volumes' '/private'
+)
+
 # Select modules or categories to export
 # - [ ]  Unselected
 # - [x]  Selected

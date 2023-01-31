@@ -8,6 +8,7 @@
 # shellcheck source=./error.bash
 # shellcheck source=./import.bash
 # shellcheck source=./is_tty_available.bash
+# shellcheck source=./rm.bash
 _LOBASH_BASIC_INTERNALS=(
   detect_os
   consts
@@ -21,6 +22,7 @@ _LOBASH_BASIC_INTERNALS=(
   with_ifs
   is_tty_available
   is_gnu_sed
+  rm
 )
 
 # for build Lobash
@@ -35,4 +37,5 @@ _LOBASH_DIST_INTERNALS=(
   with_ifs
   is_tty_available
   is_gnu_sed
+  rm
 )

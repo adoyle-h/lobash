@@ -24,3 +24,10 @@ some internal functions will be wrong. Because `_LOBASH_MOD_META_CACHE` variable
 `declare -A LOBASH_MOD_META_CACHE` before `_lobash.import_internals module_meta`.
 
 `declare -g` can solve this problem, but it is not supported in Bash 4.1 and lower version.
+
+## Add new internal modules
+
+1. Create file in `src/internals/name.bash`
+2. Edit `src/internals/basic_internals.bash`
+  1. Append internal module name into `_LOBASH_BASIC_INTERNALS`
+  2. (Optional) Append internal module name into `_LOBASH_DIST_INTERNALS`
