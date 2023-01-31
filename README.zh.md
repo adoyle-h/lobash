@@ -255,7 +255,7 @@ lobash-gen -c ./config
 
 ## 提建议，修 Bug，做贡献
 
-在创建新的 Issue/Discussion/PR，以及发表评论之前，请先阅读 [./docs/CONTRIBUTING.zh.md](./docs/CONTRIBUTING.zh.md)。
+**在创建新的 Issue/Discussion/PR，以及发表评论之前**，请先阅读 [./docs/CONTRIBUTING.zh.md](./docs/CONTRIBUTING.zh.md)。
 
 ## 版权声明
 
@@ -272,11 +272,5 @@ Read the [NOTICE][] file distributed with this work for additional information r
 [LICENSE]: ./LICENSE
 [NOTICE]: ./NOTICE
 [tags]: https://github.com/adoyle-h/lobash/tags
-[issue]: https://github.com/adoyle-h/lobash/issues
-[discussion]: https://github.com/adoyle-h/lobash/discussions
-[PR]: https://github.com/adoyle-h/lobash/pulls
 
-[Master Branch]: https://github.com/adoyle-h/lobash/tree/master
-[Develop Branch]: https://github.com/adoyle-h/lobash/tree/develop
-[travis repo]: https://travis-ci.com/adoyle-h/lobash
 [module-usages]: ./docs/module-usages/README.md

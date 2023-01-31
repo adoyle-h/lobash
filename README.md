@@ -257,11 +257,11 @@ lobash-gen -c ./config
 
 ## Suggestion, Bug Reporting, Contributing
 
-Please read [./docs/CONTRIBUTING.md](./docs/CONTRIBUTING.md) before opening new Issue/Discussion/PR and posting any comments.
+**Before opening new Issue/Discussion/PR and posting any comments**, please read [./docs/CONTRIBUTING.md](./docs/CONTRIBUTING.md).
 
 ## Copyright and License
 
-Copyright 2019-2023 ADoyle (adoyle.h@gmail.com) Some Rights Reserved.
+Copyright 2019-2023 ADoyle (adoyle.h@gmail.com). Some Rights Reserved.
 The project is licensed under the **Apache License Version 2.0**.
 
 Read the [LICENSE][] file for the specific language governing permissions and limitations under the License.
@@ -274,11 +274,5 @@ Read the [NOTICE][] file distributed with this work for additional information r
 [LICENSE]: ./LICENSE
 [NOTICE]: ./NOTICE
 [tags]: https://github.com/adoyle-h/lobash/tags
-[issue]: https://github.com/adoyle-h/lobash/issues
-[discussion]: https://github.com/adoyle-h/lobash/discussions
-[PR]: https://github.com/adoyle-h/lobash/pulls
 
-[Master Branch]: https://github.com/adoyle-h/lobash/tree/master
-[Develop Branch]: https://github.com/adoyle-h/lobash/tree/develop
-[travis repo]: https://travis-ci.com/adoyle-h/lobash
 [module-usages]: ./docs/module-usages/README.md

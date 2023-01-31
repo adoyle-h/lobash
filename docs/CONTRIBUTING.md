@@ -4,7 +4,7 @@
 
 ## Any comments and suggestions are always welcome
 
-**Before opening new Issue/Discussion/PR, you should search related [Issues][issue]/[Discussions][discussion]/[PRs][PR] first** for avoiding to create duplicated links.
+**Before opening new Issue/Discussion/PR, you should search the existing to avoid duplicates.**
 
 - For new feature request, open a [discussion][], describe your demand concisely and clearly.
 - For new feature submit, open a [PR][], describe your demand and design concisely and clearly.
@@ -21,18 +21,16 @@ Such comments do not help fix issues. Please don't be offended if project admins
 
 Please [react to comments with emoji][github-reaction] instead of.
 
-### Use English AMAP
+### Use English
 
-For non-native English speakers, please communicate in English as much as possible.
-It is recommended to use [DeepL Translator](https://www.deepl.com/translator).
+We prefer all communications and codes to be in English.
 
-## Before making a Pull Request
+For non-native English speakers, it is recommended to use [DeepL Translator](https://www.deepl.com/translator).
 
-Read below links before making any contributions.
+## Learning rules before coding
 
-- [Developer Certificate of Origin](./dco.md)
-- [Code Styles](./code-styles.md)
-- [Git Message Style](./git-message.md)
+- [Git Commit Message Style][git-style]
+- [Code Styles][code-style]
 - [How to write functions](./how-to-write-functions.md)
 - [How to write modules](./how-to-write-modules.md)
 - [Module Metadata](./module-metadata.md)
@@ -40,18 +38,30 @@ Read below links before making any contributions.
 - [Internal Modules](./internal-modules.md)
 - [Test](./test.md)
 
-## Make a Pull Request
+## Checklist for Pull Request
+<!-- Fill [x] means checked. -->
 
-All PRs should follow below conditions.
-
-- [ ] Git message is [valid](./git-message.md).
-- [ ] Code style lint pass.
-- [ ] Test cases all passed without errors.
-- [ ] Squash one Git commit per PR.
-- [ ] All git commits follow the [DCO](./dco.md).
-- [ ] One module one public function.
-- [ ] Run `./tool/gen` to generate documents.
-<!-- - [ ] Run `./tools/check_module <path-to-your-module>` without error. (Currently this script not work) -->
+- Code Style
+  - [ ] No misspellings in code and documentations.
+  - [ ] My code follows the style guidelines of this project. And code style lint passed if it exists.
+  - [ ] No new code style warnings.
+- Git Style
+  - [ ] My commit message follow the [git commit message style][git-style] of this project.
+  - [ ] Squashed git commits into one.
+  - [ ] Commits signed the [DCO][].
+- Test
+  - [ ] I have added tests that prove my fix is effective or that my feature works.
+  - [ ] All test cases passed locally without errors.
+  - [ ] New and existing unit tests pass locally with my changes.
+- Documentation
+  - [ ] I have commented my code, particularly in hard-to-understand areas.
+  - [ ] I have made corresponding changes to the documentation.
+- Dependency
+  - [ ] Any dependent changes have been merged and published in downstream modules.
+- Other
+  - [ ] One module one public function.
+  - [ ] Run `./tool/gen` to generate documents.
+  <!-- - [ ] Run `./tools/check_module <path-to-your-module>` without error. (Currently this script not work) -->
 
 
 <!-- Links -->
@@ -60,3 +70,6 @@ All PRs should follow below conditions.
 [discussion]: https://github.com/adoyle-h/lobash/discussions
 [PR]: https://github.com/adoyle-h/lobash/pulls
 [github-reaction]: https://github.blog/2016-03-10-add-reactions-to-pull-requests-issues-and-comments/
+[DCO]: https://gcg.adoyle.me/doc/dco/
+[git-style]: https://gcg.adoyle.me/doc/git-style/
+[code-style]: https://gcg.adoyle.me/doc/code-style/bash/

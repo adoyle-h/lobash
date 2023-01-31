@@ -1,13 +1,5 @@
 {
-  "Verbose": false,
-  "Debug": false,
-  "IgnoreDefaults": false,
-  "SpacesAftertabs": false,
-  "NoColor": false,
   "Exclude": [
-    "LICENSE", "NOTICE", "abc/*"
-  ],
-  "AllowedContentTypes": [],
-  "PassedFiles": [],
-  "Disable": {}
+    "LICENSE", "NOTICE"
+  ]
 }
