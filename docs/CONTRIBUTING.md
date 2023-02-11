@@ -30,7 +30,7 @@ For non-native English speakers, it is recommended to use [DeepL Translator](htt
 ## Learning rules before coding
 
 - [Git Commit Message Style][git-style]
-- [Code Styles](./code-styles.md)
+- [Code Styles][code-style]
 - [How to write functions](./how-to-write-functions.md)
 - [How to write modules](./how-to-write-modules.md)
 - [Module Metadata](./module-metadata.md)
@@ -72,3 +72,4 @@ For non-native English speakers, it is recommended to use [DeepL Translator](htt
 [github-reaction]: https://github.blog/2016-03-10-add-reactions-to-pull-requests-issues-and-comments/
 [DCO]: https://gcg.adoyle.me/doc/dco/
 [git-style]: https://gcg.adoyle.me/doc/git-style/
+[code-style]: https://gcg.adoyle.me/doc/code-style/bash/

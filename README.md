@@ -261,7 +261,7 @@ lobash-gen -c ./config
 
 ## Copyright and License
 
-Copyright 2019-2023 ADoyle (adoyle.h@gmail.com) Some Rights Reserved.
+Copyright 2019-2023 ADoyle (adoyle.h@gmail.com). Some Rights Reserved.
 The project is licensed under the **Apache License Version 2.0**.
 
 Read the [LICENSE][] file for the specific language governing permissions and limitations under the License.

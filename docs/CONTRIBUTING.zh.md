@@ -33,7 +33,7 @@
 ## 编码之前，请先学习规则
 
 - [Git Commit Message 风格][git-style]
-- [Code Styles](./code-styles.md)
+- [Code Styles][code-style]
 - [How to write functions](./how-to-write-functions.md)
 - [How to write modules](./how-to-write-modules.md)
 - [Module Metadata](./module-metadata.md)
@@ -73,5 +73,6 @@
 [discussion]: https://github.com/adoyle-h/lobash/discussions
 [PR]: https://github.com/adoyle-h/lobash/pulls
 [github-reaction]: https://github.blog/2016-03-10-add-reactions-to-pull-requests-issues-and-comments/
-[DCO]: https://gcg.adoyle.me/doc/dco/
+[DCO]: https://gcg.adoyle.me/doc/dco.zh/
 [git-style]: https://gcg.adoyle.me/doc/git-style.zh/
+[code-style]: https://gcg.adoyle.me/doc/code-style/bash/
