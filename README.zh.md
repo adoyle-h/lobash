@@ -5,7 +5,7 @@
   帮助 Bash 脚本开发的现代化、安全、强大的工具库。
 </p>
 
-English documents [./README.md](./README.md)
+[English](./README.md) | [中文](./README.zh.md)
 
 ## Lobash 是什么？
 
@@ -259,7 +259,7 @@ lobash-gen -c ./config
 
 ## 版权声明
 
-Copyright 2019-2023 ADoyle (adoyle.h@gmail.com) Some Rights Reserved.
+Copyright 2019-2023 ADoyle (adoyle.h@gmail.com). Some Rights Reserved.
 The project is licensed under the **Apache License Version 2.0**.
 
 Read the [LICENSE][] file for the specific language governing permissions and limitations under the License.

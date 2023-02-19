@@ -5,7 +5,7 @@
   A modern, safe, powerful utility/library for Bash script development.
 </p>
 
-中文文档 [./README.zh.md](./README.zh.md)
+[English](./README.md) | [中文](./README.zh.md)
 
 ## What is Lobash?
 
@@ -71,7 +71,7 @@ Lobash helps to reduce the mental burden on developers.
 
 ## Versions
 
-Read [tags][] for verions.
+Read [tags][] for versions.
 The versions follow the rules of [Semantic Versioning 2.0.0](http://semver.org/spec/v2.0.0.html).
 
 ## [ChangeLog](./CHANGELOG.md)
