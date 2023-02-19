@@ -5,7 +5,7 @@
   A modern, safe, powerful utility/library for Bash script development.
 </p>
 
-中文文档 [./README.zh.md](./README.zh.md)
+[English](./README.md) | [中文](./README.zh.md)
 
 ## What is Lobash?
 
@@ -24,7 +24,7 @@ It is implemented with pure bash script. (Except [l.now](src/modules/now.bash) f
 
 - Modular and easy to use. One module one Function.
 - Semantic functions instead of recondite bash expressions, substitutions, expansions.
-- Rich Functions. Over [120+ modules][module-usages] provided.
+- Rich Functions. Over [140+ modules][module-usages] provided.
   - 15 Categories: Arithmetic, Array, Color, Condition, Console, Debug, File, Path, Prompt, String, System, Terminal, Time, Util, Variable.
   - Each function is [documented][module-usages].
 - Robust and Safe. Over [700+ test cases](./tests/modules/) passed in [Github Actions](https://github.com/adoyle-h/lobash/actions).
@@ -71,7 +71,7 @@ Lobash helps to reduce the mental burden on developers.
 
 ## Versions
 
-Read [tags][] for verions.
+Read [tags][] for versions.
 The versions follow the rules of [Semantic Versioning 2.0.0](http://semver.org/spec/v2.0.0.html).
 
 ## [ChangeLog](./CHANGELOG.md)
@@ -155,7 +155,7 @@ First, build your own `lobash.bash` file by `lobash-gen`.
 ```sh
 # Interactive build process, import all Lobash modules
 lobash-gen
-# Generated file: <lobash-dir>/lobash.bash
+# Generated file: ./lobash.bash
 
 # Or build Lobash to specific path
 lobash-gen <target-path>
@@ -185,10 +185,7 @@ Second, load your own `lobash.bash` file in your scripts and all Lobash function
 ```sh
 #!/usr/bin/env bash
 
-set -o errexit
-set -o nounset
-set -o pipefail
-set -o errtrace  # You can remove this line if you do not use l.trap_error.
+set -o errexit -o nounset -o pipefail -o errtrace  # You can remove "-o errtrace" if you do not use l.trap_error.
 (shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
 
 # It will load all Lobash modules
