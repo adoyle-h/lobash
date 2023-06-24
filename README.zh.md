@@ -22,7 +22,7 @@ Lobash 提供了一系列函数来提高 shell 开发的效率。它兼容 Bash 
 
 - 模块化，易于使用。一个模块一个函数。
 - 语义化，替代晦涩难懂的 bash 表达式 (expression)、变量替换 (substitution)、变量扩展( expansion)。
-- 丰富的函数。提供了超过 [120 多个模块][module-usages]。
+- 丰富的函数。提供了超过 [140 多个模块][module-usages]。
   - 15 个分类: 算术 (Arithmetic), 数组 (Array), 颜色 (Color), 条件判断 (Condition), 输出 (Console), Debug, 文件 (File), 路径 (Path), 提示 (Prompt), 字符串 (String), 系统 (System), 终端 (Terminal), 颜色 (Time), 工具 (Util), 变量 (Variable)。
   - 每个函数都写了[文档](./docs/module-usages/README.md)。
 - 稳健和安全。超过 [700 多个测试案例](./tests/modules/)。并且在 [Github Actions](https://github.com/adoyle-h/lobash/actions) 中执行自动化测试。
@@ -154,7 +154,7 @@ sudo ln -s "$PWD/build" /usr/local/bin/lobash-gen
 ```sh
 # 交互式构建过程，导入所有 lobash 模块
 lobash-gen
-# 生成文件: <lobash-dir>/lobash.bash
+# 生成文件: ./lobash.bash
 
 # 或者，指定输出文件路径
 lobash-gen <target-path>
@@ -183,10 +183,7 @@ lobash-gen <target-path>
 ```sh
 #!/usr/bin/env bash
 
-set -o errexit
-set -o nounset
-set -o pipefail
-set -o errtrace  # You can remove this line if you do not use l.trap_error.
+set -o errexit -o nounset -o pipefail -o errtrace  # You can remove "-o errtrace" if you do not use l.trap_error.
 (shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
 
 # It will load all Lobash modules
