@@ -1,6 +1,7 @@
 # ---
 # Category: Util
 # Since: 0.4.0
+# Deprecated: true
 # Usage: l.parse_params <opts_name> <args_name> "$@"
 # Usage: l.parse_params _ <args_name> "$@"
 # Usage: l.parse_params <opts_name> _ "$@"

@@ -20,3 +20,7 @@ bump-minor:
 
 bump-patch:
 	./tools/release patch
+
+.PHONY: build
+build:
+	./build -y ./dist/lobash.bash

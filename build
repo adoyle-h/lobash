@@ -1,46 +1,10 @@
 #!/usr/bin/env bash
 # This script support Bash: 4.0+
 
-set -o errexit
-set -o nounset
-set -o pipefail
-set -o errtrace
+set -o errexit -o nounset -o pipefail -o errtrace
 (shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
 
-readlinkf() { # Modified from https://github.com/ko1nksm/readlinkf
-  [ "${1:-}" ] || return 1
-
-  CDPATH='' # to avoid changing to an unexpected directory
-  local max_symlinks=40
-  local link
-  local target=$1
-
-  [ -e "${target%/}" ] || target=${1%"${1##*[!/]}"} # trim trailing slashes
-  [ -d "${target:-/}" ] && target="$target/"
-
-  cd -P . 2>/dev/null || return 1
-  while [ "$max_symlinks" -ge 0 ] && max_symlinks=$((max_symlinks - 1)); do
-    if [ ! "$target" = "${target%/*}" ]; then
-      case $target in
-        /*) cd -P "${target%/*}/" 2>/dev/null || break ;;
-        *) cd -P "./${target%/*}" 2>/dev/null || break ;;
-      esac
-      target=${target##*/}
-    fi
-
-    if [ ! -L "$target" ]; then
-      target="${PWD%/}${target:+/}${target}"
-      printf '%s\n' "${target:-/}"
-      return 0
-    fi
-
-    link=$(ls -dl -- "$target" 2>/dev/null) || break
-    target=${link#*" $target -> "}
-  done
-  return 1
-}
-
-SCRIPT_PATH="$(readlinkf "$0")"
+SCRIPT_PATH="$(realpath "$0")"
 SCRIPT_DIR=$(dirname "$SCRIPT_PATH")
 readonly SCRIPT_PATH SCRIPT_DIR
 
@@ -49,9 +13,9 @@ source "$SCRIPT_DIR/tools/colors.bash"
 # shellcheck source=./src/load_internals.bash
 source "$SCRIPT_DIR/src/load_internals.bash"
 _lobash.import_internals basic_meta_types module_meta rm erase_line
-_lobash.imports ask choose parse_params array_include union_array is_tty_available is_gnu_sed relative
+_lobash.imports ask choose parse_args array_include union_array is_tty_available is_gnu_sed relative
 
-SUPPORTED_BASH_VERISONS=( 4.0 4.1 4.2 4.3 4.4 )
+SUPPORTED_BASH_VERISONS=(4.0 4.1 4.2 4.3 4.4)
 
 if l.is_gnu_sed; then
   sedi() { sed -i "$@"; }
@@ -125,7 +89,7 @@ init_module() {
   deps=$(_lobash.get_module_metadata "$module_name" "Dependent")
   if [[ -n "$deps" ]]; then
     # shellcheck disable=2206
-    deps=( ${deps//,/ } )
+    deps=(${deps//,/ })
     for dep in "${deps[@]}"; do
       init_module "$dep"
     done
@@ -148,7 +112,7 @@ init_with_config_file() {
     echo -e "${GREY}To import category ${category_name}${RESET_ALL}"
     while read -r module_name; do
       init_module "$module_name"
-    done < "$SCRIPT_DIR/src/internals/categories/${category_name,,}"
+    done <"$SCRIPT_DIR/src/internals/categories/${category_name,,}"
   done
 
   while read -r module_name; do
@@ -156,7 +120,7 @@ init_with_config_file() {
   done < <(grep -E '^  - \[x\]' "$CONFIG_PATH" | sed -E 's/^  - \[x\] +(.+)/\1/')
 
   # shellcheck disable=2207
-  module_names=( $(l.union_array module_names) )
+  module_names=($(l.union_array module_names))
 }
 
 # Supported functions: VERBOSE_1, VERBOSE_2, VERBOSE_3, VERBOSE_4
@@ -175,13 +139,13 @@ init_verbose() {
   fi
 
   local i=1
-  while (( i <= 4 )); do
-    if (( i <= VERBOSE )); then
+  while ((i <= 4)); do
+    if ((i <= VERBOSE)); then
       eval "VERBOSE_$i() { printf '%b[v=$i][%s:%s] %s%b\n' \"\$GREY\" \"\${BASH_LINENO}\" \"\${FUNCNAME[1]}\" \"\$1\" \"\$RESET_ALL\"; }"
     else
       eval "VERBOSE_$i() { true; }"
     fi
-    i=$(( i + 1 ))
+    i=$((i + 1))
   done
 }
 
@@ -191,7 +155,7 @@ Usage: $0 [OPTIONS] [<output>]
 
 Options:
   -h, --help                     Show usage.
-  -c, --config                   Config file for building. If set, option "-p" will not work.
+  -c, --config <filepath>        Config file for building. If set, option "-p" will not work.
   -p <prefix>                    Prefix of variable names. [Default: l.]
   -y, --yes                      Overwrite output.
   -v <level>                     Show verbose. 0 means off. [Value: 0~4] [Default: 0]
@@ -204,17 +168,17 @@ EOF
 
 # Reuse the last UNIQ_KEY if found
 set_uniq_key() {
-  UNIQ_KEY=$( grep -E '^# UNIQ_KEY: ' "$TARGET" 2>/dev/null | sed -E 's/^# UNIQ_KEY: (.+)/\1/' || true)
+  UNIQ_KEY=$(grep -E '^# UNIQ_KEY: ' "$TARGET" 2>/dev/null | sed -E 's/^# UNIQ_KEY: (.+)/\1/' || true)
 
   if [[ -n $UNIQ_KEY ]]; then return 0; fi
 
   # Lobash built by Lobash 0.4 has not "# UNIQ_KEY" label. So try to get it from "readonly _LOBASH_[_0-9]+_PREFIX="
-  UNIQ_KEY=$( grep -E '^readonly _LOBASH_[_0-9]+_PREFIX=' "$TARGET" 2>/dev/null | sed -E 's/^readonly _LOBASH_([-_0-9]+)_PREFIX=.+/\1/' || true )
+  UNIQ_KEY=$(grep -E '^readonly _LOBASH_[_0-9]+_PREFIX=' "$TARGET" 2>/dev/null | sed -E 's/^readonly _LOBASH_([-_0-9]+)_PREFIX=.+/\1/' || true)
 
   if [[ -n $UNIQ_KEY ]]; then return 0; fi
 
   # If not found UNIQ_KEY, generate one based on current lobash version and time.
-  UNIQ_KEY=${VERSION//[^[:alnum:]]/_}_$(( $(date '+%s') - LOBASH_POUCH_TIME ))_$RANDOM
+  UNIQ_KEY=${VERSION//[^[:alnum:]]/_}_$(($(date '+%s') - LOBASH_POUCH_TIME))_$RANDOM
 }
 
 init() {
@@ -225,7 +189,7 @@ init() {
 
   init_verbose
 
-  if (( ${#args[@]} == 0 )); then
+  if ((${#args[@]} == 0)); then
     TARGET=$PWD/lobash.bash
   else
     if [[ -d ${args[0]} ]]; then
@@ -300,12 +264,11 @@ clean() {
     answer=$(l.ask "Existed file: ${TARGET}. Overwrite it?" N)
     echo -e "${GREY}$answer${RESET_ALL}"
     case $answer in
-      YES )
-        ;;
-      * )
-        echo "Not overwrite it. No new Lobash file generated."
-        exit 0
-        ;;
+    YES) ;;
+    *)
+      echo "Not overwrite it. No new Lobash file generated."
+      exit 0
+      ;;
     esac
   fi
 
@@ -316,7 +279,7 @@ clean() {
 }
 
 write() {
-  printf -- '%s\n' "$*" >> "$TARGET"
+  printf -- '%s\n' "$*" >>"$TARGET"
 }
 
 fwrite() {
@@ -328,18 +291,16 @@ fwrite() {
   VERBOSE_3 "sed -E \"s/${WORD_BOUNDARY}${_LOBASH_PUBLIC_CONST_PREFIX}([_a-zA-Z0-9]+)/${PUBLIC_CONST_PREFIX}\\1/g\""
 
   if [[ $PREFIX == 'l.' ]]; then
-    <"$1" \
-      sed -E "/^# /d;s/${WORD_BOUNDARY}($prefixes)([_a-zA-Z0-9]+)/\\1${UNIQ_KEY}_\\2/g" \
-      | sed -E "s/${WORD_BOUNDARY}${_LOBASH_PUBLIC_CONST_PREFIX}([_a-zA-Z0-9]+)/${PUBLIC_CONST_PREFIX}\\1/g" \
-      >> "$TARGET"
+    <"$1" sed -E "/^# /d;s/${WORD_BOUNDARY}($prefixes)([_a-zA-Z0-9]+)/\\1${UNIQ_KEY}_\\2/g" |
+      sed -E "s/${WORD_BOUNDARY}${_LOBASH_PUBLIC_CONST_PREFIX}([_a-zA-Z0-9]+)/${PUBLIC_CONST_PREFIX}\\1/g" \
+        >>"$TARGET"
   else
     VERBOSE_3 "sed -E \"s/${WORD_BOUNDARY}${_LOBASH_PUBLIC_FUNC_PREFIX//\./\\.}([_a-zA-Z0-9]+)/${PREFIX}\\1/g\""
 
-    <"$1" \
-      sed -E "/^# /d;s/${WORD_BOUNDARY}($prefixes)([_a-zA-Z0-9]+)/\\1${UNIQ_KEY}_\\2/g" \
-      | sed -E "s/${WORD_BOUNDARY}${_LOBASH_PUBLIC_CONST_PREFIX}([_a-zA-Z0-9]+)/${PUBLIC_CONST_PREFIX}\\1/g" \
-      | sed -E "s/${WORD_BOUNDARY}${_LOBASH_PUBLIC_FUNC_PREFIX//\./\\.}([_a-zA-Z0-9]+)/${PREFIX}\\1/g" \
-      >> "$TARGET"
+    <"$1" sed -E "/^# /d;s/${WORD_BOUNDARY}($prefixes)([_a-zA-Z0-9]+)/\\1${UNIQ_KEY}_\\2/g" |
+      sed -E "s/${WORD_BOUNDARY}${_LOBASH_PUBLIC_CONST_PREFIX}([_a-zA-Z0-9]+)/${PUBLIC_CONST_PREFIX}\\1/g" |
+      sed -E "s/${WORD_BOUNDARY}${_LOBASH_PUBLIC_FUNC_PREFIX//\./\\.}([_a-zA-Z0-9]+)/${PREFIX}\\1/g" \
+        >>"$TARGET"
   fi
 }
 
@@ -415,7 +376,7 @@ generate() {
     _lobash.scan_module_metadata "$module_name"
     bashver=$(_lobash.get_module_metadata "$module_name" "Bash")
     compare=$(_lobash.semver_compare "$BASH_MIN_VERSION" "$bashver")
-    if (( compare < 0 )); then
+    if ((compare < 0)); then
       skips[$module_name]=true
     fi
   done
@@ -442,16 +403,22 @@ generate() {
 
   set +u
   local skip_count=${#skips[@]}
-  echo "Imported $(( ${#module_names[@]} - skip_count )) modules. Skipped ${skip_count} modules."
+  echo "Imported $((${#module_names[@]} - skip_count)) modules. Skipped ${skip_count} modules."
   set -u
   echo -e "Generated Lobash file: ${GREEN}$TARGET${RESET_ALL}"
 }
 
 declare -A opts=()
 declare -a args=()
+declare -A opts_def=(
+  [opts]=opts
+  [args]=args
+  [-y --yes]='bool'
+  [-h --help]='bool'
+)
 
 main() {
-  l.parse_params opts args "$@"
+  l.parse_args opts_def "$@"
   init
   clean
   generate "$@"

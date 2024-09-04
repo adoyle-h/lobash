@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+
+set -o errexit -o nounset -o pipefail -o errtrace
+(shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
+
+SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+readonly SCRIPT_DIR
+# shellcheck source=./init.bash
+source "$SCRIPT_DIR"/init.bash
+
+declare -A opts=()
+declare -a args=()
+declare -A params_def=(
+  [opts]=opts
+  [args]=args
+  [-v]=count
+  [-f --flag]='bool default:true'
+  [-b]='bool'
+  [-h]=bool
+  [-1]=bool
+  [-5]=bool
+  [-d]=bool
+  [-F]=bool
+  [-g]=bool
+  [-i]=bool
+)
+
+foo() {
+  l.parse_args params_def "$@"
+}
+
+foo -vvv -a 3 -b12 -c=5 foo -d= bar -e -3 -4 a -F=abc -gh w -ij=5 -km= -5n -xzy --beep=boop baz --no-wow
+
+echo 'foo -vvv -a 3 -b12 -c=5 foo -d= bar -e -3 -4 a -F=abc -gh w -ij=5 -km= -5n -xzy --beep=boop baz --no-wow'
+echo "[${#opts[@]} Options]"
+for key in "${!opts[@]}"; do
+  echo "$key: ${opts[$key]}"
+done
+
+printf "\n[%s Arguments]\n" "${#args[@]}"
+declare i=0
+for key in "${args[@]}"; do
+  echo "$i: $key"
+  ((i += 1))
+done
+
+echo "------Use Options------"
+
+# NOTE: Use ${opts[c]:-} instead of ${opts[c]}. If `set -o nounset`, ${opts[c]} will throw error when option omitted.
+if [[ -n ${opts[c]:-} ]]; then
+  echo "c=${opts[c]}"
+fi
+
+echo "------Use Arguments------"
+echo "${args[0]} ${args[1]} ${args[2]}"
