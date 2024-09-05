@@ -8,18 +8,11 @@
 # Notice: Only with bash 4.3, this function return 1 when the exported variable declared without initialization.
 # Notice: Because `declare -p a` shows `declare: a: not found` when `declare -a a`. It's a bug in bash 4.3.
 # Notice: In bash 4.0~4.3, when `export <var>` without initialization, is_exported will return false. Because `declare -p <var>` will print "not found". It's a bug in Bash.
+# Dependent: var_attrs
 # ---
 
 l.is_exported() {
-  local s
-  if s=$(declare -p "$1" 2>/dev/null) ;then
-    s=$(echo "$s" | sed -E 's/^declare ([-a-zA-Z]+) .+/\1/')
-    if [[ $s == *x* ]]; then
-      return 0
-    else
-      return 1
-    fi
-  else
-    return 1
-  fi
+  local attrs
+  attrs=$(l.var_attrs "$1")
+  [[ $attrs == *x* ]]
 }
