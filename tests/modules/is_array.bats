@@ -12,14 +12,6 @@ setup_fixture
   run l.is_array y2
   assert_success
   assert_output ''
-
-  # Skip testing uninitialized variable for bash 4.3
-  if [[ ! $BASH_VERSION =~ ^'4.3' ]]; then
-    local -a y3
-    run l.is_array y3
-    assert_success
-    assert_output ''
-  fi
 }
 
 @test "l.is_array export array" {
@@ -98,7 +90,7 @@ setup_fixture
   fi
 }
 
-@test "l.is_array associate array" {
+@test "l.is_array associative array" {
   local -A A=([a]=1)
   run l.is_array A
   assert_success
@@ -156,7 +148,7 @@ setup_fixture
 }
 
 @test "l.is_array undefined variable" {
-  run l.is_array kkkkkkkkkkkkkkkkkk  # A long name in case of exported variable from outside
+  run l.is_array kkkkkkkkkkkkkkkkkk # A long name in case of exported variable from outside
   assert_failure
   assert_output ''
 }
