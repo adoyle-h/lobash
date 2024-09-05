@@ -49,8 +49,8 @@ jobs:
       fail-fast: true
       max-parallel: 10
       matrix:
-        os: ['ubuntu-22.04', 'macos-12']
-        # Bash 4.0 has bug on MacOS. https://github.com/adoyle-h/lobash/blob/develop/doc/with-lower-version-bash.md#not-test-with-bash-40-in-macos
+        os: ['ubuntu-22.04', 'macos-13', 'macos-14']
+        # Bash 4.0 has bug on MacOS. https://github.com/adoyle-h/lobash/blob/develop/docs/with-lower-version-bash.md#not-test-with-bash-40
         BASHVER: ['4.1', '4.2', '4.3', '4.4', '5.0', '5.1', '5.2', '5.2.9']
 
     runs-on: ${{ matrix.os }}
