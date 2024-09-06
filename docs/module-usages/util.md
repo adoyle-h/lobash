@@ -37,16 +37,18 @@
 
 - Usage: `l.parse_args <definition> "$@"`
 - Description:
-  - the `definition` is an associative array, which likes {[opts]=opts_name [args]=args_name ['-f,--flag']='bool'}.
+  - This function provides a simple way to parse options and arguments.
+  - The `<definition>` is an associative array, which likes `{[opts]=opts_name [args]=args_name ['-f --flag']='bool'}`.
   - The `[opts]` and `[args]` are required for `<definition>`.
   - It parses all parameters "$@". Put arguments to the `args_name` and options to `opts_name`.
   - The `opts_name` must be an associative array or `_`. If set `_`, the options will be ignored.
   - The `args_name` must be an array or `_`. If set `_`, the arguments will be ignored.
-  - The option has tree type:
-  -   "bool": For example, `-f`, `--flag` means `${f}` and `${flag}` equal to `"true"` and `--no-f` and `--no-flag` equal to `"false"`.
-  -   "count": the value of option defaults to 0. And increasing count by times. For example: `-v` `-vv` `-vvv`.
-  -   "kv": key/value. It means the option must has an argument. If user not pass argument to "kv" option. It will print error and stop.
-  - See test cases for details.
+  - The option has tree types:
+  -   - "bool": For example, `-f`, `--flag` means `${f}` and `${flag}` equal to `"true"` and `--no-f` and `--no-flag` equal to `"false"`.
+  -   - "count": the value of option defaults to 0. And increasing count by times. For example: `-v` `-vv` `-vvv`.
+  -   - "kv": key/value. It means the option must has an argument. If user not pass argument to "kv" option. It will print error and stop.
+  - All options are default to "kv". So only the bool and count options should defined in `<definition>`. The "kv" option definition is not required.
+  - See Test Cases and Example for details.
 - Dependent: [`each`](./array.md#each) [`match_list`](./string.md#match_list) [`var_attrs`](./variable.md#var_attrs) [`array_has_key`](./array.md#array_has_key)
 - Since: 0.7.0
 - Bash: 4.0+

@@ -2,17 +2,18 @@
 # Category: Util
 # Since: 0.7.0
 # Usage: l.parse_args <definition> "$@"
-# Description: the `definition` is an associative array, which likes {[opts]=opts_name [args]=args_name ['-f,--flag']='bool'}.
+# Description: This function provides a simple way to parse options and arguments.
+# Description: The `<definition>` is an associative array, which likes `{[opts]=opts_name [args]=args_name ['-f --flag']='bool'}`.
 # Description: The `[opts]` and `[args]` are required for `<definition>`.
 # Description: It parses all parameters "$@". Put arguments to the `args_name` and options to `opts_name`.
 # Description: The `opts_name` must be an associative array or `_`. If set `_`, the options will be ignored.
 # Description: The `args_name` must be an array or `_`. If set `_`, the arguments will be ignored.
-# Description: The option has tree type:
-# Description:   "bool": For example, `-f`, `--flag` means `${f}` and `${flag}` equal to `"true"` and `--no-f` and `--no-flag` equal to `"false"`.
-# Description:   "count": the value of option defaults to 0. And increasing count by times. For example: `-v` `-vv` `-vvv`.
-# Description:   "kv": key/value. It means the option must has an argument. If user not pass argument to "kv" option. It will print error and stop.
-#
-# Description: See test cases for details.
+# Description: The option has tree types:
+# Description:   - "bool": For example, `-f`, `--flag` means `${f}` and `${flag}` equal to `"true"` and `--no-f` and `--no-flag` equal to `"false"`.
+# Description:   - "count": the value of option defaults to 0. And increasing count by times. For example: `-v` `-vv` `-vvv`.
+# Description:   - "kv": key/value. It means the option must has an argument. If user not pass argument to "kv" option. It will print error and stop.
+# Description: All options are default to "kv". So only the bool and count options should defined in `<definition>`. The "kv" option definition is not required.
+# Description: See Test Cases and Example for details.
 # Dependent: each, match_list, var_attrs, array_has_key
 # Notice: Only with bash 4.3, there may be something wrong if opts and args are not array.
 # ---
