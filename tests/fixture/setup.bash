@@ -1,11 +1,11 @@
 load_src() {
-  local path=$1;
+  local path=$1
   shift
   load "$LOBASH_ROOT_DIR/src/$path.bash" "$@"
 }
 
 load_fixtrue() {
-  local path=$1;
+  local path=$1
   shift
   load "$LOBASH_TEST_DIR/fixtrue/$path.bash" "$@"
 }
@@ -20,8 +20,8 @@ if [[ $LOBASH_USE_DIST == true ]]; then
     _lobash.import_internal helpers
 
     local prefix func uniq_key
-    prefix=$( grep -E '^# Prefix: ' "$LOBASH_ROOT_DIR/dist/lobash.bash" 2>/dev/null | sed -E 's/^# Prefix: (.+)/\1/' || true)
-    uniq_key=$( grep -E '^# UNIQ_KEY: ' "$LOBASH_ROOT_DIR/dist/lobash.bash" 2>/dev/null | sed -E 's/^# UNIQ_KEY: (.+)/\1/' || true)
+    prefix=$(grep -E '^# Prefix: ' "$LOBASH_ROOT_DIR/dist/lobash.bash" 2>/dev/null | sed -E 's/^# Prefix: (.+)/\1/' || true)
+    uniq_key=$(grep -E '^# UNIQ_KEY: ' "$LOBASH_ROOT_DIR/dist/lobash.bash" 2>/dev/null | sed -E 's/^# UNIQ_KEY: (.+)/\1/' || true)
 
     if [[ $prefix != l. ]]; then
       # If dist/lobash.bash has different prefix, create l.<func> function wrappers for test cases
@@ -58,7 +58,7 @@ check_bash() {
   bashver=$(_lobash.get_module_metadata "$module_name" 'Bash')
   compare=$(_lobash.semver_compare "$bashver" "${BASH_VERSINFO[0]}.${BASH_VERSINFO[1]}")
 
-  if (( compare > 0 )); then return 1; fi
+  if ((compare > 0)); then return 1; fi
 }
 
 __ends_with() {
@@ -112,9 +112,9 @@ setup() {
   # Hack in run() at tests/fixture/bats/lib/bats-core/test_functions.bash
   # set -eETu in run() command
   # shellcheck disable=2016
-  eval "$(declare -f run | \
-    sed 's/$("$pre_command"/$(set -eETu; "$pre_command"/' | \
-    sed 's/ && status=0 || status=$?;/; status=$?;/')"  # this line fix errexit ignored in test condition
+  eval "$(declare -f run |
+    sed 's/$("$pre_command"/$(set -eETu; "$pre_command"/' |
+    sed 's/ && status=0 || status=$?;/; status=$?;/')" # this line fix errexit ignored in test condition
 
   # For debug:
   # declare -f run | sed 's/$("$pre_command"/$(set -eETu; "$pre_command"/' | sed 's/ && status=0 || status=$?;/; status=$?;/' > /dev/tty
