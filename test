@@ -1,10 +1,6 @@
 #!/usr/bin/env bash
-# This script should support Bash: 4.0+
 
-set -o errexit
-set -o nounset
-set -o pipefail
-set -o errtrace
+set -o errexit -o nounset -o pipefail -o errtrace
 (shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
 
 export IS_LOBASH_TEST=1
@@ -28,7 +24,7 @@ if [[ ${1:-} == '-d' ]]; then
   fi
 
   LOBASH_USE_DIST=true
-elif [[ "${*: -1}" == -d  ]]; then
+elif [[ "${*: -1}" == -d ]]; then
   set -- "${@:1:$#-1}"
 
   if [[ ! -f "$LOBASH_ROOT_DIR/dist/lobash.bash" ]]; then
@@ -53,9 +49,9 @@ if [[ ${1:-} == '-j' ]] && [[ -n ${2:-} ]]; then
 fi
 
 if [[ -z "${1:-}" ]]; then
-  test_dirs=( "$LOBASH_TEST_DIR"/{,modules} )
+  test_dirs=("$LOBASH_TEST_DIR"/{,modules})
 else
-  test_dirs=( "$1" )
+  test_dirs=("$1")
 fi
 
 export PATH="$LOBASH_TEST_DIR/fixture/bats/bin:${PATH}"
