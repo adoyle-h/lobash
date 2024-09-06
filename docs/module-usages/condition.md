@@ -13,6 +13,8 @@
 - [if](#if)
 - [is_array](#is_array)
 - [is_array.s](#is_arrays)
+- [is_associative_array](#is_associative_array)
+- [is_associative_array.s](#is_associative_arrays)
 - [is_bash](#is_bash)
 - [is_bash.s](#is_bashs)
 - [is_dir](#is_dir)
@@ -135,6 +137,7 @@
 
 - Usage: `l.is_array <var_name>`
 - Description: When the variable is array or associative array, it returns 0 (true). Otherwise it returns 1 (false). This function should never throw exception error.
+- Dependent: [`var_attrs`](./variable.md#var_attrs)
 - Since: 0.3.0
 - Bash: 4.0+
 - **Notice**:
@@ -155,6 +158,30 @@
   - **Because `declare -p a` shows `declare: a: not found` when `declare -a a`. It's a bug in bash 4.3.**
 - Test Cases: [tests/modules/is_array.s.bats](../../tests/modules/is_array.s.bats)
 - Source Code: [src/modules/is_array.s.bash](../../src/modules/is_array.s.bash)
+
+### is_associative_array
+
+- Usage: `l.is_associative_array <var_name>`
+- Description: When the variable is associative array, it returns 0 (true). Otherwise it returns 1 (false). This function should never throw exception error.
+- Dependent: [`var_attrs`](./variable.md#var_attrs)
+- Since: 0.7.0
+- Bash: 4.0+
+- **Notice**:
+  - **Only with bash 4.3, this function return 1 when the variable declared without initialization.**
+  - **Because `declare -p a` shows `declare: a: not found` when `declare -a a`. It's a bug in bash 4.3.**
+- Source Code: [src/modules/is_associative_array.bash](../../src/modules/is_associative_array.bash)
+
+### is_associative_array.s
+
+- Usage: `l.is_associative_array.s <var_name>`
+- Description: When the variable is array or associative array, it prints `true`. Otherwise it prints `false`. And it always exit with code 0.
+- Dependent: [`is_associative_array`](./condition.md#is_associative_array)
+- Since: 0.7.0
+- Bash: 4.0+
+- **Notice**:
+  - **Only with bash 4.3, this function will echo `false` when the variable declared without initialization.**
+  - **Because `declare -p a` shows `declare: a: not found` when `declare -a a`. It's a bug in bash 4.3.**
+- Source Code: [src/modules/is_associative_array.s.bash](../../src/modules/is_associative_array.s.bash)
 
 ### is_bash
 
@@ -259,6 +286,7 @@
 - Description:
   - Check whether a shell variable is exported.
   - Return 0 (true) or 1 (false). This function should never throw exception error.
+- Dependent: [`var_attrs`](./variable.md#var_attrs)
 - Since: 0.5.0
 - Bash: 4.0+
 - **Notice**:

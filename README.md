@@ -115,10 +115,12 @@ It will print notes to show what modules is not supported and ignored when build
 
 **If you use Lobash with Bash 4.0~4.3. Please read [./docs/with-lower-version-bash.md](./docs/with-lower-version-bash.md) first. It's very important.**
 
-**Lobash not test with Bash 4.0 in MacOS. It seems a bug of Bash 4.0 in MacOS. Please contact me if you solved this problem.** Read [this document](./docs/with-lower-version-bash.md#not-test-with-bash-40-in-macos).
+**Lobash not test with Bash 4.0 in MacOS and Linux. It seems a bug of Bash 4.0. Please contact me if you solved this problem.** Read [this document](./docs/with-lower-version-bash.md#not-test-with-bash-40).
 
 Although most Linux distributions use Bash v4.3 at the least, and MacOS installed Bash v3.2 by default,
 it is easily to upgrade Bash 4.4+ in most systems.
+
+Bash below 4.4 have a lot of bugs. It's strongly advised to upgrade to Bash 4.4 or above.
 
 ### Dependencies
 
@@ -258,7 +260,7 @@ lobash-gen -c ./config
 
 ## Copyright and License
 
-Copyright 2019-2023 ADoyle (adoyle.h@gmail.com). Some Rights Reserved.
+Copyright 2019-2024 ADoyle (adoyle.h@gmail.com). Some Rights Reserved.
 The project is licensed under the **Apache License Version 2.0**.
 
 Read the [LICENSE][] file for the specific language governing permissions and limitations under the License.

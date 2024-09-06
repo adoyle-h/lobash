@@ -114,10 +114,13 @@ Lobash 能减少开发者的心智负担。
 
 **如果你在 Bash 4.0~4.3 中使用 Lobash，请先阅读 [./docs/with-lower-version-bash.md](./docs/with-lower-version-bash.md)。这非常重要。**
 
-**Lobash 没有在 MacOS 中测试 Bash 4.0 版本。因为这似乎有个 [Bug](./docs/with-lower-version-bash.md#not-test-with-bash-40-in-macos)。如果你解决了这个问题，请告知我。**
+**Lobash 没有在 MacOS 以及 Linux 中测试 Bash 4.0 版本。因为这似乎有个 [Bug](./docs/with-lower-version-bash.md#not-test-with-bash-40)。如果你解决了这个问题，请告知我。**
 
 尽管大多数 Linux 发行版至少使用 Bash v4.3，并且 MacOS 始终默认安装 Bash v3.2。
 在绝大多数系统里，我们依然能轻松升级到 Bash 4.4 以上版本。
+Bash 有
+
+Bash 4.4 以下版本都有很多 BUG，强烈建议用户升级到 Bash 4.4 以上版本。
 
 ### 依赖
 
@@ -256,7 +259,7 @@ lobash-gen -c ./config
 
 ## 版权声明
 
-Copyright 2019-2023 ADoyle (adoyle.h@gmail.com). Some Rights Reserved.
+Copyright 2019-2024 ADoyle (adoyle.h@gmail.com). Some Rights Reserved.
 The project is licensed under the **Apache License Version 2.0**.
 
 Read the [LICENSE][] file for the specific language governing permissions and limitations under the License.

@@ -1,6 +1,6 @@
 # Module Usages
 
-15 Categories, 139 Modules, 779 Test Cases.
+15 Categories, 143 Modules, 802 Test Cases.
 
 Each module provides only one function which naming prefixed with `l.` by default.
 
@@ -49,6 +49,8 @@ Most Lobash modules support Bash 4.0+ except below modules.
   - [if](./condition.md#if)
   - [is_array](./condition.md#is_array)
   - [is_array.s](./condition.md#is_arrays)
+  - [is_associative_array](./condition.md#is_associative_array)
+  - [is_associative_array.s](./condition.md#is_associative_arrays)
   - [is_bash](./condition.md#is_bash)
   - [is_bash.s](./condition.md#is_bashs)
   - [is_dir](./condition.md#is_dir)
@@ -164,6 +166,7 @@ Most Lobash modules support Bash 4.0+ except below modules.
 - [Util](./util.md)
   - [benchmark](./util.md#benchmark)
   - [compose](./util.md#compose)
+  - [parse_args](./util.md#parse_args)
   - [parse_params](./util.md#parse_params)
   - [repeat](./util.md#repeat)
   - [sedi](./util.md#sedi)
@@ -172,4 +175,5 @@ Most Lobash modules support Bash 4.0+ except below modules.
 - [Variable](./variable.md)
   - [cur_function_name](./variable.md#cur_function_name)
   - [random](./variable.md#random)
+  - [var_attrs](./variable.md#var_attrs)
   - [xdg_config_home](./variable.md#xdg_config_home)

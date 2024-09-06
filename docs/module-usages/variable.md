@@ -6,6 +6,7 @@
 
 - [cur_function_name](#cur_function_name)
 - [random](#random)
+- [var_attrs](#var_attrs)
 - [xdg_config_home](#xdg_config_home)
 
 ## Modules
@@ -31,6 +32,20 @@
 - Bash: 4.0+
 - Test Cases: [tests/modules/random.bats](../../tests/modules/random.bats)
 - Source Code: [src/modules/random.bash](../../src/modules/random.bash)
+
+### var_attrs
+
+- Usage: `l.var_attrs <var_name>`
+- Description:
+  - Return the attributions of variable.
+  - If variable undefined, return ''.
+- Since: 0.7.0
+- Bash: 4.0+
+- **Notice**:
+  - **Only with bash 4.3, this function return 1 when the variable declared without initialization.**
+  - **Because `declare -p a` shows `declare: a: not found` when `declare -a a`. It's a bug in bash 4.3.**
+- Test Cases: [tests/modules/var_attrs.bats](../../tests/modules/var_attrs.bats)
+- Source Code: [src/modules/var_attrs.bash](../../src/modules/var_attrs.bash)
 
 ### xdg_config_home
 

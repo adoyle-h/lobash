@@ -17,6 +17,7 @@ Completely supported.
 - `shopt -s inherit_errexit` is a new feature in Bash v4.4. There is no workaround in v4.3.
 - `declare -p` has a bug. See [./module-usages/condition.md#is_array](./module-usages/condition.md#is_array) and [./module-usages/condition.md#is_exported](./module-usages/condition.md#is_exported).
   - You should always declare a variable with initialization, like `declare -a var=()`, `local var=`, `export var=` instead of `declare -a var`, `local var`, `export var`.
+- Only with bash 4.3, when `declare -a a`, the `declare -p a` shows `declare: a: not found`.
 - `readarray: -d: invalid option` util 4.4.
 
 ### 4.2
@@ -25,6 +26,7 @@ Completely supported.
 - `declare -p` has a bug. See [./module-usages/condition.md#is_exported](./module-usages/condition.md#is_exported).
   - You should always declare a variable with initialization, like `declare -a var=()`, `local var=`, `export var=` instead of `declare -a var`, `local var`, `export var`.
 - `readarray: -d: invalid option` util 4.4.
+- For associative array, `[[ -v array[key] ]]` and `test -v array[key]` always be `1` util 4.3.
 
 ### 4.1
 
@@ -35,6 +37,7 @@ Completely supported.
 - `declare -p` has a bug. See [./module-usages/condition.md#is_exported](./module-usages/condition.md#is_exported).
   - You should always declare a variable with initialization, like `declare -a var=()`, `local var=`, `export var=` instead of `declare -a var`, `local var`, `export var`.
 - `readarray: -d: invalid option` util 4.4.
+- For associative array, `[[ -v array[key] ]]` and `test -v array[key]` always be `1` util 4.3.
 
 ### 4.0
 
@@ -42,16 +45,28 @@ Completely supported.
 - `declare -p` has a bug. See [./module-usages/condition.md#is_exported](./module-usages/condition.md#is_exported).
   - You should always declare a variable with initialization, like `declare -a var=()`, `local var=`, `export var=` instead of `declare -a var`, `local var`, `export var`.
 - `readarray: -d: invalid option` util 4.4.
+- For associative array, `[[ -v array[key] ]]` and `test -v array[key]` always be `1` util 4.3.
 
 - Empty `$@` and `$*` will throw error "unbound variable" with `set -u` in v4.0. It is a bug of Bash. See https://unix.stackexchange.com/a/16565
 
-#### Not test with Bash 4.0 in MacOS
+#### Not test with Bash 4.0
 
-**Lobash not test with Bash 4.0 in MacOS. It seems a bug of Bash 4.0 in MacOS. Please contact me if you solved this problem.**
+**Lobash not test with Bash 4.0 in MacOS and Linux. It seems a bug of Bash 4.0. Please contact me if you solved this problem.**
 
-To reproduce the problem,
+To reproduce the problem for Linux,
 
 ```sh
+# For Linux
+> BASHVER=4.0 ./tools/test
+
+malloc: hashlib.c:306: assertion botched
+free: called with unallocated block argument
+```
+
+To reproduce the problem for MacOS,
+
+```sh
+# For MacOS
 > BASHVER=4.0 ./tools/test
 bash(38696,0x7fff989c2380) malloc: *** error for object 0x1061ad800: pointer being freed was not allocated
 ```

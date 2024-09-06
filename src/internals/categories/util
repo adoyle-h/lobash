@@ -1,5 +1,6 @@
 benchmark
 compose
+parse_args
 parse_params
 repeat
 sedi

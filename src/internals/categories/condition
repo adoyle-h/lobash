@@ -7,6 +7,8 @@ has_not.s
 if
 is_array
 is_array.s
+is_associative_array
+is_associative_array.s
 is_bash
 is_bash.s
 is_dir

@@ -24,3 +24,7 @@ bump-patch:
 .PHONY: build
 build:
 	./build -y ./dist/lobash.bash
+
+.PHONY: gen
+gen:
+	./tools/gen

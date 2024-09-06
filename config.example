@@ -40,6 +40,8 @@ PREFIX: l.
   - [ ] if
   - [ ] is_array
   - [ ] is_array.s
+  - [ ] is_associative_array
+  - [ ] is_associative_array.s
   - [ ] is_bash
   - [ ] is_bash.s
   - [ ] is_dir
@@ -165,6 +167,7 @@ PREFIX: l.
 - [ ]   Util
   - [ ] benchmark
   - [ ] compose
+  - [ ] parse_args
   - [ ] parse_params
   - [ ] repeat
   - [ ] sedi
@@ -174,4 +177,5 @@ PREFIX: l.
 - [ ]   Variable
   - [ ] cur_function_name
   - [ ] random
+  - [ ] var_attrs
   - [ ] xdg_config_home
