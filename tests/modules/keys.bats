@@ -12,21 +12,26 @@ setup_fixture
   assert_line -n 2 '2'
 }
 
+@test "l.keys <array> ''" {
+  local array=('')
+  run l.keys array
+  assert_success
+  assert_equal "${#lines[@]}" 1
+  assert_line -n 0 '0'
+}
+
 @test "l.keys <associative array>" {
   local -A array=([a]=1 [b]=2 [k]=5 [c]=3)
   run l.keys array
   assert_success
   assert_equal "${#lines[@]}" 4
+  # the associative array's key order is random
+}
 
-  # in MacOS
-  # assert_line -n 0 'k'
-  # assert_line -n 1 'c'
-  # assert_line -n 2 'b'
-  # assert_line -n 3 'a'
-
-  # in Linux
-  # assert_line -n 0 'a'
-  # assert_line -n 1 'b'
-  # assert_line -n 2 'c'
-  # assert_line -n 3 'k'
+@test "l.keys <associative array> ''" {
+  local -A array=([a]=1 [b]='' [k]=5 [c]=3)
+  run l.keys array
+  assert_success
+  assert_equal "${#lines[@]}" 4
+  # the associative array's key order is random
 }
