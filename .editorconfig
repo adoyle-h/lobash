@@ -36,3 +36,6 @@ space_redirects    = false
 keep_padding       = false
 # --func-next-line
 function_next_line = false
+
+[{Makefile,*.mk}]
+indent_style = tab
