@@ -20,13 +20,13 @@ setup_fixture
   assert_output 7
 }
 
-@test "l.str_len 'Généralités'" {
+@test "l.str_len with French" {
   run l.str_len 'Généralités'
   assert_success
   assert_output 14
 }
 
-@test "l.str_len '中文'" {
+@test "l.str_len with Chinese" {
   run l.str_len '中文'
   assert_success
   assert_output 6
