@@ -4,9 +4,11 @@
 
 ## TOC
 
+- [array_has_key](#array_has_key)
 - [array_include](#array_include)
 - [array_include.s](#array_includes)
 - [array_reverse](#array_reverse)
+- [array_size](#array_size)
 - [each](#each)
 - [each.p](#eachp)
 - [first](#first)
@@ -19,6 +21,17 @@
 - [union_array](#union_array)
 
 ## Modules
+
+### array_has_key
+
+- Usage: `l.array_has_key <array_name> <key_name>`
+- Description:
+  - Check key whether defined in array or associative array.
+  - Return 0 (true) or 1 (false). This function should never throw exception error.
+- Since: 0.7.0
+- Bash: 4.0+
+- Test Cases: [tests/modules/array_has_key.bats](../../tests/modules/array_has_key.bats)
+- Source Code: [src/modules/array_has_key.bash](../../src/modules/array_has_key.bash)
 
 ### array_include
 
@@ -55,6 +68,17 @@
   - **The `l.array_reverse <input_array_name> <output_array_name>` not works in subshell.**
 - Test Cases: [tests/modules/array_reverse.bats](../../tests/modules/array_reverse.bats)
 - Source Code: [src/modules/array_reverse.bash](../../src/modules/array_reverse.bash)
+
+### array_size
+
+- Usage: `l.array_size <array_name>`
+- Description:
+  - Return the actual size of array and associative array
+  - For `declare -A array=([test]='')`, the `${#array[@]}` is 0, because bash excludes the null value.
+- Since: 0.7.0
+- Bash: 4.0+
+- Test Cases: [tests/modules/array_size.bats](../../tests/modules/array_size.bats)
+- Source Code: [src/modules/array_size.bash](../../src/modules/array_size.bash)
 
 ### each
 

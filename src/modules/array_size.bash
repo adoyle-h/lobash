@@ -1,6 +1,6 @@
 # ---
 # Category: Array
-# Since: next
+# Since: 0.7.0
 # Usage: l.array_size <array_name>
 # Description: Return the actual size of array and associative array
 # Description: For `declare -A array=([test]='')`, the `${#array[@]}` is 0, because bash excludes the null value.

@@ -8,7 +8,32 @@ The versions follow the rules of [Semantic Versioning 2.0.0](http://semver.org/s
 
 ## [Unreleased]
 
-[Full Changes](https://github.com/adoyle-h/lobash/compare/master...develop)
+[Full Changes](https://github.com/adoyle-h/lobash/compare/v0.7.0...HEAD)
+
+
+<a name="v0.7.0"></a>
+## v0.7.0 (2024-09-06 21:38:01 +08:00)
+
+[Full Changes](https://github.com/adoyle-h/lobash/compare/v0.6.0...v0.7.0)
+
+### New Features
+
+- add module l.array_size ([2b4f2a1](https://github.com/adoyle-h/lobash/commit/2b4f2a1ee2e8854665fc527243004bbc78d74085))
+- add module l.parse_args. And l.parse_params is deprecated. ([b506bf5](https://github.com/adoyle-h/lobash/commit/b506bf5f8aa2da8e38f031d484b533d1c0db4e16))
+  > User should use l.parse_args instead of l.parse_params.
+  > The l.parse_params has some limitations on use. So it is deprecated and
+  > will be removed in soon.
+- add module l.array_has_key ([00013b0](https://github.com/adoyle-h/lobash/commit/00013b0ddb927902c5069cfa89548f351f602a22))
+- add module: is_associative_array ([80f3153](https://github.com/adoyle-h/lobash/commit/80f31539e1360b91132d02db9fe610dad5cef7c8))
+- add modules: var_attrs ([b5455e4](https://github.com/adoyle-h/lobash/commit/b5455e45abb7764f742d218700d283423f4d2e07))
+
+### Document Changes
+
+- update docs ([e723a75](https://github.com/adoyle-h/lobash/commit/e723a75f9842a8f2f9f32e996a0e41bb1e56794a))
+- update README ([0ab8056](https://github.com/adoyle-h/lobash/commit/0ab8056872f21ec8252a46d517d9a0d6bb6c9be0))
+- improve CONTRIBUTING ([784aa24](https://github.com/adoyle-h/lobash/commit/784aa24f4ceafd44e48a0a45ef3110ba506b8018))
+- renew license && add CONTRIBUTING in Chinese ([dbd4e6d](https://github.com/adoyle-h/lobash/commit/dbd4e6d15fc649af036b40d57591eca1a6419d33))
+- update version in README ([cf8883e](https://github.com/adoyle-h/lobash/commit/cf8883ecb29b7309ec722d327b3ca1d3bd8c4bdc))
 
 <a name="v0.6.0"></a>
 ## v0.6.0 (2022-12-15 02:35:30 +08:00)

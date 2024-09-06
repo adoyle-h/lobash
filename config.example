@@ -12,9 +12,11 @@ PREFIX: l.
   - [ ] sub
 
 - [ ]   Array
+  - [ ] array_has_key
   - [ ] array_include
   - [ ] array_include.s
   - [ ] array_reverse
+  - [ ] array_size
   - [ ] each
   - [ ] each.p
   - [ ] first

@@ -64,9 +64,9 @@ Lobash 能减少开发者的心智负担。
 ## CI 状态
 
 - [develop 分支](https://github.com/adoyle-h/lobash/tree/develop): [![CI Status](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml/badge.svg?branch=develop)](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml?query=branch%3Adevelop)
+- [v0.7.0](https://github.com/adoyle-h/lobash/tree/v0.7.0): [![CI Status](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml/badge.svg?branch=v0.7.0)](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml?query=branch%3Av0.7.0)
 - [v0.6.0](https://github.com/adoyle-h/lobash/tree/v0.6.0): [![CI Status](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml/badge.svg?branch=v0.6.0)](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml?query=branch%3Av0.6.0)
-- [v0.5.0](https://github.com/adoyle-h/lobash/tree/v0.5.0): [![CI Status](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml/badge.svg?branch=v0.5.0)](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml?query=branch%3Av0.5.0)
-- [v0.4.0](https://github.com/adoyle-h/lobash/tree/v0.4.0): [![CI Status](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml/badge.svg?branch=v0.4.0)](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml?query=branch%3Av0.4.0)
+- [v0.5.1](https://github.com/adoyle-h/lobash/tree/v0.5.1): [![CI Status](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml/badge.svg?branch=v0.5.1)](https://github.com/adoyle-h/lobash/actions/workflows/ci.yaml?query=branch%3Av0.5.1)
 
 ## 版本
 
@@ -135,7 +135,7 @@ Bash 4.4 以下版本都有很多 BUG，强烈建议用户升级到 Bash 4.4 以
 在 [Git Tags](https://github.com/adoyle-h/lobash/tags) 中查看 Lobash 的可用版本 ("vX.Y.Z")。
 
 ```sh
-VERSION=v0.6.0  # 或者 VERSION=develop，但是 develop 分支不稳定
+VERSION=v0.7.0  # 或者 VERSION=develop，但是 develop 分支不稳定
 # 下载源码
 git clone --depth 1 --branch $VERSION https://github.com/adoyle-h/lobash.git
 cd lobash

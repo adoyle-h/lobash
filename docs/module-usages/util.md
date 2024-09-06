@@ -47,7 +47,7 @@
   -   "count": the value of option defaults to 0. And increasing count by times. For example: `-v` `-vv` `-vvv`.
   -   "kv": key/value. It means the option must has an argument. If user not pass argument to "kv" option. It will print error and stop.
   - See test cases for details.
-- Dependent: [`each`](./array.md#each) [`match_list`](./string.md#match_list) [`var_attrs`](./variable.md#var_attrs)
+- Dependent: [`each`](./array.md#each) [`match_list`](./string.md#match_list) [`var_attrs`](./variable.md#var_attrs) [`array_has_key`](./array.md#array_has_key)
 - Since: 0.7.0
 - Bash: 4.0+
 - **Notice**: **Only with bash 4.3, there may be something wrong if opts and args are not array.**
