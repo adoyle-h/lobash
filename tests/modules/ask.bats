@@ -59,7 +59,7 @@ setup_fixture
   assert_line -n 5 'NO'
 }
 
-@test "echo '' | l.ask 'test_ask' N" {
+@test "l.ask 'test_ask' N" {
   t() {
     echo '' | l.ask 'test_ask' N
   }
@@ -68,11 +68,32 @@ setup_fixture
   assert_output 'NO'
 }
 
-@test "echo '' | l.ask 'test_ask' Y" {
+@test "l.ask 'test_ask' Y" {
   t() {
     echo '' | l.ask 'test_ask' Y
   }
   run t
   assert_success
   assert_output 'YES'
+}
+
+@test "l.ask 'test_ask'" {
+  t() {
+    echo 'Y' | l.ask 'test_ask'
+    echo 'N' | l.ask 'test_ask'
+  }
+  run t
+  assert_success
+  assert_equal "${#lines[@]}" 2
+  assert_line -n 0 'YES'
+  assert_line -n 1 'NO'
+}
+
+@test "l.ask 'test_ask' with empty answer" {
+  t() {
+    echo '' | l.ask 'test_ask'
+  }
+  run t
+  assert_failure
+  assert_output ''
 }

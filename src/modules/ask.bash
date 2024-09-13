@@ -14,6 +14,7 @@
 # Dependent: start_with, join
 # ---
 
+# The _l.ask() is used by l.ask and l.ask_with_cancel
 _l.ask() {
   local msg=$1
   local default=$2
@@ -35,14 +36,16 @@ _l.ask() {
 
   local answer result='' tty_available
   tty_available=$(_lobash.is_tty_available && echo true || echo false)
-  [[ $tty_available == true ]] && echo "$msg" > /dev/tty
+  [[ $tty_available == true ]] && echo "$msg" >/dev/tty
+
+  local loop_limit=10
 
   while [[ -z $result ]]; do
     read -rp "$prompt " answer
 
     if [[ -z $answer ]]; then
       if [[ -z $default ]]; then
-        [[ $tty_available == true ]] && echo ">> Empty answer is not allowed." > /dev/tty
+        [[ $tty_available == true ]] && echo ">> Empty answer is not allowed." >/dev/tty
       else
         result="${default^^}"
       fi
@@ -56,8 +59,14 @@ _l.ask() {
       done
 
       if [[ -z $result ]]; then
-        [[ $tty_available == true ]] && echo ">> Invalid answer '$answer'." > /dev/tty
+        [[ $tty_available == true ]] && echo ">> Invalid answer '$answer'." >/dev/tty
       fi
+    fi
+
+    loop_limit=$((loop_limit - 1))
+    if ((loop_limit == 0)); then
+      [[ $tty_available == true ]] && echo ">> Error: Reach the loop limit while asking" >/dev/tty
+      return 4
     fi
   done
   echo "$result"
