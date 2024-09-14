@@ -261,13 +261,12 @@ setup_fixture
     [-b]='bool'
   )
 
-  l.parse_args definition -a -1 -b -3
+  l.parse_args definition -a -1 -b
 
   assert_equal "$?" 0
   assert_equal "${opts[a]}" -1
   assert_equal "${opts[b]}" true
-  assert_equal "${opts[3]}" true
-  assert_equal "${#opts[@]}" 3
+  assert_equal "${#opts[@]}" 2
   assert_equal "${#args[@]}" 0
 }
 
@@ -370,4 +369,96 @@ setup_fixture
 
   assert_failure 5
   assert_stderr "Error: Missing parameter for the option '-c'"
+}
+
+@test "l.parse_args with last option (--abc, not bool) has no value" {
+  local -A opts=()
+  local -a args=()
+  # shellcheck disable=2034
+  local -A def=(
+    [opts]=opts
+    [args]=args
+  )
+
+  run --separate-stderr l.parse_args def --abc
+
+  assert_failure 8
+  assert_stderr "Error: Missing parameter for the option '--abc'"
+}
+
+@test "l.parse_args with last option (--abc, not bool) has value" {
+  local -A opts=()
+  local -a args=()
+  # shellcheck disable=2034
+  local -A def=(
+    [opts]=opts
+    [args]=args
+  )
+
+  l.parse_args def --abc def
+
+  assert_equal "$?" 0
+  assert_equal "${opts[abc]}" def
+  assert_equal "${#opts[@]}" 1
+  assert_equal "${#args[@]}" 0
+}
+
+@test "l.parse_args with last option (--abc, bool) has no value" {
+  local -A opts=()
+  local -a args=()
+  # shellcheck disable=2034
+  local -A def=(
+    [opts]=opts
+    [args]=args
+    [--abc]=bool
+  )
+
+  l.parse_args def --abc
+
+  assert_equal "$?" 0
+  assert_equal "${opts[abc]}" true
+  assert_equal "${#opts[@]}" 1
+  assert_equal "${#args[@]}" 0
+
+
+  l.parse_args def --no-abc
+
+  assert_equal "$?" 0
+  assert_equal "${opts[abc]}" false
+  assert_equal "${#opts[@]}" 1
+  assert_equal "${#args[@]}" 0
+}
+
+@test "l.parse_args with last option (-a, not bool) has no value" {
+  local -A opts=()
+  local -a args=()
+  # shellcheck disable=2034
+  local -A def=(
+    [opts]=opts
+    [args]=args
+  )
+
+  run --separate-stderr l.parse_args def -a
+
+  assert_failure 5
+  assert_stderr "Error: Missing parameter for the option '-a'"
+}
+
+
+@test "l.parse_args with last option (-a, bool) has no value" {
+  local -A opts=()
+  local -a args=()
+  # shellcheck disable=2034
+  local -A def=(
+    [opts]=opts
+    [args]=args
+    [-a]=bool
+  )
+
+  l.parse_args def -a
+
+  assert_equal "$?" 0
+  assert_equal "${opts[a]}" true
+  assert_equal "${#opts[@]}" 1
+  assert_equal "${#args[@]}" 0
 }

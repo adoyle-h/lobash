@@ -314,8 +314,8 @@ l.parse_args() {
 
         local j=$((i + 1))
 
-        if ((j >= param_size)); then
-          _l.parse_args_double_hyphen_options "$cur" true
+        if ((j > param_size)); then
+          _l.parse_args_double_hyphen_options "$cur"
         else
           _l.parse_args_double_hyphen_options "$cur" "${!j}"
         fi
@@ -326,7 +326,7 @@ l.parse_args() {
         local j=$((i + 1))
 
         if ((j > param_size)); then
-          _l.parse_args_single_hyphen_options "$cur" true
+          _l.parse_args_single_hyphen_options "$cur"
         else
           _l.parse_args_single_hyphen_options "$cur" "${!j}"
         fi
